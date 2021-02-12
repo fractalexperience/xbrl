@@ -16,7 +16,7 @@ class XmlFileBase(ebase.XmlElementBase):
             return  # Nothing to load
         filename = self.location
         if self.pool is not None and self.pool.resolver is not None:
-            filename = self.pool.resolver.cache_searches(self.location)
+            filename = self.pool.resolver.cache(self.location)
         elif self.location.startswith('http://') or self.location.startswith('https://'):
             filename, headers = urllib.request.urlretrieve(self.location)
         dom = lxml.parse(filename)
