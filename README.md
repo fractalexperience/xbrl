@@ -27,6 +27,8 @@ git clone https://github.com/fractalexperience/XBRL-Model.git
 
 
 
+## Examples
+
 Create a data pool and open an instance document
 
 ``` python
