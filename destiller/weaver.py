@@ -1,6 +1,3 @@
-from xbrl import pool
-
-
 class Weaver:
     def __init__(self, data_pool, render_methods):
         self.pool = data_pool
@@ -12,7 +9,7 @@ class Weaver:
             return
         render_method(obj, level)
 
-    def loop_base_set(self, bs_key, concept, level):
+    def loop_base_set(self, concept, bs_key, level):
         if concept is None:
             return
         self.invoke('concept', concept, level)
