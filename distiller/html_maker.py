@@ -1,4 +1,4 @@
-from destiller import weaver
+from distiller import weaver
 
 
 class HtmlMaker:
