@@ -23,3 +23,6 @@ class Taxonomy:
         for lb in self.linkbases.items():
             for xl in lb[1].links:
                 xl.compile()
+        for bs in self.base_sets.items():
+            if bs[1].arc_name != 'definitionArc':
+                continue

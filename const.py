@@ -49,3 +49,36 @@ ROLE_REF_PRESENTATION = 'http://www.xbrl.org/2003/role/presentationRef'
 ROLE_REF_MEASUREMENT = 'http://www.xbrl.org/2003/role/measurementRef'
 ROLE_REF_COMMENTARY = 'http://www.xbrl.org/2003/role/commentaryRef'
 ROLE_REF_EXAMPLE = 'http://www.xbrl.org/2003/role/exampleRef'
+# Standard arcroles
+# LabelResource
+CONEPT_LABEL_ARCROLE  = 'http://www.xbrl.org/2003/arcrole/concept-label'
+# Reference
+CONCEPT_REFERENCE_ARCROLE = 'http://www.xbrl.org/2003/arcrole/concept-reference'
+# Presentation
+PARENT_CHILD_ARCROLE = 'http://www.xbrl.org/2003/arcrole/parent-child'
+# Calculation
+SUMMATION_ITEM_ARCROLE = 'http://www.xbrl.org/2003/arcrole/summation-item'
+# Definition
+GENERAL_SPECIAL_ARCROLE = 'http://www.xbrl.org/2003/arcrole/general-special'
+ESSENCE_ALIAS_ARCROLE = 'http://www.xbrl.org/2003/arcrole/essence-alias'
+SIMILAR_TUPLE_ARCROLE = 'http://www.xbrl.org/2003/arcrole/similar-tuples'
+REQUIRES_ELEMENT_ARCROLE = 'http://www.xbrl.org/2003/arcrole/requires-element'
+# XDT
+XDT_ALL_ARCROLE = 'http://xbrl.org/int/dim/arcrole/all'
+XDT_NOTALL_ARCROLE = 'http://xbrl.org/int/dim/arcrole/notAll'
+XDT_HYPERCUBE_DIMENSION_ARCROLE = 'http://xbrl.org/int/dim/arcrole/hypercube-dimension'
+XDT_DIMENSION_DOMAIN_ARCROLE = 'http://xbrl.org/int/dim/arcrole/dimension-domain'
+XDT_DOMAIN_MEMBER_ARCROLE = 'http://xbrl.org/int/dim/arcrole/domain-member'
+XDT_DIMENSION_DEFAULT_ARCROLE = 'http://xbrl.org/int/dim/arcrole/dimension-default'
+# Table Linkbase
+TABLE_BREAKDOWN_ARCROLE = 'http://xbrl.org/arcrole/2014/table-breakdown'
+BREAKDOWN_TREE_ARCROLE = 'http://xbrl.org/arcrole/2014/breakdown-tree'
+TABLE_FILTER_ARCROLE = 'http://xbrl.org/arcrole/2014/table-filter'
+TABLE_PARAMETER_ARCROLE = 'http://xbrl.org/arcrole/2014/table-parameter'
+DEFINITIONNODE_SUBTREE_ARCROLE = 'http://xbrl.org/arcrole/2014/definition-node-subtree'
+DEFINITIONNODE_SUBTREE_ARCROLE_2013 = 'http://xbrl.org/arcrole/PR/2013-12-18/definition-node-subtree'
+ASPECTNODE_FILTER_ARCROLE = 'http://xbrl.org/arcrole/2014/aspect-node-filter'
+ASPECTNODE_FILTER_ARCROLE_2013 = 'http://xbrl.org/arcrole/PR/2013-12-18/aspect-node-filter'
+# Assertions
+ASSERTION_SET_ARCROLE = 'http://xbrl.org/arcrole/2008/assertion-set'
+ASSERTION_UNSATISFIED_SEVERITY_ARCROLE = 'http://xbrl.org/arcrole/2016/assertion-unsatisfied-severity'
