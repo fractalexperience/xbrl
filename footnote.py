@@ -1,10 +1,8 @@
-from xbrl import ebase
 from xbrl import const
+from xbrl import resource
 
 
-class Footnote(ebase.XmlElementBase):
+class Footnote(resource.Resource):
     def __init__(self, element):
         super(Footnote, self).__init__(element)
-        self.value = element.text
-        self.role = element.attrib.get(f'{{{const.NS_XLINK}}}role')
         self.facts = []

@@ -3,6 +3,8 @@
 NS_XML = 'http://www.w3.org/XML/1998/namespace'
 NS_XS = 'http://www.w3.org/2001/XMLSchema'
 NS_XSI = 'http://www.w3.org/2001/XMLSchema-instance'
+# XHTML
+NS_XHTML = 'http://www.w3.org/1999/xhtml'
 # XLINK
 NS_XLINK = 'http://www.w3.org/1999/xlink'
 # Basic XBRL

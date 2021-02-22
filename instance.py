@@ -24,6 +24,7 @@ class Instance(fbase.XmlFileBase):
         self.taxonomy = None
         self.parsers = {
             'default': self.load_fact,
+            f'{{{const.NS_XHTML}}}html': self.load_ixbrl,
             f'{{{const.NS_XBRLI}}}xbrl': self.load_xbrl,
             f'{{{const.NS_XBRLI}}}context': self.load_context,
             f'{{{const.NS_XBRLI}}}unit': self.load_unit,
@@ -43,6 +44,9 @@ class Instance(fbase.XmlFileBase):
 
     def load_xbrl(self, e):
         self.l_children(e)
+
+    def load_ixbrl(self, e):
+        pass
 
     def load_schema_ref(self, e):
         href = e.attrib.get('{http://www.w3.org/1999/xlink}href')
@@ -66,7 +70,7 @@ class Instance(fbase.XmlFileBase):
 
     def load_footnote(self, e):
         fn = footnote.Footnote(e)
-        self.footnotes[fn.id] = fn
+        self.footnotes[fn.xlabel] = fn
 
     def load_locator(self, e):
         loc = locator.Locator(e)
