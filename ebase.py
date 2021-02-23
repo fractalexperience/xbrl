@@ -1,21 +1,19 @@
 from lxml import etree as lxml
 from xbrl import const
-
+from xbrl import util
 
 class XmlElementBase:
     def __init__(self, e, parsers=None):
-        if parsers is None:
-            parsers = {}
-        tag = str(e.tag)
-        self.name = tag[tag.find('}')+1:]
+        self.origin = e
+        self.parsers = parsers if parsers else {}
+        self.name = util.get_local_name(str(e.tag))
         self.prefix = e.prefix
         self.qname = f'{self.prefix}:{self.name}'
-        self.namespace = tag[1:tag.find('}')]
+        self.namespace = util.get_namespace(str(e.tag))
         fid = e.attrib.get('id')
         if fid is not None:
             self.id = fid
         self.lang = None if e is None else e.attrib.get(f'{{{const.NS_XML}}}lang')
-        self.parsers = parsers
         self.load(e)
 
     def load(self, e):

@@ -5,3 +5,20 @@ def u_dct_list(dct, key, val):
         lst = []
         dct[key] = lst
     lst.append(val)
+
+
+def escape_xml(s):
+    return s\
+        .Replace("&", "&amp;")\
+        .Replace("<", "&lt;")\
+        .Replace(">", "&gt;")\
+        .Replace("\"", "&quot;")
+
+
+def get_local_name(tag):
+    return tag[tag.find('}') + 1:] if '}' in tag else tag
+
+
+def get_namespace(tag):
+    return tag[1:tag.find('}')] if '}' in tag else None
+

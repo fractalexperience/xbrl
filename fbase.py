@@ -10,8 +10,8 @@ class XmlFileBase(ebase.XmlElementBase):
         self.pool = container_pool
         self.location = location
         self.base = location.replace('\\', '/')[:location.rfind("/")]
-        self.namespaces = {}
-        self.namespaces_reverse = {}
+        self.namespaces = {}  # Key is the prefix and value is the URI
+        self.namespaces_reverse = {}  # Key is the UrI and value is the prefix
         if self.location is None:
             return  # Nothing to load
         filename = self.location

@@ -5,6 +5,9 @@ NS_XS = 'http://www.w3.org/2001/XMLSchema'
 NS_XSI = 'http://www.w3.org/2001/XMLSchema-instance'
 # XHTML
 NS_XHTML = 'http://www.w3.org/1999/xhtml'
+# IXBRL
+NS_IXBRL = 'http://www.xbrl.org/2013/inlineXBRL'
+NS_IXBRL_TRANSFORMATION = 'http://www.xbrl.org/inlineXBRL/transformation/2010-04-20'
 # XLINK
 NS_XLINK = 'http://www.w3.org/1999/xlink'
 # Basic XBRL
@@ -84,3 +87,5 @@ ASPECTNODE_FILTER_ARCROLE_2013 = 'http://xbrl.org/arcrole/PR/2013-12-18/aspect-n
 # Assertions
 ASSERTION_SET_ARCROLE = 'http://xbrl.org/arcrole/2008/assertion-set'
 ASSERTION_UNSATISFIED_SEVERITY_ARCROLE = 'http://xbrl.org/arcrole/2016/assertion-unsatisfied-severity'
+# Xml fragment
+XML_START = '<?xml version="1.0" ?>'
