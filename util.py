@@ -9,10 +9,11 @@ def u_dct_list(dct, key, val):
 
 def escape_xml(s):
     return s\
-        .Replace("&", "&amp;")\
-        .Replace("<", "&lt;")\
-        .Replace(">", "&gt;")\
-        .Replace("\"", "&quot;")
+        .replace("&", "&amp;")\
+        .replace("<", "&lt;")\
+        .replace(">", "&gt;") \
+        .replace("'", "&apos;") \
+        .replace("\"", "&quot;")
 
 
 def get_local_name(tag):

@@ -1,6 +1,8 @@
 from xbrl import const
 from xbrl import ebase
 from xbrl import util
+import math
+from lxml import etree as lxml
 
 
 class IxbrlModel(ebase.XmlElementBase):
@@ -67,10 +69,52 @@ class IxbrlModel(ebase.XmlElementBase):
             self.serialize_element(e2, self.output)
 
     def get_full_content(self, e, stack):
-        return e.text  # TODO find full text output including continuations etc.
+        if e is None or e.tag == f'{{{const.NS_IXBRL}}}exclude':
+            return ''
+        is_escaped = False
+        continued_at = None
+        for a in e.attrib.items():
+            if a[0] == 'escape':
+                is_escaped = a[1] == 'true' or a[1] == '1'
+            elif a[0] == 'continuedAt':
+                continued_at = a[1].Trim()
+        if is_escaped:
+            return util.escape_xml(e.text)
+
+        result = []
+        for e2 in e.iterchildren():
+            result.append(self.get_full_content(e2, stack))
+
+        continuations = self.idx_nav.get(f'continuation|id|{continued_at}')
+        if continued_at and continuations:
+            for continuation in continuations:
+                if continuation in stack:
+                    continue
+                stack.append(continuation)
+                result.append(self.get_full_content(continuation, stack))
+                stack.pop()
+        return util.escape_xml(''.join(result))
+
+    def to_canonical_format(self, text, frmt):
+        return text  # TODO - implement format
+
+    def normalize_numeric_content(self, e):
+        value = self.get_full_content(e, [])
+        frmt = e.attrib.get('format')
+        scle = e.attrib.get('scale')
+        result = self.to_canonical_format(value, frmt)
+        if scle:
+            return value * math.pow(10, scle)
+        return result
 
     def get_inherited_attribute(self, e, name, initial='', concatenate_parent=False):
-        return initial
+        if e is None:
+            return initial
+        value = e.attrib.get(name)
+        if value and not concatenate_parent:
+            return value
+        parent = e.getparent()
+        return self.get_inherited_attribute(parent, name, f'{value if value and concatenate_parent else ""}{initial}', concatenate_parent)
 
     def serialize_element(self, e, output):
         text_content = self.get_full_content(e, [e])
