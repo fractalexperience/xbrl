@@ -1,10 +1,4 @@
-from xbrl import const
-from xbrl import ebase
-from xbrl import resource
-from xbrl import locator
-from xbrl import arc
-from xbrl import base_set
-from xbrl import util
+from xbrl import const, ebase, resource, locator, arc, base_set, util
 
 
 class XLink(ebase.XmlElementBase):

@@ -29,6 +29,3 @@ class XmlFileBase(ebase.XmlElementBase):
             uri = e.nsmap[prefix]
             self.namespaces[prefix] = uri
             self.namespaces_reverse[uri] = prefix
-
-
-

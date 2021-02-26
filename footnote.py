@@ -1,4 +1,3 @@
-from xbrl import const
 from xbrl import resource
 
 

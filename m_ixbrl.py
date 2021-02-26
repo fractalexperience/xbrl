@@ -14,7 +14,7 @@ class IxbrlModel(ebase.XmlElementBase):
         self.idx_na = {}  # iXBRL elements by element name and attribute name
         self.idx_av = {}  # iXBRL elements by attribute name and attribute value
         self.idx_nav = {}  # iXBRL elements by element name, attribute name and attribute value
-        self.output = []
+        self.output = None
         self.prefixes = {}
         self.allowed_reference_names = [
             f'{{{const.NS_LINK}}}schemaRef',
@@ -55,6 +55,11 @@ class IxbrlModel(ebase.XmlElementBase):
         self.strip_refs()
         self.output.append('</xbrl>')
 
+    def to_xml(self):
+        if not self.output:
+            self.strip()
+        return ''.join(self.output)
+
     def strip_refs(self):
         refs = self.idx_n.get('references')
         if not refs:
@@ -66,7 +71,7 @@ class IxbrlModel(ebase.XmlElementBase):
         for e2 in e.iterchildren():
             if e2.tag not in self.allowed_reference_names:
                 continue
-            self.serialize_element(e2, self.output)
+            self.serialize_ix_element(e2, self.output)
 
     def get_full_content(self, e, stack):
         if e is None or e.tag == f'{{{const.NS_IXBRL}}}exclude':
@@ -116,7 +121,7 @@ class IxbrlModel(ebase.XmlElementBase):
         parent = e.getparent()
         return self.get_inherited_attribute(parent, name, f'{value if value and concatenate_parent else ""}{initial}', concatenate_parent)
 
-    def serialize_element(self, e, output):
+    def serialize_ix_element(self, e, output):
         text_content = self.get_full_content(e, [e])
         eb = ebase.XmlElementBase(e)
         self.prefixes[eb.prefix] = True
@@ -139,7 +144,7 @@ class IxbrlModel(ebase.XmlElementBase):
         inner_output = []
         for e2 in e.iterchildren():
             cnt_children += 1
-            self.serialize_element(e2, inner_output)
+            self.serialize_ix_element(e2, inner_output)
 
         if cnt_children == 0:
             if not text_content == 0:

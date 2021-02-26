@@ -1,10 +1,8 @@
-from xbrl import const
-from xbrl import ebase
-from xbrl import util
+from xbrl import const,  ebase, util
 
 
 class Arc(ebase.XmlElementBase):
-    def __init__(self, e, container_xlink = None):
+    def __init__(self, e, container_xlink=None):
         self.xlink = container_xlink
         super().__init__(e)
         self.xl_from = e.attrib.get(f'{{{const.NS_XLINK}}}from')

@@ -1,5 +1,4 @@
-from xbrl import ebase
-from xbrl import const
+from xbrl import ebase, const
 
 
 class Context(ebase.XmlElementBase):
@@ -10,27 +9,27 @@ class Context(ebase.XmlElementBase):
         self.period_end = None
         self.entity_scheme = ''
         self.entity_identifier = ''
-        self.segment = {}
-        self.scenario = {}
+        self.segment = None
+        self.scenario = None
         self.dimensional_container = None # To be set further during parsing
         self.segment_non_xdt = {}
         self.scenario_non_xdt = {}
         parsers = {
-            f'{{{const.NS_XBRLI}}}context': self.load_context,
-            f'{{{const.NS_XBRLI}}}period': self.load_period,
-            f'{{{const.NS_XBRLI}}}entity': self.load_entity,
-            f'{{{const.NS_XBRLI}}}identifier': self.load_entity_identifier,
-            f'{{{const.NS_XBRLI}}}segment': self.load_segment,
-            f'{{{const.NS_XBRLI}}}scenario': self.load_scenario,
-            f'{{{const.NS_XBRLDI}}}explicitMember': self.load_member,
-            f'{{{const.NS_XBRLDI}}}typedMember': self.load_member
+            f'{{{const.NS_XBRLI}}}context': self.l_context,
+            f'{{{const.NS_XBRLI}}}period': self.l_period,
+            f'{{{const.NS_XBRLI}}}entity': self.l_entity,
+            f'{{{const.NS_XBRLI}}}identifier': self.l_entity_identifier,
+            f'{{{const.NS_XBRLI}}}segment': self.l_segment,
+            f'{{{const.NS_XBRLI}}}scenario': self.l_scenario,
+            f'{{{const.NS_XBRLDI}}}explicitMember': self.l_member,
+            f'{{{const.NS_XBRLDI}}}typedMember': self.l_member
         }
         super().__init__(e, parsers)
 
-    def load_context(self, e):
-        pass
+    def l_context(self, e):
+        self.l_children(e)
 
-    def load_period(self, e):
+    def l_period(self, e):
         for e in e.iterchildren():
             if e.tag == f'{{{const.NS_XBRLI}}}instant':
                 self.period_instant = e.text
@@ -39,22 +38,24 @@ class Context(ebase.XmlElementBase):
             elif e.tag == f'{{{const.NS_XBRLI}}}endDate':
                 self.period_end = e.text
 
-    def load_entity(self, e):
+    def l_entity(self, e):
         self.l_children(e)
 
-    def load_entity_identifier(self, element):
+    def l_entity_identifier(self, element):
         self.entity_identifier = element.text
         self.entity_scheme = element.attrib.get("scheme")
 
-    def load_segment(self, e):
+    def l_segment(self, e):
+        self.segment = {}
         self.dimensional_container = self.segment
         self.l_children(e)
 
-    def load_scenario(self, e):
+    def l_scenario(self, e):
+        self.scenario = {}
         self.dimensional_container = self.scenario
         self.l_children(e)
 
-    def load_member(self, e):
+    def l_member(self, e):
         dimension = e.attrib.get("dimension")
         self.dimensional_container[dimension] = e
         self.descriptors[dimension] = e

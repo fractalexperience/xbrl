@@ -1,8 +1,4 @@
-from xbrl import fbase
-from xbrl import linkbase
-from xbrl import const
-from xbrl import concept
-from xbrl import element
+from xbrl import fbase, linkbase, const, concept, element
 import os
 
 

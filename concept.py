@@ -1,5 +1,4 @@
-from xbrl import const
-from xbrl import element
+from xbrl import const, element
 import itertools
 
 
