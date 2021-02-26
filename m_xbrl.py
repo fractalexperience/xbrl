@@ -1,5 +1,5 @@
+from xbrl import ebase
 from xbrl import const
-from xbrl import fbase
 from xbrl import context
 from xbrl import unit
 from xbrl import fact
@@ -8,8 +8,11 @@ from xbrl import footnote
 from xbrl import arc
 
 
-class Instance(fbase.XmlFileBase):
-    def __init__(self, location=None, container_pool=None):
+class XbrlModel(ebase.XmlElementBase):
+    def __init__(self, e, container_instance):
+        self.instance = container_instance
+        if e is None:
+            return
         self.linkbase_refs = []
         self.schema_refs = []
         self.contexts = {}
@@ -20,7 +23,6 @@ class Instance(fbase.XmlFileBase):
         self.locators = {}
         self.arcs = []
         self.filing_indicators = []
-        self.pool = container_pool
         self.taxonomy = None
         self.parsers = {
             'default': self.load_fact,
@@ -36,10 +38,9 @@ class Instance(fbase.XmlFileBase):
             f'{{{const.NS_FIND}}}fIndicators': self.load_filing_indicators,
             f'{{{const.NS_FIND}}}filingIndicator': self.load_filing_indicator
         }
-        if location is not None:
-            self.location = location
-            super().__init__(location, container_pool, self.parsers)
-            self.compile()
+        self.l_children(e)
+        super().__init__(e, self.parsers)
+        self.compile()
 
     def load_xbrl(self, e):
         self.l_children(e)
@@ -66,7 +67,7 @@ class Instance(fbase.XmlFileBase):
 
     def load_footnote(self, e):
         fn = footnote.Footnote(e)
-        self.footnotes[fn.id] = fn
+        self.footnotes[fn.xlabel] = fn
 
     def load_locator(self, e):
         loc = locator.Locator(e)
@@ -115,16 +116,5 @@ class Instance(fbase.XmlFileBase):
             fn.facts.append(fct)
         self.locators = None
         self.arcs = None
-
-    def info(self):
-        return f'''Namespaces: {len(self.namespaces)}
-Schema references: {len(self.schema_refs)}
-Linkbase references: {len(self.linkbase_refs)}
-Contexts: {len(self.contexts)}
-Units: {len(self.units)}
-Facts: {len(self.facts)}
-Footnotes: {len(self.footnotes)}
-Filing Indicators: {len(self.filing_indicators)}
-'''
 
 

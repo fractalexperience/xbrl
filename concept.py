@@ -8,6 +8,7 @@ class Concept(element.Element):
         super().__init__(e, container_schema)
         self.period_type = e.attrib.get('periodType')
         self.balance = e.attrib.get('balance')
+        self.data_type = e.attrib.get('type')
         self.resources = {}  # Related labels - first by lang and then by role
         self.references = {}  # Related reference resources
         self.chain_up = {}  # Related parent concepts. Key is the base set key, value is the list of parent concepts

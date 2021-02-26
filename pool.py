@@ -21,9 +21,9 @@ class Pool:
         if key is None:
             key = location
         self.instances[key] = xid
-        if attach_taxonomy:
+        if attach_taxonomy and xid.xbrl is not None:
             # Ensure that if schema references are relative, the location base for XBRL document is added to them
-            entry_points = [e if e.startswith('http') else os.path.join(xid.base,e).replace('\\', '/') for e in xid.schema_refs[:]]
+            entry_points = [e if e.startswith('http') else os.path.join(xid.base,e).replace('\\', '/') for e in xid.xbrl.schema_refs[:]]
             tax = self.add_taxonomy(entry_points)
             xid.taxonomy = tax
 

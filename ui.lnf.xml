@@ -1,8 +1,0 @@
-<application>
-  <component name="UISettings">
-    <option name="FULL_PATHS_IN_TITLE_BAR" value="true" />
-    <option name="LEFT_HORIZONTAL_SPLIT" value="true" />
-    <option name="SHOW_MAIN_TOOLBAR" value="true" />
-    <option name="SHOW_TOOL_WINDOW_NUMBERS" value="true" />
-  </component>
-</application>

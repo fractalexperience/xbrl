@@ -1,5 +1,5 @@
 from xbrl import schema
-
+from xbrl import const
 
 class Taxonomy:
     """ entry_points is a list of entry point locations
@@ -12,6 +12,7 @@ class Taxonomy:
         self.concepts = {}
         self.concepts_by_qname = {}
         self.base_sets = {}
+        self.defaults = {}
         self.load()
         self.compile()
 
@@ -23,3 +24,8 @@ class Taxonomy:
         for lb in self.linkbases.items():
             for xl in lb[1].links:
                 xl.compile()
+        for bs in self.base_sets.items():
+            if bs[1].arc_name != 'definitionArc':
+                continue
+            if bs[1].arcrole == const.XDT_DIMENSION_DEFAULT_ARCROLE:
+                pass
