@@ -1,7 +1,4 @@
-from xbrl import const
-from xbrl import fbase
-from xbrl import schema
-from xbrl import xlink
+from xbrl import const,  fbase, schema, xlink
 import os
 
 

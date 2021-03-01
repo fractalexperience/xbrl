@@ -24,6 +24,8 @@ NS_GEN = 'http://xbrl.org/2008/generic'
 # OTHER
 KNOWN_PROTOCOLS = ['http', 'https', 'ftp']
 SUBSTITUTION_GROUPS = ['item', 'tuple']
+# Extended link role
+ROLE_LINK = 'http://www.xbrl.org/2003/role/link'
 # Standard roles
 ROLE_LABEL = 'http://www.xbrl.org/2003/role/label'
 ROLE_LABEL_TERSE = 'http://www.xbrl.org/2003/role/terseLabel'
@@ -55,8 +57,10 @@ ROLE_REF_MEASUREMENT = 'http://www.xbrl.org/2003/role/measurementRef'
 ROLE_REF_COMMENTARY = 'http://www.xbrl.org/2003/role/commentaryRef'
 ROLE_REF_EXAMPLE = 'http://www.xbrl.org/2003/role/exampleRef'
 # Standard arcroles
+# Fact-footnote
+FACT_FOOTNOTE_ARCROLE = 'http://www.xbrl.org/2003/arcrole/fact-footnote'
 # LabelResource
-CONEPT_LABEL_ARCROLE  = 'http://www.xbrl.org/2003/arcrole/concept-label'
+CONEPT_LABEL_ARCROLE = 'http://www.xbrl.org/2003/arcrole/concept-label'
 # Reference
 CONCEPT_REFERENCE_ARCROLE = 'http://www.xbrl.org/2003/arcrole/concept-reference'
 # Presentation

@@ -25,8 +25,11 @@ class Instance(fbase.XmlFileBase):
     def load_ixbrl(self, e):
         self.ixbrl = m_ixbrl.IxbrlModel(e, self)
         self.ixbrl.strip()
-        root = lxml.XML("".join(self.ixbrl.output))
+        root = lxml.XML(''.join(self.ixbrl.output))
         self.xbrl = m_xbrl.XbrlModel(root, self)
+
+    def to_xml(self):
+        return self.ixbrl.to_xml() if self.ixbrl else self.xbrl.to_xml() if self.xbrl else None
 
     def info(self):
         return f'''Namespaces: {len(self.namespaces)}

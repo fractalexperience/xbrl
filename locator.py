@@ -1,5 +1,4 @@
-from xbrl import const
-from xbrl import ebase
+from xbrl import const, ebase
 import os
 
 

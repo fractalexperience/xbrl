@@ -1,5 +1,4 @@
 from xbrl import ebase
-from xbrl import fact
 
 
 class Fact(ebase.XmlElementBase):
@@ -21,5 +20,5 @@ class Fact(ebase.XmlElementBase):
     def load_nested_facts(self, e):
         self.counter += 1
         for e2 in e.iterchildren():
-            fct = fact.Fact(f'{self.id}.{self.counter}', e2)
+            fct = Fact(f'{self.id}.{self.counter}', e2)
             self.nested_facts[fct.id] = fct
