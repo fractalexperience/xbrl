@@ -1,23 +1,28 @@
 import os
 import zipfile
 from lxml import etree as lxml
-from xbrl import const, util
+from xbrl import const, util, resolver
 
 
 class TaxonomyPackage:
     """ Implements taxonomy package functionality """
-    def __init__(self, location):
+    def __init__(self, location, cache_folder=None):
+        self.cache_folder = cache_folder if cache_folder else '../cache'
         self.archive = None
         self.location = location
+        if location.startswith('http'):
+            # Downlaod the taxonomy package and save in the cache folder
+            cache_mnager = resolver.Resolver(os.path.join(self.cache_folder, 'taxonomies'))
+            self.location = cache_mnager.cache(location)
         """ Entry points is a list of tuples with following structure: (prefix, location, description) """
         self.entrypoints = []
         """ Key is element name, value is element text. """
         self.properties = {}
         self.files = None
         self.redirects = {}
-        if not os.path.exists(location):
+        if not os.path.exists(self.location):
             return
-        self.archive = zipfile.ZipFile(location)
+        self.archive = zipfile.ZipFile(self.location)
         self.init()
 
     def __del__(self):
@@ -86,16 +91,14 @@ class TaxonomyPackage:
                 self.entrypoints.append((prefix, ep, desc))
 
     def info(self):
-        o = []
-        o.append('Properties')
-        o.append('----------')
+        o = ['Properties', '----------']
         for p in self.properties.items():
             o.append(f'{p[0]}: {p[1]}')
-        o.append('Entry points')
+        o.append('\nEntry points')
         o.append('------------')
         for ep in self.entrypoints:
             o.append(f'{ep[0]}, {ep[1]}, {ep[2]}')
-        o.append('Redirects')
+        o.append('\nRedirects')
         o.append('---------')
         for rd in self.redirects.items():
             o.append(f'{rd[0]} => {rd[1]}')

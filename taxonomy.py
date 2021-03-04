@@ -30,3 +30,10 @@ class Taxonomy:
                 continue
             if bs.arcrole == const.XDT_DIMENSION_DEFAULT_ARCROLE:
                 pass
+
+    def info(self):
+        return '\n'.join([
+             f'Schemas: {len(self.schemas)}',
+             f'Linkbases: {len(self.linkbases)}',
+             f'Concepts: {len(self.concepts)}',
+             f'Hierarchies: {len(self.base_sets)}'])
