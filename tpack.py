@@ -7,33 +7,52 @@ from xbrl import const, util
 class TaxonomyPackage:
     """ Implements taxonomy package functionality """
     def __init__(self, location):
+        self.archive = None
         self.location = location
-        if not os.path.exists(location):
-            return
         """ Entry points is a list of tuples with following structure: (prefix, location, description) """
         self.entrypoints = []
         """ Key is element name, value is element text. """
         self.properties = {}
-        self.files = {}
+        self.files = None
         self.redirects = {}
-        with zipfile.ZipFile(location) as z:
-            zil = z.infolist()
-            package_file = [f for f in zil if f.filename.endswith('META-INF/taxonomyPackage.xml')][0]
-            with z.open(package_file) as zf:
-                package = lxml.XML(zf.read())
-                for e in package.iterchildren():
-                    if e.tag == f'{{{const.NS_TAXONOMY_PACKAGE}}}entryPoints':
-                        self.l_entrypoints(e)
-                    elif not len(e):  # second level
-                        name = util.get_local_name(str(e.tag))
-                        self.properties[name] = e.text
-            catalog_file = [f for f in zil if f.filename.endswith('META-INF/catalog.xml')][0]
-            with z.open(catalog_file) as cf:
-                catalog = lxml.XML(cf.read())
-                self.l_redirects(catalog)
-            self.compile(zil)
+        if not os.path.exists(location):
+            return
+        self.archive = zipfile.ZipFile(location)
+        self.init()
 
-    def compile(self, zip_infos):
+    def __del__(self):
+        if self.archive:
+            self.archive.close()
+
+    def init(self):
+        zil = self.archive.infolist()
+        package_file = [f for f in zil if f.filename.endswith('META-INF/taxonomyPackage.xml')][0]
+        with self.archive.open(package_file) as zf:
+            package = lxml.XML(zf.read())
+            for e in package.iterchildren():
+                if e.tag == f'{{{const.NS_TAXONOMY_PACKAGE}}}entryPoints':
+                    self.l_entrypoints(e)
+                elif not len(e):  # second level
+                    name = util.get_local_name(str(e.tag))
+                    self.properties[name] = e.text
+        catalog_file = [f for f in zil if f.filename.endswith('META-INF/catalog.xml')][0]
+        with self.archive.open(catalog_file) as cf:
+            catalog = lxml.XML(cf.read())
+            self.l_redirects(catalog)
+
+    def get_url(self, url):
+        """ Reads the binary content of a file addressed by a URL. """
+        if not self.files:
+            self.compile()
+        key = self.files.get(url)
+        if not key:
+            return None
+        with self.archive.open(key) as f:
+            return f.read()
+
+    def compile(self):
+        self.files = {}
+        zip_infos = self.archive.infolist()
         # Index files by calculating effective URL based on catalog
         root = zip_infos[0].filename.split('/')[0]
         for fn in [zi.filename for zi in zip_infos if not zi.is_dir()]:
