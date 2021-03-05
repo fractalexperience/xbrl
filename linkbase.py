@@ -20,11 +20,12 @@ class Linkbase(fbase.XmlFileBase):
         self.taxonomy = container_taxonomy
         self.pool = container_pool
         self.links = []
-        super().__init__(location, container_pool, parsers)
+        resolved_location = self.pool.resolver.reduce_url(location) if self.pool else location
+        super().__init__(resolved_location, container_pool, parsers)
         if self.taxonomy is not None:
-            self.taxonomy.linkbases[location] = self
+            self.taxonomy.linkbases[resolved_location] = self
         if self.pool is not None:
-            self.pool.linkbases[location] = self
+            self.pool.linkbases[resolved_location] = self
 
     def l_linkbase(self, e):
         self.l_children(e)

@@ -61,7 +61,9 @@ class Pool:
         return tax
 
     def info(self):
-        return f'''Instance documents: {len(self.instances)}
-Taxonomy schemas: {len(self.schemas)}
-Taxonomy linkbases: {len(self.linkbases)}
-'''
+        return '\n'.join([
+            f'Taxonomies: {len(self.taxonomies)}',
+            f'Instance documents: {len(self.instances)}',
+            f'Taxonomy schemas: {len(self.schemas)}',
+            f'Taxonomy linkbases: {len(self.linkbases)}'])
+

@@ -1,6 +1,6 @@
 import urllib.request
 from lxml import etree as lxml
-from xbrl import ebase
+from xbrl import ebase, util
 
 
 class XmlFileBase(ebase.XmlElementBase):
@@ -8,12 +8,12 @@ class XmlFileBase(ebase.XmlElementBase):
         if parsers is None:
             parsers = {}
         self.pool = container_pool
-        self.location = location
-        self.base = location.replace('\\', '/')[:location.rfind("/")]
         self.namespaces = {}  # Key is the prefix and value is the URI
         self.namespaces_reverse = {}  # Key is the UrI and value is the prefix
-        if self.location is None:
+        if location is None:
             return  # Nothing to load
+        self.location = util.reduce_url(location)
+        self.base = self.location.replace('\\', '/')[:location.rfind("/")]
         # filename = self.location
         root = self.get_root()
         if root is None:
@@ -23,7 +23,7 @@ class XmlFileBase(ebase.XmlElementBase):
 
     def get_root(self):
         """ If the location can be found in an open package, then extract it from the package """
-        url = self.pool.resolver.reduce_url(self.location) if self.pool and self.pool.resolver else self.location
+        url = self.location
         if self.pool and self.pool.packaged_locations:
             t = self.pool.packaged_locations.get(url)
             if t:
