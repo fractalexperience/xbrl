@@ -20,6 +20,12 @@ class Taxonomy:
         for ep in self.entry_points:
             sh = schema.Schema(ep, self.pool, self)
 
+    def bs_roots(self, arc_name, role, arcrole):
+        bs = self.base_sets.get(f'{arc_name}|{arcrole}|{role}')
+        if not bs:
+            return None
+        return bs.roots
+
     def compile(self):
         for lb in self.linkbases.items():
             for xl in lb[1].links:

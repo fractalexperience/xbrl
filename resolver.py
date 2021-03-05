@@ -1,7 +1,7 @@
 import urllib.request
 import os
 import shutil
-from xbrl import const
+from xbrl import const, util
 
 
 class Resolver:
@@ -18,7 +18,7 @@ class Resolver:
         if location is None:
             return None
         parts = location.replace(os.path.pathsep, "/").split('/')
-        new_parts = self.reduce(parts)
+        new_parts = util.reduce_url_parts(parts)
         protocol = new_parts[0].replace(':','')
         if protocol not in const.KNOWN_PROTOCOLS:
             return location
@@ -36,16 +36,3 @@ class Resolver:
             temp_file, headers = urllib.request.urlretrieve(new_location)
             shutil.move(temp_file, cached_file)
         return cached_file
-
-    def reduce(self, parts):
-        new_parts = []
-        for p in parts:
-            if p == '..':
-                new_parts.pop()
-            else:
-                new_parts.append(p)
-        return new_parts
-
-    def reduce_url(self, url):
-        parts = self.reduce(url.replace(os.path.pathsep, "/").split('/'))
-        return "/".join(parts)

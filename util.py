@@ -11,12 +11,8 @@ def u_dct_list(dct, key, val):
 
 
 def escape_xml(s):
-    return s\
-        .replace("&", "&amp;")\
-        .replace("<", "&lt;")\
-        .replace(">", "&gt;") \
-        .replace("'", "&apos;") \
-        .replace("\"", "&quot;")
+    return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')\
+        .replace("'", '&apos;').replace('"', '&quot;')
 
 
 def get_local_name(tag):
@@ -28,9 +24,11 @@ def get_namespace(tag):
 
 
 def reduce_url_parts(parts):
+    if not parts:
+        return None
     new_parts = []
     for p in parts:
-        if p == '..':
+        if p == '..' and new_parts:
             new_parts.pop()
         else:
             new_parts.append(p)
@@ -39,4 +37,3 @@ def reduce_url_parts(parts):
 
 def reduce_url(url):
     return '/'.join(reduce_url_parts(url.replace(os.path.pathsep, "/").split('/'))) if url else None
-
