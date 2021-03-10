@@ -1,4 +1,4 @@
-from xbrl import fbase, linkbase, const, concept, element
+from xbrl import fbase, linkbase, const, concept, element, util
 import os
 
 
@@ -21,11 +21,12 @@ class Schema(fbase.XmlFileBase):
         self.elements = {}  # Elements, which are not concepts
         self.taxonomy = container_taxonomy
         self.pool = container_pool
-        super().__init__(location, container_pool, parsers)
+        resolved_location = util.reduce_url(location)
+        super().__init__(resolved_location, container_pool, parsers)
         if self.taxonomy is not None:
-            self.taxonomy.schemas[location] = self
+            self.taxonomy.schemas[resolved_location] = self
         if self.pool is not None:
-            self.pool.schemas[location] = self
+            self.pool.schemas[resolved_location] = self
 
     def l_schema(self, e):
         self.target_namespace = e.get('targetNamespace')
@@ -48,7 +49,7 @@ class Schema(fbase.XmlFileBase):
     def l_linkbase_ref(self, e):
         href = e.get(f'{{{const.NS_XLINK}}}href')
         if not href.startswith('http'):
-            href = self.pool.resolver.reduce_url(os.path.join(self.base, href).replace('\\', '/'))
+            href = util.reduce_url(os.path.join(self.base, href).replace('\\', '/'))
         self.linkbase_refs[href] = e
         if href in self.pool.discovered:
             return
@@ -67,7 +68,7 @@ class Schema(fbase.XmlFileBase):
     def l_import(self, e):
         href = e.get('schemaLocation')
         if not href.startswith('http'):
-            href = self.pool.resolver.reduce_url(os.path.join(self.base, href).replace('\\', '/'))
+            href = util.reduce_url(os.path.join(self.base, href).replace('\\', '/'))
         self.imports[href] = e
         if href in self.pool.discovered:
             return

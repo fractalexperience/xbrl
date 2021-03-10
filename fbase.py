@@ -1,6 +1,6 @@
 import urllib.request
 from lxml import etree as lxml
-from xbrl import ebase
+from xbrl import ebase, util
 
 
 class XmlFileBase(ebase.XmlElementBase):
@@ -8,21 +8,36 @@ class XmlFileBase(ebase.XmlElementBase):
         if parsers is None:
             parsers = {}
         self.pool = container_pool
-        self.location = location
-        self.base = location.replace('\\', '/')[:location.rfind("/")]
         self.namespaces = {}  # Key is the prefix and value is the URI
         self.namespaces_reverse = {}  # Key is the UrI and value is the prefix
-        if self.location is None:
+        if location is None:
             return  # Nothing to load
-        filename = self.location
-        if self.pool is not None and self.pool.resolver is not None:
-            filename = self.pool.resolver.cache(self.location)
-        elif self.location.startswith('http://') or self.location.startswith('https://'):
-            filename, headers = urllib.request.urlretrieve(self.location)
-        dom = lxml.parse(filename)
-        root = dom.getroot()
+        self.location = util.reduce_url(location)
+        self.base = self.location.replace('\\', '/')[:location.rfind("/")]
+        # filename = self.location
+        root = self.get_root()
+        if root is None:
+            return
         self.l_root(root)
         super().__init__(root, parsers)
+
+    def get_root(self):
+        """ If the location can be found in an open package, then extract it from the package """
+        url = self.location
+        if self.pool and self.pool.packaged_locations:
+            t = self.pool.packaged_locations.get(url)
+            if t:
+                pck = t[0]
+                content = pck.get_url(url)
+                return lxml.XML(content)
+        """ If there is a resolver, download and cache the resource and load it. """
+        filename = url
+        if self.pool and self.pool.resolver:
+            filename = self.pool.resolver.cache(url)
+        elif url.startswith('http://') or url.startswith('https://'):
+            filename, headers = urllib.request.urlretrieve(url)
+        dom = lxml.parse(filename)
+        return dom.getroot()
 
     def l_root(self, e):
         for prefix in filter(lambda x: x is not None, e.nsmap):

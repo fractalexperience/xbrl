@@ -41,8 +41,10 @@ class XLink(ebase.XmlElementBase):
                 loc = self.locators.get(a.xl_from, None)
                 if loc is None:
                     continue
-                c = self.linkbase.taxonomy.concepts.get(loc.href, None)
+                href = util.reduce_url(loc.href)
+                c = self.linkbase.taxonomy.concepts.get(href, None)
                 if c is None:
+                    print(f'Unresolved "from" locator: {loc.href}')
                     return
                 reslist = self.resources.get(a.xl_to, None)
                 if reslist is not None:
@@ -58,7 +60,8 @@ class XLink(ebase.XmlElementBase):
                 loc2 = self.locators.get(a.xl_to, None)
                 if loc2 is None:
                     continue
-                c2 = self.linkbase.taxonomy.concepts.get(loc2.href, None)
+                href2 = util.reduce_url(loc2.href)
+                c2 = self.linkbase.taxonomy.concepts.get(href2, None)
                 if c2 is None:
                     print(f'Unresolved "to" locator: {loc2.href}')
                     return

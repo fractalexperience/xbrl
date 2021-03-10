@@ -1,4 +1,4 @@
-from xbrl import const,  fbase, schema, xlink
+from xbrl import const,  fbase, schema, xlink, util
 import os
 
 
@@ -20,11 +20,12 @@ class Linkbase(fbase.XmlFileBase):
         self.taxonomy = container_taxonomy
         self.pool = container_pool
         self.links = []
-        super().__init__(location, container_pool, parsers)
+        resolved_location = util.reduce_url(location)
+        super().__init__(resolved_location, container_pool, parsers)
         if self.taxonomy is not None:
-            self.taxonomy.linkbases[location] = self
+            self.taxonomy.linkbases[resolved_location] = self
         if self.pool is not None:
-            self.pool.linkbases[location] = self
+            self.pool.linkbases[resolved_location] = self
 
     def l_linkbase(self, e):
         self.l_children(e)
@@ -52,7 +53,7 @@ class Linkbase(fbase.XmlFileBase):
     ''' Loads schema or linkbase depending on file type. TO IMPROVE!!! '''
     def l_fbase(self, href):
         if not href.startswith('http'):
-            href = self.pool.resolver.reduce_url(os.path.join(self.base, href).replace('\\', '/'))
+            href = util.reduce_url(os.path.join(self.base, href).replace('\\', '/'))
         if href in self.pool.discovered:
             return
         self.pool.discovered[href] = False

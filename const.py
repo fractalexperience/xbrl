@@ -21,6 +21,9 @@ NS_XBRLDT = 'http://xbrl.org/2005/xbrldt'
 NS_FIND = 'http://www.eurofiling.info/xbrl/ext/filing-indicators'
 # Generic links
 NS_GEN = 'http://xbrl.org/2008/generic'
+# Taxonomy Package
+NS_TAXONOMY_PACKAGE = 'http://xbrl.org/2016/taxonomy-package'
+NS_OASIS_CATALOG = 'urn:oasis:names:tc:entity:xmlns:xml:catalog'
 # OTHER
 KNOWN_PROTOCOLS = ['http', 'https', 'ftp']
 SUBSTITUTION_GROUPS = ['item', 'tuple']
@@ -93,3 +96,4 @@ ASSERTION_SET_ARCROLE = 'http://xbrl.org/arcrole/2008/assertion-set'
 ASSERTION_UNSATISFIED_SEVERITY_ARCROLE = 'http://xbrl.org/arcrole/2016/assertion-unsatisfied-severity'
 # Xml fragment
 XML_START = '<?xml version="1.0" ?>'
+
