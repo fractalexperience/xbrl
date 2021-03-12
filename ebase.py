@@ -3,8 +3,9 @@ from xbrl import const, util
 
 
 class XmlElementBase:
-    def __init__(self, e, parsers=None):
-        self.origin = e
+    def __init__(self, e, parsers=None, assign_origin=False):
+        if assign_origin:
+            self.origin = e
         self.parsers = parsers if parsers else {}
         self.name = util.get_local_name(str(e.tag))
         self.prefix = e.prefix
@@ -30,6 +31,8 @@ class XmlElementBase:
             self.load(e2)
 
     def serialize(self):
+        if not self.origin:
+            return None
         output = [f'<{self.qname}']
         self.serialize_attributes(output)
         if len(self.origin):

@@ -105,7 +105,7 @@ class IxbrlModel(ebase.XmlElementBase):
             for e2 in r.origin.iterchildren():
                 if isinstance(e2, lxml._ProcessingInstruction) or isinstance(e2, lxml._Comment):
                     continue
-                e2b = ebase.XmlElementBase(e2)
+                e2b = ebase.XmlElementBase(e2, None, True)
                 if e2b.namespace != const.NS_XBRLI:
                     continue
                 self.output.append(e2b.serialize())
@@ -183,7 +183,7 @@ class IxbrlModel(ebase.XmlElementBase):
 
     def serialize_ix_element(self, e):
         text_content = self.get_full_content(e, [e])
-        eb = ebase.XmlElementBase(e)
+        eb = ebase.XmlElementBase(e, None, True)
         self.prefixes[eb.prefix] = True
         self.output.append(f'<{eb.qname}')
         self.serialize_ix_attributes(eb)
