@@ -5,6 +5,33 @@ import datetime
 class Formatter:
     def __init__(self):
         self.convertors = {
+            # TR1
+            'datedoteu': self.c_datedoteu,
+            'datedotus':self.c_datedotus,
+            'datelonguk':self.c_datelonguk,
+            'datelongus':self.c_datelongus,
+            'dateshortuk':self.c_dateshortuk,
+            'dateshortus':self.c_dateshortus,
+            'dateslasheu':self.c_dateslasheu,
+            'dateslashus':self.c_dateslashus,
+            'datelongdaymonthuk':self.c_datelongdaymonthuk,
+            'datelongmonthdayus':self.c_datelongmonthdayus,
+            'dateshortdaymonthuk':self.c_dateshortdaymonthuk,
+            'dateshortmonthdayus':self.c_dateshortmonthdayus,
+            'dateslashdaymontheu':self.c_dateslashdaymontheu,
+            'dateslashmonthdayus':self.c_dateslashmonthdayus,
+            'datelongyearmonth':self.c_datelongyearmonth,
+            'dateshortyearmonth':self.c_dateshortyearmonth,
+            'datelongmonthyear':self.c_datelongmonthyear,
+            'dateshortmonthyear':self.c_dateshortmonthyear,
+            'numcomma':self.c_numcomma,
+            'numcommadot':self.c_numcommadot,
+            'numdash':self.c_numdash,
+            'numdotcomma':self.c_numdotcomma,
+            'numspacecomma':self.c_numspacecomma,
+            'numspacedot':self.c_numspacedot,
+            # TR2
+
             'datemonthdayyearen': self.c_datemonthdayyearen,
             'numdotdecimal': self.c_numdotdecimal,
             'zerodash': self.c_zerodash,
@@ -167,3 +194,78 @@ class Formatter:
 
     def c_sec_entityfilercategoryen(self, v):
         return None, v
+
+    def c_datedoteu(self, v):
+        return None, v
+
+    def c_datedotus(self, v):
+        return None, v
+
+    def c_datelonguk(self, v):
+        return None, v
+
+    def c_datelongus(self, v):
+        return None, v
+
+    def c_dateshortuk(self, v):
+        return None, v
+
+    def c_dateshortus(self, v):
+        return None, v
+
+    def c_dateslasheu(self, v):
+        return None, v
+
+    def c_dateslashus(self, v):
+        return None, v
+
+    def c_datelongdaymonthuk(self, v):
+        return None, v
+
+    def c_datelongmonthdayus(self, v):
+        return None, v
+
+    def c_dateshortdaymonthuk(self, v):
+        return None, v
+
+    def c_dateshortmonthdayus(self, v):
+        return None, v
+
+    def c_dateslashdaymontheu(self, v):
+        return None, v
+
+    def c_dateslashmonthdayus(self, v):
+        return None, v
+
+    def c_datelongyearmonth(self, v):
+        return None, v
+
+    def c_dateshortyearmonth(self, v):
+        return None, v
+
+    def c_datelongmonthyear(self, v):
+        return None, v
+
+    def c_dateshortmonthyear(self, v):
+        return None, v
+
+    def c_numcomma(self, v):
+        return None, v
+
+    def c_numcommadot(self, v):
+        return None, v
+
+    def c_numdash(self, v):
+        return None, v
+
+    def c_numdotcomma(self, v):
+        return None, v
+
+    def c_numspacecomma(self, v):
+        return None, v
+
+    def c_numspacedot(self, v):
+        return None, v
+
+
+

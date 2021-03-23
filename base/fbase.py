@@ -18,7 +18,7 @@ class XmlFileBase(ebase.XmlElementBase):
         root = self.get_root()
         if root is None:
             return
-        self.l_root(root)
+        self.l_namespaces(root)
         super().__init__(root, parsers)
 
     def get_root(self):
@@ -39,8 +39,15 @@ class XmlFileBase(ebase.XmlElementBase):
         dom = lxml.parse(filename)
         return dom.getroot()
 
-    def l_root(self, e):
+    def l_namespaces(self, e):
         for prefix in filter(lambda x: x is not None, e.nsmap):
             uri = e.nsmap[prefix]
             self.namespaces[prefix] = uri
             self.namespaces_reverse[uri] = prefix
+
+    def l_namespaces_rec(self, e):
+        if not isinstance(e, lxml._Element):
+            return
+        self.l_namespaces(e)
+        for e2 in e.iterchildren():
+            self.l_namespaces_rec(e2)

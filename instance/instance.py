@@ -23,8 +23,12 @@ class Instance(fbase.XmlFileBase):
 
     def l_ixbrl(self, e):
         self.ixbrl = m_ixbrl.IxbrlModel(e, self)
+        # Recursive read all namespaces, because in some cases namespace prefixes
+        # are defined deeper in the XML structure.
+        self.l_namespaces_rec(e)
         self.ixbrl.strip()
-        root = lxml.XML(''.join(self.ixbrl.output))
+        s = ''.join(self.ixbrl.output)
+        root = lxml.XML(s)
         self.xbrl = m_xbrl.XbrlModel(root, self)
 
     def to_xml(self):

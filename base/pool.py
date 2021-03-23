@@ -1,7 +1,6 @@
 import os
-from xbrl import tpack
 from xbrl.base import resolver
-from xbrl.taxonomy import taxonomy, schema
+from xbrl.taxonomy import taxonomy, schema, tpack
 from xbrl.instance import instance
 
 
