@@ -4,8 +4,7 @@ from xbrl import const, util
 
 class XmlElementBase:
     def __init__(self, e, parsers=None, assign_origin=False):
-        if assign_origin:
-            self.origin = e
+        self.origin = e if assign_origin else None
         self.parsers = parsers if parsers else {}
         self.name = util.get_local_name(str(e.tag))
         self.prefix = e.prefix
@@ -31,14 +30,14 @@ class XmlElementBase:
             self.load(e2)
 
     def serialize(self):
-        if not self.origin:
+        if self.origin is None:
             return None
         output = [f'<{self.qname}']
         self.serialize_attributes(output)
         if len(self.origin):
             output.append('>')
             for e2 in self.origin.iterchildren():
-                eb2 = XmlElementBase(e2)
+                eb2 = XmlElementBase(e2, parsers=None, assign_origin=True)
                 output.append(eb2.serialize())
             output.append(f'</{self.qname}>')
         else:

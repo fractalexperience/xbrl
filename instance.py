@@ -1,7 +1,4 @@
-from xbrl import fbase
-from xbrl import m_xbrl
-from xbrl import m_ixbrl
-from xbrl import const
+from xbrl import fbase,  m_xbrl, m_ixbrl, const
 from lxml import etree as lxml
 
 

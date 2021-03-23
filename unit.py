@@ -31,8 +31,8 @@ class Unit(ebase.XmlElementBase):
 
     def get_aspect_value(self):
         if self.measure:
-            return ",".join([m.text for m in self.measure])
+            return ','.join([m.text for m in self.measure])
         else:
-            num = ",".join(m.text for m in self.numerator)
-            den = ",".join(m.text for m in self.denominator)
+            num = ','.join(m.text for m in self.numerator)
+            den = ','.join(m.text for m in self.denominator)
             return f'{num}/{den}'

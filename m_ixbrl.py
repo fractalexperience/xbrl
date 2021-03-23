@@ -32,7 +32,7 @@ class IxbrlModel(ebase.XmlElementBase):
             self.index(e2)
 
     def index_element(self, e):
-        eb = ebase.XmlElementBase(e)
+        eb = ebase.XmlElementBase(e, parsers=None, assign_origin=True)
         key_name = eb.name
         util.u_dct_list(self.idx_n, key_name, eb)
         for a in e.attrib.items():
@@ -105,7 +105,7 @@ class IxbrlModel(ebase.XmlElementBase):
             for e2 in r.origin.iterchildren():
                 if isinstance(e2, lxml._ProcessingInstruction) or isinstance(e2, lxml._Comment):
                     continue
-                e2b = ebase.XmlElementBase(e2, None, True)
+                e2b = ebase.XmlElementBase(e2, parsers=None, assign_origin=True)
                 if e2b.namespace != const.NS_XBRLI:
                     continue
                 self.output.append(e2b.serialize())
@@ -183,7 +183,7 @@ class IxbrlModel(ebase.XmlElementBase):
 
     def serialize_ix_element(self, e):
         text_content = self.get_full_content(e, [e])
-        eb = ebase.XmlElementBase(e, None, True)
+        eb = ebase.XmlElementBase(e, parsers=None, assign_origin=True)
         self.prefixes[eb.prefix] = True
         self.output.append(f'<{eb.qname}')
         self.serialize_ix_attributes(eb)
