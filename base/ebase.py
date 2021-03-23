@@ -1,5 +1,5 @@
 from lxml import etree as lxml
-from xbrl import const, util
+from xbrl.base import const, util
 
 
 class XmlElementBase:

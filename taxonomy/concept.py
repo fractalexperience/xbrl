@@ -1,4 +1,4 @@
-from xbrl import const, element
+from xbrl.base import const, element
 import itertools
 
 

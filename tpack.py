@@ -1,7 +1,7 @@
 import os
 import zipfile
 from lxml import etree as lxml
-from xbrl import const, util, resolver
+from xbrl.base import const, resolver, util
 
 
 class TaxonomyPackage:

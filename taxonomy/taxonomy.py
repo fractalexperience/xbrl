@@ -1,4 +1,5 @@
-from xbrl import schema, const
+from xbrl.taxonomy import schema
+from xbrl.base import const
 
 
 class Taxonomy:

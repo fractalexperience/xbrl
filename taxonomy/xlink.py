@@ -1,4 +1,5 @@
-from xbrl import const, ebase, resource, locator, arc, base_set, util
+from xbrl.taxonomy import arc, base_set, locator, resource
+from xbrl.base import ebase, const, util
 
 
 class XLink(ebase.XmlElementBase):

@@ -1,4 +1,5 @@
-from xbrl import const, ebase, util, m_format
+from xbrl.base import ebase, const, util
+from xbrl.ixbrl import m_format
 import math
 from lxml import etree as lxml
 

@@ -1,4 +1,4 @@
-from xbrl import ebase
+from xbrl.base import ebase
 
 
 class Element(ebase.XmlElementBase):

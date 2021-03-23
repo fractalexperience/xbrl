@@ -1,6 +1,6 @@
 import urllib.request
 from lxml import etree as lxml
-from xbrl import ebase, util
+from xbrl.base import ebase, util
 
 
 class XmlFileBase(ebase.XmlElementBase):

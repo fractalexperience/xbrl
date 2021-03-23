@@ -1,5 +1,8 @@
 import os
-from xbrl import resolver, instance, taxonomy, schema, tpack
+from xbrl import tpack
+from xbrl.base import resolver
+from xbrl.taxonomy import taxonomy, schema
+from xbrl.instance import instance
 
 
 class Pool:

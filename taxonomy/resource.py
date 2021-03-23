@@ -1,4 +1,4 @@
-from xbrl import const, ebase, util
+from xbrl.base import ebase, const, util
 
 
 class Resource(ebase.XmlElementBase):

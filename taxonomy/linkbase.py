@@ -1,4 +1,5 @@
-from xbrl import const,  fbase, schema, xlink, util
+from xbrl.taxonomy import schema, xlink
+from xbrl.base import fbase, const, util
 import os
 
 

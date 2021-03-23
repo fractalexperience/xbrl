@@ -1,7 +1,7 @@
 import urllib.request
 import os
 import shutil
-from xbrl import const, util
+from xbrl.base import const, util
 
 
 class Resolver:

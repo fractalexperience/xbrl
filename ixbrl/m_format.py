@@ -14,7 +14,7 @@ class Formatter:
             'durweek': self.c_sec_durweek,
             'durday': self.c_sec_durday,
             'durhour': self.c_sec_durhour,
-            'durwordsen' : self.c_sec_durwordsen,
+            'durwordsen': self.c_sec_durwordsen,
             'numwordsen': self.c_sec_numwordsen,
             'datequarterend': self.c_sec_datequarterend,
             'boolballotbox': self.c_sec_boolballotbox,
@@ -37,11 +37,13 @@ class Formatter:
             'vermont': 'VT', 'virginia': 'VA', 'washington': 'WA', 'west virginia': 'WV', 'wisconsin': 'WI',
             'wyoming': 'WY'
         }
-        self.en_months_short = {'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
+        self.en_months_short = {
+            'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
             'jul': 7, 'aug': 8, 'sep': 9, 'oct': 10, 'nov': 11, 'dec': 12}
-        self.en_months_long = {'january': 1, 'february': 2, 'march': 3, 'april': 4,'may': 5, 'june': 6,
-            'july': 7, 'august': 8, 'september': 9, 'october': 10, 'november': 11, 'december': 12 }
-        self.zerodash_chars = [ '-', '-', '-', '֊', '־', '‐', '‑', '‒', '–', '—', '―', '﹘', '﹣', '－' ]
+        self.en_months_long = {
+            'january': 1, 'february': 2, 'march': 3, 'april': 4, 'may': 5, 'june': 6,
+            'july': 7, 'august': 8, 'september': 9, 'october': 10, 'november': 11, 'december': 12}
+        self.zerodash_chars = ['-', '-', '-', '֊', '־', '‐', '‑', '‒', '–', '—', '―', '﹘', '﹣', '－']
 
     def apply_format(self, v, f):
         method = self.convertors.get(f)
@@ -103,7 +105,7 @@ class Formatter:
             return None, f'Invalid format for {v}'
         integerPart = v.replace(' ', ',').replace(' ', ',').replace('-', '').split('.')[0]
         split = integerPart.split(',')
-        if len([p for p in split if p and len(p)%3 != 0 and p != split[0] ]):
+        if len([p for p in split if p and len(p) % 3 != 0 and p != split[0]]):
             return None, f'Invalid format for {v} - incorret position of thousands separator.'
         if len(commas) > 1:
             return None, f'Invalid format for {v} - too many commas.'
@@ -128,10 +130,10 @@ class Formatter:
     def c_sec_boolballotbox(self, v):
         return 'true', None if v in ['&#9745;', '&#9746;', '☑', '☒'] \
             else 'false', None if v in ['&#9744;', ''] \
-            else None, f'Invalid Ballot Box Value {v}'
+                   else None, f'Invalid Ballot Box Value {v}'
 
     def c_sec_exchnameen(self, v):
-        return None, v # TODO: Support transfroamtion
+        return None, v  # TODO: Support transfroamtion
 
     def c_sec_datequarterend(self, v):
         return None, v  # TODO: Support transfroamtion
