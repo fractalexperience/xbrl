@@ -7,29 +7,29 @@ class Formatter:
         self.convertors = {
             # TR1
             'datedoteu': self.c_datedoteu,
-            'datedotus':self.c_datedotus,
-            'datelonguk':self.c_datelonguk,
-            'datelongus':self.c_datelongus,
-            'dateshortuk':self.c_dateshortuk,
-            'dateshortus':self.c_dateshortus,
-            'dateslasheu':self.c_dateslasheu,
-            'dateslashus':self.c_dateslashus,
-            'datelongdaymonthuk':self.c_datelongdaymonthuk,
-            'datelongmonthdayus':self.c_datelongmonthdayus,
-            'dateshortdaymonthuk':self.c_dateshortdaymonthuk,
-            'dateshortmonthdayus':self.c_dateshortmonthdayus,
-            'dateslashdaymontheu':self.c_dateslashdaymontheu,
-            'dateslashmonthdayus':self.c_dateslashmonthdayus,
-            'datelongyearmonth':self.c_datelongyearmonth,
-            'dateshortyearmonth':self.c_dateshortyearmonth,
-            'datelongmonthyear':self.c_datelongmonthyear,
-            'dateshortmonthyear':self.c_dateshortmonthyear,
-            'numcomma':self.c_numcomma,
-            'numcommadot':self.c_numcommadot,
-            'numdash':self.c_numdash,
-            'numdotcomma':self.c_numdotcomma,
-            'numspacecomma':self.c_numspacecomma,
-            'numspacedot':self.c_numspacedot,
+            'datedotus': self.c_datedotus,
+            'datelonguk': self.c_datelonguk,
+            'datelongus': self.c_datelongus,
+            'dateshortuk': self.c_dateshortuk,
+            'dateshortus': self.c_dateshortus,
+            'dateslasheu': self.c_dateslasheu,
+            'dateslashus': self.c_dateslashus,
+            'datelongdaymonthuk': self.c_datelongdaymonthuk,
+            'datelongmonthdayus': self.c_datelongmonthdayus,
+            'dateshortdaymonthuk': self.c_dateshortdaymonthuk,
+            'dateshortmonthdayus': self.c_dateshortmonthdayus,
+            'dateslashdaymontheu': self.c_dateslashdaymontheu,
+            'dateslashmonthdayus': self.c_dateslashmonthdayus,
+            'datelongyearmonth': self.c_datelongyearmonth,
+            'dateshortyearmonth': self.c_dateshortyearmonth,
+            'datelongmonthyear': self.c_datelongmonthyear,
+            'dateshortmonthyear': self.c_dateshortmonthyear,
+            'numcomma': self.c_numcomma,
+            'numcommadot': self.c_numcommadot,
+            'numdash': self.c_numdash,
+            'numdotcomma': self.c_numdotcomma,
+            'numspacecomma': self.c_numspacecomma,
+            'numspacedot': self.c_numspacedot,
             # TR2
 
             'datemonthdayyearen': self.c_datemonthdayyearen,
@@ -201,8 +201,50 @@ class Formatter:
     def c_datedotus(self, v):
         return None, v
 
+    def f_daystr(self, v):
+        s = str(v).strip().zfill(2)
+        if not s:
+            return s, 'Empty day'
+        if not s.isdigit():
+            return v, f'Invalid day {s}'
+        return s, None
+
+    def f_yearstr(self, v):
+        y = v.strip()
+        if not y:
+            return y, 'Empty year'
+        if len(y) == 3 or not y.isdigit():
+            return y, f'Invalid year {y}'
+        if len(y) == 1:
+            y = f'200{y}'
+        elif len(y) == 2:
+            y = f'20{y}'
+        return y, None
+
     def c_datelonguk(self, v):
-        return None, v
+        p = '(\d|\d{2,2}) (January|February|March|April|May|June|July|August|September|October|November|December) (\d{2,2}|\d{4,4})'
+        if not re.fullmatch(p, v):
+            return None, f'Value {v} does not match pattern {p}'
+        split = v.split(' ')
+        if len(split) < 3:
+            return None, 'Invalid value according pattern.'
+        d, msg_d = self.f_daystr(split[0])
+        m = split[1]
+        y, msg_y = self.f_yearstr(split[2])
+        if msg_y:
+            return None, msg_y
+        month = self.en_months_long.get(m.lower())
+        if not month:
+            return None, 'Unknown month'
+        m = str(month).zfill(2)
+        try:
+            datetime.datetime(int(y), int(m), int(d))
+            is_correct = True
+        except ValueError:
+            is_correct = False
+        if not is_correct:
+            return None, f'Incorrect date {v}'
+        return f'{y}-{m}-{d}', None
 
     def c_datelongus(self, v):
         return None, v
@@ -266,6 +308,3 @@ class Formatter:
 
     def c_numspacedot(self, v):
         return None, v
-
-
-
