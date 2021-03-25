@@ -15,6 +15,16 @@ def escape_xml(s):
         .replace("'", '&apos;').replace('"', '&quot;')
 
 
+def normalize(s):
+    is_ws = False
+    o = []
+    for c in s.strip():
+        if not c.isspace() or not is_ws:
+            o.append(c)
+        is_ws = c.isspace()
+    return ''.join(o)
+
+
 def get_local_name(tag):
     return tag[tag.find('}') + 1:] if '}' in tag else tag
 
