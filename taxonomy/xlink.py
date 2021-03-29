@@ -1,5 +1,6 @@
 from xbrl.taxonomy import arc, base_set, locator, resource
 from xbrl.base import ebase, const, util
+import urllib.parse
 
 
 class XLink(ebase.XmlElementBase):
@@ -42,7 +43,7 @@ class XLink(ebase.XmlElementBase):
                 loc = self.locators.get(a.xl_from, None)
                 if loc is None:
                     continue
-                href = util.reduce_url(loc.href)
+                href = urllib.parse.unquote(util.reduce_url(loc.href))
                 c = self.linkbase.taxonomy.concepts.get(href, None)
                 if c is None:
                     print(f'Unresolved "from" locator: {loc.href}')
@@ -61,7 +62,7 @@ class XLink(ebase.XmlElementBase):
                 loc2 = self.locators.get(a.xl_to, None)
                 if loc2 is None:
                     continue
-                href2 = util.reduce_url(loc2.href)
+                href2 = urllib.parse.unquote(util.reduce_url(loc2.href))
                 c2 = self.linkbase.taxonomy.concepts.get(href2, None)
                 if c2 is None:
                     print(f'Unresolved "to" locator: {loc2.href}')

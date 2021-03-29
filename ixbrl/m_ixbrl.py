@@ -27,7 +27,7 @@ class IxbrlModel(ebase.XmlElementBase):
         """ Populates indixes """
         if isinstance(e, lxml._ProcessingInstruction) or isinstance(e, lxml._Comment):
             return
-        if e.tag.startswith(f'{{{const.NS_IXBRL}}}'):
+        if e.tag.startswith(f'{{{const.NS_IXBRL}}}') or e.tag.startswith(f'{{{const.NS_IXBRL_2008}}}'):
             self.index_element(e)
         for e2 in e.iterchildren():
             self.index(e2)
@@ -125,7 +125,7 @@ class IxbrlModel(ebase.XmlElementBase):
             self.serialize_ix_element(e2)
 
     def get_full_content(self, e, stack):
-        if e is None or e.tag == f'{{{const.NS_IXBRL}}}exclude':
+        if e is None or str(e.tag).endswith('exclude'):
             return ''
         is_escaped = False
         continued_at = None

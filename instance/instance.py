@@ -5,7 +5,7 @@ from lxml import etree as lxml
 
 
 class Instance(fbase.XmlFileBase):
-    def __init__(self, location=None, container_pool=None):
+    def __init__(self, location=None, container_pool=None, root=None):
         self.pool = container_pool
         self.taxonomy = None
         self.xbrl = None
@@ -16,7 +16,7 @@ class Instance(fbase.XmlFileBase):
         }
         if location:
             self.location = location
-            super().__init__(location, container_pool, parsers)
+        super().__init__(location, container_pool, parsers, root)
 
     def l_xbrl(self, e):
         self.xbrl = m_xbrl.XbrlModel(e, self)

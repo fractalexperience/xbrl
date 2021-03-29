@@ -112,6 +112,12 @@ class Formatter:
             return None, f'Invalid zerodash value {v}'
         return '0', None
 
+    def c_numdash(self, v):
+        """ Single dash character used to denote a zero value. """
+        if v not in self.zerodash_chars:
+            return None, f'Invalid zerodash value {v}'
+        return '0', None
+
     def is_nonnegative_decimal(self, v):
         f = None
         try:
@@ -125,26 +131,59 @@ class Formatter:
         p = '\\d+(,\\d+)?'
         if not re.fullmatch(p, v):
             return None, f'Invalid value against pattern {p}'
+        # Convert a thousands separator to a canonical value.
         d = str(v).strip().replace(',', '.')
         if not self.is_nonnegative_decimal(d):
             return None, f'Invalid nonNegativeDecimal {v}'
-        # Convert a thousands separator to a canonical value.
         return d, None
 
     def c_numcommadot(self, v):
-        return None, v
+        """ Positive decimal values with a comma for the thousands separator and a dot for the fraction separator.
+            No spaces (unless leading or trailing), signs, or exponentials accepted.
+            Must have at least one digit before the decimal point, if any. If there is a decimal,
+            then it must be followed by at least one digit. """
+        p = '\\d{1,3}(,\\d{3,3})*(\\.\\d+)?'
+        if not re.fullmatch(p, v):
+            return None, f'Invalid value against pattern {p}'
 
-    def c_numdash(self, v):
-        return None, v
+        # Convert a thousands separator to a canonical value.
+        d = str(v).strip().replace(',', '')
+        if not self.is_nonnegative_decimal(d):
+            return None, f'Invalid nonNegativeDecimal {v}'
+        return d, None
 
     def c_numdotcomma(self, v):
-        return None, v
+        """ Positive decimal values with a dot for the thousands separator and a comma for the fraction separator.
+            No spaces (unless leading or trailing), signs, or exponentials accepted.
+            Must have at least one digit before the decimal point, if any.
+            If there is a decimal, then it must be followed by at least one digit. """
+        p = '\\d{1,3}(.\\d{3,3})*(,\\d+)?'
+        d = str(v).strip().replace('.', '').replace(',','.')
+        if not self.is_nonnegative_decimal(d):
+            return None, f'Invalid nonNegativeDecimal {v}'
+        return d, None
 
     def c_numspacecomma(self, v):
-        return None, v
+        """ Positive decimal values with a single space for the thousands separator and a comma for the fraction separator.
+            No spaces (unless leading or trailing), signs, or exponentials accepted.
+            Must have at least one digit before the decimal point, if any. If there is a decimal,
+            then it must be followed by at least one digit. """
+        p = '\\d{1,3}( \\d{3,3})*(,\\d+)?'
+        d = str(v).strip().replace(' ', '').replace(',','.')
+        if not self.is_nonnegative_decimal(d):
+            return None, f'Invalid nonNegativeDecimal {v}'
+        return d, None
 
     def c_numspacedot(self, v):
-        return None, v
+        """ Positive decimal values with a single space for the thousands separator and a dot for the fraction separator.
+            No spaces (unless leading or trailing), signs, or exponentials accepted.
+            Must have at least one digit before the decimal point, if any.
+            If there is a decimal, then it must be followed by at least one digit. """
+        p = '\\d{1,3}( \\d{3,3})*(\\.\\d+)?'
+        d = str(v).strip().replace(' ', '')
+        if not self.is_nonnegative_decimal(d):
+            return None, f'Invalid nonNegativeDecimal {v}'
+        return d, None
 
     # https://cdn2.hubspot.net/hubfs/486687/EDGAR-filer-manual/Vol_II_ch5.pdf
     def c_sec_stateprovnameen(self, v):

@@ -12,8 +12,8 @@ class TaxonomyPackage:
         self.location = location
         if location.startswith('http'):
             # Downlaod the taxonomy package and save in the cache folder
-            cache_mnager = resolver.Resolver(os.path.join(self.cache_folder, 'taxonomies'))
-            self.location = cache_mnager.cache(location)
+            cache_manager = resolver.Resolver(os.path.join(self.cache_folder, 'taxonomies'))
+            self.location = cache_manager.cache(location)
         """ Entry points is a list of tuples with following structure: (prefix, location, description) """
         self.entrypoints = []
         """ Key is element name, value is element text. """
@@ -35,7 +35,8 @@ class TaxonomyPackage:
         with self.archive.open(package_file) as zf:
             package = lxml.XML(zf.read())
             for e in package.iterchildren():
-                if e.tag == f'{{{const.NS_TAXONOMY_PACKAGE}}}entryPoints':
+                if e.tag == f'{{{const.NS_TAXONOMY_PACKAGE}}}entryPoints'\
+                            or e.tag == f'{{{const.NS_TAXONOMY_PACKAGE_PR}}}entryPoints':
                     self.l_entrypoints(e)
                 elif not len(e):  # second level
                     name = util.get_local_name(str(e.tag))

@@ -4,18 +4,16 @@ from xbrl.base import ebase, util
 
 
 class XmlFileBase(ebase.XmlElementBase):
-    def __init__(self, location=None, container_pool=None, parsers=None):
+    def __init__(self, location=None, container_pool=None, parsers=None, root=None):
         if parsers is None:
             parsers = {}
         self.pool = container_pool
         self.namespaces = {}  # Key is the prefix and value is the URI
         self.namespaces_reverse = {}  # Key is the UrI and value is the prefix
-        if location is None:
-            return  # Nothing to load
-        self.location = util.reduce_url(location)
-        self.base = self.location.replace('\\', '/')[:location.rfind("/")]
-        # filename = self.location
-        root = self.get_root()
+        if location:  # Loading from a location is prioritized
+            self.location = util.reduce_url(location)
+            self.base = self.location.replace('\\', '/')[:location.rfind("/")]
+            root = self.get_root()
         if root is None:
             return
         self.l_namespaces(root)

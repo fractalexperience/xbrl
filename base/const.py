@@ -7,6 +7,7 @@ NS_XSI = 'http://www.w3.org/2001/XMLSchema-instance'
 NS_XHTML = 'http://www.w3.org/1999/xhtml'
 # IXBRL
 NS_IXBRL = 'http://www.xbrl.org/2013/inlineXBRL'
+NS_IXBRL_2008 = 'http://www.xbrl.org/2008/inlineXBRL'
 NS_IXBRL_TRANSFORMATION = 'http://www.xbrl.org/inlineXBRL/transformation/2010-04-20'
 # XLINK
 NS_XLINK = 'http://www.w3.org/1999/xlink'
@@ -23,6 +24,7 @@ NS_FIND = 'http://www.eurofiling.info/xbrl/ext/filing-indicators'
 NS_GEN = 'http://xbrl.org/2008/generic'
 # Taxonomy Package
 NS_TAXONOMY_PACKAGE = 'http://xbrl.org/2016/taxonomy-package'
+NS_TAXONOMY_PACKAGE_PR = 'http://xbrl.org/PR/2015-12-09/taxonomy-package'  # The old one
 NS_OASIS_CATALOG = 'urn:oasis:names:tc:entity:xmlns:xml:catalog'
 # OTHER
 KNOWN_PROTOCOLS = ['http', 'https', 'ftp']
