@@ -35,7 +35,7 @@ class XLink(ebase.XmlElementBase):
     def l_loc(self, e):
         loc = locator.Locator(e, self)
         url = loc.url
-        self.linkbase.l_fbase(url)
+        self.linkbase.pool.add_reference(url, self.linkbase.base, self.linkbase.taxonomy)
 
     def compile(self):
         for arc_list in [a[1] for a in self.arcs_from.items()]:

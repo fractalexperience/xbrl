@@ -1,6 +1,6 @@
 import os
-from xbrl.base import resolver
-from xbrl.taxonomy import taxonomy, schema, tpack
+from xbrl.base import resolver, util
+from xbrl.taxonomy import taxonomy, schema, tpack, linkbase
 from xbrl.instance import instance
 
 
@@ -85,6 +85,23 @@ class Pool:
         entry_points = [ep[1] for ep in package.entrypoints]
         self.add_taxonomy(entry_points)
         return package
+
+    def add_reference(self, href, base, tax):
+        """ Loads schema or linkbase depending on file type. TO IMPROVE!!! """
+        if not href.startswith('http'):
+            href = util.reduce_url(os.path.join(base, href).replace(os.path.sep, '/'))
+        if href in self.discovered:
+            return
+        self.discovered[href] = False
+        if href.endswith(".xsd"):
+            sh = self.schemas.get(href, None)
+            if not sh:
+                schema.Schema(href, self, tax)
+        else:
+            lb = self.linkbases.get(href, None)
+            if not lb:
+                linkbase.Linkbase(href, self, tax)
+
 
     def info(self):
         return '\n'.join([

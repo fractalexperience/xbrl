@@ -46,4 +46,4 @@ def reduce_url_parts(parts):
 
 
 def reduce_url(url):
-    return '/'.join(reduce_url_parts(url.replace(os.path.pathsep, "/").split('/'))) if url else None
+    return '/'.join(reduce_url_parts(url.replace(os.path.sep, "/").split('/'))) if url else None

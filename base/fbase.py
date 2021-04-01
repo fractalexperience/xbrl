@@ -1,6 +1,6 @@
 import urllib.request
 from lxml import etree as lxml
-from xbrl.base import ebase, util
+from xbrl.base import ebase, util, const
 
 
 class XmlFileBase(ebase.XmlElementBase):
@@ -10,6 +10,7 @@ class XmlFileBase(ebase.XmlElementBase):
         self.pool = container_pool
         self.namespaces = {}  # Key is the prefix and value is the URI
         self.namespaces_reverse = {}  # Key is the UrI and value is the prefix
+        self.schema_location_parts = {}
         if location:  # Loading from a location is prioritized
             self.location = util.reduce_url(location)
             self.base = self.location.replace('\\', '/')[:location.rfind("/")]
@@ -17,6 +18,7 @@ class XmlFileBase(ebase.XmlElementBase):
         if root is None:
             return
         self.l_namespaces(root)
+        self.l_schema_location(root)
         super().__init__(root, parsers)
 
     def get_root(self):
@@ -36,6 +38,22 @@ class XmlFileBase(ebase.XmlElementBase):
             filename, headers = urllib.request.urlretrieve(url)
         dom = lxml.parse(filename)
         return dom.getroot()
+
+    def l_schema_location(self, e):
+        sl = e.attrib.get(f'{{{const.NS_XSI}}}schemaLocation')
+        if not sl:
+            return
+        parts = util.normalize(sl).split(' ')
+        cnt = -1
+        odds = []
+        evens = []
+        for p in parts:
+            cnt += 1
+            if cnt % 2:
+                evens.append(p)
+            else:
+                odds.append(p)
+        self.schema_location_parts = dict(zip(odds, evens))
 
     def l_namespaces(self, e):
         for prefix in filter(lambda x: x is not None, e.nsmap):

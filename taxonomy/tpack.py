@@ -20,6 +20,8 @@ class TaxonomyPackage:
         self.properties = {}
         self.files = None
         self.redirects = {}
+        self.redirects_reduced = None
+        self.catalog_location = None
         if not os.path.exists(self.location):
             return
         self.archive = zipfile.ZipFile(self.location)
@@ -35,14 +37,14 @@ class TaxonomyPackage:
         with self.archive.open(package_file) as zf:
             package = lxml.XML(zf.read())
             for e in package.iterchildren():
-                if e.tag == f'{{{const.NS_TAXONOMY_PACKAGE}}}entryPoints'\
-                            or e.tag == f'{{{const.NS_TAXONOMY_PACKAGE_PR}}}entryPoints':
+                if str(e.tag).endswith('entryPoints'):
                     self.l_entrypoints(e)
                 elif not len(e):  # second level
                     name = util.get_local_name(str(e.tag))
                     self.properties[name] = e.text
-        catalog_file = [f for f in zil if f.filename.endswith('META-INF/catalog.xml')][0]
-        with self.archive.open(catalog_file) as cf:
+        zi_catalog = [f for f in zil if f.filename.endswith('META-INF/catalog.xml')][0]
+        self.catalog_location = os.path.dirname(zi_catalog.filename)
+        with self.archive.open(zi_catalog) as cf:
             catalog = lxml.XML(cf.read())
             self.l_redirects(catalog)
 
@@ -60,34 +62,45 @@ class TaxonomyPackage:
         self.files = {}
         zip_infos = self.archive.infolist()
         # Index files by calculating effective URL based on catalog
-        root = zip_infos[0].filename.split('/')[0]
+        root = zip_infos[0].filename.split('/')[0]  # Root of the archive file
         for fn in [zi.filename for zi in zip_infos if not zi.is_dir()]:
-            f1 = fn.replace(root, '..')
-            for redirect in self.redirects.items():
-                if f1.startswith(redirect[1]):
-                    url = f1.replace(redirect[1], redirect[0])
-                    self.files[url] = fn
+            matched_redirects = [(u, r) for u, r in self.redirects_reduced.items() if fn.startswith(r)]
+            if not matched_redirects:
+                continue
+            file_root = matched_redirects[0][1]
+            rewrite_prefix = matched_redirects[0][0]
+            url = fn.replace(file_root, rewrite_prefix)
+            self.files[url] = fn
+
+            # file_root = fn.replace(root, '..')  # This is needed in order to match with rewritePrefix in catalog.xml
+            # for uri, rewrite_prefix in self.redirects.items():
+            #     if file_root.startswith(rewrite_prefix):
+            #         url = file_root.replace(rewrite_prefix, uri)
+            #         self.files[url] = fn
 
     def l_redirects(self, ce):
         for e in ce.iterchildren():
             if e.tag != f'{{{const.NS_OASIS_CATALOG}}}rewriteURI':
                 continue
             url = e.attrib.get('uriStartString')
-            redirect = e.attrib.get('rewritePrefix')
-            self.redirects[url] = redirect
+            reqrite_prefix = e.attrib.get('rewritePrefix')
+            self.redirects[url] = reqrite_prefix
+        # Reduce redirects according to position of catalog.xml
+        self.redirects_reduced = dict([(u, util.reduce_url(os.path.join(self.catalog_location, r)))
+                                       for u, r in self.redirects.items()])
 
     def l_entrypoints(self, ep):
         for e in ep.iterchildren():
-            if e.tag == f'{{{const.NS_TAXONOMY_PACKAGE}}}entryPoint':
+            if str(e.tag).endswith('entryPoint'):
                 prefix = None
                 ep = None
                 desc = None
                 for e2 in e.iterchildren():
-                    if e2.tag == f'{{{const.NS_TAXONOMY_PACKAGE}}}entryPointDocument':
+                    if str(e2.tag).endswith('entryPointDocument'):
                         ep = e2.attrib.get('href')
-                    elif e2.tag == f'{{{const.NS_TAXONOMY_PACKAGE}}}name':
+                    elif str(e2.tag).endswith('name'):
                         prefix = e2.text
-                    elif e2.tag == f'{{{const.NS_TAXONOMY_PACKAGE}}}description':
+                    elif str(e2.tag).endswith('description'):
                         desc = e2.text
                 self.entrypoints.append((prefix, ep, desc))
 

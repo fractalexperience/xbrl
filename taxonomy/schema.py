@@ -28,10 +28,14 @@ class Schema(fbase.XmlFileBase):
             self.taxonomy.schemas[resolved_location] = self
         if self.pool is not None:
             self.pool.schemas[resolved_location] = self
+            self.pool.discovered[location] = True
 
     def l_schema(self, e):
         self.target_namespace = e.get('targetNamespace')
         self.target_namespace_prefix = self.namespaces_reverse.get(self.target_namespace, None)
+        # Load files referenced in schemaLocation attribute
+        for uri, href in self.schema_location_parts.items():
+            self.pool.add_reference(href, self.base, self.taxonomy)
         self.l_children(e)
 
     def l_element(self, e):
@@ -68,13 +72,5 @@ class Schema(fbase.XmlFileBase):
 
     def l_import(self, e):
         href = e.get('schemaLocation')
-        if not href.startswith('http'):
-            href = util.reduce_url(os.path.join(self.base, href).replace('\\', '/'))
         self.imports[href] = e
-        if href in self.pool.discovered:
-            return
-        self.pool.discovered[href] = False
-        sh = self.pool.schemas.get(href, None)
-        if sh is None:
-            sh = Schema(href, self.pool, self.taxonomy)
-            self.pool.discovered[href] = True
+        self.pool.add_reference(href, self.base, self.taxonomy)

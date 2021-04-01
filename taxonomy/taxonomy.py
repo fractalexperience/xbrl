@@ -19,7 +19,7 @@ class Taxonomy:
 
     def load(self):
         for ep in self.entry_points:
-            sh = schema.Schema(ep, self.pool, self)
+            self.pool.add_reference(ep, '', self)
 
     def bs_roots(self, arc_name, role, arcrole):
         bs = self.base_sets.get(f'{arc_name}|{arcrole}|{role}')
