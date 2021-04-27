@@ -73,7 +73,7 @@ class XLink(ebase.XmlElementBase):
                 if bs is None:
                     bs = base_set.BaseSet(a.name, a.arcrole, self.role)
                     self.linkbase.taxonomy.base_sets[bs_key] = bs
-                if is_root and not c in bs.roots:
+                if is_root and c not in bs.roots:
                     bs.roots.append(c)
 
                 # Populate concept child and parent sets

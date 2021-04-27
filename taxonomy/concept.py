@@ -8,6 +8,10 @@ class Concept(element.Element):
         self.period_type = e.attrib.get('periodType')
         self.balance = e.attrib.get('balance')
         self.data_type = e.attrib.get('type')
+        self.domain = e.attrib.get(f'{{{const.NS_EXTENSIBLE_ENUMERATIONS}}}domain')
+        self.linkrole = e.attrib.get(f'{{{const.NS_EXTENSIBLE_ENUMERATIONS}}}linkrole')
+        hu = e.attrib.get(f'{{{const.NS_EXTENSIBLE_ENUMERATIONS}}}headUsable')
+        self.head_usable = hu is not None and (hu.lower() == 'true' or hu == '1')
         self.resources = {}  # Related labels - first by lang and then by role
         self.references = {}  # Related reference resources
         self.chain_up = {}  # Related parent concepts. Key is the base set key, value is the list of parent concepts
@@ -16,6 +20,12 @@ class Concept(element.Element):
             key = f'{self.schema.location}#{self.id}'  # Key to search from locator href
             self.schema.taxonomy.concepts[key] = self
             self.schema.taxonomy.concepts_by_qname[self.qname] = self
+
+    def __str__(self):
+        return self.qname
+
+    def __repr__(self):
+        return self.qname
 
     def get_label(self):
         return self.get_label_lr(lang='en', role=const.ROLE_LABEL)
@@ -46,3 +56,11 @@ class Concept(element.Element):
                  if (lang is None or l[0].startswith(lang)) and (role is None or l[0].endswith(role))]
         return list(itertools.chain(*llist))
 
+    def info(self):
+        return '\n'.join([
+            f'QName: {self.qname}',
+            f'Data type: {self.data_type}',
+            f'Abstract: {self.abstract}',
+            f'Nillable: {self.nillable}',
+            f'Period Type: {self.period_type}',
+            f'Balance: {self.balance}'])

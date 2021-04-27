@@ -26,6 +26,8 @@ NS_GEN = 'http://xbrl.org/2008/generic'
 NS_TAXONOMY_PACKAGE = 'http://xbrl.org/2016/taxonomy-package'
 NS_TAXONOMY_PACKAGE_PR = 'http://xbrl.org/PR/2015-12-09/taxonomy-package'  # The old one
 NS_OASIS_CATALOG = 'urn:oasis:names:tc:entity:xmlns:xml:catalog'
+# Extensible Enumerations
+NS_EXTENSIBLE_ENUMERATIONS = 'http://xbrl.org/2014/extensible-enumerations'
 # OTHER
 KNOWN_PROTOCOLS = ['http', 'https', 'ftp']
 SUBSTITUTION_GROUPS = ['item', 'tuple']

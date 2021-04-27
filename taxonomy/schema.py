@@ -61,7 +61,7 @@ class Schema(fbase.XmlFileBase):
         self.pool.discovered[href] = False
         lb = self.pool.linkbases.get(href, None)
         if lb is None:
-            lb = linkbase.Linkbase(href, self.pool, self.taxonomy)
+            linkbase.Linkbase(href, self.pool, self.taxonomy)
             self.pool.discovered[href] = True
 
     def l_roletype(self, e):
