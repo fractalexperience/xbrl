@@ -120,3 +120,12 @@ dmypy.json
 
 # PyCharm
 .idea
+_windows
+inspection
+wsl.distributions.xml
+pluginAdvertiser.xml
+ide-features-trainer.xml
+filetypes.xml
+editor.xml
+debugger.xml
+colors.scheme.xml
