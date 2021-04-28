@@ -1,4 +1,5 @@
 from xbrl.base import const, defs
+from xbrl.taxonomy.xdt import dr_set
 
 
 class Taxonomy:
@@ -19,8 +20,14 @@ class Taxonomy:
         self.elements = {}
         """ All base set objects indexed by base set key """
         self.base_sets = {}
-        """ Dimension defaults """
+        """ Dimension defaults - Key is dimension QName, value is default member concept """
         self.defaults = {}
+        """ Default Members - Key is the default member QName, value is the corresponding dimension concept. """
+        self.default_members = {}
+        """ Dimensional Relationship Sets """
+        self.dr_sets = {}
+        """ Excluding Dimensional Relationship Sets """
+        self.dr_sets_excluding = {}
         self.load()
         self.compile()
 
@@ -74,4 +81,25 @@ class Taxonomy:
             if bs.arc_name != 'definitionArc':
                 continue
             if bs.arcrole == const.XDT_DIMENSION_DEFAULT_ARCROLE:
-                pass
+                self.add_default_member(bs)
+                continue
+            if bs.arcrole == const.XDT_ALL_ARCROLE:
+                self.add_drs(bs, self.dr_sets)
+                continue
+            if bs.arcrole == const.XDT_NOTALL_ARCROLE:
+                self.add_drs(bs, self.dr_sets_excluding)
+                continue
+
+    def add_drs(self, bs, drs_collection):
+        drs = dr_set.DrSet(bs, self)
+        drs.compile()
+        drs_collection[bs.get_key()] = drs
+
+    def add_default_member(self, bs):
+        for d in bs.roots:
+            members = bs.get_members(d, False)
+            if not members:
+                continue
+            for m in members:
+                self.defaults[d.qname] = m
+                self.default_members[m.qname] = d
