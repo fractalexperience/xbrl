@@ -22,6 +22,20 @@ class Pool:
         self.packaged_locations = None
         self.active_packages = {}  # Currently opened taxonomy packages
 
+    def __str__(self):
+        return self.info()
+
+    def __repr__(self):
+        return self.info()
+
+    def info(self):
+        return '\n'.join([
+            f'Taxonomies: {len(self.taxonomies)}',
+            f'Instance documents: {len(self.instances)}',
+            f'Taxonomy schemas: {len(self.schemas)}',
+            f'Taxonomy linkbases: {len(self.linkbases)}'])
+
+
     def index_packages(self):
         """ Index the content of taxonomy packages found in cache/taxonomies/ """
         package_files = [os.path.join(r, file) for r, d, f in
@@ -101,12 +115,3 @@ class Pool:
             lb = self.linkbases.get(href, None)
             if not lb:
                 linkbase.Linkbase(href, self, tax)
-
-
-    def info(self):
-        return '\n'.join([
-            f'Taxonomies: {len(self.taxonomies)}',
-            f'Instance documents: {len(self.instances)}',
-            f'Taxonomy schemas: {len(self.schemas)}',
-            f'Taxonomy linkbases: {len(self.linkbases)}'])
-
