@@ -1,5 +1,5 @@
 from xbrl.taxonomy import arc, base_set, locator, resource
-from xbrl.base import ebase, const, util
+from xbrl.base import ebase, const, util, tuple_defs
 import urllib.parse
 
 
@@ -77,5 +77,7 @@ class XLink(ebase.XmlElementBase):
                     bs.roots.append(c)
 
                 # Populate concept child and parent sets
-                util.u_dct_list(c.chain_dn, bs_key, (c2, a))
-                util.u_dct_list(c2.chain_up, bs_key, (c, a))
+                c.chain_dn.setdefault(bs_key, []).append(tuple_defs.BaseSetNode(c2, a))
+                c2.chain_up.setdefault(bs_key, []).append(tuple_defs.BaseSetNode(c, a))
+                # util.u_dct_list(c.chain_dn, bs_key, (c2, a))
+                # util.u_dct_list(c2.chain_up, bs_key, (c, a))

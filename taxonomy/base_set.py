@@ -1,4 +1,4 @@
-from xbrl.base import defs
+from xbrl.base import tuple_defs
 
 
 class BaseSet:
@@ -26,16 +26,15 @@ class BaseSet:
     def get_branch_members(self, concept, members, start_concept, include_head, flag_include, level):
         if concept is None:
             return
-        trigger_include = (not start_concept and level==0) or (start_concept and start_concept == concept.qname)
+        trigger_include = (not start_concept and level == 0) or (start_concept and start_concept == concept.qname)
         new_flag_include = flag_include or trigger_include
         if (trigger_include and include_head) or flag_include:
-            members.append(defs.ConceptWrapper(concept, level))
+            members.append(tuple_defs.ConceptWrapper(concept, level))
         cbs_dn = concept.chain_dn.get(self.get_key(), None)
         if cbs_dn is None:
             return
-        for tup in sorted(cbs_dn, key=lambda t: t[1].order):
-            cdn = tup[0]
-            self.get_branch_members(cdn, members, start_concept, include_head, new_flag_include, level+1)
+        for node in sorted(cbs_dn, key=lambda t: t.Arc.order):
+            self.get_branch_members(node.Concept, members, start_concept, include_head, new_flag_include, level+1)
 
     def info(self):
         rts = ','.join([r.qname for r in self.roots])
