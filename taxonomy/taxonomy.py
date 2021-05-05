@@ -1,4 +1,4 @@
-from xbrl.base import const, defs
+from xbrl.base import const, tuple_defs
 from xbrl.taxonomy.xdt import dr_set
 
 
@@ -28,6 +28,8 @@ class Taxonomy:
         self.dr_sets = {}
         """ Excluding Dimensional Relationship Sets """
         self.dr_sets_excluding = {}
+        """ Key is primary item QName, value is the list of dimensional relationship sets, where it participates. """
+        self.idx_pi_drs = {}
         self.load()
         self.compile()
 
@@ -67,7 +69,7 @@ class Taxonomy:
             e = enumerations.get(key)
             if not e:
                 members = self.get_bs_members('definitionArc',c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE)
-                e = defs.Enumeration(key, [], [m.Concept for m in members])
+                e = tuple_defs.Enumeration(key, [], [m.Concept for m in members])
                 enumerations[key] = e
             e.Concepts.append(c)
         return enumerations
