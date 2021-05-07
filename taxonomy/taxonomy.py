@@ -1,4 +1,4 @@
-from xbrl.base import const, tuple_defs
+from xbrl.base import const, data_wrappers
 from xbrl.taxonomy.xdt import dr_set
 
 
@@ -69,7 +69,7 @@ class Taxonomy:
             e = enumerations.get(key)
             if not e:
                 members = self.get_bs_members('definitionArc',c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE)
-                e = tuple_defs.Enumeration(key, [], [m.Concept for m in members])
+                e = data_wrappers.Enumeration(key, [], [m.Concept for m in members])
                 enumerations[key] = e
             e.Concepts.append(c)
         return enumerations

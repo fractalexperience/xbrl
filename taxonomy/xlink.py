@@ -1,5 +1,5 @@
 from xbrl.taxonomy import arc, base_set, locator, resource
-from xbrl.base import ebase, const, util, tuple_defs
+from xbrl.base import ebase, const, util, data_wrappers
 import urllib.parse
 
 
@@ -38,7 +38,7 @@ class XLink(ebase.XmlElementBase):
         self.linkbase.pool.add_reference(url, self.linkbase.base, self.linkbase.taxonomy)
 
     def compile(self):
-        for arc_list in [a[1] for a in self.arcs_from.items()]:
+        for arc_list in [a for a in self.arcs_from.values()]:
             for a in arc_list:
                 loc = self.locators.get(a.xl_from, None)
                 if loc is None:
@@ -48,15 +48,15 @@ class XLink(ebase.XmlElementBase):
                 if c is None:
                     print(f'Unresolved "from" locator: {loc.href}')
                     return
-                reslist = self.resources.get(a.xl_to, None)
-                if reslist is not None:
-                    for res in reslist:
-                        cres = c.resources.get(res.name, None)
-                        if cres is None:
-                            cres = {}
-                            c.resources[res.name] = cres
+                resource_list = self.resources.get(a.xl_to, None)
+                if resource_list is not None:
+                    for res in resource_list:
+                        c_resources = c.resources.get(res.name, None)
+                        if c_resources is None:
+                            c_resources = {}
+                            c.resources[res.name] = c_resources
                         key = f'{res.lang}|{res.role}'
-                        util.u_dct_list(cres, key, res)  # Multiple resources of the same type may be related
+                        util.u_dct_list(c_resources, key, res)  # Multiple resources of the same type may be related
                     continue
                 # if no resources are connected, try to find inter-concept relations
                 loc2 = self.locators.get(a.xl_to, None)
@@ -67,7 +67,8 @@ class XLink(ebase.XmlElementBase):
                 if c2 is None:
                     print(f'Unresolved "to" locator: {loc2.href}')
                     return
-                is_root = a.xl_from not in self.arcs_to
+                key = f'{a.arcrole}|{a.xl_from}'
+                is_root = key not in self.arcs_to
                 bs_key = f'{a.name}|{a.arcrole}|{self.role}'
                 bs = self.linkbase.taxonomy.base_sets.get(bs_key, None)
                 if bs is None:
@@ -77,7 +78,5 @@ class XLink(ebase.XmlElementBase):
                     bs.roots.append(c)
 
                 # Populate concept child and parent sets
-                c.chain_dn.setdefault(bs_key, []).append(tuple_defs.BaseSetNode(c2, a))
-                c2.chain_up.setdefault(bs_key, []).append(tuple_defs.BaseSetNode(c, a))
-                # util.u_dct_list(c.chain_dn, bs_key, (c2, a))
-                # util.u_dct_list(c2.chain_up, bs_key, (c, a))
+                c.chain_dn.setdefault(bs_key, []).append(data_wrappers.BaseSetNode(c2, 0, a))
+                c2.chain_up.setdefault(bs_key, []).append(data_wrappers.BaseSetNode(c, 0, a))

@@ -12,6 +12,7 @@ class Concept(element.Element):
         self.linkrole = e.attrib.get(f'{{{const.NS_EXTENSIBLE_ENUMERATIONS}}}linkrole')
         hu = e.attrib.get(f'{{{const.NS_EXTENSIBLE_ENUMERATIONS}}}headUsable')
         self.head_usable = hu is not None and (hu.lower() == 'true' or hu == '1')
+        self.typed_domain_ref = e.attrib.get(f'{{{const.NS_XBRLDT}}}typedDomainRef')
         self.resources = {}  # Related labels - first by lang and then by role
         self.references = {}  # Related reference resources
         self.chain_up = {}  # Related parent concepts. Key is the base set key, value is the list of parent concepts
