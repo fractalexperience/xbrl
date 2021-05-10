@@ -23,7 +23,8 @@ class BaseSet:
             self.get_branch_members(r, members, start_concept, include_head, False, 0, None)
         return members
 
-    def get_branch_members(self, concept, members, start_concept, include_head, flag_include, level, related_arc):
+    def get_branch_members(
+            self, concept, members, start_concept, include_head, flag_include, level, related_arc):
         if concept is None:
             return
         trigger_include = (not start_concept and level == 0) or (start_concept and start_concept == concept.qname)

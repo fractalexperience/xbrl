@@ -99,7 +99,7 @@ class Taxonomy:
 
     def add_default_member(self, bs):
         for d in bs.roots:
-            members = bs.get_members(d, False)
+            members = bs.get_members(start_concept=d, include_head=False)
             if not members:
                 continue
             for m in members:

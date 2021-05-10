@@ -13,9 +13,9 @@ class Arc(ebase.XmlElementBase):
         self.use = e.attrib.get('use')
         self.weight = e.attrib.get('weight')
         self.preferredLabel = e.attrib.get('preferredLabel')
+        u = e.attrib.get(f'{{{const.NS_XBRLDT}}}usable')
+        self.usable = True if not u else u
         self.target_role = e.attrib.get(f'{{{const.NS_XBRLDT}}}targetRole')
         if self.xlink is not None:
             self.xlink.arcs_from.setdefault(f'{self.arcrole}|{self.xl_from}', []).append(self)
             self.xlink.arcs_to.setdefault(f'{self.arcrole}|{self.xl_to}', []).append(self)
-            # util.u_dct_list(self.xlink.arcs_from, self.xl_from, self)
-            # util.u_dct_list(self.xlink.arcs_to, self.xl_to, self)
