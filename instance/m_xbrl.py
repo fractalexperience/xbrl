@@ -34,7 +34,6 @@ class XbrlModel(ebase.XmlElementBase):
             f'{{{const.NS_FIND}}}fIndicators': self.l_filing_indicators,
             f'{{{const.NS_FIND}}}filingIndicator': self.l_filing_indicator
         }
-        self.l_children(e)
         super().__init__(e, self.parsers)
         self.compile()
 

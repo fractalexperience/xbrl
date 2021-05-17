@@ -11,7 +11,8 @@ def u_dct_list(dct, key, val):
 
 
 def escape_xml(s):
-    return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')\
+    return None if not s else s\
+        .replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')\
         .replace("'", '&apos;').replace('"', '&quot;')
 
 

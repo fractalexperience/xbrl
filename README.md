@@ -11,15 +11,17 @@ XBRL-Model is a Python based framework, which includes parsers and data objects 
 
 XBRL v.2.1 - https://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html
 
-XBRL Dimensions - https://www.xbrl.org/specification/dimensions/rec-2012-01-25/dimensions-rec-2006-09-18+corrected-errata-2012-01-25-clean.html
+XBRL Dimensions 1.0 - https://www.xbrl.org/specification/dimensions/rec-2012-01-25/dimensions-rec-2006-09-18+corrected-errata-2012-01-25-clean.html
 
-Extensible Enumerations - https://www.xbrl.org/Specification/extensible-enumerations-2.0/REC-2020-02-12/extensible-enumerations-2.0-REC-2020-02-12.html
+Extensible Enumerations 2.0 - https://www.xbrl.org/Specification/extensible-enumerations-2.0/REC-2020-02-12/extensible-enumerations-2.0-REC-2020-02-12.html
+
+Taxonomy Packages 1.0 - https://www.xbrl.org/Specification/taxonomy-package/PR-2015-12-09/taxonomy-package-PR-2015-12-09.html
 
 
 
 ## Getting Started
 
-Install package
+Download package
 
 ``` 
 git clone https://github.com/fractalexperience/xbrl.git
@@ -29,24 +31,36 @@ git clone https://github.com/fractalexperience/xbrl.git
 
 ## Examples
 
-**Ex1**: Create a data pool and open an instance document
+**Example1**: Create a data pool and open two instance documents containing the same information. The first one is designed as [Inline XBRL](https://www.xbrl.org/specification/inlinexbrl-part1/rec-2013-11-18/inlinexbrl-part1-rec-2013-11-18.html) and contains additional HTML tags. The second one is a native XBRL instance according [XBRL version 2.1](https://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html).
 
 ``` python
 
-location = 'https://www.sec.gov/Archives/edgar/data/1341439/000156459020056896/orcl-10q_20201130_htm.xml'
-# Set cache folder
-cache_filder = os.path.join(dirname, '..\\cache')
-# Create data pool
-data_pool = pool.Pool(cache_filder)
-# Open instance document
-data_pool.add_instance(location=location, key=location, attach_taxonomy=True)
-print('Data pool info')
+from xbrl.base import pool
+
+# Create the data pool. Note that its cache folder must be accessible with full access righs
+# in the local file system.
+data_pool = pool.Pool('..\\cache')
+# A random iXBRL instance from SEC/EDGAR system
+location_ixbrl = 'https://www.sec.gov/Archives/edgar/data/1000177/000114036121014948/brhc10022989_20f.htm'
+# Same instance, but in native XBRL format.
+location_xbrl = 'https://www.sec.gov/Archives/edgar/data/1000177/000114036121014948/brhc10022989_20f_htm.xml'
+# Parse inline document
+xid_inline = data_pool.add_instance_location(location=location_ixbrl, key=location_ixbrl, attach_taxonomy=True)
+# PArse native document
+xid_native = data_pool.add_instance_location(location=location_xbrl, key=location_xbrl, attach_taxonomy=True)
+print('\nData pool info')
 print('----------------------')
 print(data_pool.info())
+print('\nInline XBRL Instance info')
+print('-------------------------')
+print(xid_inline)
+print('\nNative XBRL Instance info')
+print('-------------------------')
+print(xid_native)
 
 ```
 
-**Ex2**: Query a taxonomy package to extract contained taxonomy entry points
+**Example2**: Query a taxonomy package to extract contained taxonomy entry points
 
 ``` python
 from xbrl import tpack

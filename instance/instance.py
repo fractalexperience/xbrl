@@ -18,6 +18,22 @@ class Instance(fbase.XmlFileBase):
             self.location = location
         super().__init__(location, container_pool, parsers, root)
 
+    def __str__(self):
+        return self.info()
+
+    def __repr__(self):
+        return self.info()
+
+    def info(self):
+        return f"""Namespaces: {len(self.namespaces)}
+Schema references: {len(self.xbrl.schema_refs)}
+Linkbase references: {len(self.xbrl.linkbase_refs)}
+Contexts: {len(self.xbrl.contexts)}
+Units: {len(self.xbrl.units)}
+Facts: {len(self.xbrl.facts)}
+Footnotes: {len(self.xbrl.footnotes)}
+Filing Indicators: {len(self.xbrl.filing_indicators)}"""
+
     def l_xbrl(self, e):
         self.xbrl = m_xbrl.XbrlModel(e, self)
 
@@ -29,20 +45,10 @@ class Instance(fbase.XmlFileBase):
         self.ixbrl.strip()
         s = ''.join(self.ixbrl.output)
         root = lxml.XML(s)
-        self.xbrl = m_xbrl.XbrlModel(root, self)
+        self.l_xbrl(root)
+        # self.xbrl = m_xbrl.XbrlModel(root, self)
 
     def to_xml(self):
         return self.ixbrl.to_xml() if self.ixbrl else self.xbrl.to_xml() if self.xbrl else None
-
-    def info(self):
-        return f'''Namespaces: {len(self.namespaces)}
-Schema references: {len(self.xbrl.schema_refs)}
-Linkbase references: {len(self.xbrl.linkbase_refs)}
-Contexts: {len(self.xbrl.contexts)}
-Units: {len(self.xbrl.units)}
-Facts: {len(self.xbrl.facts)}
-Footnotes: {len(self.xbrl.footnotes)}
-Filing Indicators: {len(self.xbrl.filing_indicators)}
-'''
 
 

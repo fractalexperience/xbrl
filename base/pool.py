@@ -61,7 +61,7 @@ class Pool:
 
     def add_instance(self, xid, key=None, attach_taxonomy=False):
         if key is None:
-            key = xid.location
+            key = xid.location_ixbrl
         self.instances[key] = xid
         if attach_taxonomy and xid.xbrl is not None:
             # Ensure that if schema references are relative, the location base for XBRL document is added to them
