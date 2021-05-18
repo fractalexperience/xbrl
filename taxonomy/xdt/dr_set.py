@@ -1,6 +1,6 @@
 import xbrl.taxonomy.xdt.hypercube
 from xbrl.taxonomy.xdt import primary_item, hypercube, dimension
-from xbrl.base import util, const
+from xbrl.base import const
 
 
 class DrSet:
@@ -56,7 +56,8 @@ class DrSet:
             hc.dimensions[dim.concept.qname] = dim
             role = dim.target_role if dim.target_role else bs_dim.role
             key = f'{bs_dim.arc_name}|{const.XDT_DIMENSION_DOMAIN_ARCROLE}|{role}'
-            self.populate_members(dim, key)
+            if dim.concept.is_explicit_dimension:
+                self.populate_members(dim, key)
 
     def populate_members(self, dim, key):
         bs_mem = self.taxonomy.base_sets.get(key)
