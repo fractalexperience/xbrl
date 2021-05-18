@@ -1,7 +1,7 @@
 import os
 import zipfile
 from lxml import etree as lxml
-from xbrl.base import const, resolver, util
+from xbrl.base import const, resolver, util, data_wrappers
 
 
 class TaxonomyPackage:
@@ -11,13 +11,15 @@ class TaxonomyPackage:
         self.archive = None
         self.location = location
         if location.startswith('http'):
-            # Downlaod the taxonomy package and save in the cache folder
+            # Download the taxonomy package and save in the cache folder
             cache_manager = resolver.Resolver(os.path.join(self.cache_folder, 'taxonomies'))
             self.location = cache_manager.cache(location)
         """ Entry points is a list of tuples with following structure: (prefix, location, description) """
         self.entrypoints = []
         """ Key is element name, value is element text. """
         self.properties = {}
+        """ List of superseded packages, each represented by ts URL. """
+        self.superseded_packages = []
         self.files = None
         self.redirects = {}
         self.redirects_reduced = None
@@ -39,6 +41,8 @@ class TaxonomyPackage:
             for e in package.iterchildren():
                 if str(e.tag).endswith('entryPoints'):
                     self.l_entrypoints(e)
+                elif str(e.tag).endswith('supersededTaxonomyPackages'):
+                    self.l_superseded(e)
                 elif not len(e):  # second level
                     name = util.get_local_name(str(e.tag))
                     self.properties[name] = e.text
@@ -72,19 +76,13 @@ class TaxonomyPackage:
             url = fn.replace(file_root, rewrite_prefix)
             self.files[url] = fn
 
-            # file_root = fn.replace(root, '..')  # This is needed in order to match with rewritePrefix in catalog.xml
-            # for uri, rewrite_prefix in self.redirects.items():
-            #     if file_root.startswith(rewrite_prefix):
-            #         url = file_root.replace(rewrite_prefix, uri)
-            #         self.files[url] = fn
-
     def l_redirects(self, ce):
         for e in ce.iterchildren():
             if e.tag != f'{{{const.NS_OASIS_CATALOG}}}rewriteURI':
                 continue
             url = e.attrib.get('uriStartString')
-            reqrite_prefix = e.attrib.get('rewritePrefix')
-            self.redirects[url] = reqrite_prefix
+            rewrite_prefix = e.attrib.get('rewritePrefix')
+            self.redirects[url] = rewrite_prefix
         # Reduce redirects according to position of catalog.xml
         self.redirects_reduced = dict([(u, util.reduce_url(os.path.join(self.catalog_location, r)))
                                        for u, r in self.redirects.items()])
@@ -102,18 +100,31 @@ class TaxonomyPackage:
                         prefix = e2.text
                     elif str(e2.tag).endswith('description'):
                         desc = e2.text
-                self.entrypoints.append((prefix, ep, desc))
+                self.entrypoints.append(data_wrappers.EntryPoint(prefix, ep, desc))
+
+    def l_superseded(self, ep):
+        for e in ep.iterchildren():
+            if str(e.tag).endswith('taxonomyPackageRef'):
+                self.superseded_packages.append(e.text)
+
+    def __str__(self):
+        return self.info()
+
+    def __repr__(self):
+        return self.info()
 
     def info(self):
         o = ['Properties', '----------']
-        for p in self.properties.items():
-            o.append(f'{p[0]}: {p[1]}')
+        for prop, value in self.properties.items():
+            o.append(f'{prop}: {value}')
         o.append('\nEntry points')
         o.append('------------')
         for ep in self.entrypoints:
-            o.append(f'{ep[0]}, {ep[1]}, {ep[2]}')
-        o.append('\nRedirects')
-        o.append('---------')
-        for rd in self.redirects.items():
-            o.append(f'{rd[0]} => {rd[1]}')
+            o.append(f'{ep.Name}, {ep.Url}, {ep.Description}')
+        o.append('\nRedirects\n---------')
+        for start_string, rewrite_prefix in self.redirects.items():
+            o.append(f'{start_string} => {rewrite_prefix}')
+        if self.superseded_packages:
+            o.append('\nSuperseded Packages\n-------------------')
+            o.append('\n'.join(self.superseded_packages))
         return '\n'.join(o)

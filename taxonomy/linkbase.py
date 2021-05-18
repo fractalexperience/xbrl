@@ -40,7 +40,7 @@ class Linkbase(fbase.XmlFileBase):
         self.links.append(xl)
 
     ''' Effectively reading roleRef and arcroleRef is the same thing here, 
-        because it only dicovers the correspondign schema '''
+        because it only discovers the corresponding schema '''
     def l_arcrole_ref(self, e):
         self.l_ref(e)
 

@@ -13,6 +13,11 @@ class Concept(element.Element):
         hu = e.attrib.get(f'{{{const.NS_EXTENSIBLE_ENUMERATIONS}}}headUsable')
         self.head_usable = hu is not None and (hu.lower() == 'true' or hu == '1')
         self.typed_domain_ref = e.attrib.get(f'{{{const.NS_XBRLDT}}}typedDomainRef')
+        self.is_dimension = self.substitution_group.endswith('dimensionItem')
+        self.is_hypercube = self.substitution_group.endswith('hypercubeItem')
+        self.is_explicit_dimension = True if self.is_dimension and self.typed_domain_ref is None else False
+        self.is_enumeration = True if self.data_type and self.data_type.endswith('enumerationItemType') else False
+        self.is_enumeration_set = True if self.data_type and self.data_type.endswith('enumerationSetItemType') else False
         self.resources = {}  # Related labels - first by lang and then by role
         self.references = {}  # Related reference resources
         self.chain_up = {}  # Related parent concepts. Key is the base set key, value is the list of parent concepts

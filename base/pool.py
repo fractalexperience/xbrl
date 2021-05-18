@@ -93,12 +93,14 @@ class Pool:
         self.packaged_locations = None
         return tax
 
+    """ Adds a taxonomy package provided in the location parameter, creates a taxonomy 
+        using all entryp points in the package and returns the taxonomy object. """
     def add_package(self, location):
         package = tpack.TaxonomyPackage(location, self.cache_folder)
         self.index_packages()
-        entry_points = [ep[1] for ep in package.entrypoints]
-        self.add_taxonomy(entry_points)
-        return package
+        entry_points = [ep.Url for ep in package.entrypoints]
+        tax = self.add_taxonomy(entry_points)
+        return tax
 
     def add_reference(self, href, base, tax):
         """ Loads schema or linkbase depending on file type. TO IMPROVE!!! """

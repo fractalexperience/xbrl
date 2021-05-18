@@ -28,6 +28,8 @@ class DrSet:
         self.populate_hypercubes(pi)
         self.primary_items = self.taxonomy.get_bs_members(
             self.bs_start.arc_name, self.bs_start.role, const.XDT_DOMAIN_MEMBER_ARCROLE, include_head=True)
+        if not self.primary_items:
+            return
         for pi in self.primary_items:
             self.taxonomy.idx_pi_drs.setdefault(pi.Concept.qname, []).append(self)
 
@@ -61,6 +63,8 @@ class DrSet:
         if bs_mem is None:
             return
         members = bs_mem.get_members(include_head=False)  # the head is the dimension itself
+        if not members:
+            return
         for mem in members:
             if mem.Arc is None or mem.Arc.usable is True:
                 dim.members[mem.Concept.qname] = mem.Concept
@@ -71,7 +75,7 @@ class DrSet:
             if not additional_members:
                 continue
             for m in additional_members:
-                if m.Arc is None or m.Arc.usable is True:
+                if m and m.Concept and (m.Arc is None or m.Arc.usable is True):
                     dim.members[m.Concept.qname] = m.Concept
 
     def info(self):

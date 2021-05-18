@@ -44,7 +44,14 @@ class Taxonomy:
             f'Schemas: {len(self.schemas)}',
             f'Linkbases: {len(self.linkbases)}',
             f'Concepts: {len(self.concepts)}',
-            f'Hierarchies: {len(self.base_sets)}'])
+            f'Labels: {sum([0 if not "label" in c.resources else len(c.resources["label"]) for c in self.concepts.values()])}',
+            f'References: {sum([0 if not "reference" in c.resources else len(c.resources["reference"]) for c in self.concepts.values()])}',
+            f'Hierarchies: {len(self.base_sets)}',
+            f'Dimensional Relationship Sets: {len(self.base_sets)}',
+            f'Dimensions: {len([c for c in self.concepts.values() if c.is_dimension])}',
+            f'Hypercubes: {len([c for c in self.concepts.values() if c.is_hypercube])}',
+            f'Enumerations: {len([c for c in self.concepts.values() if c.is_enumeration])}',
+            f'Enumerations Sets: {len([c for c in self.concepts.values() if c.is_enumeration_set])}'])
 
     def load(self):
         for ep in self.entry_points:
@@ -75,11 +82,10 @@ class Taxonomy:
         return enumerations
 
     def compile(self):
-        for lb in self.linkbases.items():
-            for xl in lb[1].links:
+        for lb in self.linkbases.values():
+            for xl in lb.links:
                 xl.compile()
-        for it in self.base_sets.items():
-            bs = it[1]
+        for bs in self.base_sets.values():
             if bs.arc_name != 'definitionArc':
                 continue
             if bs.arcrole == const.XDT_DIMENSION_DEFAULT_ARCROLE:

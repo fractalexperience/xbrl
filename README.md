@@ -17,6 +17,10 @@ Extensible Enumerations 2.0 - https://www.xbrl.org/Specification/extensible-enum
 
 Taxonomy Packages 1.0 - https://www.xbrl.org/Specification/taxonomy-package/PR-2015-12-09/taxonomy-package-PR-2015-12-09.html
 
+The XBRL Model is able to parse XBRL instance documents and companion taxonomies and extract information such as reporting facts and their descriptors, reporting artifacts, such as taxonomy concepts, labels, references, hierarchies, enumerations, dimensions etc. It is equipped with a cache manager to allow efficiently maintain Web resources, as well as a package manager, which allows to load taxonomies  from taxonomy packages, where all files are distributed in a form of a ZIP archive.
+
+Special attention is paid to efficient in-memory storage of various resources. There is a data pool, which allows objects, which are reused across different taxonomies to be stored in memory only once. This way it is possible to maintain multiple entry points and multiple taxonomy versions at the time, without a risk of memory overflow. 
+
 
 
 ## Getting Started
@@ -31,7 +35,7 @@ git clone https://github.com/fractalexperience/xbrl.git
 
 ## Examples
 
-**Example1**: Create a data pool and open two instance documents containing the same information. The first one is designed as [Inline XBRL](https://www.xbrl.org/specification/inlinexbrl-part1/rec-2013-11-18/inlinexbrl-part1-rec-2013-11-18.html) and contains additional HTML tags. The second one is a native XBRL instance according [XBRL version 2.1](https://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html).
+**Example 1**: Create a data pool and open two instance documents containing the same information. The first one is designed as [Inline XBRL](https://www.xbrl.org/specification/inlinexbrl-part1/rec-2013-11-18/inlinexbrl-part1-rec-2013-11-18.html) and contains additional HTML tags. The second one is a native XBRL instance according [XBRL version 2.1](https://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html).
 
 ``` python
 
@@ -60,29 +64,55 @@ print(xid_native)
 
 ```
 
-**Example2**: Query a taxonomy package to extract contained taxonomy entry points
+**Example 2**: Query a taxonomy package to extract contained taxonomy entry points
 
 ``` python
-from xbrl import tpack
+from xbrl.taxonomy import tpack
+
 
 location = 'https://dev.eiopa.europa.eu/Taxonomy/Full/2.5.0/S2/EIOPA_SolvencyII_XBRL_Taxonomy_2.5.0_hotfix.zip'
-cache_folder = '../cache'  # The cache folder is needed to store the taxonomy package for further use
-package = tpack.TaxonomyPackage(location, cache_folder)
-for ep in package.entrypoints:  # Each entrypoint is described with a prefix, URL and description
-    prefix = ep[0]
-    url = ep[1]
-    description = ep[2]
-    print(prefix, url, description)
+# The cache folder must be available and accessible
+# with full rights in local file system
+package = tpack.TaxonomyPackage(location, r'..\cache')
+# Taxonomy package information includes:
+#   Basic properties: Name, Version, Publisher etc.
+#   Entrypoints: Each entry point has a name, url and description.
+#   Redirects: This information instructs the processor how to replace Web URLs to files in the package
+#   Superseded packages: List of superseded packages if any.
+print(package)
+
 ```
 
-**Ex3**: Create a data pool and add a taxonomy
+**Example 3**: Create a data pool and add a taxonomy
 
 ```python
-data_pool = pool.Pool('..\\cache')
-data_pool.index_packages()  # Locate available taxonomy packages
-entrypoint = 'http://eiopa.europa.eu/eu/xbrl/s2md/fws/solvency/solvency2/2020-07-15/mod/qrs.xsd'
-taxonomy = data_pool.add_taxonomy([entrypoint])  # Parse taxonomy object
-print(taxonomy.info())
+from xbrl.base import pool
+
+# US-GAAP taxonomy - version 2021
+location = 'https://xbrl.fasb.org/us-gaap/2021/us-gaap-2021-01-31.zip'
+# Create the data pool. The cache folder must be accessible with full rights 
+# in the local file system.
+data_pool = pool.Pool(r'..\cache')
+# This method does the following: 
+# - Download the ZIP archive of the taxonomy package URL provided and store it in cache
+# - Query the package about available entry ponits and location remappings
+# - Load all available entry points into a single taxonomy object.
+tax = data_pool.add_package(location)
+# Output taxonomy summary information
+print(tax)
+
+# Schemas: 169
+# Linkbases: 281
+# Concepts: 20409
+# Labels: 34786
+# References: 40310
+# Hierarchies: 2131
+# Dimensional Relationship Sets: 2131
+# Dimensions: 291
+# Hypercubes: 363
+# Enumerations: 0
+# Enumerations Sets: 285
+
 ```
 
 

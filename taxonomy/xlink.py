@@ -10,11 +10,13 @@ class XLink(ebase.XmlElementBase):
         parsers = {
             'default': self.l_xlink,
             f'{{{const.NS_LINK}}}labelArc': self.l_arc,
+            f'{{{const.NS_LINK}}}referenceArc': self.l_arc,
             f'{{{const.NS_LINK}}}definitionArc': self.l_arc,
             f'{{{const.NS_LINK}}}presentationArc': self.l_arc,
             f'{{{const.NS_LINK}}}calculationArc': self.l_arc,
             f'{{{const.NS_LINK}}}loc': self.l_loc,
-            f'{{{const.NS_LINK}}}label': self.l_label
+            f'{{{const.NS_LINK}}}label': self.l_label,
+            f'{{{const.NS_LINK}}}reference': self.l_reference
         }
         self.locators = {}  # Locators indexed by unique identifier
         self.arcs_from = {}  # Arcs indexed by from property
@@ -27,10 +29,13 @@ class XLink(ebase.XmlElementBase):
         self.l_children(e)
 
     def l_label(self, e):
-        res = resource.Resource(e, self)
+        resource.Resource(e, self)
+
+    def l_reference(self, e):
+        resource.Resource(e, self)
 
     def l_arc(self, e):
-        a = arc.Arc(e, self)
+        arc.Arc(e, self)
 
     def l_loc(self, e):
         loc = locator.Locator(e, self)
