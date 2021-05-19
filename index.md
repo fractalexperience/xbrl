@@ -20,6 +20,10 @@ XBRL Model can be used to process large amounts of XBRL filings from open data p
 
 - [Objects](objects.html)
 
+- [XBRL Specifications](specs.html)
+
+- [Validation](validation.html)
+
 - 
 
   
