@@ -16,7 +16,11 @@ XBRL Model can be used to process large amounts of XBRL filings from open data p
 
 ## XBRL Explained
 
-- [Terminology](xbrl.html)
+- [Terminology](terminology.html)
+
+- [Objects](objects.html)
+
+- 
 
   
 
