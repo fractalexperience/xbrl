@@ -1,37 +1,18 @@
-## Welcome to GitHub Pages
+# XBRL Model
 
-You can use the [editor on GitHub](https://github.com/fractalexperience/xbrl/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+XBRL Model is a Python package for dealing with XBRL data. XBRL stands for e**X**tensible **B**usiness **R**eporting **L**anguage. XBRL is the open international standard for digital business reporting, managed by a global not for profit consortium, [XBRL International](https://www.xbrl.org/). 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+The XBRL Model package includes parsers and data objects to represent both instance documents (containing real data) and XBRL taxonomies (containing metadata). It supports various [XBRL specifications](https://specifications.xbrl.org/specifications.html) - in particular: 
 
-### Markdown
+- XBRL v.2.1 - https://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html
+- XBRL Dimensions 1.0 - https://www.xbrl.org/specification/dimensions/rec-2012-01-25/dimensions-rec-2006-09-18+corrected-errata-2012-01-25-clean.html
+- Extensible Enumerations 2.0 - https://www.xbrl.org/Specification/extensible-enumerations-2.0/REC-2020-02-12/extensible-enumerations-2.0-REC-2020-02-12.html
+- Taxonomy Packages 1.0 - https://www.xbrl.org/Specification/taxonomy-package/PR-2015-12-09/taxonomy-package-PR-2015-12-09.html
+- Inline XBRL 1.1 - https://www.xbrl.org/specification/inlinexbrl-part1/rec-2013-11-18/inlinexbrl-part1-rec-2013-11-18.html
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Use Cases
 
-```markdown
-Syntax highlighted code block
+XBRL Model can be used to process large amounts of XBRL filings from open data providers such as [SEC/EDGAR](SEC/EDGAR), [GOV.UK](https://www.gov.uk/) and many others. It contains an in-memory mechanism to maintain multiple taxonomies, and taxonomy versions in the same time and thus can become a fundament for various Web based applications for XBRL reporting and data analysis.
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/fractalexperience/xbrl/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
