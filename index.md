@@ -14,7 +14,13 @@ The XBRL Model package includes parsers and data objects to represent both insta
 
 XBRL Model can be used to process large amounts of XBRL filings from open data providers such as [SEC/EDGAR](https://www.sec.gov/), [GOV.UK](https://www.gov.uk/) and many others. It is able to automatically download and unpack Web based data sources and contains a caching mechanism to improve speed when processing Web based taxonomies. It contains an in-memory mechanism to maintain multiple taxonomies, and taxonomy versions in the same time and thus can become a fundament for various Web based applications for XBRL reporting and data analysis.
 
+## Examples
+
+Click [here](examples.html) for some example use cases of the XBRL Model package.
+
 ## XBRL Explained
+
+Check links below for very brief explanation about what XBRL is and how data is structured.
 
 - [Terminology](terminology.html)
 
