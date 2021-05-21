@@ -30,6 +30,12 @@ class Taxonomy:
         self.dr_sets_excluding = {}
         """ Key is primary item QName, value is the list of dimensional relationship sets, where it participates. """
         self.idx_pi_drs = {}
+        """ All table resources in taxonomy """
+        self.tables = {}
+
+        self.resources = {}
+        self.locators = {}
+
         self.load()
         self.compile()
 
@@ -51,7 +57,10 @@ class Taxonomy:
             f'Dimensions: {len([c for c in self.concepts.values() if c.is_dimension])}',
             f'Hypercubes: {len([c for c in self.concepts.values() if c.is_hypercube])}',
             f'Enumerations: {len([c for c in self.concepts.values() if c.is_enumeration])}',
-            f'Enumerations Sets: {len([c for c in self.concepts.values() if c.is_enumeration_set])}'])
+            f'Enumerations Sets: {len([c for c in self.concepts.values() if c.is_enumeration_set])}',
+            f'Table Groups: {len([c for c in self.concepts.values() if "table" in c.resources])}',
+            f'Tables: {len(self.tables)}'
+        ])
 
     def load(self):
         for ep in self.entry_points:
@@ -82,9 +91,19 @@ class Taxonomy:
         return enumerations
 
     def compile(self):
+        self.compile_linkbases()
+        # self.compile_dr_sets()
+        # self.compile_tables()
+
+    def compile_tables(self):
+        pass
+
+    def compile_linkbases(self):
         for lb in self.linkbases.values():
             for xl in lb.links:
                 xl.compile()
+
+    def compile_dr_sets(self):
         for bs in self.base_sets.values():
             if bs.arc_name != 'definitionArc':
                 continue

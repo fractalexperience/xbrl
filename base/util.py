@@ -1,4 +1,6 @@
 import os
+import itertools
+from xbrl.base import const
 
 
 def u_dct_list(dct, key, val):
@@ -8,6 +10,35 @@ def u_dct_list(dct, key, val):
         lst = []
         dct[key] = lst
     lst.append(val)
+
+
+def get_label(res_list, lang='en', role='/label'):
+    return ','.join([lbl.text for lbl in get_resource_nlr(res_list, 'label', lang, role)])
+
+
+def get_rc_label(res_list):
+    return ','.join([lbl.text for lbl in get_resource_nlr(res_list, 'label', 'en', const.ROLE_LABEL_RC)])
+
+
+def get_db_label(res_list):
+    return ','.join([lbl.text for lbl in get_resource_nlr(res_list, 'label', 'en', const.ROLE_LABEL_DB)])
+
+
+def get_reference(res_list, lang='en', role='/label'):
+    return get_resource_nlr(res_list, 'reference', lang, role)
+
+
+def get_resource_nlr(res_list, name, lang, role):
+    # res is a dictionary where the key is lang + role and value is a list of corresponding resources
+    res = res_list.get(name, None)
+    if res is None:
+        return None
+    return res.get(f'{lang}|{role}', get_resource_nlr_partial(res, lang, role))
+
+
+def get_resource_nlr_partial(res, lang, role):
+    l = [v for k, v in res.items() if (lang is None or k.startswith(lang)) and (role is None or k.endswith(role))]
+    return list(itertools.chain(*l))
 
 
 def escape_xml(s):

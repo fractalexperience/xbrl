@@ -18,10 +18,16 @@ NS_ISO4217 = 'http://www.xbrl.org/2003/iso4217'
 # XBRL XDT
 NS_XBRLDI = 'http://xbrl.org/2006/xbrldi'
 NS_XBRLDT = 'http://xbrl.org/2005/xbrldt'
+# Table Linkbase
+NS_TABLE = 'http://xbrl.org/2014/table'
 # EBA
 NS_FIND = 'http://www.eurofiling.info/xbrl/ext/filing-indicators'
 # Generic links
 NS_GEN = 'http://xbrl.org/2008/generic'
+# Generic labels
+NS_GEN_LABEL = 'http://xbrl.org/2008/label'
+# Generic references
+NS_GEN_REF = 'http://xbrl.org/2008/reference'
 # Taxonomy Package
 NS_TAXONOMY_PACKAGE = 'http://xbrl.org/2016/taxonomy-package'
 NS_TAXONOMY_PACKAGE_PR = 'http://xbrl.org/PR/2015-12-09/taxonomy-package'  # The old one
@@ -35,6 +41,7 @@ SUBSTITUTION_GROUPS = ['item', 'tuple']
 ROLE_LINK = 'http://www.xbrl.org/2003/role/link'
 # Standard roles
 ROLE_LABEL = 'http://www.xbrl.org/2003/role/label'
+ROLE_LABEL_2008 = 'http://www.xbrl.org/2008/role/label'
 ROLE_LABEL_TERSE = 'http://www.xbrl.org/2003/role/terseLabel'
 ROLE_LABEL_VERBOSE = 'http://www.xbrl.org/2003/role/verboseLabel'
 ROLE_LABEL_POSITIVE = 'http://www.xbrl.org/2003/role/positiveLabel'
@@ -52,6 +59,10 @@ ROLE_LABEL_DEFINITION = 'http://www.xbrl.org/2003/role/documentation'
 ROLE_LABEL_DEFINITION_GUIDANCE = 'http://www.xbrl.org/2003/role/definitionGuidance'
 ROLE_LABEL_DISCLOSURE_GUIDANCE = 'http://www.xbrl.org/2003/role/disclosureGuidance'
 ROLE_LABEL_PRESENTATION_GUIDANCE = 'http://www.xbrl.org/2003/role/presentationGuidance'
+# EBA/EIOPA
+ROLE_LABEL_RC = 'http://www.eurofiling.info/xbrl/role/rc-code'
+ROLE_LABEL_DB = 'http://www.eba.europa.eu/xbrl/role/dpm-db-id'
+
 # Reference roles
 ROLE_REFERENCE = 'http://www.xbrl.org/2003/role/reference'
 ROLE_REF_DEFINITION = 'http://www.xbrl.org/2003/role/definitionRef'

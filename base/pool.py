@@ -35,7 +35,6 @@ class Pool:
             f'Taxonomy schemas: {len(self.schemas)}',
             f'Taxonomy linkbases: {len(self.linkbases)}'])
 
-
     def index_packages(self):
         """ Index the content of taxonomy packages found in cache/taxonomies/ """
         package_files = [os.path.join(r, file) for r, d, f in
@@ -94,7 +93,7 @@ class Pool:
         return tax
 
     """ Adds a taxonomy package provided in the location parameter, creates a taxonomy 
-        using all entryp points in the package and returns the taxonomy object. """
+        using all entrypoints in the package and returns the taxonomy object. """
     def add_package(self, location):
         package = tpack.TaxonomyPackage(location, self.cache_folder)
         self.index_packages()
