@@ -1,6 +1,6 @@
 from xbrl.taxonomy import arc, base_set, locator, resource
 from xbrl.base import ebase, const, util, data_wrappers
-from xbrl.taxonomy.table import table
+from xbrl.taxonomy.table import table, breakdown, rule_node, cr_node, dr_node, aspect_node
 import urllib.parse
 
 
@@ -27,12 +27,12 @@ class XLink(ebase.XmlElementBase):
             f'{{{const.NS_GEN_LABEL}}}label': self.l_resource,
             f'{{{const.NS_LINK}}}reference': self.l_resource,
             f'{{{const.NS_GEN_REF}}}reference': self.l_resource,
-            f'{{{const.NS_TABLE}}}table': self.l_resource,
-            f'{{{const.NS_TABLE}}}breakdown': self.l_resource,
-            f'{{{const.NS_TABLE}}}ruleNode': self.l_resource,
-            f'{{{const.NS_TABLE}}}conceptRelationshipNode': self.l_resource,
-            f'{{{const.NS_TABLE}}}dimensionRelationshipNode': self.l_resource,
-            f'{{{const.NS_TABLE}}}aspectNode': self.l_resource
+            f'{{{const.NS_TABLE}}}table': self.l_table,
+            f'{{{const.NS_TABLE}}}breakdown': self.l_breakdown,
+            f'{{{const.NS_TABLE}}}ruleNode': self.l_rule_node,
+            f'{{{const.NS_TABLE}}}conceptRelationshipNode': self.l_concept_relationship_node,
+            f'{{{const.NS_TABLE}}}dimensionRelationshipNode': self.l_dimensional_relationship_node,
+            f'{{{const.NS_TABLE}}}aspectNode': self.l_aspect_node
         }
         self.locators = {}  # Locators indexed by unique identifier
         self.arcs_from = {}  # Arcs indexed by from property
@@ -46,6 +46,24 @@ class XLink(ebase.XmlElementBase):
 
     def l_resource(self, e):
         resource.Resource(e, self)
+
+    def l_table(self, e):
+        table.Table(e, self)
+
+    def l_breakdown(self, e):
+        breakdown.Breakdown(e, self)
+
+    def l_rule_node(self, e):
+        rule_node.RuleNode(e, self)
+
+    def l_aspect_node(self, e):
+        aspect_node.AspectNode(e, self)
+
+    def l_concept_relationship_node(self, e):
+        cr_node.ConceptRelationshipNode(e, self)
+
+    def l_dimensional_relationship_node(self, e):
+        dr_node.DimensionalRelationshipNode(e, self)
 
     def l_arc(self, e):
         arc.Arc(e, self)
@@ -70,13 +88,14 @@ class XLink(ebase.XmlElementBase):
             return
 
         for res in from_resources:
-            if res.name == 'table':
-                self.linkbase.taxonomy.tables[res.xlabel] = table.Table(res)
             nested_list = self.resources.get(a.xl_to, None)
             if nested_list is None:
                 continue
             for res2 in nested_list:
                 key = f'{res2.lang}|{res2.role}' if res2.lang or res2.role else res2.xlabel
+                if isinstance(res2, breakdown.Breakdown):
+                    res2.axis = a.axis
+                    res2.order = a.order
                 res.nested.setdefault(res2.name, {}).setdefault(key, []).append(res2)
 
     def try_connect_global_resource(self, a, loc):

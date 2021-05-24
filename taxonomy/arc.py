@@ -16,6 +16,7 @@ class Arc(ebase.XmlElementBase):
         u = e.attrib.get(f'{{{const.NS_XBRLDT}}}usable')
         self.usable = True if not u else u
         self.target_role = e.attrib.get(f'{{{const.NS_XBRLDT}}}targetRole')
+        self.axis = e.attrib.get('axis')  # for tableBreakdownArc
         if self.xlink is not None:
             self.xlink.arcs_from.setdefault(f'{self.arcrole}|{self.xl_from}', []).append(self)
             self.xlink.arcs_to.setdefault(f'{self.arcrole}|{self.xl_to}', []).append(self)

@@ -1,4 +1,4 @@
-import collections
+import collections, enum
 
 """ Data wrapper of the entryPoint element inside a taxonomy package. """
 EntryPoint = collections.namedtuple('EntryPoint', 'Name,Url,Description')
@@ -15,3 +15,5 @@ Enumeration = collections.namedtuple('Enumeration', 'Key,Concepts,Members')
          then the arc's 'to' attribute points to the concept. If it is in the chain_up collection, then 
          the arc's 'from' attribute points to the concept. """
 BaseSetNode = collections.namedtuple('BaseSetNode', 'Concept,Level,Arc')
+
+Axis = enum.Enum('Axis', 'X Y Z')
