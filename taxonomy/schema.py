@@ -1,4 +1,4 @@
-from xbrl.taxonomy import concept, linkbase
+from xbrl.taxonomy import concept, linkbase, roletype, arcroletype
 from xbrl.base import fbase, const, element, util
 import os
 
@@ -13,12 +13,12 @@ class Schema(fbase.XmlFileBase):
             f'{{{const.NS_XS}}}appinfo': self.l_appinfo,
             f'{{{const.NS_XS}}}import': self.l_import,
             f'{{{const.NS_LINK}}}linkbaseRef': self.l_linkbase_ref,
+            f'{{{const.NS_LINK}}}roleType': self.l_roletype,
+            f'{{{const.NS_LINK}}}arcroleType': self.l_arcroletype,
             f'{{{const.NS_XS}}}element': self.l_element,
         }
         self.imports = {}
         self.linkbase_refs = {}
-        self.role_types = {}
-        self.arcrole_types = {}
         self.elements = {}  # Elements, which are not concepts
         self.taxonomy = container_taxonomy
         self.pool = container_pool
@@ -65,10 +65,10 @@ class Schema(fbase.XmlFileBase):
             self.pool.discovered[href] = True
 
     def l_roletype(self, e):
-        pass
+        roletype.RoleType(e, self)
 
     def l_arcroletype(self, e):
-        pass
+        arcroletype.ArcroleType(e, self)
 
     def l_import(self, e):
         href = e.get('schemaLocation')

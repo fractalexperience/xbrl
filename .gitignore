@@ -131,3 +131,8 @@ pluginAdvertiser.xml
 wsl.distributions.xml
 _windows
 inspection
+
+_templates
+_static
+index.rst
+conf.py

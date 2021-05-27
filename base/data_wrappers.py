@@ -1,4 +1,5 @@
-import collections, enum
+import collections
+import enum
 
 """ Data wrapper of the entryPoint element inside a taxonomy package. """
 EntryPoint = collections.namedtuple('EntryPoint', 'Name,Url,Description')

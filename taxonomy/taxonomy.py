@@ -32,8 +32,13 @@ class Taxonomy:
         self.idx_pi_drs = {}
         """ All table resources in taxonomy """
         self.tables = {}
-
+        """ All role types in all schemas """
+        self.role_types = {}
+        """ All arcrole types in all schemas """
+        self.arcrole_types = {}
+        """ Global resources - these, which have an id attribute """
         self.resources = {}
+        """ All locators """
         self.locators = {}
 
         self.load()
@@ -49,6 +54,8 @@ class Taxonomy:
         return '\n'.join([
             f'Schemas: {len(self.schemas)}',
             f'Linkbases: {len(self.linkbases)}',
+            f'Role Types: {len(self.role_types)}',
+            f'Arcrole Types: {len(self.arcrole_types)}',
             f'Concepts: {len(self.concepts)}',
             f'Labels: {sum([0 if not "label" in c.resources else len(c.resources["label"]) for c in self.concepts.values()])}',
             f'References: {sum([0 if not "reference" in c.resources else len(c.resources["reference"]) for c in self.concepts.values()])}',

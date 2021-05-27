@@ -152,7 +152,14 @@ class XLink(ebase.XmlElementBase):
     def try_connect_resource_concept(self, c, href):
         res = self.linkbase.taxonomy.resources.get(href, None)
         if res is None:
-            print('Cannot find global resource: ', href)
+            self.try_connect_roletype(c, href)
             return
         key = f'{res.lang}|{res.role}' if res.lang is not None and res.role is not None else res.xlabel
         c.resources.setdefault(res.name, {}).setdefault(key, []).append(res)
+
+    def try_connect_roletype(self, c, href):
+        rt = self.linkbase.taxonomy.role_types.get(href, None)
+        if rt is None:
+            print('Cannot find role type: ', href)
+            return
+        c.resources.setdefault(rt.name, {}).setdefault(rt.role_uri, []).append(rt)
