@@ -12,16 +12,16 @@ def u_dct_list(dct, key, val):
     lst.append(val)
 
 
-def get_label(res_list, lang='en', role='/label'):
-    return ','.join([lbl.text for lbl in get_resource_nlr(res_list, 'label', lang, role)])
+def get_label(lst, lang='en', role='/label'):
+    return ','.join([lbl.text for lbl in get_resource_nlr(lst, 'label', lang, role)]) if lst else None
 
 
-def get_rc_label(res_list):
-    return ','.join([lbl.text for lbl in get_resource_nlr(res_list, 'label', 'en', const.ROLE_LABEL_RC)])
+def get_rc_label(lst):
+    return ','.join([lbl.text for lbl in get_resource_nlr(lst, 'label', 'en', const.ROLE_LABEL_RC)]) if lst else None
 
 
-def get_db_label(res_list):
-    return ','.join([lbl.text for lbl in get_resource_nlr(res_list, 'label', 'en', const.ROLE_LABEL_DB)])
+def get_db_label(lst):
+    return ','.join([lbl.text for lbl in get_resource_nlr(lst, 'label', 'en', const.ROLE_LABEL_DB)]) if lst else None
 
 
 def get_reference(res_list, lang='en', role='/label'):
@@ -32,13 +32,13 @@ def get_resource_nlr(res_list, name, lang, role):
     # res is a dictionary where the key is lang + role and value is a list of corresponding resources
     res = res_list.get(name, None)
     if res is None:
-        return None
+        return []
     return res.get(f'{lang}|{role}', get_resource_nlr_partial(res, lang, role))
 
 
 def get_resource_nlr_partial(res, lang, role):
     l = [v for k, v in res.items() if (lang is None or k.startswith(lang)) and (role is None or k.endswith(role))]
-    return list(itertools.chain(*l))
+    return list(itertools.chain(*l)) if l else []
 
 
 def escape_xml(s):
