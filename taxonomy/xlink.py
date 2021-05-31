@@ -92,6 +92,7 @@ class XLink(ebase.XmlElementBase):
             if nested_list is None:
                 continue
             for res2 in nested_list:
+                res2.parent = res
                 key = f'{res2.lang}|{res2.role}' if res2.lang or res2.role else res2.xlabel
                 if isinstance(res2, breakdown.Breakdown):
                     res2.axis = a.axis
@@ -108,6 +109,7 @@ class XLink(ebase.XmlElementBase):
         resource_list = self.resources.get(a.xl_to, None)
         if resource_list is not None:
             for res2 in resource_list:
+                res2.parent = res
                 key = f'{res2.lang}|{res2.role}' if res2.lang or res2.role else res2.xlabel
                 res.nested.setdefault(res2.name, {}).setdefault(key, []).append(res2)
 

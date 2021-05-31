@@ -13,15 +13,15 @@ def u_dct_list(dct, key, val):
 
 
 def get_label(lst, lang='en', role='/label'):
-    return ','.join([lbl.text for lbl in get_resource_nlr(lst, 'label', lang, role)]) if lst else None
+    return ','.join([lbl.text for lbl in get_resource_nlr(lst, 'label', lang, role)]) if lst else ''
 
 
 def get_rc_label(lst):
-    return ','.join([lbl.text for lbl in get_resource_nlr(lst, 'label', 'en', const.ROLE_LABEL_RC)]) if lst else None
+    return ','.join([lbl.text for lbl in get_resource_nlr(lst, 'label', 'en', const.ROLE_LABEL_RC)]) if lst else ''
 
 
 def get_db_label(lst):
-    return ','.join([lbl.text for lbl in get_resource_nlr(lst, 'label', 'en', const.ROLE_LABEL_DB)]) if lst else None
+    return ','.join([lbl.text for lbl in get_resource_nlr(lst, 'label', 'en', const.ROLE_LABEL_DB)]) if lst else ''
 
 
 def get_reference(res_list, lang='en', role='/label'):
@@ -38,7 +38,8 @@ def get_resource_nlr(res_list, name, lang, role):
 
 def get_resource_nlr_partial(res, lang, role):
     l = [v for k, v in res.items() if (lang is None or k.startswith(lang)) and (role is None or k.endswith(role))]
-    return list(itertools.chain(*l)) if l else []
+    result = list(itertools.chain(*l))
+    return [] if result is None else result
 
 
 def escape_xml(s):
