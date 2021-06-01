@@ -4,7 +4,6 @@ from xbrl.taxonomy import resource
 class TableResource(resource.Resource):
     """ Implements a Table Linkbase resource """
     def __init__(self, e, container_xlink=None):
-        self.span = 0
         super().__init__(e, container_xlink)
 
     def compile(self, names=None, lvl=0, s_node=None):

@@ -12,9 +12,8 @@ class Breakdown(tlb_resource.TableResource):
         super().__init__(e, container_xlink)
 
     def compile(self, names=None, lvl=0, header=None, s_node=None):
-        header = self.parent.headers.setdefault(self.axis, {})
         structure = self.parent.structure.setdefault(self.axis, [])
         names = ['ruleNode', 'aspectNode', 'conceptRelationshipNode', 'dimensionRelationshipNode']
-        sn = str_node.StructureNode(None, self)
+        sn = str_node.StructureNode(None, self, True)
         structure.append(sn)
         return super().compile(names, 0, sn)

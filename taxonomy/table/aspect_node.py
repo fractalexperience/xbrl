@@ -9,5 +9,4 @@ class AspectNode(def_node.DefinitionNode):
 
     def compile(self, names=None, lvl=0, s_node=None):
         sn = str_node.StructureNode(s_node, self)
-        # header.setdefault(lvl, []).append(data_wrappers.StructureNode(self, 'sn_an'))
         super().compile(names, lvl, sn)
