@@ -1,5 +1,4 @@
 from xbrl.taxonomy.table import def_node, str_node
-from xbrl.base import data_wrappers
 
 
 class AspectNode(def_node.DefinitionNode):

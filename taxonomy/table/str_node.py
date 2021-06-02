@@ -7,6 +7,7 @@ class StructureNode:
         self.span = 0
         self.grayed = grayed
         self.nested = None
+        self.restrictions = {}
         if self.parent is not None:
             if parent.nested is None:
                 parent.nested = []

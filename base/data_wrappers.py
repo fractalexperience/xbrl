@@ -18,5 +18,3 @@ Enumeration = namedtuple('Enumeration', 'Key,Concepts,Members')
 BaseSetNode = namedtuple('BaseSetNode', 'Concept,Level,Arc')
 
 Axis = enum.Enum('Axis', 'X Y Z')
-
-# StructureNode = namedtuple('StructureNode', 'resource, value')
