@@ -106,6 +106,8 @@ DEFINITIONNODE_SUBTREE_ARCROLE = 'http://xbrl.org/arcrole/2014/definition-node-s
 DEFINITIONNODE_SUBTREE_ARCROLE_2013 = 'http://xbrl.org/arcrole/PR/2013-12-18/definition-node-subtree'
 ASPECTNODE_FILTER_ARCROLE = 'http://xbrl.org/arcrole/2014/aspect-node-filter'
 ASPECTNODE_FILTER_ARCROLE_2013 = 'http://xbrl.org/arcrole/PR/2013-12-18/aspect-node-filter'
+# Formula
+NS_FORMULA = 'http://xbrl.org/2008/formula'
 # Assertions
 ASSERTION_SET_ARCROLE = 'http://xbrl.org/arcrole/2008/assertion-set'
 ASSERTION_UNSATISFIED_SEVERITY_ARCROLE = 'http://xbrl.org/arcrole/2016/assertion-unsatisfied-severity'

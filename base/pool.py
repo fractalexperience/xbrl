@@ -1,4 +1,6 @@
 import os
+import zipfile
+from lxml import etree as lxml
 from xbrl.base import resolver, util
 from xbrl.taxonomy import taxonomy, schema, tpack, linkbase
 from xbrl.instance import instance
@@ -50,6 +52,16 @@ class Pool:
             key = location
         self.add_instance(xid, key, attach_taxonomy)
         return xid
+
+    def add_instance_archive(self, archive_location, filename, key=None, attach_taxonomy=False):
+        if not os.path.exists(archive_location):
+            return
+        archive = zipfile.ZipFile(archive_location)
+        zil = archive.infolist()
+        xid_file = [f for f in zil if f.filename.endswith(filename)][0]
+        with archive.open(xid_file) as xf:
+            root = lxml.XML(xf.read())
+            return self.add_instance_element(root, xid_file if key is None else key, attach_taxonomy)
 
     def add_instance_element(self, e, key=None, attach_taxonomy=False):
         xid = instance.Instance(container_pool=self, root=e)

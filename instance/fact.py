@@ -3,7 +3,6 @@ from xbrl.base import ebase
 
 class Fact(ebase.XmlElementBase):
     def __init__(self, default_id, e):
-        self.id = default_id
         self.context_ref = e.attrib.get('contextRef')
         self.context = None
         self.unit_ref = e.attrib.get('unitRef')
@@ -14,10 +13,12 @@ class Fact(ebase.XmlElementBase):
         self.footnotes = []
         self.nested_facts = {}
         self.counter = 0
-        parsers = {'default': self.load_nested_facts}
+        parsers = {'default': self.l_nested}
         super().__init__(e, parsers)
+        if self.id is None:
+            self.id = default_id
 
-    def load_nested_facts(self, e):
+    def l_nested(self, e):
         self.counter += 1
         for e2 in e.iterchildren():
             fct = Fact(f'{self.id}.{self.counter}', e2)
