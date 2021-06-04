@@ -11,6 +11,7 @@ class Table(tlb_resource.TableResource):
 
     def compile(self, names=None, lvl=0, s_node=None):
         super().compile(['breakdown'])
+
         for s_lst in self.structure.values():
             depth = max([self.get_max_depth(sn, 0) for sn in s_lst])
             for sn in s_lst:
