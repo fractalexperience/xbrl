@@ -10,9 +10,7 @@ class XmlElementBase:
         self.prefix = e.prefix
         self.qname = f'{self.prefix}:{self.name}' if self.prefix else self.name
         self.namespace = util.get_namespace(str(e.tag))
-        fid = e.attrib.get('id')
-        if fid is not None:
-            self.id = fid
+        self.id = e.attrib.get('id')
         self.lang = None if e is None else e.attrib.get(f'{{{const.NS_XML}}}lang')
         self.load(e)
 

@@ -1,5 +1,4 @@
-from xbrl.base import const, element
-import itertools
+from xbrl.base import const, element, util
 
 
 class Concept(element.Element):
@@ -13,6 +12,11 @@ class Concept(element.Element):
         hu = e.attrib.get(f'{{{const.NS_EXTENSIBLE_ENUMERATIONS}}}headUsable')
         self.head_usable = hu is not None and (hu.lower() == 'true' or hu == '1')
         self.typed_domain_ref = e.attrib.get(f'{{{const.NS_XBRLDT}}}typedDomainRef')
+        self.is_dimension = self.substitution_group.endswith('dimensionItem')
+        self.is_hypercube = self.substitution_group.endswith('hypercubeItem')
+        self.is_explicit_dimension = True if self.is_dimension and self.typed_domain_ref is None else False
+        self.is_enumeration = True if self.data_type and self.data_type.endswith('enumerationItemType') else False
+        self.is_enumeration_set = True if self.data_type and self.data_type.endswith('enumerationSetItemType') else False
         self.resources = {}  # Related labels - first by lang and then by role
         self.references = {}  # Related reference resources
         self.chain_up = {}  # Related parent concepts. Key is the base set key, value is the list of parent concepts
@@ -28,34 +32,11 @@ class Concept(element.Element):
     def __repr__(self):
         return self.qname
 
-    def get_label(self):
-        return self.get_label_lr(lang='en', role=const.ROLE_LABEL)
+    def get_label(self, lang='en', role='/label'):
+        return util.get_label(self.resources, lang, role)
 
-    def get_reference(self):
-        return self.get_reference_lr(lang='en', role=const.ROLE_REFERENCE)
-
-    def get_label_lr(self, lang, role):
-        lbls = self.get_labels_lr(lang, role)
-        return lbls[0] if lbls else None
-
-    def get_reference_lr(self, lang, role):
-        refs = self.get_references_lr(lang, role)
-        return refs[0] if refs else None
-
-    def get_labels_lr(self, lang, role):
-        return self.get_resources_lr('label', lang, role)
-
-    def get_references_lr(self, lang, role):
-        return self.get_resources_lr('reference', lang, role)
-
-    def get_resources_lr(self, resource_name, lang, role):
-        cres = self.resources.get(resource_name)
-        if cres is None:
-            return None
-        # cres is a dictionary where the key is lang + role and value is a list of corresponding resources
-        llist = [l[1] for l in cres.items()
-                 if (lang is None or l[0].startswith(lang)) and (role is None or l[0].endswith(role))]
-        return list(itertools.chain(*llist))
+    def get_reference(self, lang='en', role='/label'):
+        return util.get_reference(self.resources, lang, role)
 
     def info(self):
         return '\n'.join([

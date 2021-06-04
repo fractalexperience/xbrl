@@ -3,5 +3,4 @@ class Dimension:
         self.concept = concept
         self.container_dr_set = container_dr_set
         self.target_role = arc.target_role if arc else None
-        self.is_explicit = True if self.concept.typed_domain_ref is None else False
-        self.members = {} if self.is_explicit else None
+        self.members = {} if self.concept.is_explicit_dimension else None

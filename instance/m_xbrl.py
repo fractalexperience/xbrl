@@ -20,6 +20,10 @@ class XbrlModel(ebase.XmlElementBase):
         self.filing_indicators = []
         self.taxonomy = None
         self.output = None
+        """ List of available aspects. """
+        self.aspects = set({})
+        """ Key is the aspect name, value is the list of belonging values """
+        self.aspect_values = {}
         self.parsers = {
             'default': self.l_fact,
             f'{{{const.NS_XBRLI}}}xbrl': self.l_xbrl,
@@ -34,7 +38,6 @@ class XbrlModel(ebase.XmlElementBase):
             f'{{{const.NS_FIND}}}fIndicators': self.l_filing_indicators,
             f'{{{const.NS_FIND}}}filingIndicator': self.l_filing_indicator
         }
-        self.l_children(e)
         super().__init__(e, self.parsers)
         self.compile()
 
@@ -51,14 +54,30 @@ class XbrlModel(ebase.XmlElementBase):
 
     def l_context(self, e):
         ctx = context.Context(e)
+        asp = 'entityIdentifierAspect'
+        self.aspects.add(asp)
+        # Note that entity scheme is ignored here. We presume that all identifiers are inside the same namespace.
+        self.aspect_values.setdefault(asp, set({})).add(ctx.entity_identifier)
+        asp = 'periodAspect'
+        self.aspects.add(asp)
+        self.aspect_values.setdefault(asp, set({})).add(ctx.get_period_string())
+        for d, m in ctx.descriptors.items():  # Descriptors contains XML elements as item values
+            self.aspects.add(d)
+            self.aspect_values.setdefault(d, set({})).add(m.text if m.tag.endswith('explicitMember') else m[0].text)
         self.contexts[ctx.id] = ctx
 
     def l_unit(self, e):
         uni = unit.Unit(e)
+        asp = 'unitAspect'
+        self.aspects.add(asp)
+        self.aspect_values.setdefault(asp, set({})).add(uni.get_aspect_value())
         self.units[uni.id] = uni
 
     def l_fact(self, e):
         fct = fact.Fact(len(self.facts) + 1, e)
+        asp = 'conceptAspect'
+        self.aspects.add(asp)
+        self.aspect_values.setdefault(asp, set({})).add(fct.qname)
         self.facts[fct.id] = fct
 
     def l_footnote(self, e):

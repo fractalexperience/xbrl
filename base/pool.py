@@ -1,4 +1,6 @@
 import os
+import zipfile
+from lxml import etree as lxml
 from xbrl.base import resolver, util
 from xbrl.taxonomy import taxonomy, schema, tpack, linkbase
 from xbrl.instance import instance
@@ -35,7 +37,6 @@ class Pool:
             f'Taxonomy schemas: {len(self.schemas)}',
             f'Taxonomy linkbases: {len(self.linkbases)}'])
 
-
     def index_packages(self):
         """ Index the content of taxonomy packages found in cache/taxonomies/ """
         package_files = [os.path.join(r, file) for r, d, f in
@@ -52,6 +53,16 @@ class Pool:
         self.add_instance(xid, key, attach_taxonomy)
         return xid
 
+    def add_instance_archive(self, archive_location, filename, key=None, attach_taxonomy=False):
+        if not os.path.exists(archive_location):
+            return
+        archive = zipfile.ZipFile(archive_location)
+        zil = archive.infolist()
+        xid_file = [f for f in zil if f.filename.endswith(filename)][0]
+        with archive.open(xid_file) as xf:
+            root = lxml.XML(xf.read())
+            return self.add_instance_element(root, xid_file if key is None else key, attach_taxonomy)
+
     def add_instance_element(self, e, key=None, attach_taxonomy=False):
         xid = instance.Instance(container_pool=self, root=e)
         if key is None:
@@ -61,7 +72,7 @@ class Pool:
 
     def add_instance(self, xid, key=None, attach_taxonomy=False):
         if key is None:
-            key = xid.location
+            key = xid.location_ixbrl
         self.instances[key] = xid
         if attach_taxonomy and xid.xbrl is not None:
             # Ensure that if schema references are relative, the location base for XBRL document is added to them
@@ -93,12 +104,14 @@ class Pool:
         self.packaged_locations = None
         return tax
 
+    """ Adds a taxonomy package provided in the location parameter, creates a taxonomy 
+        using all entrypoints in the package and returns the taxonomy object. """
     def add_package(self, location):
         package = tpack.TaxonomyPackage(location, self.cache_folder)
         self.index_packages()
-        entry_points = [ep[1] for ep in package.entrypoints]
-        self.add_taxonomy(entry_points)
-        return package
+        entry_points = [ep.Url for ep in package.entrypoints]
+        tax = self.add_taxonomy(entry_points)
+        return tax
 
     def add_reference(self, href, base, tax):
         """ Loads schema or linkbase depending on file type. TO IMPROVE!!! """

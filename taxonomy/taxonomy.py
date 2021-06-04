@@ -30,6 +30,17 @@ class Taxonomy:
         self.dr_sets_excluding = {}
         """ Key is primary item QName, value is the list of dimensional relationship sets, where it participates. """
         self.idx_pi_drs = {}
+        """ All table resources in taxonomy """
+        self.tables = {}
+        """ All role types in all schemas """
+        self.role_types = {}
+        """ All arcrole types in all schemas """
+        self.arcrole_types = {}
+        """ Global resources - these, which have an id attribute """
+        self.resources = {}
+        """ All locators """
+        self.locators = {}
+
         self.load()
         self.compile()
 
@@ -43,8 +54,20 @@ class Taxonomy:
         return '\n'.join([
             f'Schemas: {len(self.schemas)}',
             f'Linkbases: {len(self.linkbases)}',
+            f'Role Types: {len(self.role_types)}',
+            f'Arcrole Types: {len(self.arcrole_types)}',
             f'Concepts: {len(self.concepts)}',
-            f'Hierarchies: {len(self.base_sets)}'])
+            f'Labels: {sum([0 if not "label" in c.resources else len(c.resources["label"]) for c in self.concepts.values()])}',
+            f'References: {sum([0 if not "reference" in c.resources else len(c.resources["reference"]) for c in self.concepts.values()])}',
+            f'Hierarchies: {len(self.base_sets)}',
+            f'Dimensional Relationship Sets: {len(self.base_sets)}',
+            f'Dimensions: {len([c for c in self.concepts.values() if c.is_dimension])}',
+            f'Hypercubes: {len([c for c in self.concepts.values() if c.is_hypercube])}',
+            f'Enumerations: {len([c for c in self.concepts.values() if c.is_enumeration])}',
+            f'Enumerations Sets: {len([c for c in self.concepts.values() if c.is_enumeration_set])}',
+            f'Table Groups: {len([c for c in self.concepts.values() if "table" in c.resources])}',
+            f'Tables: {len(self.tables)}'
+        ])
 
     def load(self):
         for ep in self.entry_points:
@@ -75,11 +98,20 @@ class Taxonomy:
         return enumerations
 
     def compile(self):
-        for lb in self.linkbases.items():
-            for xl in lb[1].links:
+        self.compile_linkbases()
+        # self.compile_dr_sets()
+        # self.compile_tables()
+
+    def compile_tables(self):
+        pass
+
+    def compile_linkbases(self):
+        for lb in self.linkbases.values():
+            for xl in lb.links:
                 xl.compile()
-        for it in self.base_sets.items():
-            bs = it[1]
+
+    def compile_dr_sets(self):
+        for bs in self.base_sets.values():
             if bs.arc_name != 'definitionArc':
                 continue
             if bs.arcrole == const.XDT_DIMENSION_DEFAULT_ARCROLE:

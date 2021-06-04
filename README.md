@@ -1,75 +1,29 @@
 # XBRL-Model
 A Lightweight XBRL Taxonomy and Instance Document Model
 
-
-
 ## Overview
 
 XBRL stands for e**X**tensible **B**usiness **R**eporting **L**anguage. XBRL is the open international standard for digital business reporting, managed by a global not for profit consortium, [XBRL International](https://www.xbrl.org/).  
 
-XBRL-Model is a Python based framework, which includes parsers and data objects to represent XBRL instance documents and taxonomies according various XBRL specifications. The following specifications are supported: 
+The XBRL Model is able to parse XBRL instance documents and companion taxonomies and extract information such as reporting facts and their descriptors, reporting artifacts, such as taxonomy concepts, labels, references, hierarchies, enumerations, dimensions etc. It is equipped with a cache manager to allow efficiently maintain Web resources, as well as a package manager, which allows to load taxonomies  from taxonomy packages, where all files are distributed in a form of a ZIP archive.
 
-XBRL v.2.1 - https://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html
+Special attention is paid to efficient in-memory storage of various resources. There is a data pool, which allows objects, which are reused across different taxonomies to be stored in memory only once. This way it is possible to maintain multiple entry points and multiple taxonomy versions at the time, without a risk of memory overflow. 
 
-XBRL Dimensions - https://www.xbrl.org/specification/dimensions/rec-2012-01-25/dimensions-rec-2006-09-18+corrected-errata-2012-01-25-clean.html
-
-Extensible Enumerations - https://www.xbrl.org/Specification/extensible-enumerations-2.0/REC-2020-02-12/extensible-enumerations-2.0-REC-2020-02-12.html
-
-
+For more information see project's [Web page](https://fractalexperience.github.io/xbrl/).
 
 ## Getting Started
 
-Install package
+Download package
 
 ``` 
 git clone https://github.com/fractalexperience/xbrl.git
 ```
 
-
-
 ## Examples
 
-**Ex1**: Create a data pool and open an instance document
+See the examples page at: [https://fractalexperience.github.io/xbrl/examples.html](https://fractalexperience.github.io/xbrl/examples.html) for more instructions about package usage.
 
-``` python
+## XBRL Explained 
 
-location = 'https://www.sec.gov/Archives/edgar/data/1341439/000156459020056896/orcl-10q_20201130_htm.xml'
-# Set cache folder
-cache_filder = os.path.join(dirname, '..\\cache')
-# Create data pool
-data_pool = pool.Pool(cache_filder)
-# Open instance document
-data_pool.add_instance(location=location, key=location, attach_taxonomy=True)
-print('Data pool info')
-print('----------------------')
-print(data_pool.info())
-
-```
-
-**Ex2**: Query a taxonomy package to extract contained taxonomy entry points
-
-``` python
-from xbrl import tpack
-
-location = 'https://dev.eiopa.europa.eu/Taxonomy/Full/2.5.0/S2/EIOPA_SolvencyII_XBRL_Taxonomy_2.5.0_hotfix.zip'
-cache_folder = '../cache'  # The cache folder is needed to store the taxonomy package for further use
-package = tpack.TaxonomyPackage(location, cache_folder)
-for ep in package.entrypoints:  # Each entrypoint is described with a prefix, URL and description
-    prefix = ep[0]
-    url = ep[1]
-    description = ep[2]
-    print(prefix, url, description)
-```
-
-**Ex3**: Create a data pool and add a taxonomy
-
-```python
-data_pool = pool.Pool('..\\cache')
-data_pool.index_packages()  # Locate available taxonomy packages
-entrypoint = 'http://eiopa.europa.eu/eu/xbrl/s2md/fws/solvency/solvency2/2020-07-15/mod/qrs.xsd'
-taxonomy = data_pool.add_taxonomy([entrypoint])  # Parse taxonomy object
-print(taxonomy.info())
-```
-
-
+Please check the Terminology ([https://fractalexperience.github.io/xbrl/terminology.html](https://fractalexperience.github.io/xbrl/terminology.html)) and XBRL objects page ([https://fractalexperience.github.io/xbrl/objects.html](https://fractalexperience.github.io/xbrl/objects.html)) for brief explanation about data objects and structures inside taxonomies and instance documents. See also the specifications page ([https://fractalexperience.github.io/xbrl/specs.html](https://fractalexperience.github.io/xbrl/specs.html)) about supported XBRL specifications. 
 
