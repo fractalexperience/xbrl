@@ -1,5 +1,4 @@
-from xbrl.taxonomy.table import table, breakdown, aspect_node, rule_node, cr_node, dr_node, str_node
-from xbrl.taxonomy import resource
+from xbrl.taxonomy.table import breakdown, aspect_node, rule_node, cr_node, dr_node, str_node
 
 
 class TableEngine:
@@ -10,8 +9,13 @@ class TableEngine:
             Key is table Id, value is the corresponding  x,y,z structure """
         self.structures = {}
         self.headers = {}
+        self.cells = {}
         self.resource_names = ['breakdown', 'ruleNode', 'aspectNode',
                                'conceptRelationshipNode', 'dimensionRelationshipNode']
+
+    def compile_cells(self, t):
+        """ Returns a 3 dimensional array with table cells. """
+        pass
 
     def compile_table(self, t):
         struct = self.structures.setdefault(t.xlabel, {})

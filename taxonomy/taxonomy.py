@@ -100,10 +100,6 @@ class Taxonomy:
     def compile(self):
         self.compile_linkbases()
         # self.compile_dr_sets()
-        # self.compile_tables()
-
-    def compile_tables(self):
-        pass
 
     def compile_linkbases(self):
         for lb in self.linkbases.values():
