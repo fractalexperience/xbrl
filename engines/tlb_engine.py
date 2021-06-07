@@ -1,4 +1,5 @@
 from xbrl.taxonomy.table import breakdown, aspect_node, rule_node, cr_node, dr_node, str_node
+from xbrl.engines import html_engine
 
 
 class TableEngine:
@@ -124,3 +125,41 @@ class TableEngine:
         if t is None:
             return
         self.compile_table(t)
+
+    def to_html(self):
+        html = html_engine.HtmlEngine()
+        html.add_header()
+        for tid, headers in self.headers.items():
+            tbl = self.taxonomy.tables.get(tid, None)
+            html.add(['<h3>', tbl.get_label(), '</h3>'])
+            html.add_table()
+            hdrz = headers.get('z', None)
+            hdry = headers.get('y', None)
+            hdrx = headers.get('x', None)
+            if hdrx is None or hdry is None:
+                html.add(f'<tr><td><p class="err">Invalid table definition {tbl.xlabel}. Cannot render.</p></td></tr>')
+            if hdrz is None:
+                hdrz = {}
+                sn = str_node.StructureNode(None, None, False)
+                hdrz.setdefault(1, []).append(sn)
+                self.render_zyx(tbl, html, hdrz, hdry, hdrx)
+            html.finalize_table()
+        html.finalize()
+        return ''.join(html.output)
+
+    def render_zyx(self, tbl, html, hdrz, hdry, hdrx):
+        lowest_z = hdrz[max(hdrz)]
+        for snz in lowest_z:
+            self.render_yx(tbl, html, snz, hdry, hdrx)
+
+    def render_yx(self, tbl, html, snz, hdry, hdrx):
+        lowest_y = hdry[max(hdry)]
+        lowest_x = hdrx[max(hdrx)]
+        for row, hx in hdrx.items():
+            html.add('<tr>')
+            if row == 0:
+                html.add(f'<td colspan="{len(lowest_y)}" rowspan="{len(lowest_x)}">{tbl.get_rc_label()}</td>')
+            for snx in hx:
+                cs = f' colspan="{snx.span}"' if snx.span > 1 else ''
+                html.add(f'<td{cs}>{("" if snx.grayed else snx.origin.get_label())}</td>')
+            html.add('</tr>')

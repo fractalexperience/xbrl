@@ -30,10 +30,9 @@ class XmlFileBase(ebase.XmlElementBase):
                 pck = t[0]
                 content = pck.get_url(url)
                 return lxml.XML(content)
-        """ If there is a resolver, download and cache the resource and load it. """
         filename = url
-        if self.pool and self.pool.resolver:
-            filename = self.pool.resolver.cache(url)
+        if self.pool:
+            filename = self.pool.cache(url)
         elif url.startswith('http://') or url.startswith('https://'):
             filename, headers = urllib.request.urlretrieve(url)
         dom = lxml.parse(filename)

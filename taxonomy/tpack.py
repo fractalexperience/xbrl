@@ -4,16 +4,15 @@ from lxml import etree as lxml
 from xbrl.base import const, resolver, util, data_wrappers
 
 
-class TaxonomyPackage:
+class TaxonomyPackage(resolver.Resolver):
     """ Implements taxonomy package functionality """
-    def __init__(self, location, cache_folder=None):
-        self.cache_folder = cache_folder if cache_folder else '../cache'
+    def __init__(self, location, cache_folder=None, output_folder=None):
+        super().__init__(cache_folder, output_folder)
         self.archive = None
         self.location = location
         if location.startswith('http'):
             # Download the taxonomy package and save in the cache folder
-            cache_manager = resolver.Resolver(os.path.join(self.cache_folder, 'taxonomies'))
-            self.location = cache_manager.cache(location)
+            self.location = self.cache(location)
         """ Entry points is a list of tuples with following structure: (prefix, location, description) """
         self.entrypoints = []
         """ Key is element name, value is element text. """

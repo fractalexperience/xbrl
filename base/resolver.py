@@ -1,18 +1,29 @@
 import urllib.request
-import os
+import os, tempfile
 import shutil
 from xbrl.base import const, util
 
 
 class Resolver:
-    def __init__(self, cache_folder=None):
-        dirname, filename = os.path.split(os.path.abspath(__file__))
-        if cache_folder is None:
-            self.cache_folder = os.path.join(dirname, 'cache')
-        else:
-            self.cache_folder = cache_folder
-        if not os.path.exists(self.cache_folder):
-            os.mkdir(self.cache_folder)
+    def __init__(self, cache_folder=None, output_folder=None):
+        self.cache_folder = cache_folder
+        self.output_folder = output_folder
+        if self.cache_folder is None:
+            temp_dir = tempfile.gettempdir()
+            xbrl_dir = os.path.join(temp_dir, 'xbrl')
+            if not os.path.exists(xbrl_dir):
+                os.mkdir(xbrl_dir)
+            if self.output_folder is None:
+                self.output_folder = os.path.join(xbrl_dir, 'output')
+                if not os.path.exists(self.output_folder):
+                    os.mkdir(self.output_folder)
+            cache_dir = os.path.join(xbrl_dir, 'cache')
+            if not os.path.exists(cache_dir):
+                os.mkdir(cache_dir)
+            self.cache_folder = cache_dir
+        self.taxonomies_folder = os.path.join(self.cache_folder, 'taxonomies')
+        if not os.path.exists(self.taxonomies_folder):
+            os.mkdir(self.taxonomies_folder)
 
     def cache(self, location):
         if location is None:
