@@ -1,0 +1,2 @@
+**XBRL Taxonomies** include a large amount of different objects such as **Reporting Concept** definitions (Metrics), **Dimensions** and their **Members**, **Enumerations**, Lexical information in form of **Labels** and **References** to normative documents, semantic information in form of inter-concept relationships, layout information in form of **Tables**, analytic information in form of **Formulas** etc. {XM} can be used to effectively browse these objects and display them in form of **HTML reports**.
+

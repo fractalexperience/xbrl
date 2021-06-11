@@ -1,0 +1,2 @@
+[Table Linkbase](https://specifications.xbrl.org/spec-group-index-table-linkbase.html) Specification provides a way to define a tabular layout of facts. This layout can be used to **present** XBRL filings as well as to construct user interface to **edit** them. {XM} provides a module, which calculates table content and constraints for each cell. This module is a good basis for both rendering of existing filings and composing a GUI to manipulate underlying facts.
+
