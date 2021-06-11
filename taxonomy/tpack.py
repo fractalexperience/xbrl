@@ -90,11 +90,12 @@ class TaxonomyPackage(resolver.Resolver):
         for e in ep.iterchildren():
             if str(e.tag).endswith('entryPoint'):
                 prefix = None
-                ep = None
+                ep = []
                 desc = None
                 for e2 in e.iterchildren():
                     if str(e2.tag).endswith('entryPointDocument'):
-                        ep = e2.attrib.get('href')
+                        href = e2.attrib.get('href')
+                        ep.append(href)
                     elif str(e2.tag).endswith('name'):
                         prefix = e2.text
                     elif str(e2.tag).endswith('description'):
@@ -119,7 +120,7 @@ class TaxonomyPackage(resolver.Resolver):
         o.append('\nEntry points')
         o.append('------------')
         for ep in self.entrypoints:
-            o.append(f'{ep.Name}, {ep.Url}, {ep.Description}')
+            o.append(f'{ep.Name}, {",".join(ep.Urls)}, {ep.Description}')
         o.append('\nRedirects\n---------')
         for start_string, rewrite_prefix in self.redirects.items():
             o.append(f'{start_string} => {rewrite_prefix}')
