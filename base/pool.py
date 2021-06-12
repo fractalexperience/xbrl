@@ -37,7 +37,9 @@ class Pool(resolver.Resolver):
         for pf in package_files:
             pck = tpack.TaxonomyPackage(pf)
             for ep in pck.entrypoints:
-                self.packaged_entrypoints[ep[1]] = pf
+                eps = ep.Urls
+                for path in eps:
+                    self.packaged_entrypoints[path] = pf
 
     def add_instance_location(self, location, key=None, attach_taxonomy=False):
         xid = instance.Instance(location=location, container_pool=self)
@@ -107,7 +109,7 @@ class Pool(resolver.Resolver):
         using all entrypoints in the package and returns the taxonomy object. """
     def add_package(self, location):
         package = self.cache_package(location)
-        entry_points = [ep.Url for ep in package.entrypoints]
+        entry_points = {f for ep in package.entrypoints for f in ep.Urls}
         tax = self.add_taxonomy(entry_points)
         return tax
 

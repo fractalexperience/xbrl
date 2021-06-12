@@ -162,6 +162,6 @@ class XLink(ebase.XmlElementBase):
     def try_connect_roletype(self, c, href):
         rt = self.linkbase.taxonomy.role_types.get(href, None)
         if rt is None:
-            print('Cannot find role type: ', href)
+            # print('Cannot find role type: ', href)
             return
         c.resources.setdefault(rt.name, {}).setdefault(rt.role_uri, []).append(rt)

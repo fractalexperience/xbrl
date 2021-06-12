@@ -43,7 +43,7 @@ def get_resource_nlr_partial(res, lang, role):
 
 
 def escape_xml(s):
-    return None if not s else s\
+    return '' if not s else s\
         .replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')\
         .replace("'", '&apos;').replace('"', '&quot;')
 
