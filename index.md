@@ -2,6 +2,8 @@
 
 XBRL Model is a Python package for dealing with XBRL data. XBRL stands for e**X**tensible **B**usiness **R**eporting **L**anguage. XBRL is the open international standard for digital business reporting, managed by a global not for profit consortium, [XBRL International](https://www.xbrl.org/). 
 
+## Supported XBRL Specifications
+
 The XBRL Model package includes parsers and data objects to represent both instance documents (containing real data) and XBRL taxonomies (containing metadata). It supports various [XBRL specifications](https://specifications.xbrl.org/specifications.html) - in particular: 
 
 * [XBRL version 2.1](https://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html) - Basic XBRL Specification
