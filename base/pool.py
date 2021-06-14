@@ -101,7 +101,7 @@ class Pool(resolver.Resolver):
 
     """ Stores a taxonomy package from a Web location to local taxonomy package repository """
     def cache_package(self, location):
-        package = tpack.TaxonomyPackage(location, self.cache_folder)
+        package = tpack.TaxonomyPackage(location, self.taxonomies_folder)
         self.index_packages()
         return package
 
