@@ -1,4 +1,4 @@
-# Taxonomy Packages - Examples
+# Taxonomy Packages Examples
 
 
 
@@ -6,7 +6,7 @@
 
 
 
-## Example 1
+## Example 1 - Simplest case
 
 Simplest case of opening a package from a Web location. 
 
@@ -23,7 +23,7 @@ print(package)
 
 
 
-## Example 2
+## Example 2 - HTML Report
 
 Open a taxonomy package from a Web location (in this case ) and create a HTML report for its content in the temporary folder.
 
@@ -46,7 +46,7 @@ rep.save_as(output_file)
 
 
 
-## Example 3
+## Example 3 - List files
 
 List files in a package together with their resolved locations.
 

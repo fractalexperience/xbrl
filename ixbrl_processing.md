@@ -6,7 +6,7 @@
 
 
 
-## Example 1
+## Example 1 - Parse iXBRL vs native XBRL
 
 20-F form from [NORDIC AMERICAN TANKERS Ltd](https://www.sec.gov/Archives/edgar/data/1000177/000114036121014948/0001140361-21-014948-index.html). Create a data pool and open two instance documents containing the same information. The first one is designed as [Inline XBRL](https://www.xbrl.org/specification/inlinexbrl-part1/rec-2013-11-18/inlinexbrl-part1-rec-2013-11-18.html) and contains additional HTML tags. The second one is a native XBRL instance according [XBRL version 2.1](https://www.xbrl.org/Specification/XBRL-2.1/REC-2003-12-31/XBRL-2.1-REC-2003-12-31+corrected-errata-2013-02-20.html), which contains the same information.
 
@@ -37,7 +37,7 @@ print(xid_native)
 
 
 
-## Example 2
+## Example 2 - Batch process a document archive
 
 Batch process daily archive from [companieshouse.gov.uk](http://download.companieshouse.gov.uk/en_accountsdata.html) (around 10000 documents) - strip Inline XBRL content and produce native XBRL instance documents.
 

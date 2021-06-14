@@ -17,6 +17,22 @@ The XBRL Model package includes parsers and data objects to represent both insta
 
 XBRL Model can be used to process large amounts of XBRL filings from open data providers such as [SEC/EDGAR](https://www.sec.gov/), [GOV.UK](https://www.gov.uk/) and many others. It is able to automatically download and unpack Web based data sources and contains a caching mechanism to improve speed when processing Web based taxonomies. It contains an in-memory mechanism to maintain multiple taxonomies, and taxonomy versions in the same time and thus can become a fundament for various Web based applications for XBRL reporting and data analysis.
 
+## Install
+
+Download package
+
+```bash
+git clone https://github.com/fractalexperience/xbrl.git
+```
+
+See examples for basic use cases and source code samples. Note that examples must be executed from the corresponding example folder.
+
+
+
+## Third party components
+
+XBRL Model makes use of **"lxml" XML parser** - https://lxml.de/. This package must be installed prior to running XBRL Model code. Please see https://lxml.de/installation.html for more details.
+
 ## Examples
 
 The package includes a number of examples to illustrate various use cases. Click on links below to see the list of examples.

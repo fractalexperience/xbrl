@@ -1,4 +1,4 @@
-# Taxonomy Discovery - Examples
+# Taxonomy Discovery Examples
 
 
 
