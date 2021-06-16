@@ -4,7 +4,7 @@ import os
 
 
 class Linkbase(fbase.XmlFileBase):
-    def __init__(self, location, container_pool, container_taxonomy):
+    def __init__(self, location, container_pool, container_taxonomy, root=None):
         parsers = {
             f'{{{const.NS_LINK}}}linkbase': self.l_linkbase,
             f'{{{const.NS_LINK}}}calculationLink': self.l_link,
@@ -22,7 +22,7 @@ class Linkbase(fbase.XmlFileBase):
         self.pool = container_pool
         self.links = []
         resolved_location = util.reduce_url(location)
-        super().__init__(resolved_location, container_pool, parsers)
+        super().__init__(resolved_location, container_pool, parsers, root)
         if self.taxonomy is not None:
             self.taxonomy.linkbases[resolved_location] = self
         if self.pool is not None:
@@ -50,7 +50,10 @@ class Linkbase(fbase.XmlFileBase):
     def l_ref(self, e):
         if self.pool is None and self.taxonomy is None:
             return
-        xpointer = e.get(f'{{{const.NS_XLINK}}}href')
-        href = xpointer[:xpointer.find('#')]
+        xpointer = e.attrib.get(f'{{{const.NS_XLINK}}}href')
+        if xpointer.startswith('#'):
+            href = self.location
+        else:
+            href = xpointer[:xpointer.find('#')]
         fragment_identifier = xpointer[xpointer.find('#')+1:]
         self.pool.add_reference(href, self.base, self.taxonomy)

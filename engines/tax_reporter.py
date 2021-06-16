@@ -8,6 +8,60 @@ class TaxonomyReporter(html_helper.HtmlHelper):
         self.document = d
         super().__init__()
 
+    def r_enumeration_sets(self):
+        self.init_output('Enumeration Sets')
+        enum_sets = self.taxonomy.get_enumeration_sets()
+        for k, es in enum_sets.items():
+            self.r_enumeration(es)
+        self.finalize_output()
+
+    def r_enumerations(self):
+        self.init_output('Extensible Enumerations')
+        enums = self.taxonomy.get_enumerations()
+        for k, e in enums.items():
+            self.r_enumeration(e)
+        self.finalize_output()
+
+    def r_enumeration(self, e):
+        parts = e.Key.split('|')
+        linkrole = parts[0] if len(parts)>0 else ''
+        domain = parts[1] if len(parts)>1 else ''
+        head_usable = parts[2] if len(parts)>2 else ''
+        self.add(f'<br/>Link role: <tt>{linkrole}</tt><br/>Domain: <tt>{domain}</tt><br/>Head Usable: <tt>{head_usable}</tt><br/>')
+        self.init_table(['QName', 'Label'])
+        self.add(f'<tr><th colspan="2">Concepts</th></tr>')
+        for c in e.Concepts:
+            self.add(f'<tr><td><tt>{c.qname}</tt></td><td>{c.get_label()}</td></tr>')
+        self.add(f'<tr><th colspan="2">Members</th></tr>')
+        for m in e.Members:
+            self.add(f'<tr><td><tt>{m.qname}</tt></td><td>{m.get_label()}</td></tr>')
+        self.finalize_table()
+
+    def r_base_sets(self, arc_name, arcrole):
+        self.init_output('Hierarchies Report')
+        self.add(f'<hr/>Arc name: {arc_name}<br/>Arc role: {arcrole}<br/>')
+        self.init_table(['definition', 'roleUri'])
+        for bs in [bs for bs in self.taxonomy.base_sets.values() if bs.arc_name == arc_name and bs.arcrole == arcrole]:
+            rt = self.taxonomy.role_types.get(bs.role, None)
+            self.add(f'<tr><td>{rt.definition if rt else "n.a."}</td><td>{bs.role}</td></tr>')
+        self.finalize_table()
+        self.finalize_output()
+
+    def r_base_set(self, arc_name, role, arcrole):
+        rt = self.taxonomy.role_types.get(role, None)
+        self.init_output(rt.definition if rt else 'Hierarchy Report')
+        self.add(f'<hr/>Arc name: {arc_name}<br/>Arc role: {arcrole}<br/>Role: {role}<br/>')
+        nodes = self.taxonomy.get_bs_members(arc_name, role, arcrole)
+        self.add(f'Number of nodes: {len(nodes)}<br/>Max hierarchy depth: {max([n.Level for n in nodes])}')
+        self.init_table(['Concept/QName'])
+        for n in nodes:
+            self.add(f'<tr><td>'
+                     f'<div style="text-indent: {n.Level*20};">{n.Concept.get_label()}</div>'
+                     f'<div style="text-indent: {n.Level*20};"><tt>{n.Concept.qname}</tt></div>'
+                     f'</td></tr>')
+        self.finalize_table()
+        self.finalize_output()
+
     def r_concept(self, c):
         self.add(f'<br/><h4>{c.qname}</h4>')
         self.init_table()
@@ -54,7 +108,6 @@ class TaxonomyReporter(html_helper.HtmlHelper):
         for c in concepts:
             self.r_concept(c)
         self.finalize_output()
-
 
     def r_package(self, tp):
         if not tp.files:

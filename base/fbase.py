@@ -11,10 +11,11 @@ class XmlFileBase(ebase.XmlElementBase):
         self.namespaces = {}  # Key is the prefix and value is the URI
         self.namespaces_reverse = {}  # Key is the UrI and value is the prefix
         self.schema_location_parts = {}
-        if location:  # Loading from a location is prioritized
+        if location:
             self.location = util.reduce_url(location)
             self.base = self.location.replace('\\', '/')[:location.rfind("/")]
-            root = self.get_root()
+            if root is None:  # Only parsing file again the root element is not explicitly passed
+                root = self.get_root()
         if root is None:
             return
         self.l_namespaces(root)
