@@ -1,8 +1,11 @@
 from collections import namedtuple
 import enum
 
-""" Data wrapper of the entryPoint element inside a taxonomy package. """
-EntryPoint = namedtuple('EntryPoint', 'Name,Url,Description')
+""" Data wrapper of the entryPoint element inside a taxonomy package. 
+    Name: Official name, or code of the entry point.
+    Urls: List of URLs for the Web resources needed for that entry point.
+    Description: Some human readable explanation. """
+EntryPoint = namedtuple('EntryPoint', 'Name,Urls,Description')
 
 """ Enumeration refers to a base set composed of definition arcs with domain-member arcrole.
     Key: Base Set Role | Domain | Head Usable 

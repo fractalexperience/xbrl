@@ -53,7 +53,10 @@ class RuleNode(def_node.DefinitionNode):
                     continue
                 restrictions[dimension_qname] = e3.text
 
-    def compile(self, names=None, lvl=0, s_node=None):
-        sn = str_node.StructureNode(s_node, self, self.is_merged)
-        super().compile(names, lvl, sn)
-
+    def get_constraints(self, tag='default'):
+        constraints = {}
+        c_set = self.rule_sets.get(tag, None)
+        if c_set is not None:
+            for asp, mem in c_set.items():
+                constraints[asp] = mem
+        return constraints

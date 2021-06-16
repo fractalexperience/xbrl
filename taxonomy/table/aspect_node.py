@@ -13,6 +13,5 @@ class AspectNode(def_node.DefinitionNode):
                 continue
             self.aspect = e2.tag.split('}')[1]
 
-    def compile(self, names=None, lvl=0, s_node=None):
-        sn = str_node.StructureNode(s_node, self)
-        super().compile(names, lvl, sn)
+    def get_constraints(self, tag='default'):
+        return {self.aspect: None}

@@ -25,8 +25,8 @@ class XLink(ebase.XmlElementBase):
             f'{{{const.NS_LINK}}}loc': self.l_loc,
             f'{{{const.NS_LINK}}}label': self.l_resource,
             f'{{{const.NS_GEN_LABEL}}}label': self.l_resource,
-            f'{{{const.NS_LINK}}}reference': self.l_resource,
-            f'{{{const.NS_GEN_REF}}}reference': self.l_resource,
+            f'{{{const.NS_LINK}}}reference': self.l_reference,
+            f'{{{const.NS_GEN_REF}}}reference': self.l_reference,
             f'{{{const.NS_TABLE}}}table': self.l_table,
             f'{{{const.NS_TABLE}}}breakdown': self.l_breakdown,
             f'{{{const.NS_TABLE}}}ruleNode': self.l_rule_node,
@@ -46,6 +46,10 @@ class XLink(ebase.XmlElementBase):
 
     def l_resource(self, e):
         resource.Resource(e, self)
+
+    def l_reference(self, e):
+        ref = resource.Resource(e, self)
+        ref.origin = e  # Tricky assignment of origin to save memory
 
     def l_table(self, e):
         table.Table(e, self)
@@ -162,6 +166,6 @@ class XLink(ebase.XmlElementBase):
     def try_connect_roletype(self, c, href):
         rt = self.linkbase.taxonomy.role_types.get(href, None)
         if rt is None:
-            print('Cannot find role type: ', href)
+            # print('Cannot find role type: ', href)
             return
         c.resources.setdefault(rt.name, {}).setdefault(rt.role_uri, []).append(rt)

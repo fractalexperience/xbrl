@@ -1,20 +1,13 @@
-import os
-import zipfile
+import os, tempfile, zipfile
 from lxml import etree as lxml
 from xbrl.base import resolver, util
 from xbrl.taxonomy import taxonomy, schema, tpack, linkbase
 from xbrl.instance import instance
 
 
-class Pool:
-    def __init__(self, cache_folder=None):
-        self.cache_folder = cache_folder
-        self.taxonomies_folder = cache_folder
-        if cache_folder:
-            self.resolver = resolver.Resolver(cache_folder)
-            self.taxonomies_folder = os.path.join(cache_folder, 'taxonomies')
-            if not os.path.exists(self.taxonomies_folder):
-                os.mkdir(self.taxonomies_folder)
+class Pool(resolver.Resolver):
+    def __init__(self, cache_folder=None, output_folder=None):
+        super().__init__(cache_folder, output_folder)
         self.taxonomies = {}
         self.discovered = {}
         self.schemas = {}
@@ -44,7 +37,9 @@ class Pool:
         for pf in package_files:
             pck = tpack.TaxonomyPackage(pf)
             for ep in pck.entrypoints:
-                self.packaged_entrypoints[ep[1]] = pf
+                eps = ep.Urls
+                for path in eps:
+                    self.packaged_entrypoints[path] = pf
 
     def add_instance_location(self, location, key=None, attach_taxonomy=False):
         xid = instance.Instance(location=location, container_pool=self)
@@ -104,12 +99,17 @@ class Pool:
         self.packaged_locations = None
         return tax
 
+    """ Stores a taxonomy package from a Web location to local taxonomy package repository """
+    def cache_package(self, location):
+        package = tpack.TaxonomyPackage(location, self.taxonomies_folder)
+        self.index_packages()
+        return package
+
     """ Adds a taxonomy package provided in the location parameter, creates a taxonomy 
         using all entrypoints in the package and returns the taxonomy object. """
     def add_package(self, location):
-        package = tpack.TaxonomyPackage(location, self.cache_folder)
-        self.index_packages()
-        entry_points = [ep.Url for ep in package.entrypoints]
+        package = self.cache_package(location)
+        entry_points = {f for ep in package.entrypoints for f in ep.Urls}
         tax = self.add_taxonomy(entry_points)
         return tax
 
