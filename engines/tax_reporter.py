@@ -8,6 +8,25 @@ class TaxonomyReporter(html_helper.HtmlHelper):
         self.document = d
         super().__init__()
 
+    def r_role_types(self):
+        self.init_output('Role Types')
+        self.init_table(['roleUri', 'Definition', 'usedOn'])
+        for rt in self.taxonomy.role_types.values():
+            self.add(f'<tr><td>{rt.role_uri}</td><td>{rt.definition}</td><td>{",".join(rt.used_on)}</td></tr>')
+        self.finalize_table()
+        self.finalize_output()
+
+    def r_arcrole_types(self):
+        self.init_output('ArcRole Types')
+        self.init_table(['arcroleUri', 'Definition', 'usedOn', 'cyclesAllowed'])
+        for art in self.taxonomy.arcrole_types.values():
+            self.add(f'<tr>'
+                     f'<td>{art.arcrole_uri}</td><td>{art.definition}</td>'
+                     f'<td>{",".join(art.used_on)}</td><td>{art.cycles_allowed}</td><'
+                     f'tr>')
+        self.finalize_table()
+        self.finalize_output()
+
     def r_enumeration_sets(self):
         self.init_output('Enumeration Sets')
         enum_sets = self.taxonomy.get_enumeration_sets()
@@ -18,7 +37,7 @@ class TaxonomyReporter(html_helper.HtmlHelper):
     def r_enumerations(self):
         self.init_output('Extensible Enumerations')
         enums = self.taxonomy.get_enumerations()
-        for k, e in enums.items():
+        for e in sorted(enums.values(), key=lambda e: e.Key):
             self.r_enumeration(e)
         self.finalize_output()
 
@@ -28,13 +47,13 @@ class TaxonomyReporter(html_helper.HtmlHelper):
         domain = parts[1] if len(parts)>1 else ''
         head_usable = parts[2] if len(parts)>2 else ''
         self.add(f'<br/>Link role: <tt>{linkrole}</tt><br/>Domain: <tt>{domain}</tt><br/>Head Usable: <tt>{head_usable}</tt><br/>')
-        self.init_table(['QName', 'Label'])
+        self.init_table(['Label', 'QName'])
         self.add(f'<tr><th colspan="2">Concepts</th></tr>')
-        for c in e.Concepts:
-            self.add(f'<tr><td><tt>{c.qname}</tt></td><td>{c.get_label()}</td></tr>')
+        for c in sorted(e.Concepts, key=lambda co: co.get_enum_label(linkrole)):
+            self.add(f'<tr><td>{c.get_enum_label(linkrole)}</td><td><tt>{c.qname}</tt></td></tr>')
         self.add(f'<tr><th colspan="2">Members</th></tr>')
-        for m in e.Members:
-            self.add(f'<tr><td><tt>{m.qname}</tt></td><td>{m.get_label()}</td></tr>')
+        for m in sorted(e.Members, key=lambda me: me.get_enum_label(linkrole)):
+            self.add(f'<tr><td>{m.get_enum_label(linkrole)}</td><td><tt>{m.qname}</tt></td></tr>')
         self.finalize_table()
 
     def r_base_sets(self, arc_name, arcrole):

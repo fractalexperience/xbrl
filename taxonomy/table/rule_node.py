@@ -13,6 +13,7 @@ class RuleNode(def_node.DefinitionNode):
         self.rule_sets = {'default': {}}
         self.rule_parsers = {
             f'{{{const.NS_FORMULA}}}concept': self.l_formula_concept,
+            f'{{{const.NS_FORMULA}}}period': self.l_formula_period,
             f'{{{const.NS_FORMULA}}}explicitDimension': self.l_explicit_dimension
         }
         super().__init__(e, container_xlink)
@@ -38,6 +39,17 @@ class RuleNode(def_node.DefinitionNode):
                 print(f'Unknown element in formula:concept rule {e2.tag}')
                 continue
             restrictions['concept'] = e2.text
+
+    def l_formula_period(self, e, restrictions):
+        for e2 in e.iterchildren():
+            p = ''
+            if e2.tag == f'{{{const.NS_FORMULA}}}instant':
+                p = e2.attrib.get('value')
+            elif e2.tag == f'{{{const.NS_FORMULA}}}duration':
+                start = e2.attrib.get('start')
+                end = e2.attrib.get('end')
+                p = f'{start}/{end}'
+            restrictions['period'] = p
 
     def l_explicit_dimension(self, e, restrictions):
         dimension_qname = e.attrib.get('dimension')

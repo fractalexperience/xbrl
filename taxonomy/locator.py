@@ -8,7 +8,7 @@ class Locator(ebase.XmlElementBase):
         super().__init__(e)
         href = e.attrib.get(f'{{{const.NS_XLINK}}}href')
         if href.startswith('#'):
-            href = f'{self.xlink.linkbase.location}#{href}'
+            href = f'{self.xlink.linkbase.location}{href}'
         elif href.startswith('..'):
             href = os.path.join(self.xlink.linkbase.base, href)
             href = href.replace('\\', '/')

@@ -13,7 +13,8 @@ def u_dct_list(dct, key, val):
 
 
 def get_label(lst, lang='en', role='/label'):
-    return ','.join([lbl.text for lbl in get_resource_nlr(lst, 'label', lang, role)]) if lst else ''
+    lst = [lbl.text for lbl in get_resource_nlr(lst, 'label', lang, role)]
+    return lst[0] if lst else ''
 
 
 def get_rc_label(lst):

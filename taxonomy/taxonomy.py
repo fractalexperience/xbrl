@@ -91,7 +91,7 @@ class Taxonomy:
             key = f'{c.linkrole}|{c.domain}|{c.head_usable}'
             e = enumerations.get(key)
             if not e:
-                members = self.get_bs_members('definitionArc',c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE)
+                members = self.get_bs_members('definitionArc',c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE, c.domain, c.head_usable)
                 e = data_wrappers.Enumeration(key, [], [m.Concept for m in members])
                 enumerations[key] = e
             e.Concepts.append(c)
@@ -103,7 +103,7 @@ class Taxonomy:
             key = f'{c.linkrole}|{c.domain}|{c.head_usable}'
             e = enum_sets.get(key)
             if not e:
-                members = self.get_bs_members('definitionArc',c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE)
+                members = self.get_bs_members('definitionArc', c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE, c.domain, c.head_usable)
                 if members is None:
                     continue
                 e = data_wrappers.Enumeration(key, [], [m.Concept for m in members])

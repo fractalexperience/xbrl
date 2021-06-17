@@ -45,6 +45,15 @@ class Concept(element.Element):
     def get_label(self, lang='en', role='/label'):
         return util.get_label(self.resources, lang, role)
 
+    def get_enum_label(self, role):
+        labels = self.resources.get('label', None)
+        if labels is None:
+            return None
+        candidates = [l for lbls in labels.values() for l in lbls if l.xlink.role == role]
+        if not candidates:
+            return util.get_label(self.resources)
+        return candidates[0].text
+
     def get_reference(self, lang='en', role='/label'):
         return util.get_reference(self.resources, lang, role)
 
