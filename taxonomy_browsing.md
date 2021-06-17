@@ -33,7 +33,7 @@ print(f'Report created in {output_file}')
 
 
 
-## Example 2 - List Presentation Hierarchies
+## Example 2 - Presentation Hierarchies
 
 Open US-GAAP 2021 Financial Reporting Taxonomy and list all presentation hierarchies in a HTML table. Click [here](us-gaap-2021-presentations.html) to see the result.
 
@@ -169,6 +169,36 @@ rep.r_enumerations()
 output_file = os.path.join(data_pool.output_folder, 'eiopa-250-enumerations.html')
 rep.save_as(output_file)
 print(f'Report created in {output_file}')
+
+```
+
+
+
+## Example 7 - Role Types and Arcrole Types
+
+Loads NTP-KVK version 15 (2020) taxonomy and lists all **roleType** and **arcroleType** elements. Click [here](ntp15-kvk-roletypes.html) and [here](ntp15-kvk-arcroletypes.html) to view results.
+
+```python
+import os
+from xbrl.base import pool
+from xbrl.engines import tax_reporter
+
+
+# NTP-KVK Taxonomy for 2020
+url = 'https://www.nltaxonomie.nl/nt15/kvk/20201209/entrypoints/kvk-rpt-jaarverantwoording-2020-ifrs-full.xsd'
+data_pool = pool.Pool()
+# Load the entrypoint directly from Web.
+tax = data_pool.add_taxonomy([url])
+# Create taxonomy reporter
+rep = tax_reporter.TaxonomyReporter(tax)
+# Create HTML report for role types
+rep.r_role_types()
+output_file = os.path.join(data_pool.output_folder, 'ntp15-kvk-roletypes.html')
+rep.save_as(output_file)
+# Create HTML report for arcrole types
+rep.r_arcrole_types()
+output_file = os.path.join(data_pool.output_folder, 'ntp15-kvk-arcroletypes.html')
+rep.save_as(output_file)
 
 ```
 

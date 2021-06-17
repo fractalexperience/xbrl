@@ -1,0 +1,71 @@
+<html><head><meta charset="utf-8"/>
+<title>ArcRole Types</title>
+</head>
+<body>
+<h1>ArcRole Types</h1>
+<table border="1" cellspacing="0" cellpadding="5">
+<tr>
+<th>arcroleUri</th>
+<th>Definition</th>
+<th>usedOn</th>
+<th>cyclesAllowed</th>
+</tr>
+<tr><td>http://xbrl.org/arcrole/2008/element-label</td><td>element has label</td><td>gen:arc</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/int/dim/arcrole/hypercube-dimension</td><td>Source (a hypercube) contains the target (a dimension) among others.</td><td>definitionArc</td><td>none</td><tr>
+<tr><td>http://xbrl.org/int/dim/arcrole/dimension-domain</td><td>Source (a dimension) has only the target (a domain) as its domain.</td><td>definitionArc</td><td>none</td><tr>
+<tr><td>http://xbrl.org/int/dim/arcrole/domain-member</td><td>Source (a domain) contains the target (a member).</td><td>definitionArc</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/int/dim/arcrole/all</td><td>Source (a primary item declaration) requires a combination of dimension members of the target (hypercube) to appear in the context of the primary item.</td><td>definitionArc</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/int/dim/arcrole/notAll</td><td>Source (a primary item declaration) requires a combination of dimension members of the target (hypercube) not to appear in the context of the primary item.</td><td>definitionArc</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/int/dim/arcrole/dimension-default</td><td>Source (a dimension) declares that there is a default member that is the target of the arc (a member).</td><td>definitionArc</td><td>none</td><tr>
+<tr><td>http://www.nltaxonomie.nl/2017/arcrole/ConceptDisclosure</td><td>Arcrole voor het aangeven van een semantische relatie tussen monetaire concepten en de tekstuele informatie hiervan.</td><td>gen:arc,link:definitionArc</td><td>undirected</td><tr>
+<tr><td>http://www.nltaxonomie.nl/2017/arcrole/ConceptMemberEquivalence</td><td>Arcrole voor het aangeven van een semantische relatie tussen monetaire concepten en equivalente domeinleden.</td><td>gen:arc,link:definitionArc</td><td>undirected</td><tr>
+<tr><td>http://www.nltaxonomie.nl/2017/arcrole/ConceptPolicy</td><td>Arcrole voor het aangeven van een semantische relatie tussen monetaire concepten en de beschrijving van de waarderingsgrondslag hiervan.</td><td>gen:arc,link:definitionArc</td><td>undirected</td><tr>
+<tr><td>http://www.nltaxonomie.nl/2017/arcrole/DynamicLabel</td><td>Arcrole voor het koppelen van een message aan een node.</td><td>gen:arc</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2008/element-reference</td><td>element has reference</td><td>gen:arc</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2008/equality-definition</td><td>typed-dimension domain definition has equality definition</td><td>gen:arc</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2008/variable-set</td><td>variable set has variable</td><td>variable:variableArc</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2008/variable-filter</td><td>variable has filter</td><td>variable:variableFilterArc</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2008/variable-set-filter</td><td>fact variables in variable set have filter</td><td>variable:variableSetFilterArc</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2008/variable-set-precondition</td><td>variable set has precondition</td><td>gen:arc</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2014/table-breakdown</td><td>
+                    breakdown used on the axes of a table
+                </td><td>
+                    table:tableBreakdownArc
+                </td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2014/breakdown-tree</td><td>
+                    root node of a breakdown tree
+                </td><td>
+                    table:breakdownTreeArc
+                </td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2014/table-filter</td><td>
+                    filter applied to table
+                </td><td>
+                    table:tableFilterArc
+                </td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2014/table-parameter</td><td>
+                    parameter of a table
+                </td><td>
+                    table:tableParameterArc
+                </td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2014/definition-node-subtree</td><td>
+                    arc between a parent and child definition node.
+                </td><td>
+                    table:definitionNodeSubtreeArc
+                </td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2014/aspect-node-filter</td><td>
+                    filter applied to aspect node
+                </td><td>
+                    table:aspectNodeFilterArc
+                </td><td>undirected</td><tr>
+<tr><td>http://www.nltaxonomie.nl/2011/arcrole/linkrole-order</td><td>Arcrole for attaching order to Extended LinkRoles inside a DTS</td><td>gen:arc</td><td>none</td><tr>
+<tr><td>http://www.xbrl.org/2013/arcrole/parent-child</td><td>None</td><td>gen:arc</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2008/assertion-set</td><td>assertion set contains assertion</td><td>gen:arc</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2016/assertion-unsatisfied-severity</td><td>
+					assertion severity for unsatisfied evaluations
+				</td><td>
+					gen:arc
+				</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2010/assertion-satisfied-message</td><td>assertion has message for satisfied evaluations</td><td>gen:arc</td><td>undirected</td><tr>
+<tr><td>http://xbrl.org/arcrole/2010/assertion-unsatisfied-message</td><td>assertion has message for unsatisfied evaluations</td><td>gen:arc</td><td>undirected</td><tr>
+</table>
+</body></html>
