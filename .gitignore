@@ -135,7 +135,11 @@ inspection
 _templates
 _static
 codestyles
+inspection
 index.rst
 conf.py
 colors.scheme.xml
 debugger.xml
+filetypes.xml
+editor.xml
+ide-features-trainer.xml
