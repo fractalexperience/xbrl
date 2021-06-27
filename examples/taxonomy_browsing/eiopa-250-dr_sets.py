@@ -13,15 +13,16 @@ tax = data_pool.add_taxonomy([entry_point])
 tax.compile_dr_sets()
 
 for key, drs in tax.dr_sets.items():
+    print()
     print(key)
-    print('Primary items')
+    print('\nPrimary items')
     for pi in drs.primary_items.values():
         print(' '*10*pi.level, pi.concept.qname, pi.concept.get_label())
-    print('Hypercubes\n------------------------')
+    print('\nHypercubes')
     for hc_key, hc in drs.hypercubes.items():
         print(hc.concept.qname, hc.concept.get_label())
-        print('     Dimensions\n------------------------')
+        print('\nDimensions')
         for dim_key, dim in hc.dimensions.items():
-            print(' '*5, dim.concept.qname, dim.concept.get_label(), ' => ', 
+            print(dim.concept.qname, dim.concept.get_label(), ' => ',
                   'typed ... ' if not dim.concept.is_explicit_dimension
                   else ','.join([m.qname for m in dim.members.values()] if dim.members else ''))
