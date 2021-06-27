@@ -134,5 +134,8 @@ inspection
 
 _templates
 _static
+codestyles
 index.rst
 conf.py
+colors.scheme.xml
+debugger.xml
