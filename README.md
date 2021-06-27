@@ -11,19 +11,3 @@ Special attention is paid to efficient in-memory storage of various resources. T
 
 For more information see project's [Web page](https://fractalexperience.github.io/xbrl/).
 
-## Getting Started
-
-Download package
-
-``` 
-git clone https://github.com/fractalexperience/xbrl.git
-```
-
-## Examples
-
-See the examples page at: [https://fractalexperience.github.io/xbrl/examples.html](https://fractalexperience.github.io/xbrl/examples.html) for more instructions about package usage.
-
-## XBRL Explained 
-
-Please check the Terminology ([https://fractalexperience.github.io/xbrl/terminology.html](https://fractalexperience.github.io/xbrl/terminology.html)) and XBRL objects page ([https://fractalexperience.github.io/xbrl/objects.html](https://fractalexperience.github.io/xbrl/objects.html)) for brief explanation about data objects and structures inside taxonomies and instance documents. See also the specifications page ([https://fractalexperience.github.io/xbrl/specs.html](https://fractalexperience.github.io/xbrl/specs.html)) about supported XBRL specifications. 
-
