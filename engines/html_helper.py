@@ -40,6 +40,18 @@ class HtmlHelper:
                 continue
             self.content.append(''.join(tok))
 
+    def add_tr(self, *s):
+        self.add('<tr>')
+        for tok in s:
+            if tok is None:
+                self.add('<td>&nbsp;</td>')
+                continue
+            if isinstance(tok, str):
+                self.add(f'<td>{tok}</td>')
+                continue
+            self.add('<td>', '</td><td>'.join(tok), '</td>')
+        self.add('</tr>')
+
     def finalize_table(self):
         self.content.append('</table>')
 

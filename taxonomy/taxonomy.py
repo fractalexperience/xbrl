@@ -24,12 +24,21 @@ class Taxonomy:
         self.defaults = {}
         """ Default Members - Key is the default member QName, value is the corresponding dimension concept. """
         self.default_members = {}
+
         """ Dimensional Relationship Sets """
         self.dr_sets = {}
         """ Excluding Dimensional Relationship Sets """
         self.dr_sets_excluding = {}
+
         """ Key is primary item QName, value is the list of dimensional relationship sets, where it participates. """
         self.idx_pi_drs = {}
+        """ Key is the Qname of the dimensions. Value is the set of DR keys, where this dimension participates """
+        self.idx_dim_drs = {}
+        """ Key is the QName of the hypercube. Value is the set of DR Keys, where this hypercube participates. """
+        self.idx_hc_drs = {}
+        """ Key is the QName of the member. Value is the set of DR keys, where this member participates. """
+        self.idx_mem_drs = {}
+
         """ All table resources in taxonomy """
         self.tables = {}
         """ All role types in all schemas """
