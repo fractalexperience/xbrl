@@ -13,10 +13,6 @@ class TableReporter(base_reporter.BaseReporter):
         self.resource_names = ['breakdown', 'ruleNode', 'aspectNode', 'conceptRelationshipNode',
                                'dimensionRelationshipNode']
 
-    def compile_cells(self, t):
-        """ Returns a 3 dimensional array with table cells. """
-        pass
-
     def compile_table(self, t):
         struct = self.structures.setdefault(t.xlabel, {})
         self.walk(t, None, struct, None, t.nested, 0)
@@ -157,7 +153,7 @@ class TableReporter(base_reporter.BaseReporter):
             self.combine_aspect_nodes(closed_y, open_y)
             self.combine_aspect_nodes(closed_z, open_z)
 
-            self.render_zyx(tbl, hdrx, open_z, closed_z, open_y, closed_y, open_x, closed_x)
+            self.render_zyx(tbl, hdrx, closed_z, open_y, closed_y, closed_x)
             self.finalize_table()
         self.finalize_output()
         return ''.join(self.content)
@@ -174,14 +170,7 @@ class TableReporter(base_reporter.BaseReporter):
                     continue
                 cn.constraint_set.setdefault('default', {})[on.origin.aspect] = None
 
-    def render_zyx(self, tbl, hdrx, open_z, closed_z, open_y, closed_y, open_x, closed_x):
-        if open_z:
-            # Extra table for open-Z dimensions
-            self.init_table()
-            for on in open_z:
-                self.add(f'<tr><td>{on.origin.aspect}</td><td>*</td></tr>')
-            self.finalize_table()
-
+    def render_zyx(self, tbl, hdrx, closed_z, open_y, closed_y, closed_x):
         self.init_table()
         for snz in closed_z:
             self.render_yx(tbl, snz, hdrx, open_y, closed_y, closed_x)
@@ -248,24 +237,21 @@ class TableReporter(base_reporter.BaseReporter):
     def render_tpl_body(self, snz, sny, closed_x):
         for snx in closed_x:
             self.add('<td>')
-            self.init_table()
-            self.render_constraint_set(snx, 'x')
-            self.render_constraint_set(sny, 'y')
-            self.render_constraint_set(snz, 'z')
-            self.finalize_table()
+            self.render_constraint_set({'x': snx, 'y': sny, 'z': snz})
             self.add('</td>')
 
-    def render_constraint_set(self, sn, axis):
-        if sn is None:
-            return
-        constraints = sn.constraint_set.get('default', {})
-        parent = sn.origin
-        while parent is not None:
-            c_set = parent.get_constraints()
-            if c_set is not None:
-                for a, m in c_set.items():
-                    if a not in constraints:
-                        constraints[a] = m
-            parent = parent.parent
-        for asp, mem in constraints.items():
-            self.add(f'<tr><td>{asp}</td><td>{"*" if mem is None else mem}</td><td>{axis}</td></tr>')
+    def render_constraint_set(self, dct):
+        self.init_table()
+        for axis, sn in dct.items():
+            constraints = sn.constraint_set.get('default', {})
+            parent = sn.origin
+            while parent is not None:
+                c_set = parent.get_constraints()
+                if c_set is not None:
+                    for a, m in c_set.items():
+                        if a not in constraints:
+                            constraints[a] = m
+                parent = parent.parent
+            for asp, mem in constraints.items():
+                self.add(f'<tr><td>{asp}</td><td>{"*" if mem is None else mem}</td><td>{axis}</td></tr>')
+        self.finalize_table()
