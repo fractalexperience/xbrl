@@ -122,6 +122,14 @@ class TaxonomyReporter(html_helper.HtmlHelper):
             self.r_concept(c)
         self.finalize_output()
 
+    def r_concepts_short(self, concepts):
+        self.init_output()
+        self.init_table(['Code', 'QName', 'Label'])
+        for c in concepts:
+            self.add_tr('&nbsp;', c.qname, c.get_label())
+        self.finalize_table()
+        self.finalize_output()
+
     def r_package(self, tp):
         if not tp.files:
             tp.compile()

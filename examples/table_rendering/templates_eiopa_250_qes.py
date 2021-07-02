@@ -12,10 +12,13 @@ ep_code = 'tep'
 xid_file = f'random/{ep_code}_250_instance.xbrl'
 afn = data_pool.cache(doc_url)
 xid = data_pool.add_instance_archive(afn, xid_file, None, True)
-# xid.taxonomy.compile_dr_sets()
 eng = tlb_reporter.TableReporter(xid.taxonomy, xid)
 eng.compile_all()
-output_file = os.path.join(data_pool.output_folder, f'{ep_code}_250_templates.html')
-with open(output_file, 'wt', encoding="utf-8") as f:
-    f.write(eng.render_html())
-print(f'Render saved to {output_file}.', f'{len(eng.structures)} tables processed.', 'Processing time: ', datetime.datetime.now() - t1)
+# for tid in xid.taxonomy.tables:
+ids = ['s2md_tS.22.06.01.04', 's2md_tS.19.01.01.01', 's2md_tS.02.02.01.02', 's2md_tS.08.01.01.01', 's2md_tS.04.01.01.01', 's2md_tS.02.02.01.02']
+for tid in ids:
+    print(tid)
+    output_file = os.path.join(data_pool.output_folder, f'{ep_code}_250_{tid}_templates.html')
+    with open(output_file, 'wt', encoding="utf-8") as f:
+        f.write(eng.render_html(tid))
+print(f'{len(ids)} tables processed.', 'Processing time: ', datetime.datetime.now() - t1)

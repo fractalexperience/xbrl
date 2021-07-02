@@ -41,7 +41,7 @@ class Pool(resolver.Resolver):
                 for path in eps:
                     self.packaged_entrypoints[path] = pf
 
-    def add_instance_location(self, location, key=None, attach_taxonomy=False):
+    def add_instance_location(self, location, key=None, attach_taxonomy=True):
         xid = instance.Instance(location=location, container_pool=self)
         if key is None:
             key = location
@@ -84,8 +84,9 @@ class Pool(resolver.Resolver):
         container_taxonomy.schemas[location] = sh
 
     def add_taxonomy(self, entry_points):
+        ep_list = entry_points if isinstance(entry_points, list) else [entry_points]
         self.packaged_locations = {}
-        for ep in entry_points:
+        for ep in ep_list:
             pf = self.packaged_entrypoints.get(ep)
             if not pf:
                 continue
@@ -93,7 +94,7 @@ class Pool(resolver.Resolver):
             pck.compile()
             for pf in pck.files.items():
                 self.packaged_locations[pf[0]] = (pck, pf[1])  # A tuple
-        tax = taxonomy.Taxonomy(entry_points, self)
+        tax = taxonomy.Taxonomy(ep_list, self)
         key = ','.join(entry_points)
         self.taxonomies[key] = tax
         self.packaged_locations = None
