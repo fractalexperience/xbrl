@@ -1,4 +1,4 @@
-from xbrl.taxonomy.table import breakdown, aspect_node, rule_node, cr_node, dr_node, str_node
+from xbrl.taxonomy.table import breakdown, aspect_node, rule_node, cr_node, dr_node, str_node, layout, cell
 from xbrl.engines import base_reporter
 
 
@@ -9,11 +9,20 @@ class TableReporter(base_reporter.BaseReporter):
             Key is table Id, value is the corresponding  x,y,z structure """
         self.structures = {}
         self.headers = {}
-        self.cells = {}
+        self.layouts = {}
+        self.current_layout = None
+        self.current_z = None
+        self.current_y = None
+        self.current_x = None
         self.resource_names = ['breakdown', 'ruleNode', 'aspectNode', 'conceptRelationshipNode',
                                'dimensionRelationshipNode']
 
+    def compile_table_id(self, table_id):
+        self.compile_table(self.taxonomy.tables.get(table_id, None))
+
     def compile_table(self, t):
+        if t is None:
+            return
         struct = self.structures.setdefault(t.xlabel, {})
         self.walk(t, None, struct, None, t.nested, 0)
         for s_lst in struct.values():
@@ -115,13 +124,29 @@ class TableReporter(base_reporter.BaseReporter):
         for t in self.taxonomy.tables.values():
             self.compile_table(t)
 
-    def compile_table_id(self, table_id):
-        t = self.taxonomy.tables.get(table_id, None)
-        if t is None:
-            return
-        self.compile_table(t)
-
     def render_html(self, table_ids=None):
+        ids = [tid for tid in self.taxonomy.tables.keys()] \
+            if table_ids is None else [table_ids] \
+            if isinstance(table_ids, str) else table_ids
+        self.init_output()
+        for tid in ids:
+            l = self.layouts.get(tid, None)
+            if l is None:
+                return ''
+            self.add(f'<h3>{l.label}</h3>')
+            for cz in l.cells:
+                self.init_table()
+                for cy in cz:
+                    self.add('<tr>')
+                    for cx in cy:
+                        self.add(f'<td colspan="{cx.colspan}" rowspan="{cx.rowspan}" style="text-indent: {cx.indent};">{cx.label}</td>')
+                    self.add('</tr>')
+                self.finalize_table()
+
+        self.finalize_output()
+        return ''.join(self.content)
+
+    def render(self, table_ids=None):
         ids = [tid for tid in self.taxonomy.tables.keys()] \
             if table_ids is None else [table_ids] \
             if isinstance(table_ids, str) else table_ids
@@ -131,12 +156,15 @@ class TableReporter(base_reporter.BaseReporter):
             if headers is None:
                 continue
             tbl = self.taxonomy.tables.get(tid, None)
+            # Create a layout for table
+            self.current_layout = self.layouts.setdefault(tid, layout.Layout(tbl.get_label(), tbl.get_rc_label()))
+
             self.add(['<h3>', tbl.get_label(), '</h3>'])
             hdrz = headers.get('z', None)
             hdry = headers.get('y', None)
             hdrx = headers.get('x', None)
             if hdrx is None or hdry is None:
-                self.add(f'<h4><p class="err">Invalid table definition {tbl.xlabel}. Cannot render.</p></h4>')
+                print(f'Invalid table definition {tbl.xlabel}. Cannot render.')
             if hdrz is None:
                 hdrz = {}
                 sn = str_node.StructureNode(None, None, False)
@@ -148,7 +176,6 @@ class TableReporter(base_reporter.BaseReporter):
             closed_x = [snx for snx in hdrx[max(hdrx)] if not isinstance(snx.origin, aspect_node.AspectNode)]
             open_y = [sny for sny in hdry[max(hdry)] if isinstance(sny.origin, aspect_node.AspectNode)]
             closed_y = [sny for sny in hdry[max(hdry)] if not isinstance(sny.origin, aspect_node.AspectNode)]
-
             self.combine_aspect_nodes(closed_x, open_x)
             self.combine_aspect_nodes(closed_y, open_y)
             self.combine_aspect_nodes(closed_z, open_z)
@@ -170,41 +197,69 @@ class TableReporter(base_reporter.BaseReporter):
                     continue
                 cn.constraint_set.setdefault('default', {})[on.origin.aspect] = None
 
+    def new_table(self):
+        self.current_z = []
+        self.current_layout.cells.append(self.current_z)
+
+    def new_row(self):
+        self.current_y = []
+        self.current_z.append(self.current_y)
+
+    def new_cell(self, c):
+        self.current_x = c
+        self.current_y.append(c)
+
     def render_zyx(self, tbl, hdrx, closed_z, open_y, closed_y, closed_x):
         self.init_table()
         for snz in closed_z:
+            self.new_table()
             self.render_yx(tbl, snz, hdrx, open_y, closed_y, closed_x)
 
     def render_yx(self, tbl, snz, hdrx, open_y, closed_y, closed_x):
         for row, hx in hdrx.items():
+            self.new_row()
+
             self.add('<tr>')
             if row == 0:
                 colspan = len(open_y) + (1 if closed_y else 0) + (1 if tbl.has_rc_labels else 0)
                 rowspan = len(hdrx) + (1 if tbl.has_rc_labels else 0)
                 self.add(f'<td colspan="{colspan}" rowspan="{rowspan}">{tbl.get_rc_label()}</td>')
+                self.new_cell(cell.Cell(label=tbl.get_rc_label(), colspan=colspan, rowspan=rowspan, is_header=True))
+
             for snx in hx:
                 if isinstance(snx.origin, breakdown.Breakdown) and snx.origin.is_open \
                         or isinstance(snx.origin, aspect_node.AspectNode):
                     continue
                 cs = f' colspan="{snx.span}"' if snx.span > 1 else ''
                 self.add(f'<td{cs}>{("" if snx.grayed else snx.origin.get_label())}</td>')
+                self.new_cell(cell.Cell(label=snx.origin.get_label(), colspan=snx.span, is_header=True))
+
             self.add('</tr>')
+
         # Optional RC header
+        self.add('<tr>')
         for snx in closed_x:
             self.add(f'<td>{(snx.origin.get_rc_label())}</td>')
+            self.new_cell(cell.Cell(label=snx.origin.get_rc_label(), is_header=True))
+        self.add('</tr>')
         self.render_y(tbl, snz, closed_y, open_y, closed_x)
 
     def render_y(self, tbl, snz, closed_y, open_y, closed_x):
         if open_y:
             # Extra header for open-y nodes
             self.add('<tr>')
+            self.new_row()
             if closed_y:
                 self.add('<td>&nbsp;</td>')  # Extra cell for closed-Y nodes if any
+                self.new_cell(cell.Cell())
             for sno in open_y:
                 self.add(f'<td>{sno.get_rc_caption()}</td>')
+                self.new_cell(cell.Cell(label=sno.get_rc_caption()))
             if tbl.has_rc_labels:
                 self.add('<td>&nbsp;</td>')
+                self.new_cell(cell.Cell())
             self.add('</tr>')
+
         if not closed_y:
             closed_y = [str_node.StructureNode(None, None, False)]
         self.combine_aspect_nodes(closed_y, open_y)
@@ -214,12 +269,14 @@ class TableReporter(base_reporter.BaseReporter):
     def render_y_agg(self, tbl, snz, sny, open_y, closed_x):
         rc = set({})
         self.add('<tr>')
+        self.new_row()
         if open_y:
             self.render_open_y_header(open_y, rc)
         if sny is not None and sny.origin is not None:
             self.render_closed_y_header(sny, rc)
         if tbl.has_rc_labels:
             self.add(f'<td>{" ".join(rc)}</td>')
+            self.new_cell(cell.Cell(label=" ".join(rc)))
         self.render_tpl_body(snz, sny, closed_x)
         self.add('</tr>')
 
@@ -227,20 +284,24 @@ class TableReporter(base_reporter.BaseReporter):
         for sno in open_y:
             rc.add(sno.origin.get_rc_label())
             self.add(f'<td></td>')
+            self.new_cell(cell.Cell())
 
     def render_closed_y_header(self, sny, rc):
         sny_cap = sny.origin.get_label() if sny.origin is not None else ""
         sny_rc_cap = sny.origin.get_rc_label() if sny.origin is not None else ""
         rc.add(sny_rc_cap)
         self.add(f'<td style="text-indent:{sny.level * 10};">{sny_cap}</td>')
+        self.new_cell(cell.Cell(label=sny_cap, indent=sny.level*10))
 
     def render_tpl_body(self, snz, sny, closed_x):
         for snx in closed_x:
+            c = cell.Cell()
+            self.new_cell(c)
             self.add('<td>')
-            self.render_constraint_set({'x': snx, 'y': sny, 'z': snz})
+            self.render_constraint_set({'x': snx, 'y': sny, 'z': snz}, c)
             self.add('</td>')
 
-    def render_constraint_set(self, dct):
+    def render_constraint_set(self, dct, c):
         self.init_table()
         for axis, sn in dct.items():
             constraints = sn.constraint_set.get('default', {})
@@ -254,4 +315,5 @@ class TableReporter(base_reporter.BaseReporter):
                 parent = parent.parent
             for asp, mem in constraints.items():
                 self.add(f'<tr><td>{asp}</td><td>{"*" if mem is None else mem}</td><td>{axis}</td></tr>')
+                c.add_constraint(asp, mem, axis)
         self.finalize_table()

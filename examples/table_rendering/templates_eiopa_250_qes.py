@@ -18,6 +18,7 @@ eng.compile_all()
 ids = ['s2md_tS.22.06.01.04', 's2md_tS.19.01.01.01', 's2md_tS.02.02.01.02', 's2md_tS.08.01.01.01', 's2md_tS.04.01.01.01', 's2md_tS.02.02.01.02']
 for tid in ids:
     print(tid)
+    eng.render(tid)
     output_file = os.path.join(data_pool.output_folder, f'{ep_code}_250_{tid}_templates.html')
     with open(output_file, 'wt', encoding="utf-8") as f:
         f.write(eng.render_html(tid))
