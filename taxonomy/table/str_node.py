@@ -2,7 +2,7 @@ from xbrl.taxonomy.table import aspect_node
 
 
 class StructureNode:
-    def __init__(self, parent, origin, grayed=False, lvl=0):
+    def __init__(self, parent, origin, grayed=False, lvl=0, fake=False):
         """ Parent structure node in the hierarchy """
         self.parent = parent
         """ Resource, which is the origin of this structure node """
@@ -10,6 +10,7 @@ class StructureNode:
         self.span = 0
         self.level = lvl
         self.grayed = grayed
+        self.fake = fake
         self.nested = None
         """ Contains the untagged (tag='default') and tagged constraint sets for the node. """
         self.constraint_set = {}

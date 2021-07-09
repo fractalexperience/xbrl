@@ -12,3 +12,15 @@ class Table(tlb_resource.TableResource):
         self.open_axes = set({})
         super().__init__(e, container_xlink)
         container_xlink.linkbase.taxonomy.tables[self.xlabel] = self
+
+    def get_label(self):
+        lbl = super().get_label()
+        return self.xlabel if lbl is None else lbl
+
+    def get_rc_label(self):
+        rc = super().get_rc_label()
+        return '' if rc is None else rc
+
+    def get_db_label(self):
+        db = super().get_db_label()
+        return '' if db is None else db
