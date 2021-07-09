@@ -100,7 +100,7 @@ class TableReporter(base_reporter.BaseReporter):
 
     def process_breakdown_node(self, tbl, struct, r, lvl):
         new_struct = struct.setdefault(r.axis, [])  # Creates a new structure for that axis (if not available)
-        new_node = str_node.StructureNode(parent=None, origin=r, grayed=True, lvl=lvl)
+        new_node = str_node.StructureNode(parent=None, origin=r, grayed=True, lvl=lvl, abst=True)
         new_struct.append(new_node)
         self.walk(tbl, r.axis, new_struct, new_node, r.nested, lvl + 1)
 
@@ -118,7 +118,7 @@ class TableReporter(base_reporter.BaseReporter):
     def process_rule_node(self, tbl, axis, struct, parent_node, r, lvl):
         tbl.has_rc_labels = r.get_rc_label() is not None
         tbl.has_db_labels = r.get_db_label() is not None
-        new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=r.is_merged, lvl=lvl)
+        new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=r.is_merged, lvl=lvl, abst=r.is_abstract)
         for tag, rs in r.rule_sets.items():
             new_node.constraint_set.setdefault(tag, {}).update(rs)  # Copy any available restrictions from rule node
         self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
@@ -137,8 +137,10 @@ class TableReporter(base_reporter.BaseReporter):
 
     def init_output_table(self, title=None):
         self.init_output(title, styles={
-            '.fact': 'background-color: AliceBlue;',
-            '.header': 'background-color: PaleGreen;',
+            '.fact': 'background-color: White;',
+            '.grayed': 'background-color: #d0d0d0;',
+            '.header': 'background-color: #d0ffd0;',
+            '.header_abstract': 'background-color: PaleGreen;',
             '.rc': 'background-color: Khaki;',
             '.lu': 'background-color: PaleGreen;',
             '.other': 'background-color: Yellow;'
@@ -248,6 +250,8 @@ class TableReporter(base_reporter.BaseReporter):
 
     def lay_zyx(self, tbl, hdr, h_open, h_closed):
         for snz in h_closed['z']:
+            if snz.is_abstract:
+                continue
             self.new_table()
             self.lay_yx(tbl, snz, hdr, h_open, h_closed)
 
@@ -260,9 +264,11 @@ class TableReporter(base_reporter.BaseReporter):
                 rowspan = len(hdr['x']) + (1 if tbl.has_rc_labels else 0)
                 self.new_cell(cell.Cell(label=tbl.get_rc_label(), colspan=colspan, rowspan=rowspan, is_header=True,
                                         html_class='lu'))
+            # X-Hesaders
             for snx in hx:
                 if isinstance(snx.origin, breakdown.Breakdown) and snx.origin.is_open \
-                        or isinstance(snx.origin, aspect_node.AspectNode):
+                        or isinstance(snx.origin, aspect_node.AspectNode)\
+                        or snx.is_abstract:
                     continue
                 colspan = snx.span if row==snx.level else 1
                 self.new_cell(cell.Cell(label=snx.origin.get_label(), colspan=colspan, is_header=True,
@@ -270,6 +276,8 @@ class TableReporter(base_reporter.BaseReporter):
         # Optional RC header
         self.new_row()
         for snx in h_closed['x']:
+            if snx.is_abstract:
+                continue
             self.new_cell(cell.Cell(label=snx.origin.get_rc_label(), is_header=True,
                                     html_class='rc'))
         self.lay_y(tbl, snz, h_open, h_closed)
@@ -288,6 +296,8 @@ class TableReporter(base_reporter.BaseReporter):
                 self.new_cell(cell.Cell(html_class='rc'))
             # Filling row with empty cells for extra open-Y header
             for snx in h_closed['x']:
+                if snx.is_abstract:
+                    continue
                 self.new_cell(cell.Cell(html_class='other'))
         for sny in h_closed['y']:
             self.lay_y_agg(tbl, snz, sny, h_open, h_closed)
@@ -312,11 +322,15 @@ class TableReporter(base_reporter.BaseReporter):
         sny_cap = sny.origin.get_label() if sny.origin is not None else ""
         sny_rc_cap = sny.origin.get_rc_label() if sny.origin is not None else ""
         rc.add(sny_rc_cap)
-        self.new_cell(cell.Cell(label=sny_cap, indent=sny.level * 10, html_class='header'))
+        cls = f'header_abstract' if sny.is_abstract else 'header'
+        self.new_cell(cell.Cell(label=sny_cap, indent=sny.level * 10, html_class=cls))
 
     def lay_tbl_body(self, snz, sny, closed_x):
         for snx in closed_x:
-            c = cell.Cell(html_class='fact')
+            if snx.is_abstract:
+                continue
+            cls = 'grayed' if sny.is_abstract else 'fact'
+            c = cell.Cell(html_class=cls)
             self.new_cell(c)
             self.lay_constraint_set({'x': snx, 'y': sny, 'z': snz}, c)
 

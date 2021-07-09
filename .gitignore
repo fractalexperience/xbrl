@@ -137,8 +137,6 @@ _static
 _windows
 codestyles
 inspection
-index.rst
-conf.py
 colors.scheme.xml
 debugger.xml
 filetypes.xml
