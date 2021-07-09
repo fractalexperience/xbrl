@@ -3,14 +3,16 @@ from xbrl.base import data_wrappers
 
 class Cell:
     def __init__(self, constraints=None, label=None, colspan=1, rowspan=1, indent=0, is_header=False, is_fact=False,
-                 html_class=None, rc_code=None):
+                 html_class=None, r_code=None, c_code=None, layout=None):
         self.label = label
         self.is_header = is_header
         self.is_fact = is_fact
         self.colspan = colspan
         self.rowspan = rowspan
         self.indent = indent
-        self.rc_code = rc_code
+        self.c_code = c_code
+        self.r_code = r_code
+        self.container_layout = layout
         self.html_classes = None if html_class is None else set(html_class.split(' '))
         # Final version of constraints
         self.constraints = constraints
@@ -24,6 +26,9 @@ class Cell:
         if self.html_classes is None:
             self.html_classes = set({})
         self.html_classes.add(cls)
+
+    def get_address(self):
+        return f'{self.r_code}{self.c_code}'
 
     def get_class(self):
         if self.html_classes is None:

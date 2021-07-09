@@ -39,7 +39,7 @@ class RuleNode(def_node.DefinitionNode):
             if e2.tag != f'{{{const.NS_FORMULA}}}qname':
                 print(f'Unknown element in formula:concept rule {e2.tag}')
                 continue
-            restrictions['concept'] = e2.text
+            restrictions['concept'] = e2.text.strip()
 
     def l_formula_unit(self, e, restrictions):
         for e2 in e.iterchildren():
