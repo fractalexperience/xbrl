@@ -45,6 +45,9 @@ class RuleNode(def_node.DefinitionNode):
         for e2 in e.iterchildren():
             if e2.tag == f'{{{const.NS_FORMULA}}}multiplyBy':
                 msr = e2.attrib.get('measure')
+                # Specific case for Qname representation of a measure. TODO: Replace with XPath function
+                if msr.startswith('QName'):
+                    msr = msr.split('(')[1].split(')')[0].split(',')[1].replace("'", "").replace('"', '')
                 restrictions['measure'] = msr
             else:
                 print('Unknown element under formula:unit')
@@ -72,7 +75,7 @@ class RuleNode(def_node.DefinitionNode):
                 if e3.tag != f'{{{const.NS_FORMULA}}}qname':
                     print(f'Unknown element in formula:member element {e3.tag}')
                     continue
-                restrictions[dimension_qname] = e3.text
+                restrictions[dimension_qname] = e3.text.strip()
 
     def get_constraints(self, tag='default'):
         constraints = {}

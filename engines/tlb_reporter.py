@@ -1,5 +1,6 @@
 from xbrl.taxonomy.table import breakdown, aspect_node, rule_node, cr_node, dr_node, str_node, layout, cell
 from xbrl.engines import base_reporter
+from xbrl.base import data_wrappers
 
 
 class TableReporter(base_reporter.BaseReporter):
@@ -146,7 +147,7 @@ class TableReporter(base_reporter.BaseReporter):
             '.other': 'background-color: Yellow;'
         })
 
-    def render_html(self, table_ids=None, show_constraints=False):
+    def render_templates_html(self, table_ids=None, show_constraints=False):
         ids = [tid for tid in self.taxonomy.tables.keys()] \
             if table_ids is None else [table_ids] \
             if isinstance(table_ids, str) else table_ids
@@ -162,7 +163,7 @@ class TableReporter(base_reporter.BaseReporter):
                     self.add('<tr>')
                     for cx in cy:
                         self.add(f'<td{cx.get_colspan()}{cx.get_rowspan()}{cx.get_indent()}{cx.get_class()}>')
-                        self.add(cx.get_label())
+                        self.add('' if cx.is_fact else  cx.get_label())
                         if show_constraints:
                             self.render_cell_constraints_html(cx)
                         self.add('</td>')
@@ -180,27 +181,40 @@ class TableReporter(base_reporter.BaseReporter):
                 f'<tr><td>{c.Dimension}</td><td>{("*" if c.Member is None else c.Member)}</td><td>{c.Axis}</td></tr>')
         self.finalize_table()
 
-    def render_map_html(self, table_ids=None):
-        ids = [tid for tid in self.taxonomy.tables.keys()] \
-            if table_ids is None else [table_ids] \
-            if isinstance(table_ids, str) else table_ids
+    def get_dpm_map(self, tid):
+        lo = self.layouts.get(tid, None)
+        if lo is None:
+            return None
+        # Flatten the 3D list and choose only fact cells
+        f_cells = [c for lz in lo.cells for ly in lz for c in ly if c.is_fact and c.constraints is not None]
+        custom_dimensions = sorted(set(d for dims in [c.constraints for c in f_cells] for d in dims if d != 'concept'))
+        dpm_map = data_wrappers.DpmMap(tid, custom_dimensions, {})
+        for c in f_cells:
+            concept_constraint = c.constraints.get('concept', None)
+            if concept_constraint is None:
+                continue
+            concept = self.taxonomy.concepts_by_qname.get(concept_constraint.Member, None)
+            if concept is None:  # Every data point must have a metrics (taxonomy concept)
+                continue
+            members = [c.constraints.get(dim, data_wrappers.Constraint(dim, None, None)).Member
+                       for dim in sorted(custom_dimensions)]
+            dpm_map.Mappings[c.get_address()] = dict(zip(
+                [*data_wrappers.DpmMapMandatoryDimensions, *custom_dimensions],
+                [c.get_label(), concept.qname, concept.data_type, concept.period_type, *members]))
+        return dpm_map
 
+    def render_map_html(self, ids=None):
+        ids = self.taxonomy.tables.keys() if ids is None else [ids] if isinstance(ids, str) else ids
         self.init_output_table()
-        self.init_table(['Table', 'Address', 'Concept', 'Data Type', 'Period Type'])
         for tid in ids:
             lo = self.layouts.get(tid, None)
             if lo is None:
                 continue
-            for c in [c for lz in lo.cells for ly in lz for c in ly if c.is_fact and c.constraints is not None]:  # Flatten the 3D list
-                constraint = c.constraints.get('concept', None)
-                if constraint is None:
-                    continue
-                concept = self.taxonomy.concepts_by_qname.get(constraint.Member, None)
-                if concept is None:
-                    continue
-                self.add_tr(lo.label, c.get_address(), concept.qname, concept.data_type, concept.period_type)
-
-        self.finalize_table()
+            dpm_map = self.get_dpm_map(tid)
+            dims = data_wrappers.DpmMapMandatoryDimensions + dpm_map.Dimensions
+            self.init_table(['Address', *dims])
+            for address, mapping in dpm_map.Mappings.items():
+                self.add_tr(address, *[mapping.get(d, '-') for d in dims])
         self.finalize_output()
         return ''.join(self.content)
 
@@ -353,7 +367,8 @@ class TableReporter(base_reporter.BaseReporter):
                 c_code = f'c{cnt}'
 
             cls = 'grayed' if sny.is_abstract else 'fact'
-            c = cell.Cell(html_class=cls, is_fact=True, r_code=r_code, c_code=c_code, layout=self.current_layout)
+            lbl = f'{sny.get_caption().strip()}/{snx.get_caption().strip()}'
+            c = cell.Cell(label=lbl, html_class=cls, is_fact=True, r_code=r_code, c_code=c_code, layout=self.current_layout)
             self.new_cell(c)
             self.lay_constraint_set({'x': snx, 'y': sny, 'z': snz}, c)
 

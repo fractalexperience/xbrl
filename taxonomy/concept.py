@@ -5,8 +5,8 @@ class Concept(element.Element):
     def __init__(self, e, container_schema):
         super().__init__(e, container_schema)
         # Basic properties
-        self.period_type = e.attrib.get('periodType')
-        self.balance = e.attrib.get('balance')
+        self.period_type = e.attrib.get(f'{{{const.NS_XBRLI}}}periodType')
+        self.balance = e.attrib.get(f'{{{const.NS_XBRLI}}}balance')
         self.data_type = e.attrib.get('type')
         # Extensible enumerations properties
         domain = e.attrib.get(f'{{{const.NS_EXTENSIBLE_ENUMERATIONS}}}domain')

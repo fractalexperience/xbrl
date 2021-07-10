@@ -25,8 +25,8 @@ ids = sorted(xid.taxonomy.tables)
 for tid in ids:
     print(tid)
     eng.do_layout(tid)
-    write_file(eng.render_html(tid), f'{ep_code}_250_{tid}_template.html')
-    write_file(eng.render_html(tid, True), f'{ep_code}_250_{tid}_template_w_constraints.html')
+    write_file(eng.render_templates_html(tid), f'{ep_code}_250_{tid}_template.html')
+    write_file(eng.render_templates_html(tid, True), f'{ep_code}_250_{tid}_template_w_constraints.html')
     write_file(eng.render_map_html(tid), f'{ep_code}_250_{tid}_map.html')
 
 print(f'{len(ids)} tables processed.', 'Processing time: ', datetime.datetime.now() - t1)
