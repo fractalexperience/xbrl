@@ -43,7 +43,7 @@ class TableReporter(base_reporter.BaseReporter):
             header = matrix.setdefault(axis, {})
             for sn in s_lst:
                 depth = self.get_max_depth(sn, 0)
-                for lvl in range(depth+1):
+                for lvl in range(depth + 1):
                     header.setdefault(lvl, [])
                 self.calculate_header(header, sn, 0, [sn])
             # Calculate span
@@ -79,7 +79,7 @@ class TableReporter(base_reporter.BaseReporter):
             return
         if sn.nested is None:
             # Generate a fake structure node just to balance the tree
-            new_sn = str_node.StructureNode(parent=sn, origin=sn.origin, grayed=True, lvl=lvl+1, fake=True)
+            new_sn = str_node.StructureNode(parent=sn, origin=sn.origin, grayed=True, lvl=lvl + 1, fake=True)
             self.set_uniform_depth(new_sn, lvl + 1, depth)
             return
         for nested_sn in sn.nested:
@@ -163,7 +163,7 @@ class TableReporter(base_reporter.BaseReporter):
                     self.add('<tr>')
                     for cx in cy:
                         self.add(f'<td{cx.get_colspan()}{cx.get_rowspan()}{cx.get_indent()}{cx.get_class()}>')
-                        self.add('' if cx.is_fact else  cx.get_label())
+                        self.add('' if cx.is_fact else cx.get_label())
                         if show_constraints:
                             self.render_cell_constraints_html(cx)
                         self.add('</td>')
@@ -196,8 +196,9 @@ class TableReporter(base_reporter.BaseReporter):
             concept = self.taxonomy.concepts_by_qname.get(concept_constraint.Member, None)
             if concept is None:  # Every data point must have a metrics (taxonomy concept)
                 continue
-            members = [c.constraints.get(dim, data_wrappers.Constraint(dim, None, None)).Member
-                       for dim in sorted(custom_dimensions)]
+            members = ['*' if m is None else m for m in
+                       [c.constraints.get(dim, data_wrappers.Constraint(dim, 'N/A', None)).Member
+                        for dim in sorted(custom_dimensions)]]
             dpm_map.Mappings[c.get_address()] = dict(zip(
                 [*data_wrappers.DpmMapMandatoryDimensions, *custom_dimensions],
                 [c.get_label(), concept.qname, concept.data_type, concept.period_type, *members]))
@@ -219,8 +220,7 @@ class TableReporter(base_reporter.BaseReporter):
         return ''.join(self.content)
 
     def do_layout(self, table_ids=None):
-        ids = [tid for tid in self.taxonomy.tables.keys()] \
-            if table_ids is None else [table_ids] \
+        ids = self.taxonomy.tables.keys() if table_ids is None else [table_ids] \
             if isinstance(table_ids, str) else table_ids
 
         for tid in ids:
@@ -245,6 +245,7 @@ class TableReporter(base_reporter.BaseReporter):
 
             self.combine_aspect_nodes(h_closed, h_open)
             self.lay_zyx(tbl, hdr, h_open, h_closed)
+        return self.current_layout
 
     def combine_constraints(self, sn1, sn2):
         for tag, c_set in sn2.constraint_set.items():
@@ -293,10 +294,10 @@ class TableReporter(base_reporter.BaseReporter):
             # X-Headers
             for snx in hx:
                 if isinstance(snx.origin, breakdown.Breakdown) and snx.origin.is_open \
-                        or isinstance(snx.origin, aspect_node.AspectNode)\
+                        or isinstance(snx.origin, aspect_node.AspectNode) \
                         or snx.is_abstract:
                     continue
-                colspan = snx.span if row==snx.level else 1
+                colspan = snx.span if row == snx.level else 1
                 self.new_cell(cell.Cell(label=snx.origin.get_label(), colspan=colspan, is_header=True,
                                         html_class='header', layout=self.current_layout))
         # Optional RC header
@@ -368,7 +369,8 @@ class TableReporter(base_reporter.BaseReporter):
 
             cls = 'grayed' if sny.is_abstract else 'fact'
             lbl = f'{sny.get_caption().strip()}/{snx.get_caption().strip()}'
-            c = cell.Cell(label=lbl, html_class=cls, is_fact=True, r_code=r_code, c_code=c_code, layout=self.current_layout)
+            c = cell.Cell(label=lbl, html_class=cls, is_fact=True, r_code=r_code, c_code=c_code,
+                          layout=self.current_layout)
             self.new_cell(c)
             self.lay_constraint_set({'x': snx, 'y': sny, 'z': snz}, c)
 
