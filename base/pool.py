@@ -1,4 +1,4 @@
-import os, tempfile, zipfile
+import os, zipfile, functools
 from lxml import etree as lxml
 from xbrl.base import resolver, util
 from xbrl.taxonomy import taxonomy, schema, tpack, linkbase
@@ -110,7 +110,7 @@ class Pool(resolver.Resolver):
         using all entrypoints in the package and returns the taxonomy object. """
     def add_package(self, location):
         package = self.cache_package(location)
-        entry_points = {f for ep in package.entrypoints for f in ep.Urls}
+        entry_points = [f for ep in package.entrypoints for f in ep.Urls]
         tax = self.add_taxonomy(entry_points)
         return tax
 
@@ -129,3 +129,17 @@ class Pool(resolver.Resolver):
             lb = self.linkbases.get(href, None)
             if not lb:
                 linkbase.Linkbase(href, self, tax)
+
+    @staticmethod
+    def check_create_path(existing_path, part):
+        new_path = os.path.join(existing_path, part)
+        if not os.path.exists(new_path):
+            os.mkdir(new_path)
+        return new_path
+
+    def save_output(self, content, filename):
+        if '\\' in filename:
+            functools.reduce(self.check_create_path, filename.split('\\')[:-1], self.output_folder)
+        location = os.path.join(self.output_folder, filename)
+        with open(location, 'wt', encoding="utf-8") as f:
+            f.write(content)

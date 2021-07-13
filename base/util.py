@@ -18,34 +18,35 @@ def get_label(lst, lang='en', role='/label'):
 
 
 def get_rc_label(lst):
-    return ','.join([lbl.text for lbl in get_resource_nlr(lst, 'label', 'en', const.ROLE_LABEL_RC)]) if lst else ''
+    return '' if lst is None else ','.join(
+        ['' if lbl.text is None else lbl.text for lbl in get_resource_nlr(lst, 'label', 'en', const.ROLE_LABEL_RC)])
 
 
 def get_db_label(lst):
-    return ','.join([lbl.text for lbl in get_resource_nlr(lst, 'label', 'en', const.ROLE_LABEL_DB)]) if lst else ''
+    return '' if lst is None else ','.join(
+        ['' if lbl.text is None else lbl.text for lbl in get_resource_nlr(lst, 'label', 'en', const.ROLE_LABEL_DB)])
 
 
-def get_reference(res_list, lang='en', role='/label'):
-    return get_resource_nlr(res_list, 'reference', lang, role)
+def get_reference(resources, lang='en', role='/label'):
+    return get_resource_nlr(resources, 'reference', lang, role)
 
 
-def get_resource_nlr(res_list, name, lang, role):
-    # res is a dictionary where the key is lang + role and value is a list of corresponding resources
-    res = res_list.get(name, None)
-    if res is None:
-        return []
+def get_resource_nlr(resources, name, lang, role):
+    # resources is a dictionary where the key is lang + role and value is a list of corresponding resources
+    res = resources.get(name, {})
     return res.get(f'{lang}|{role}', get_resource_nlr_partial(res, lang, role))
 
 
-def get_resource_nlr_partial(res, lang, role):
-    l = [v for k, v in res.items() if (lang is None or k.startswith(lang)) and (role is None or k.endswith(role))]
-    result = list(itertools.chain(*l))
+def get_resource_nlr_partial(resources, lang, role):
+    lst = [v for k, v in resources.items() if
+           (lang is None or k.startswith(lang)) and (role is None or k.endswith(role))]
+    result = list(itertools.chain(*lst))
     return [] if result is None else result
 
 
 def escape_xml(s):
-    return '' if not s else s\
-        .replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')\
+    return '' if not s else s \
+        .replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;') \
         .replace("'", '&apos;').replace('"', '&quot;')
 
 
