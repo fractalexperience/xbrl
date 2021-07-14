@@ -2,17 +2,18 @@ from xbrl.base import data_wrappers
 
 
 class Cell:
-    def __init__(self, constraints=None, label=None, colspan=1, rowspan=1, indent=0, is_header=False, is_fact=False,
-                 html_class=None, r_code=None, c_code=None, layout=None):
+    def __init__(self, constraints=None, label=None, colspan=1, rowspan=1, indent=0,
+                 is_header=False, is_fact=False, is_fake=False,
+                 html_class=None, r_code=None, c_code=None):
         self.label = label
         self.is_header = is_header
         self.is_fact = is_fact
+        self.is_fake = is_fake
         self.colspan = colspan
         self.rowspan = rowspan
         self.indent = indent
         self.c_code = c_code
         self.r_code = r_code
-        self.container_layout = layout
         self.html_classes = None if html_class is None else set(html_class.split(' '))
         # Final version of constraints
         self.constraints = constraints

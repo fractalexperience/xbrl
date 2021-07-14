@@ -27,7 +27,6 @@ class TableReporter(base_reporter.BaseReporter):
         struct = self.structures.setdefault(t.xlabel, {})
         self.walk(t, None, struct, None, t.nested, 0)
         for axis, s_lst in struct.items():
-            # depth = max([self.get_max_depth(sn, 0) for sn in s_lst])
             for sn in s_lst:
                 depth = self.get_max_depth(sn, 0)
                 self.set_uniform_depth(sn, 0, depth)
@@ -45,7 +44,7 @@ class TableReporter(base_reporter.BaseReporter):
                 depth = self.get_max_depth(sn, 0)
                 for lvl in range(depth + 1):
                     header.setdefault(lvl, [])
-                self.calculate_header(header, sn, 0, [sn])
+                self.calculate_header(header, sn, 0, axis)
             # Calculate span
             depth = max(header)
             last_row = header.get(depth, None)
@@ -54,18 +53,23 @@ class TableReporter(base_reporter.BaseReporter):
             for sn in last_row:
                 sn.increment_span()
 
-    def calculate_header(self, header, sn, lvl, stack):
-        tlvl = lvl
+    def calculate_header(self, header, sn, lvl, axis):
         maxlvl = max(header)
-        while tlvl <= maxlvl:
-            if not sn.fake and tlvl <= maxlvl:
-                header[tlvl].append(sn)
-            tlvl += 1
-
+        if not sn.is_fake and not isinstance(sn.origin, breakdown.Breakdown):
+            header[lvl].append(sn)
+        tlvl = lvl + 1
+        if not sn.is_abstract \
+                or (axis == 'y' and not isinstance(sn.origin, breakdown.Breakdown)) \
+                or (axis == 'y' and isinstance(sn.origin, breakdown.Breakdown) and sn.origin.is_open):
+            # Propagate fake structure nodes down to the tree
+            while tlvl <= maxlvl:
+                if not sn.is_fake and tlvl <= maxlvl:
+                    header[tlvl].append(sn.get_fake_copy())
+                tlvl += 1
         if sn.nested is None:
             return
         for snn in sn.nested:
-            self.calculate_header(header, snn, lvl + 1, [snn] + stack)
+            self.calculate_header(header, snn, lvl + 1, axis)
 
     def get_max_depth(self, sn, depth):
         if sn.nested is None:
@@ -79,11 +83,11 @@ class TableReporter(base_reporter.BaseReporter):
             return
         if sn.nested is None:
             # Generate a fake structure node just to balance the tree
-            new_sn = str_node.StructureNode(parent=sn, origin=sn.origin, grayed=True, lvl=lvl + 1, fake=True)
+            new_sn = sn.get_fake_copy()
             self.set_uniform_depth(new_sn, lvl + 1, depth)
             return
         for nested_sn in sn.nested:
-            self.set_uniform_depth(nested_sn, lvl + 1, depth)  # Do not generate new node
+            self.set_uniform_depth(nested_sn, lvl + 1, depth)
 
     def walk(self, tbl, axis, struct, node, dct, lvl):
         for name in filter(lambda n: n in dct, self.resource_names):
@@ -144,6 +148,7 @@ class TableReporter(base_reporter.BaseReporter):
             '.header_abstract': 'background-color: PaleGreen;',
             '.rc': 'background-color: Khaki;',
             '.lu': 'background-color: PaleGreen;',
+            '.fake': 'background-color: #e0ffe0;',
             '.other': 'background-color: Yellow;'
         })
 
@@ -163,7 +168,7 @@ class TableReporter(base_reporter.BaseReporter):
                     self.add('<tr>')
                     for cx in cy:
                         self.add(f'<td{cx.get_colspan()}{cx.get_rowspan()}{cx.get_indent()}{cx.get_class()}>')
-                        self.add('' if cx.is_fact else cx.get_label())
+                        self.add('' if cx.is_fact or cx.is_fake else cx.get_label())
                         if show_constraints:
                             self.render_cell_constraints_html(cx)
                         self.add('</td>')
@@ -290,23 +295,23 @@ class TableReporter(base_reporter.BaseReporter):
                 colspan = len(h_open['y']) + (1 if h_closed['y'] else 0) + (1 if tbl.has_rc_labels else 0)
                 rowspan = len(hdr['x']) + (1 if tbl.has_rc_labels else 0)
                 self.new_cell(cell.Cell(label=tbl.get_rc_label(), colspan=colspan, rowspan=rowspan, is_header=True,
-                                        html_class='lu', layout=self.current_layout))
+                                        html_class='lu'))
             # X-Headers
             for snx in hx:
                 if isinstance(snx.origin, breakdown.Breakdown) and snx.origin.is_open \
-                        or isinstance(snx.origin, aspect_node.AspectNode) \
-                        or snx.is_abstract:
+                        or isinstance(snx.origin, aspect_node.AspectNode):
                     continue
                 colspan = snx.span if row == snx.level else 1
+                cls = 'fake' if snx.is_fake else 'header'
                 self.new_cell(cell.Cell(label=snx.origin.get_label(), colspan=colspan, is_header=True,
-                                        html_class='header', layout=self.current_layout))
+                                        html_class=cls, is_fake=snx.is_fake))
         # Optional RC header
         self.new_row()
         for snx in h_closed['x']:
             if snx.is_abstract:
                 continue
             self.new_cell(cell.Cell(label=snx.origin.get_rc_label(), is_header=True,
-                                    html_class='rc', layout=self.current_layout))
+                                    html_class='rc'))
         self.lay_y(tbl, snz, h_open, h_closed)
 
     def lay_y(self, tbl, snz, h_open, h_closed):
@@ -315,17 +320,17 @@ class TableReporter(base_reporter.BaseReporter):
             self.new_row()
             if h_closed['y']:
                 # Extra cell for closed-Y nodes if any
-                self.new_cell(cell.Cell(html_class='header', layout=self.current_layout))
+                self.new_cell(cell.Cell(html_class='header'))
             for sno in h_open['y']:
-                self.new_cell(cell.Cell(label=sno.get_rc_caption(), html_class='header', layout=self.current_layout))
+                self.new_cell(cell.Cell(label=sno.get_rc_caption(), html_class='header'))
             if tbl.has_rc_labels:
                 # Extra cell for RC labels if any
-                self.new_cell(cell.Cell(html_class='rc', layout=self.current_layout))
+                self.new_cell(cell.Cell(html_class='rc'))
             # Filling row with empty cells for extra open-Y header
             for snx in h_closed['x']:
                 if snx.is_abstract:
                     continue
-                self.new_cell(cell.Cell(html_class='other', layout=self.current_layout))
+                self.new_cell(cell.Cell(html_class='other'))
         cnt = -1
         for sny in h_closed['y']:
             cnt += 1
@@ -339,23 +344,23 @@ class TableReporter(base_reporter.BaseReporter):
         if sny is not None:
             self.lay_closed_y_header(sny, rc)
         if tbl.has_rc_labels:
-            self.new_cell(cell.Cell(label=" ".join(rc), html_class='rc', layout=self.current_layout))
+            self.new_cell(cell.Cell(label=" ".join(rc), html_class='rc'))
         self.lay_tbl_body(snz, sny, h_closed['x'], position)
 
     def lay_open_y_header(self, open_y, rc):
         for sno in open_y:
             rc.add(sno.origin.get_rc_label())
-            self.new_cell(cell.Cell(html_class='header', layout=self.current_layout))
+            self.new_cell(cell.Cell(html_class='header'))
 
     def lay_closed_y_header(self, sny, rc):
         sny_cap = sny.origin.get_label() if sny.origin is not None else ""
         sny_rc_cap = sny.origin.get_rc_label() if sny.origin is not None else ""
         rc.add(sny_rc_cap)
         cls = f'header_abstract' if sny.is_abstract else 'header'
-        self.new_cell(cell.Cell(label=sny_cap, indent=sny.level * 10, html_class=cls, layout=self.current_layout))
+        self.new_cell(cell.Cell(label=sny_cap, indent=sny.level * 10, html_class=cls))
 
     def lay_tbl_body(self, snz, sny, closed_x, position):
-        r_code = sny.origin.get_rc_label()
+        r_code = None if sny.origin is None else sny.origin.get_rc_label()
         if not r_code:
             r_code = f'r{position}'
         cnt = -1
@@ -369,8 +374,7 @@ class TableReporter(base_reporter.BaseReporter):
 
             cls = 'grayed' if sny.is_abstract else 'fact'
             lbl = f'{sny.get_caption().strip()}/{snx.get_caption().strip()}'
-            c = cell.Cell(label=lbl, html_class=cls, is_fact=True, r_code=r_code, c_code=c_code,
-                          layout=self.current_layout)
+            c = cell.Cell(label=lbl, html_class=cls, is_fact=True, r_code=r_code, c_code=c_code)
             self.new_cell(c)
             self.lay_constraint_set({'x': snx, 'y': sny, 'z': snz}, c)
 

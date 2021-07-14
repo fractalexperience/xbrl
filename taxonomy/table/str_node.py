@@ -9,8 +9,8 @@ class StructureNode:
         self.origin = origin
         self.span = 0
         self.level = lvl
-        self.grayed = grayed
-        self.fake = fake
+        self.is_grayed = grayed
+        self.is_fake = fake
         self.is_abstract = abst
         self.nested = None
         """ Contains the untagged (tag='default') and tagged constraint sets for the node. """
@@ -21,7 +21,7 @@ class StructureNode:
             self.parent.nested.append(self)
 
     def increment_span(self):
-        self.span += 0 if self.is_abstract else 1
+        self.span += 1
         if self.parent is None:
             return
         self.parent.increment_span()
@@ -49,3 +49,7 @@ class StructureNode:
             cap = self.origin.get_db_label()
             return cap if cap else self.get_aspect_caption()
         return ''
+
+    def get_fake_copy(self):
+        return StructureNode(parent=self, origin=self.origin, grayed=True, lvl=self.level+1, fake=True,
+                             abst=self.is_abstract)
