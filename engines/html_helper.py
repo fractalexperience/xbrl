@@ -24,8 +24,8 @@ class HtmlHelper:
         if self.title is not None:
             self.content.append(f'<h1>{self.title}</h1>')
 
-    def init_table(self, columns=None):
-        self.content.append('<table border="1" cellspacing="0" cellpadding="5">')
+    def init_table(self, columns=None, cls=None):
+        self.content.append(f'<table border="1" cellspacing="0" cellpadding="3" class={cls}>')
         if columns is None:
             return
         self.content.append('<tr>')
@@ -35,10 +35,24 @@ class HtmlHelper:
 
     def add(self, *s):
         for tok in s:
+            if not tok:
+                continue
             if isinstance(tok, str):
                 self.content.append(tok)
                 continue
-            self.content.append(''.join(tok))
+            self.content.append(''.join([t for t in tok if t is not None]))
+
+    def add_tr(self, *s):
+        self.add('<tr>')
+        for tok in s:
+            if tok is None:
+                self.add('<td>&nbsp;</td>')
+                continue
+            if isinstance(tok, str):
+                self.add(f'<td>{tok}</td>')
+                continue
+            self.add('<td>', '</td><td>'.join(tok), '</td>')
+        self.add('</tr>')
 
     def finalize_table(self):
         self.content.append('</table>')

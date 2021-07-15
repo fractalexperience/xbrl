@@ -34,6 +34,7 @@ NS_TAXONOMY_PACKAGE_PR = 'http://xbrl.org/PR/2015-12-09/taxonomy-package'  # The
 NS_OASIS_CATALOG = 'urn:oasis:names:tc:entity:xmlns:xml:catalog'
 # Extensible Enumerations
 NS_EXTENSIBLE_ENUMERATIONS = 'http://xbrl.org/2014/extensible-enumerations'
+NS_EXTENSIBLE_ENUMERATIONS_2 = 'http://xbrl.org/2020/extensible-enumerations-2.0'
 # OTHER
 KNOWN_PROTOCOLS = ['http', 'https', 'ftp']
 SUBSTITUTION_GROUPS = ['item', 'tuple']

@@ -2,14 +2,16 @@ from xbrl.taxonomy.table import aspect_node
 
 
 class StructureNode:
-    def __init__(self, parent, origin, grayed=False, lvl=0):
+    def __init__(self, parent, origin, grayed=False, lvl=0, fake=False, abst=False):
         """ Parent structure node in the hierarchy """
         self.parent = parent
         """ Resource, which is the origin of this structure node """
         self.origin = origin
         self.span = 0
         self.level = lvl
-        self.grayed = grayed
+        self.is_grayed = grayed
+        self.is_fake = fake
+        self.is_abstract = abst
         self.nested = None
         """ Contains the untagged (tag='default') and tagged constraint sets for the node. """
         self.constraint_set = {}
@@ -47,3 +49,7 @@ class StructureNode:
             cap = self.origin.get_db_label()
             return cap if cap else self.get_aspect_caption()
         return ''
+
+    def get_fake_copy(self):
+        return StructureNode(parent=self, origin=self.origin, grayed=True, lvl=self.level+1, fake=True,
+                             abst=self.is_abstract)

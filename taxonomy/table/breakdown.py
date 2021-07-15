@@ -1,5 +1,4 @@
-from xbrl.taxonomy.table import tlb_resource, str_node
-from xbrl.base import data_wrappers
+from xbrl.taxonomy.table import tlb_resource
 
 
 class Breakdown(tlb_resource.TableResource):
@@ -8,5 +7,7 @@ class Breakdown(tlb_resource.TableResource):
     def __init__(self, e, container_xlink=None):
         self.parent_child_order = e.attrib.get('parentChildOrder')
         self.axis = None
+        self.is_open = False
+        self.is_closed = False
         self.order = 0
         super().__init__(e, container_xlink)

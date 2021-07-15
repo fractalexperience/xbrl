@@ -20,4 +20,22 @@ Enumeration = namedtuple('Enumeration', 'Key,Concepts,Members')
          the arc's 'from' attribute points to the concept. """
 BaseSetNode = namedtuple('BaseSetNode', 'Concept,Level,Arc')
 
+
+""" Represents a constraint in a table cell.
+    Dimension: The QName of the constraint dimension, or unit, period, entityIdentifier or entityScheme. 
+    Member: The value of the member, which is a QName for explicit custom dimensions. 
+    Axis: x,y or z depending on the axis where the constraint comes from. """
+Constraint = namedtuple('Constraint', 'Dimension,Member,Axis')
+
+
+""" Represents a DPM Map. DPM stands for DAta Point Model.
+    Id: The identifier of the map. Normally this is the table id. 
+    Dimensions: Set of all custom dimensions included in the map. Note that not all cells will include all dimensions.
+    Mappings: A Dictionary of dictionaries where outer key is the address of the data point. 
+              The value is a dictionary of constraints for the cell where key is the dimension (aspect) and the value
+              is the value of the member. If the dimension is open, the member value is an asterisk (*). """
+DpmMap = namedtuple('DpmMap', 'Id,Dimensions,Mappings')
+
+
+DpmMapMandatoryDimensions = ['Label', 'Metrics', 'Data Type', 'Period Type']
 Axis = enum.Enum('Axis', 'X Y Z')

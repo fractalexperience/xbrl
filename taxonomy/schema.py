@@ -11,6 +11,7 @@ class Schema(fbase.XmlFileBase):
             f'{{{const.NS_XS}}}schema': self.l_schema,
             f'{{{const.NS_XS}}}annotation': self.l_annotation,
             f'{{{const.NS_XS}}}appinfo': self.l_appinfo,
+            f'{{{const.NS_LINK}}}linkbase': self.l_linkbase,
             f'{{{const.NS_XS}}}import': self.l_import,
             f'{{{const.NS_LINK}}}linkbaseRef': self.l_linkbase_ref,
             f'{{{const.NS_LINK}}}roleType': self.l_roletype,
@@ -41,15 +42,19 @@ class Schema(fbase.XmlFileBase):
     def l_element(self, e):
         sgr = e.attrib.get('substitutionGroup')
         if sgr is not None:
-            c = concept.Concept(e, self)
+            concept.Concept(e, self)
         else:
-            elem = element.Element(e, self)
+            element.Element(e, self)
 
     def l_annotation(self, e):
         self.l_children(e)
 
     def l_appinfo(self, e):
         self.l_children(e)
+
+    def l_linkbase(self, e):
+        # Loading a linkbase, which is positioned internally inside annotation/appinfo element of the schema.
+        linkbase.Linkbase(self.location, self.pool, self.taxonomy, e)
 
     def l_linkbase_ref(self, e):
         href = e.get(f'{{{const.NS_XLINK}}}href')

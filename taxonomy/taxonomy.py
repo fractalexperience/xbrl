@@ -24,12 +24,21 @@ class Taxonomy:
         self.defaults = {}
         """ Default Members - Key is the default member QName, value is the corresponding dimension concept. """
         self.default_members = {}
+
         """ Dimensional Relationship Sets """
         self.dr_sets = {}
         """ Excluding Dimensional Relationship Sets """
         self.dr_sets_excluding = {}
+
         """ Key is primary item QName, value is the list of dimensional relationship sets, where it participates. """
         self.idx_pi_drs = {}
+        """ Key is the Qname of the dimensions. Value is the set of DR keys, where this dimension participates """
+        self.idx_dim_drs = {}
+        """ Key is the QName of the hypercube. Value is the set of DR Keys, where this hypercube participates. """
+        self.idx_hc_drs = {}
+        """ Key is the QName of the member. Value is the set of DR keys, where this member participates. """
+        self.idx_mem_drs = {}
+
         """ All table resources in taxonomy """
         self.tables = {}
         """ All role types in all schemas """
@@ -80,7 +89,7 @@ class Taxonomy:
         return bs.roots
 
     def get_bs_members(self, arc_name, role, arcrole, start_concept=None, include_head=True):
-        bs = self.base_sets.get(f'{arc_name}|{arcrole}|{role}')
+        bs = self.base_sets.get(f'{arc_name}|{arcrole}|{role}', None)
         if not bs:
             return None
         return bs.get_members(start_concept, include_head)
@@ -91,15 +100,29 @@ class Taxonomy:
             key = f'{c.linkrole}|{c.domain}|{c.head_usable}'
             e = enumerations.get(key)
             if not e:
-                members = self.get_bs_members('definitionArc',c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE)
+                members = self.get_bs_members('definitionArc',c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE, c.domain, c.head_usable)
                 e = data_wrappers.Enumeration(key, [], [m.Concept for m in members])
                 enumerations[key] = e
             e.Concepts.append(c)
         return enumerations
 
+    def get_enumeration_sets(self):
+        enum_sets = {}
+        for c in [c for k, c in self.concepts.items() if c.data_type and c.data_type.endswith('enumerationSetItemType')]:
+            key = f'{c.linkrole}|{c.domain}|{c.head_usable}'
+            e = enum_sets.get(key)
+            if not e:
+                members = self.get_bs_members('definitionArc', c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE, c.domain, c.head_usable)
+                if members is None:
+                    continue
+                e = data_wrappers.Enumeration(key, [], [m.Concept for m in members])
+                enum_sets[key] = e
+            e.Concepts.append(c)
+        return enum_sets
+
     def compile(self):
         self.compile_linkbases()
-        # self.compile_dr_sets()
+        self.compile_dr_sets()
 
     def compile_linkbases(self):
         for lb in self.linkbases.values():

@@ -13,6 +13,8 @@ class RuleNode(def_node.DefinitionNode):
         self.rule_sets = {'default': {}}
         self.rule_parsers = {
             f'{{{const.NS_FORMULA}}}concept': self.l_formula_concept,
+            f'{{{const.NS_FORMULA}}}period': self.l_formula_period,
+            f'{{{const.NS_FORMULA}}}unit': self.l_formula_unit,
             f'{{{const.NS_FORMULA}}}explicitDimension': self.l_explicit_dimension
         }
         super().__init__(e, container_xlink)
@@ -37,7 +39,29 @@ class RuleNode(def_node.DefinitionNode):
             if e2.tag != f'{{{const.NS_FORMULA}}}qname':
                 print(f'Unknown element in formula:concept rule {e2.tag}')
                 continue
-            restrictions['concept'] = e2.text
+            restrictions['concept'] = e2.text.strip()
+
+    def l_formula_unit(self, e, restrictions):
+        for e2 in e.iterchildren():
+            if e2.tag == f'{{{const.NS_FORMULA}}}multiplyBy':
+                msr = e2.attrib.get('measure')
+                # Specific case for Qname representation of a measure. TODO: Replace with XPath function
+                if msr.startswith('QName'):
+                    msr = msr.split('(')[1].split(')')[0].split(',')[1].replace("'", "").replace('"', '')
+                restrictions['measure'] = msr
+            else:
+                print('Unknown element under formula:unit')
+
+    def l_formula_period(self, e, restrictions):
+        for e2 in e.iterchildren():
+            p = ''
+            if e2.tag == f'{{{const.NS_FORMULA}}}instant':
+                p = e2.attrib.get('value')
+            elif e2.tag == f'{{{const.NS_FORMULA}}}duration':
+                start = e2.attrib.get('start')
+                end = e2.attrib.get('end')
+                p = f'{start}/{end}'
+            restrictions['period'] = p
 
     def l_explicit_dimension(self, e, restrictions):
         dimension_qname = e.attrib.get('dimension')
@@ -51,7 +75,7 @@ class RuleNode(def_node.DefinitionNode):
                 if e3.tag != f'{{{const.NS_FORMULA}}}qname':
                     print(f'Unknown element in formula:member element {e3.tag}')
                     continue
-                restrictions[dimension_qname] = e3.text
+                restrictions[dimension_qname] = e3.text.strip()
 
     def get_constraints(self, tag='default'):
         constraints = {}
