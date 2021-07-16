@@ -4,7 +4,7 @@ class HtmlHelper:
         self.title = None
         self.styles = None
         self.content = []
-        self.add_header()
+        # self.add_header()
 
     def init_output(self, title=None, styles=None):
         self.content = []
