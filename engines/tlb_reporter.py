@@ -191,7 +191,8 @@ class TableReporter(base_reporter.BaseReporter):
         if lo is None:
             return None
         # Flatten the 3D list and choose only fact cells
-        f_cells = [c for lz in lo.cells for ly in lz for c in ly if c.is_fact and c.constraints is not None]
+        f_cells = [c for lz in lo.cells for ly in lz for c in ly
+                   if c.is_fact and not c.is_grayed and c.constraints is not None]
         custom_dimensions = sorted(set(d for dims in [c.constraints for c in f_cells] for d in dims if d != 'concept'))
         dpm_map = data_wrappers.DpmMap(tid, custom_dimensions, {})
         for c in f_cells:
@@ -303,6 +304,7 @@ class TableReporter(base_reporter.BaseReporter):
                     continue
                 colspan = snx.span if row == snx.level else 1
                 cls = 'fake' if snx.is_fake else 'header'
+                gry = snx.is_fake or snx.is_abstract
                 self.new_cell(cell.Cell(label=snx.origin.get_label(), colspan=colspan, is_header=True,
                                         html_class=cls, is_fake=snx.is_fake))
         # Optional RC header
@@ -374,7 +376,8 @@ class TableReporter(base_reporter.BaseReporter):
 
             cls = 'grayed' if sny.is_abstract else 'fact'
             lbl = f'{sny.get_caption().strip()}/{snx.get_caption().strip()}'
-            c = cell.Cell(label=lbl, html_class=cls, is_fact=True, r_code=r_code, c_code=c_code)
+            c = cell.Cell(label=lbl, html_class=cls, is_fact=True,
+                          r_code=r_code, c_code=c_code, is_grayed=sny.is_grayed)
             self.new_cell(c)
             self.lay_constraint_set({'x': snx, 'y': sny, 'z': snz}, c)
 
@@ -389,5 +392,11 @@ class TableReporter(base_reporter.BaseReporter):
                         if a not in constraints:
                             constraints[a] = m
                 parent = parent.parent
-            for asp, mem in constraints.items():
-                c.add_constraint(asp, mem, axis)
+            c.add_constraints(constraints, axis)
+            # Check if there is a tag selector and add additional constraints for matching rule set
+            if sn.origin is not None and sn.origin.tag_selector is not None:
+                for tagged_constraints in [s.origin.rule_sets[sn.origin.tag_selector] for s in dct.values()
+                                   if s.origin is not None
+                                   and isinstance(sn.origin, rule_node.RuleNode)
+                                   and sn.origin.tag_selector in s.origin.rule_sets]:
+                    c.add_constraints(tagged_constraints, axis)

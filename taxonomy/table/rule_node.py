@@ -10,6 +10,7 @@ class RuleNode(def_node.DefinitionNode):
         self.is_abstract = abst is not None and abst.lower() in ['true', '1']
         merg = e.attrib.get('merge')
         self.is_merged = merg is not None and merg.lower() in ['true', '1']
+        self.tag_selector = e.attrib.get('tagSelector')
         self.rule_sets = {'default': {}}
         self.rule_parsers = {
             f'{{{const.NS_FORMULA}}}concept': self.l_formula_concept,
