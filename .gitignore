@@ -132,12 +132,11 @@ wsl.distributions.xml
 _windows
 inspection
 
-_templates
-_static
-_windows
-inspection
-codestyles
-inspection
+_templates/
+_static/
+_windows/
+inspection/
+codestyles/
 colors.scheme.xml
 debugger.xml
 filetypes.xml
