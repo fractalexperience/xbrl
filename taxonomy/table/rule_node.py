@@ -42,15 +42,26 @@ class RuleNode(def_node.DefinitionNode):
             restrictions['concept'] = e2.text.strip()
 
     def l_formula_unit(self, e, restrictions):
+        numerator = []
+        denominator = []
         for e2 in e.iterchildren():
             if e2.tag == f'{{{const.NS_FORMULA}}}multiplyBy':
-                msr = e2.attrib.get('measure')
-                # Specific case for Qname representation of a measure. TODO: Replace with XPath function
-                if msr.startswith('QName'):
-                    msr = msr.split('(')[1].split(')')[0].split(',')[1].replace("'", "").replace('"', '')
-                restrictions['measure'] = msr
+                numerator.append(self.get_measure(e2))
+            elif e2.tag == f'{{{const.NS_FORMULA}}}divideBy':
+                denominator.append(self.get_measure(e2))
             else:
-                print('Unknown element under formula:unit')
+                print(f'Unknown element {e2.tag} under formula:unit')
+        numerator_str = '*'.join(numerator) if numerator else '1'
+        denominator_str = '*'.join(denominator) if denominator else ''
+        separator = '/' if denominator else ''
+        restrictions['measure'] = f'{numerator_str}{separator}{denominator_str}'
+
+    def get_measure(self, e):
+        msr = e.attrib.get('measure')
+        # Specific case for QName representation of a measure. TODO: Replace with XPath function
+        if msr.startswith('QName'):
+            msr = msr.split('(')[1].split(')')[0].split(',')[1].replace("'", "").replace('"', '')
+        return msr
 
     def l_formula_period(self, e, restrictions):
         for e2 in e.iterchildren():

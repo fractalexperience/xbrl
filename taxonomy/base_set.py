@@ -34,7 +34,7 @@ class BaseSet:
         cbs_dn = concept.chain_dn.get(self.get_key(), None)
         if cbs_dn is None:
             return
-        for node in sorted(cbs_dn, key=lambda t: t.Arc.order):
+        for node in sorted(cbs_dn, key=lambda t: '0' if t.Arc.order is None else t.Arc.order):
             self.get_branch_members(
                 node.Concept, members, start_concept, include_head, new_flag_include, level+1, node.Arc)
 
