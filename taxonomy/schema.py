@@ -24,12 +24,15 @@ class Schema(fbase.XmlFileBase):
         self.taxonomy = container_taxonomy
         self.pool = container_pool
         resolved_location = util.reduce_url(location)
+        if self.taxonomy is not None:
+            self.taxonomy.discovered[location] = True
+        if self.pool is not None:
+            self.pool.discovered[location] = True
         super().__init__(resolved_location, container_pool, parsers)
         if self.taxonomy is not None:
             self.taxonomy.schemas[resolved_location] = self
         if self.pool is not None:
             self.pool.schemas[resolved_location] = self
-            self.pool.discovered[location] = True
 
     def l_schema(self, e):
         self.target_namespace = e.get('targetNamespace')
@@ -61,13 +64,7 @@ class Schema(fbase.XmlFileBase):
         if not href.startswith('http'):
             href = util.reduce_url(os.path.join(self.base, href).replace('\\', '/'))
         self.linkbase_refs[href] = e
-        if href in self.pool.discovered:
-            return
-        self.pool.discovered[href] = False
-        lb = self.pool.linkbases.get(href, None)
-        if lb is None:
-            linkbase.Linkbase(href, self.pool, self.taxonomy)
-            self.pool.discovered[href] = True
+        self.pool.add_reference(href, self.base, self.taxonomy)
 
     def l_roletype(self, e):
         roletype.RoleType(e, self)

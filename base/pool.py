@@ -119,15 +119,28 @@ class Pool(resolver.Resolver):
         if not href.startswith('http'):
             href = util.reduce_url(os.path.join(base, href).replace(os.path.sep, '/'))
         if href in self.discovered:
+            self.add_reference_discovered(href, tax)
             return
-        self.discovered[href] = False
+        # self.discovered[href] = False
+        self.add_or_attach_reference(href, tax)
+
+    def add_reference_discovered(self, href, tax):
+        if href in tax.discovered:
+            return
+        self.add_or_attach_reference(href, tax)
+
+    def add_or_attach_reference(self, href, tax):
         if href.endswith(".xsd"):
             sh = self.schemas.get(href, None)
-            if not sh:
+            if sh:
+                tax.attach_schema(href, sh)
+            else:
                 schema.Schema(href, self, tax)
         else:
             lb = self.linkbases.get(href, None)
-            if not lb:
+            if lb:
+                tax.attach_linkbase(href, lb)
+            else:
                 linkbase.Linkbase(href, self, tax)
 
     @staticmethod

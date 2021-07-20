@@ -18,16 +18,20 @@ class Linkbase(fbase.XmlFileBase):
         }
         self.role_refs = {}
         self.arcrole_refs = {}
+        self.refs = set({})
         self.taxonomy = container_taxonomy
         self.pool = container_pool
         self.links = []
         resolved_location = util.reduce_url(location)
+        if self.taxonomy is not None:
+            self.taxonomy.discovered[location] = True
+        if self.pool is not None:
+            self.pool.discovered[location] = True
         super().__init__(resolved_location, container_pool, parsers, root)
         if self.taxonomy is not None:
             self.taxonomy.linkbases[resolved_location] = self
         if self.pool is not None:
             self.pool.linkbases[resolved_location] = self
-            self.pool.discovered[location] = True
 
     def l_linkbase(self, e):
         # Load files referenced in schemaLocation attribute
@@ -56,4 +60,5 @@ class Linkbase(fbase.XmlFileBase):
         else:
             href = xpointer[:xpointer.find('#')]
         fragment_identifier = xpointer[xpointer.find('#')+1:]
+        self.refs.add(href)
         self.pool.add_reference(href, self.base, self.taxonomy)

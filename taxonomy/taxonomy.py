@@ -50,6 +50,9 @@ class Taxonomy:
         """ All locators """
         self.locators = {}
 
+        """ Discovered locations, which belonog to taxonomy """
+        self.discovered = {}
+
         self.load()
         self.compile()
 
@@ -81,6 +84,22 @@ class Taxonomy:
     def load(self):
         for ep in self.entry_points:
             self.pool.add_reference(ep, '', self)
+
+    def attach_schema(self, href, sh):
+        self.discovered[href] = True
+        if href in self.schemas:
+            return
+        self.schemas[href] = sh
+        for key, imp in sh.imports.items():
+            self.pool.add_reference(key, sh.base, self)
+
+    def attach_linkbase(self, href, lb):
+        self.discovered[href] = True
+        if href in self.linkbases:
+            return
+        self.linkbases[href] = lb
+        for href in lb.refs:
+            self.pool.add_reference(href, lb.base, self)
 
     def get_bs_roots(self, arc_name, role, arcrole):
         bs = self.base_sets.get(f'{arc_name}|{arcrole}|{role}')
