@@ -20,7 +20,15 @@ class Schema(fbase.XmlFileBase):
         }
         self.imports = {}
         self.linkbase_refs = {}
-        self.elements = {}  # Elements, which are not concepts
+        """ Elements, which are concepts """
+        self.concepts = {}
+        """ Elements, which are not concepts """
+        self.elements = {}
+        """ Role types in the schema """
+        self.role_types = {}
+        """ Arcrole types in the schema """
+        self.arcrole_types = {}
+
         self.taxonomy = container_taxonomy
         self.pool = container_pool
         resolved_location = util.reduce_url(location)

@@ -1,3 +1,5 @@
+from builtins import isinstance
+
 from xbrl.taxonomy.table import breakdown, aspect_node, rule_node, cr_node, dr_node, str_node, layout, cell
 from xbrl.engines import base_reporter
 from xbrl.base import data_wrappers
@@ -312,8 +314,8 @@ class TableReporter(base_reporter.BaseReporter):
         for snx in h_closed['x']:
             if snx.is_abstract:
                 continue
-            self.new_cell(cell.Cell(label=snx.origin.get_rc_label(), is_header=True,
-                                    html_class='rc'))
+            self.new_cell(cell.Cell(label= '' if snx.origin is None else snx.origin.get_rc_label(),
+                                    is_header=True, html_class='rc'))
         self.lay_y(tbl, snz, h_open, h_closed)
 
     def lay_y(self, tbl, snz, h_open, h_closed):
@@ -370,7 +372,7 @@ class TableReporter(base_reporter.BaseReporter):
             if snx.is_abstract:
                 continue
             cnt += 1
-            c_code = snx.origin.get_rc_label()
+            c_code = snx.origin.get_rc_label() if snx.origin is not None else ''
             if not c_code:
                 c_code = f'c{cnt}'
 
@@ -394,9 +396,11 @@ class TableReporter(base_reporter.BaseReporter):
                 parent = parent.parent
             c.add_constraints(constraints, axis)
             # Check if there is a tag selector and add additional constraints for matching rule set
-            if sn.origin is not None and sn.origin.tag_selector is not None:
+            if sn.origin is not None \
+                    and isinstance(sn.origin, rule_node.RuleNode) \
+                    and sn.origin.tag_selector is not None:
                 for tagged_constraints in [s.origin.rule_sets[sn.origin.tag_selector] for s in dct.values()
-                                   if s.origin is not None
-                                   and isinstance(sn.origin, rule_node.RuleNode)
-                                   and sn.origin.tag_selector in s.origin.rule_sets]:
+                                           if s.origin is not None
+                                              and isinstance(sn.origin, rule_node.RuleNode)
+                                              and sn.origin.tag_selector in s.origin.rule_sets]:
                     c.add_constraints(tagged_constraints, axis)

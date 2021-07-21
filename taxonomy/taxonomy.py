@@ -120,7 +120,7 @@ class Taxonomy:
             e = enumerations.get(key)
             if not e:
                 members = self.get_bs_members('definitionArc',c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE, c.domain, c.head_usable)
-                e = data_wrappers.Enumeration(key, [], [m.Concept for m in members])
+                e = data_wrappers.Enumeration(key, [], [] if members is None else [m.Concept for m in members])
                 enumerations[key] = e
             e.Concepts.append(c)
         return enumerations
@@ -140,8 +140,23 @@ class Taxonomy:
         return enum_sets
 
     def compile(self):
+        self.compile_schemas()
         self.compile_linkbases()
         self.compile_dr_sets()
+
+    def compile_schemas(self):
+        for sh in self.schemas.values():
+            for c in sh.concepts.values():
+                self.concepts_by_qname[c.qname] = c
+                if c.id is not None:
+                    key = f'{sh.location}#{c.id}'  # Key to search from locator href
+                    self.concepts[key] = c
+            for key, e in sh.elements.items():
+                self.elements[key] = e
+            for key, art in sh.arcrole_types.items():
+                self.arcrole_types[key] = art
+            for key, rt in sh.role_types.items():
+                self.role_types[key] = rt
 
     def compile_linkbases(self):
         for lb in self.linkbases.values():

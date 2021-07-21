@@ -35,11 +35,13 @@ class Pool(resolver.Resolver):
         package_files = [os.path.join(r, file) for r, d, f in
                          os.walk(self.taxonomies_folder) for file in f if file.endswith('.zip')]
         for pf in package_files:
-            pck = tpack.TaxonomyPackage(pf)
-            for ep in pck.entrypoints:
-                eps = ep.Urls
-                for path in eps:
-                    self.packaged_entrypoints[path] = pf
+            self.index_package(tpack.TaxonomyPackage(pf))
+
+    def index_package(self, package, ):
+        for ep in package.entrypoints:
+            eps = ep.Urls
+            for path in eps:
+                self.packaged_entrypoints[path] = package.location
 
     def add_instance_location(self, location, key=None, attach_taxonomy=True):
         xid = instance.Instance(location=location, container_pool=self)
