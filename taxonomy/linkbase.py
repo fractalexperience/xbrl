@@ -1,10 +1,9 @@
-from xbrl.taxonomy import schema, xlink
 from xbrl.base import fbase, const, util
-import os
+from xbrl.taxonomy import xlink
 
 
 class Linkbase(fbase.XmlFileBase):
-    def __init__(self, location, container_pool, container_taxonomy, root=None):
+    def __init__(self, location, container_pool, root=None):
         parsers = {
             f'{{{const.NS_LINK}}}linkbase': self.l_linkbase,
             f'{{{const.NS_LINK}}}calculationLink': self.l_link,
@@ -19,24 +18,19 @@ class Linkbase(fbase.XmlFileBase):
         self.role_refs = {}
         self.arcrole_refs = {}
         self.refs = set({})
-        self.taxonomy = container_taxonomy
         self.pool = container_pool
         self.links = []
         resolved_location = util.reduce_url(location)
-        if self.taxonomy is not None:
-            self.taxonomy.discovered[location] = True
         if self.pool is not None:
             self.pool.discovered[location] = True
         super().__init__(resolved_location, container_pool, parsers, root)
-        if self.taxonomy is not None:
-            self.taxonomy.linkbases[resolved_location] = self
         if self.pool is not None:
             self.pool.linkbases[resolved_location] = self
 
     def l_linkbase(self, e):
         # Load files referenced in schemaLocation attribute
         for uri, href in self.schema_location_parts.items():
-            self.pool.add_reference(href, self.base, self.taxonomy)
+            self.pool.add_reference(href, self.base)
         self.l_children(e)
 
     def l_link(self, e):
@@ -52,7 +46,7 @@ class Linkbase(fbase.XmlFileBase):
         self.l_ref(e)
 
     def l_ref(self, e):
-        if self.pool is None and self.taxonomy is None:
+        if self.pool is None:
             return
         xpointer = e.attrib.get(f'{{{const.NS_XLINK}}}href')
         if xpointer.startswith('#'):
@@ -61,4 +55,4 @@ class Linkbase(fbase.XmlFileBase):
             href = xpointer[:xpointer.find('#')]
         fragment_identifier = xpointer[xpointer.find('#')+1:]
         self.refs.add(href)
-        self.pool.add_reference(href, self.base, self.taxonomy)
+        self.pool.add_reference(href, self.base)

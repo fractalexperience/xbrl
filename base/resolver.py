@@ -1,6 +1,7 @@
-import urllib.request
-import os, tempfile
+import os
 import shutil
+import tempfile
+import urllib.request
 from xbrl.base import const, util
 
 

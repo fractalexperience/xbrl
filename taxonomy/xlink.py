@@ -34,10 +34,16 @@ class XLink(ebase.XmlElementBase):
             f'{{{const.NS_TABLE}}}dimensionRelationshipNode': self.l_dimensional_relationship_node,
             f'{{{const.NS_TABLE}}}aspectNode': self.l_aspect_node
         }
-        self.locators = {}  # Locators indexed by unique identifier
-        self.arcs_from = {}  # Arcs indexed by from property
-        self.arcs_to = {}  # Arcs indexed by to property
-        self.resources = {}  # All labelled resources indexed by global identifier
+        """ Locators indexed by unique identifier """
+        self.locators = {}
+        """ Locators by href """
+        self.locators_by_href = {}
+        """ Arcs indexed by from property """
+        self.arcs_from = {}
+        """ Arcs indexed by to property """
+        self.arcs_to = {}
+        """ All labelled resources indexed by global identifier """
+        self.resources = {}
         super(XLink, self).__init__(e, parsers)
         self.role = e.attrib.get(f'{{{const.NS_XLINK}}}role')
 
@@ -75,7 +81,7 @@ class XLink(ebase.XmlElementBase):
     def l_loc(self, e):
         loc = locator.Locator(e, self)
         url = loc.url
-        self.linkbase.pool.add_reference(url, self.linkbase.base, self.linkbase.taxonomy)
+        self.linkbase.pool.add_reference(url, self.linkbase.base)
 
     def compile(self):
         for arc_list in [a for a in self.arcs_from.values()]:
@@ -105,7 +111,7 @@ class XLink(ebase.XmlElementBase):
 
     def try_connect_global_resource(self, a, loc):
         href = util.reduce_url(loc.href)
-        res = self.linkbase.taxonomy.resources.get(href, None)
+        res = self.linkbase.pool.current_taxonomy.resources.get(href, None)
         if res is None:
             # print('Cannot resolve href: ', href)
             # TODO - handle also XBRL Formula cases
@@ -119,7 +125,7 @@ class XLink(ebase.XmlElementBase):
 
     def try_connect_concept(self, a, loc):
         href = urllib.parse.unquote(util.reduce_url(loc.href))
-        c = self.linkbase.taxonomy.concepts.get(href, None)
+        c = self.linkbase.pool.current_taxonomy.concepts.get(href, None)
         if c is None:
             self.try_connect_global_resource(a, loc)
             return
@@ -138,17 +144,17 @@ class XLink(ebase.XmlElementBase):
         if loc2 is None:
             return
         href2 = urllib.parse.unquote(util.reduce_url(loc2.href))
-        c2 = self.linkbase.taxonomy.concepts.get(href2, None)
+        c2 = self.linkbase.pool.current_taxonomy.concepts.get(href2, None)
         if c2 is None:
             self.try_connect_resource_concept(c, href2)
             return
         key = f'{a.arcrole}|{a.xl_from}'
         is_root = key not in self.arcs_to
         bs_key = f'{a.name}|{a.arcrole}|{self.role}'
-        bs = self.linkbase.taxonomy.base_sets.get(bs_key, None)
+        bs = self.linkbase.pool.current_taxonomy.base_sets.get(bs_key, None)
         if bs is None:
             bs = base_set.BaseSet(a.name, a.arcrole, self.role)
-            self.linkbase.taxonomy.base_sets[bs_key] = bs
+            self.linkbase.pool.current_taxonomy.base_sets[bs_key] = bs
         if is_root and c not in bs.roots:
             bs.roots.append(c)
         # Populate concept child and parent sets
@@ -156,7 +162,7 @@ class XLink(ebase.XmlElementBase):
         c2.chain_up.setdefault(bs_key, []).append(data_wrappers.BaseSetNode(c, 0, a))
 
     def try_connect_resource_concept(self, c, href):
-        res = self.linkbase.taxonomy.resources.get(href, None)
+        res = self.linkbase.pool.current_taxonomy.resources.get(href, None)
         if res is None:
             self.try_connect_roletype(c, href)
             return
@@ -164,8 +170,7 @@ class XLink(ebase.XmlElementBase):
         c.resources.setdefault(res.name, {}).setdefault(key, []).append(res)
 
     def try_connect_roletype(self, c, href):
-        rt = self.linkbase.taxonomy.role_types.get(href, None)
+        rt = self.linkbase.pool.current_taxonomy.role_types.get(href, None)
         if rt is None:
-            # print('Cannot find role type: ', href)
             return
         c.resources.setdefault(rt.name, {}).setdefault(rt.role_uri, []).append(rt)

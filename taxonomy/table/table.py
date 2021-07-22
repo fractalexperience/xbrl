@@ -11,7 +11,7 @@ class Table(tlb_resource.TableResource):
         self.has_db_labels = False
         self.open_axes = set({})
         super().__init__(e, container_xlink)
-        container_xlink.linkbase.taxonomy.tables[self.xlabel] = self
+        container_xlink.linkbase.pool.current_taxonomy.tables[self.xlabel] = self
 
     def get_label(self):
         lbl = super().get_label()
