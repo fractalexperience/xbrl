@@ -194,7 +194,7 @@ class TableReporter(base_reporter.BaseReporter):
             return None
         # Flatten the 3D list and choose only fact cells
         f_cells = [c for lz in lo.cells for ly in lz for c in ly
-                   if c.is_fact and not c.is_grayed and c.constraints is not None]
+                   if c.is_fact and c.constraints is not None]
         custom_dimensions = sorted(set(d for dims in [c.constraints for c in f_cells] for d in dims if d != 'concept'))
         dpm_map = data_wrappers.DpmMap(tid, custom_dimensions, {})
         for c in f_cells:
@@ -208,8 +208,8 @@ class TableReporter(base_reporter.BaseReporter):
                        [c.constraints.get(dim, data_wrappers.Constraint(dim, 'N/A', None)).Member
                         for dim in sorted(custom_dimensions)]]
             dpm_map.Mappings[c.get_address()] = dict(zip(
-                [*data_wrappers.DpmMapMandatoryDimensions, *custom_dimensions],
-                [c.get_label(), concept.qname, concept.data_type, concept.period_type, *members]))
+                [*data_wrappers.DpmMapMandatoryDimensions, *custom_dimensions, 'grayed'],
+                [c.get_label(), concept.qname, concept.data_type, concept.period_type, *members, c.is_grayed]))
         return dpm_map
 
     def render_map_html(self, ids=None):
@@ -379,7 +379,7 @@ class TableReporter(base_reporter.BaseReporter):
             cls = 'grayed' if sny.is_abstract else 'fact'
             lbl = f'{sny.get_caption().strip()}/{snx.get_caption().strip()}'
             c = cell.Cell(label=lbl, html_class=cls, is_fact=True,
-                          r_code=r_code, c_code=c_code, is_grayed=sny.is_grayed)
+                          r_code=r_code, c_code=c_code, is_grayed=sny.is_abstract)
             self.new_cell(c)
             self.lay_constraint_set({'x': snx, 'y': sny, 'z': snz}, c)
 

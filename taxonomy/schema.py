@@ -59,7 +59,9 @@ class Schema(fbase.XmlFileBase):
 
     def l_linkbase(self, e):
         # Loading a linkbase, which is positioned internally inside annotation/appinfo element of the schema.
-        linkbase.Linkbase(self.location, self.pool, e)
+        lb = linkbase.Linkbase(self.location, self.pool, e)
+        self.pool.linkbases[self.location] = lb
+        self.pool.current_taxonomy.attach_linkbase(self.location, lb)
 
     def l_linkbase_ref(self, e):
         href = e.get(f'{{{const.NS_XLINK}}}href')
