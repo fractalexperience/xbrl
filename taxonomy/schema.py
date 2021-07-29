@@ -4,7 +4,7 @@ import os
 
 
 class Schema(fbase.XmlFileBase):
-    def __init__(self, location, container_pool, container_taxonomy):
+    def __init__(self, location, container_pool):
         self.target_namespace = ''
         self.target_namespace_prefix = ''
         parsers = {
@@ -20,23 +20,28 @@ class Schema(fbase.XmlFileBase):
         }
         self.imports = {}
         self.linkbase_refs = {}
-        self.elements = {}  # Elements, which are not concepts
-        self.taxonomy = container_taxonomy
+        """ Elements, which are concepts """
+        self.concepts = {}
+        """ Elements, which are not concepts """
+        self.elements = {}
+        """ Role types in the schema """
+        self.role_types = {}
+        """ Arcrole types in the schema """
+        self.arcrole_types = {}
         self.pool = container_pool
         resolved_location = util.reduce_url(location)
+        if self.pool is not None:
+            self.pool.discovered[location] = True
         super().__init__(resolved_location, container_pool, parsers)
-        if self.taxonomy is not None:
-            self.taxonomy.schemas[resolved_location] = self
         if self.pool is not None:
             self.pool.schemas[resolved_location] = self
-            self.pool.discovered[location] = True
 
     def l_schema(self, e):
         self.target_namespace = e.get('targetNamespace')
         self.target_namespace_prefix = self.namespaces_reverse.get(self.target_namespace, None)
         # Load files referenced in schemaLocation attribute
         for uri, href in self.schema_location_parts.items():
-            self.pool.add_reference(href, self.base, self.taxonomy)
+            self.pool.add_reference(href, self.base)
         self.l_children(e)
 
     def l_element(self, e):
@@ -54,20 +59,16 @@ class Schema(fbase.XmlFileBase):
 
     def l_linkbase(self, e):
         # Loading a linkbase, which is positioned internally inside annotation/appinfo element of the schema.
-        linkbase.Linkbase(self.location, self.pool, self.taxonomy, e)
+        lb = linkbase.Linkbase(self.location, self.pool, e)
+        self.pool.linkbases[self.location] = lb
+        self.pool.current_taxonomy.attach_linkbase(self.location, lb)
 
     def l_linkbase_ref(self, e):
         href = e.get(f'{{{const.NS_XLINK}}}href')
         if not href.startswith('http'):
             href = util.reduce_url(os.path.join(self.base, href).replace('\\', '/'))
         self.linkbase_refs[href] = e
-        if href in self.pool.discovered:
-            return
-        self.pool.discovered[href] = False
-        lb = self.pool.linkbases.get(href, None)
-        if lb is None:
-            linkbase.Linkbase(href, self.pool, self.taxonomy)
-            self.pool.discovered[href] = True
+        self.pool.add_reference(href, self.base)
 
     def l_roletype(self, e):
         roletype.RoleType(e, self)
@@ -78,4 +79,4 @@ class Schema(fbase.XmlFileBase):
     def l_import(self, e):
         href = e.get('schemaLocation')
         self.imports[href] = e
-        self.pool.add_reference(href, self.base, self.taxonomy)
+        self.pool.add_reference(href, self.base)

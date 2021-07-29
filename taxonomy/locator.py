@@ -21,6 +21,5 @@ class Locator(ebase.XmlElementBase):
         self.fragment_identifier = self.href[self.href.find('#')+1:]
         if self.xlink is not None:
             self.xlink.locators[self.label] = self
-            # href = util.reduce_url(self.href)
-            self.xlink.linkbase.taxonomy.locators[self.href] = self
+            self.xlink.locators_by_href[self.href] = self
 

@@ -12,9 +12,6 @@ class Resource(ebase.XmlElementBase):
         self.parent = None  # Parent resource if any - e.g. a table
         if self.xlink is not None:
             self.xlink.resources.setdefault(self.xlabel, []).append(self)
-            if self.id:
-                href = f'{self.xlink.linkbase.location}#{self.id}'
-                self.xlink.linkbase.taxonomy.resources[href] = self
 
     def get_label(self):
         return util.get_label(self.nested)

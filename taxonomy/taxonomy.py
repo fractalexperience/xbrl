@@ -1,4 +1,4 @@
-from xbrl.base import const, data_wrappers
+from xbrl.base import const, data_wrappers, util
 from xbrl.taxonomy.xdt import dr_set
 
 
@@ -8,6 +8,8 @@ class Taxonomy:
     def __init__(self, entry_points, container_pool):
         self.entry_points = entry_points
         self.pool = container_pool
+        self.pool.current_taxonomy = self
+        self.pool.current_taxonomy_hash = util.get_hash(','.join(entry_points))
         """ All schemas indexed by resolved location """
         self.schemas = {}
         """ All linkbases indexed by resolved location """
@@ -24,12 +26,10 @@ class Taxonomy:
         self.defaults = {}
         """ Default Members - Key is the default member QName, value is the corresponding dimension concept. """
         self.default_members = {}
-
         """ Dimensional Relationship Sets """
         self.dr_sets = {}
         """ Excluding Dimensional Relationship Sets """
         self.dr_sets_excluding = {}
-
         """ Key is primary item QName, value is the list of dimensional relationship sets, where it participates. """
         self.idx_pi_drs = {}
         """ Key is the Qname of the dimensions. Value is the set of DR keys, where this dimension participates """
@@ -38,8 +38,7 @@ class Taxonomy:
         self.idx_hc_drs = {}
         """ Key is the QName of the member. Value is the set of DR keys, where this member participates. """
         self.idx_mem_drs = {}
-
-        """ All table resources in taxonomy """
+        """ All table resources in taxonom """
         self.tables = {}
         """ All role types in all schemas """
         self.role_types = {}
@@ -80,7 +79,23 @@ class Taxonomy:
 
     def load(self):
         for ep in self.entry_points:
-            self.pool.add_reference(ep, '', self)
+            self.pool.add_reference(ep, '')
+
+    def attach_schema(self, href, sh):
+        if href in self.schemas:
+            return
+        self.schemas[href] = sh
+        for key, imp in sh.imports.items():
+            self.pool.add_reference(key, sh.base)
+        for key, ref in sh.linkbase_refs.items():
+            self.pool.add_reference(key, sh.base)
+
+    def attach_linkbase(self, href, lb):
+        if href in self.linkbases:
+            return
+        self.linkbases[href] = lb
+        for href in lb.refs:
+            self.pool.add_reference(href, lb.base)
 
     def get_bs_roots(self, arc_name, role, arcrole):
         bs = self.base_sets.get(f'{arc_name}|{arcrole}|{role}')
@@ -101,7 +116,7 @@ class Taxonomy:
             e = enumerations.get(key)
             if not e:
                 members = self.get_bs_members('definitionArc',c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE, c.domain, c.head_usable)
-                e = data_wrappers.Enumeration(key, [], [m.Concept for m in members])
+                e = data_wrappers.Enumeration(key, [], [] if members is None else [m.Concept for m in members])
                 enumerations[key] = e
             e.Concepts.append(c)
         return enumerations
@@ -121,10 +136,36 @@ class Taxonomy:
         return enum_sets
 
     def compile(self):
+        self.compile_schemas()
         self.compile_linkbases()
         self.compile_dr_sets()
 
+    def compile_schemas(self):
+        for sh in self.schemas.values():
+            for c in sh.concepts.values():
+                self.concepts_by_qname[c.qname] = c
+                if c.id is not None:
+                    key = f'{sh.location}#{c.id}'  # Key to search from locator href
+                    self.concepts[key] = c
+            for key, e in sh.elements.items():
+                self.elements[key] = e
+            for key, art in sh.arcrole_types.items():
+                self.arcrole_types[key] = art
+            for key, rt in sh.role_types.items():
+                self.role_types[key] = rt
+
     def compile_linkbases(self):
+        # Pass 1 - Index global objects
+        for lb in self.linkbases.values():
+            for xl in lb.links:
+                for key, loc in xl.locators_by_href.items():
+                    self.locators[key] = loc
+                for key, l_res in xl.resources.items():
+                    for res in l_res:
+                        if res.id:
+                            href = f'{xl.linkbase.location}#{res.id}'
+                            self.resources[href] = res
+        # Pass 2 - Connect resources to each other
         for lb in self.linkbases.values():
             for xl in lb.links:
                 xl.compile()

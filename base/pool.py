@@ -9,13 +9,17 @@ class Pool(resolver.Resolver):
     def __init__(self, cache_folder=None, output_folder=None):
         super().__init__(cache_folder, output_folder)
         self.taxonomies = {}
+        self.current_taxonomy = None
+        self.current_taxonomy_hash = None
         self.discovered = {}
         self.schemas = {}
         self.linkbases = {}
         self.instances = {}
-        self.packaged_entrypoints = {}  # Index of all packages in the cache/taxonomy_packages folder by entrypoint
+        """ Index of all packages in the cache/taxonomy_packages folder by entrypoint """
+        self.packaged_entrypoints = {}
         self.packaged_locations = None
-        self.active_packages = {}  # Currently opened taxonomy packages
+        """ Currently opened taxonomy packages """
+        self.active_packages = {}
 
     def __str__(self):
         return self.info()
@@ -35,11 +39,13 @@ class Pool(resolver.Resolver):
         package_files = [os.path.join(r, file) for r, d, f in
                          os.walk(self.taxonomies_folder) for file in f if file.endswith('.zip')]
         for pf in package_files:
-            pck = tpack.TaxonomyPackage(pf)
-            for ep in pck.entrypoints:
-                eps = ep.Urls
-                for path in eps:
-                    self.packaged_entrypoints[path] = pf
+            self.index_package(tpack.TaxonomyPackage(pf))
+
+    def index_package(self, package, ):
+        for ep in package.entrypoints:
+            eps = ep.Urls
+            for path in eps:
+                self.packaged_entrypoints[path] = package.location
 
     def add_instance_location(self, location, key=None, attach_taxonomy=True):
         xid = instance.Instance(location=location, container_pool=self)
@@ -76,13 +82,6 @@ class Pool(resolver.Resolver):
             tax = self.add_taxonomy(entry_points)
             xid.taxonomy = tax
 
-    def add_schema(self, location, container_taxonomy):
-        sh = schema.Schema(location, self, container_taxonomy)
-        self.schemas[location] = sh
-        if container_taxonomy is None:
-            return
-        container_taxonomy.schemas[location] = sh
-
     def add_taxonomy(self, entry_points):
         ep_list = entry_points if isinstance(entry_points, list) else [entry_points]
         self.packaged_locations = {}
@@ -94,11 +93,11 @@ class Pool(resolver.Resolver):
             pck.compile()
             for pf in pck.files.items():
                 self.packaged_locations[pf[0]] = (pck, pf[1])  # A tuple
-        tax = taxonomy.Taxonomy(ep_list, self)
         key = ','.join(entry_points)
-        self.taxonomies[key] = tax
+        taxonomy.Taxonomy(ep_list, self)  # Sets the new taxonomy as current
+        self.taxonomies[key] = self.current_taxonomy
         self.packaged_locations = None
-        return tax
+        return self.current_taxonomy
 
     """ Stores a taxonomy package from a Web location to local taxonomy package repository """
     def cache_package(self, location):
@@ -114,21 +113,20 @@ class Pool(resolver.Resolver):
         tax = self.add_taxonomy(entry_points)
         return tax
 
-    def add_reference(self, href, base, tax):
+    def add_reference(self, href, base):
         """ Loads schema or linkbase depending on file type. TO IMPROVE!!! """
         if not href.startswith('http'):
             href = util.reduce_url(os.path.join(base, href).replace(os.path.sep, '/'))
-        if href in self.discovered:
+        key = f'{self.current_taxonomy_hash}_{href}'
+        if key in self.discovered:
             return
-        self.discovered[href] = False
+        self.discovered[key] = False
         if href.endswith(".xsd"):
-            sh = self.schemas.get(href, None)
-            if not sh:
-                schema.Schema(href, self, tax)
+            sh = self.schemas.get(href, schema.Schema(href, self))
+            self.current_taxonomy.attach_schema(href, sh)
         else:
-            lb = self.linkbases.get(href, None)
-            if not lb:
-                linkbase.Linkbase(href, self, tax)
+            lb = self.linkbases.get(href, linkbase.Linkbase(href, self))
+            self.current_taxonomy.attach_linkbase(href, lb)
 
     @staticmethod
     def check_create_path(existing_path, part):

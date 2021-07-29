@@ -15,8 +15,7 @@ class ArcroleType(ebase.XmlElementBase):
         }
         super().__init__(e, parsers)
         if self.id is not None:
-            # key = f'{self.schema.location}#{self.id}'
-            self.schema.taxonomy.arcrole_types[self.arcrole_uri] = self
+            self.schema.arcrole_types[self.arcrole_uri] = self
 
     def l_definition(self, e):
         self.definition = e.text

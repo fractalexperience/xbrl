@@ -1,6 +1,8 @@
 import os
 import itertools
+import hashlib
 from xbrl.base import const
+
 
 
 def u_dct_list(dct, key, val):
@@ -82,3 +84,7 @@ def reduce_url_parts(parts):
 
 def reduce_url(url):
     return '/'.join(reduce_url_parts(url.replace(os.path.sep, "/").split('/'))) if url else None
+
+
+def get_hash(s, digest_size=12):
+    return hashlib.shake_256(s.encode()).hexdigest(digest_size)
