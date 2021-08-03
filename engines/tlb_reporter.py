@@ -224,6 +224,7 @@ class TableReporter(base_reporter.BaseReporter):
             self.init_table(['Address', *dims])
             for address, mapping in dpm_map.Mappings.items():
                 self.add_tr(address, *[mapping.get(d, '-') for d in dims])
+            self.finalize_table()
         self.finalize_output()
         return ''.join(self.content)
 
