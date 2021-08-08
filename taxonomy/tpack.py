@@ -61,6 +61,9 @@ class TaxonomyPackage(resolver.Resolver):
         with self.archive.open(key) as f:
             return f.read()
 
+    def get_hash(self):
+        return util.get_hash(self.location)
+
     def compile(self):
         self.files = {}
         zip_infos = self.archive.infolist()
