@@ -103,10 +103,10 @@ class XLink(ebase.XmlElementBase):
                 continue
             for res2 in nested_list:
                 res2.parent = res
+                res2.order = a.order
                 key = f'{res2.lang}|{res2.role}' if res2.lang or res2.role else res2.xlabel
                 if isinstance(res2, breakdown.Breakdown):
                     res2.axis = a.axis
-                    res2.order = a.order
                 res.nested.setdefault(res2.name, {}).setdefault(key, []).append(res2)
 
     def try_connect_global_resource(self, a, loc):

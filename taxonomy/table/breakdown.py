@@ -9,5 +9,4 @@ class Breakdown(tlb_resource.TableResource):
         self.axis = None
         self.is_open = False
         self.is_closed = False
-        self.order = 0
         super().__init__(e, container_xlink)
