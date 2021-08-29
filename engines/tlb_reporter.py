@@ -138,7 +138,7 @@ class TableReporter(base_reporter.BaseReporter):
             new_node.constraint_set.setdefault(tag, {}).update(rs)  # Copy any available restrictions from rule node
         self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
 
-    def process_cr_node(self, tbl, axis, struct, parent_node, r, lvl, pco):
+    def process_cr_node(self, tbl, axis, struct, parent_node, r, lvl):
         new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=False, lvl=lvl)
         self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
 
