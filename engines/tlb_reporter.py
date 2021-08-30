@@ -36,9 +36,9 @@ class TableReporter(base_reporter.BaseReporter):
 
     def compile_headers(self, struct, t):
         headers = self.headers.setdefault(t.xlabel, {})
-        self.populate_headers(headers, struct)
+        self.populate_headers(headers, struct, t)
 
-    def populate_headers(self, matrix, struct):
+    def populate_headers(self, matrix, struct, t):
         # Generate one header per axis
         for axis, s_lst in struct.items():
             header = matrix.setdefault(axis, {})
@@ -46,7 +46,7 @@ class TableReporter(base_reporter.BaseReporter):
                 depth = self.get_max_depth(sn, 0)
                 for lvl in range(depth + 1):
                     header.setdefault(lvl, [])
-                self.calculate_header(header, sn, 0, axis)
+                self.calculate_header(header, sn, 0, axis, t.parent_child_order)
             # Calculate span
             depth = max(header)
             last_row = header.get(depth, None)
@@ -55,8 +55,14 @@ class TableReporter(base_reporter.BaseReporter):
             for sn in last_row:
                 sn.increment_span()
 
-    def calculate_header(self, header, sn, lvl, axis):
+    def calculate_header(self, header, sn, lvl, axis, pco):
         maxlvl = max(header)
+        if isinstance(sn.origin, breakdown.Breakdown):
+            pco = sn.origin.parent_child_order
+        # childrent-first case
+        if pco is not None and pco == 'children-first' and sn.nested is not None:
+            for snn in sn.nested:
+                self.calculate_header(header, snn, lvl + 1, axis, pco)
         if not sn.is_fake and not isinstance(sn.origin, breakdown.Breakdown):
             header[lvl].append(sn)
         tlvl = lvl + 1
@@ -68,10 +74,10 @@ class TableReporter(base_reporter.BaseReporter):
                 if not sn.is_fake and tlvl <= maxlvl:
                     header[tlvl].append(sn.get_fake_copy())
                 tlvl += 1
-        if sn.nested is None:
+        if sn.nested is None or (pco is not None and pco == 'children-first'):
             return
         for snn in sn.nested:
-            self.calculate_header(header, snn, lvl + 1, axis)
+            self.calculate_header(header, snn, lvl + 1, axis, pco)
 
     def get_max_depth(self, sn, depth):
         if sn.nested is None:
@@ -93,7 +99,9 @@ class TableReporter(base_reporter.BaseReporter):
 
     def walk(self, tbl, axis, struct, node, dct, lvl):
         for name in filter(lambda n: n in dct, self.resource_names):
-            for r in [res for r_lst in dct.get(name).values() for res in r_lst]:  # Flatten the result list of lists.
+            # Flatten the result list of lists.
+            l = [res for r_lst in dct.get(name).values() for res in r_lst]
+            for r in sorted(l, key=lambda re: re.order.zfill(10)):
                 if isinstance(r, breakdown.Breakdown):
                     self.process_breakdown_node(tbl, struct, r, lvl)
                 elif isinstance(r, aspect_node.AspectNode):

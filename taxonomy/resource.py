@@ -10,6 +10,7 @@ class Resource(ebase.XmlElementBase):
         self.role = e.attrib.get(f'{{{const.NS_XLINK}}}role')
         self.text = e.text
         self.parent = None  # Parent resource if any - e.g. a table
+        self.order = 0  # Order in the structure taken from arc
         if self.xlink is not None:
             self.xlink.resources.setdefault(self.xlabel, []).append(self)
 
