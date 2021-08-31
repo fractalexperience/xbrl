@@ -2,7 +2,7 @@ from builtins import isinstance
 
 from xbrl.taxonomy.table import breakdown, aspect_node, rule_node, cr_node, dr_node, str_node, layout, cell
 from xbrl.engines import base_reporter
-from xbrl.base import data_wrappers
+from xbrl.base import data_wrappers, const
 
 
 class TableReporter(base_reporter.BaseReporter):
@@ -101,7 +101,7 @@ class TableReporter(base_reporter.BaseReporter):
         for name in filter(lambda n: n in dct, self.resource_names):
             # Flatten the result list of lists.
             l = [res for r_lst in dct.get(name).values() for res in r_lst]
-            for r in sorted(l, key=lambda re: re.order.zfill(10)):
+            for r in sorted(l, key=lambda re: 0 if re.order is None else re.order.zfill(10)):
                 if isinstance(r, breakdown.Breakdown):
                     self.process_breakdown_node(tbl, struct, r, lvl)
                 elif isinstance(r, aspect_node.AspectNode):
@@ -133,17 +133,28 @@ class TableReporter(base_reporter.BaseReporter):
     def process_rule_node(self, tbl, axis, struct, parent_node, r, lvl):
         tbl.has_rc_labels = r.get_rc_label() is not None
         tbl.has_db_labels = r.get_db_label() is not None
-        new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=r.is_merged, lvl=lvl, abst=r.is_abstract)
+        new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=r.is_merged, lvl=lvl,
+                                          abst=r.is_abstract)
         for tag, rs in r.rule_sets.items():
             new_node.constraint_set.setdefault(tag, {}).update(rs)  # Copy any available restrictions from rule node
         self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
 
-    def process_cr_node(self, tbl, axis, struct, parent_node, r, lvl):
+    def process_cr_node(self, tbl, axis, struct, parent_sn, r, lvl):
         bs = self.taxonomy.base_sets.get(f'{r.arc_name}|{r.arcrole}|{r.role}', None)
         if bs is None:  # This should not happen actually
-            new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=False, lvl=lvl)
+            new_node = str_node.StructureNode(parent=parent_sn, origin=r, grayed=False, lvl=lvl)
             self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
             return
+        effective_roots = self.get_effective_roots(bs, r)
+        generations = None if r.generations is None else int(r.generations)
+        # TODO: Handle other types of formula axis
+        if r.formula_axis in ['child', 'child-or-self']:
+            generations = 1
+        use_parent = True if r.formula_axis.endswith('-or-self') else False
+        for effective_root in effective_roots:
+            self.tree_walk(tbl, axis, struct, r, bs, parent_sn, effective_root, generations, 0, lvl, use_parent)
+
+    def get_effective_roots(self, bs, r):
         effective_roots = []
         for rsrc in r.relationship_sources:
             if rsrc == 'xfi:root':
@@ -152,26 +163,47 @@ class TableReporter(base_reporter.BaseReporter):
                 effective_root = self.taxonomy.concepts_by_qname.get(rsrc, None)
                 if effective_root is not None:
                     effective_roots.append(effective_root)
+        return effective_roots
+
+    def tree_walk(self, tbl, axis, struct, r, bs, parent_sn, concept, generations, cr_walk_lvl, lvl, use_parent):
+        new_sn = parent_sn
+        is_cr = isinstance(r, cr_node.ConceptRelationshipNode)
+        if use_parent:
+            new_sn = str_node.StructureNode(parent=parent_sn, origin=r, grayed=False, lvl=lvl, concept=concept,
+                                            abst=is_cr and concept.abstract)
+            if is_cr:
+                new_sn.add_constraint('concept', concept.qname)
+            else:
+                new_sn.add_constraint(r.dimension, concept.qname)
+        if generations is not None and generations < cr_walk_lvl:
+            return
+        cbs_dn = concept.chain_dn.get(bs.get_key(), None)
+        if cbs_dn is None:
+            return
+        for node in sorted(cbs_dn, key=lambda t: 0 if t.Arc.order is None else float(t.Arc.order)):
+            self.tree_walk(tbl, axis, struct, r, bs, new_sn, node.Concept, generations, cr_walk_lvl + 1, lvl + 1, True)
+
+    def process_dr_node(self, tbl, axis, struct, parent_sn, r, lvl):
+        bs = self.taxonomy.base_sets.get(f'definitionArc|{const.XDT_DIMENSION_DOMAIN_ARCROLE}|{r.role}', None)
+        if bs is None:  # This should not happen actually
+            new_node = str_node.StructureNode(parent=parent_sn, origin=r, grayed=False, lvl=lvl)
+            self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
+            return
+        root_members = bs.get_members(start_concept=r.dimension, include_head=False)
         generations = None if r.generations is None else int(r.generations)
         # TODO: Handle other types of formula axis
         if r.formula_axis in ['child', 'child-or-self']:
             generations = 1
-        for effective_root in effective_roots:
-            new_node = None
-            if r.formula_axis in ['child', 'descendant']:
-                new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=False, lvl=lvl)
-                new_node.add_constraint('concept', effective_root.qname)
-            self.walk_cr(tbl, axis, struct, r, bs, new_node, effective_root, generations, 0, lvl)
-
-    def walk_cr(self, tbl, axis, struct, r, bs, parent_sn, parent_concept, generations, cr_walk_lvl, lvl):
-        new_node = str_node.StructureNode(parent=parent_sn, origin=r, grayed=False, lvl=lvl)
-        self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
-
-
-    def process_dr_node(self, tbl, axis, struct, parent_node, r, lvl):
-        new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=False, lvl=lvl)
-        self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
-        
+        use_parent = True if r.formula_axis.endswith('-or-self') else False
+        for root_member in root_members:
+            eff_role = root_member.Arc.target_role \
+                if root_member.Arc is not None and root_member.Arc.target_role is not None else r.role
+            bs_dm = self.taxonomy.base_sets.get(f'definitionArc|{const.XDT_DOMAIN_MEMBER_ARCROLE}|{eff_role}', None)
+            if bs_dm is None:
+                continue
+            effective_roots = self.get_effective_roots(bs_dm, r)
+            for effective_root in effective_roots:
+                self.tree_walk(tbl, axis, struct, r, bs_dm, parent_sn, effective_root, generations, 0, lvl, use_parent)
 
     def compile_all(self):
         for t in self.taxonomy.tables.values():
@@ -347,7 +379,7 @@ class TableReporter(base_reporter.BaseReporter):
                 colspan = snx.span if row == snx.level else 1
                 cls = 'fake' if snx.is_fake else 'header'
                 gry = snx.is_fake or snx.is_abstract
-                self.new_cell(cell.Cell(label=snx.origin.get_label(), colspan=colspan, is_header=True,
+                self.new_cell(cell.Cell(label=snx.get_caption(False), colspan=colspan, is_header=True,
                                         html_class=cls, is_fake=snx.is_fake))
         # Optional RC header
         self.new_row()
@@ -397,11 +429,10 @@ class TableReporter(base_reporter.BaseReporter):
             self.new_cell(cell.Cell(html_class='header'))
 
     def lay_closed_y_header(self, sny, rc):
-        sny_cap = sny.origin.get_label() if sny.origin is not None else ""
         sny_rc_cap = sny.origin.get_rc_label() if sny.origin is not None else ""
         rc.add(sny_rc_cap)
         cls = f'header_abstract' if sny.is_abstract else 'header'
-        self.new_cell(cell.Cell(label=sny_cap, indent=sny.level * 10, html_class=cls))
+        self.new_cell(cell.Cell(label=sny.get_caption(False), indent=sny.level * 10, html_class=cls))
 
     def lay_tbl_body(self, snz, sny, closed_x, position):
         r_code = None if sny.origin is None else sny.origin.get_rc_label()

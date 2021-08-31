@@ -14,7 +14,7 @@ class Arc(ebase.XmlElementBase):
         self.weight = e.attrib.get('weight')
         self.preferredLabel = e.attrib.get('preferredLabel')
         u = e.attrib.get(f'{{{const.NS_XBRLDT}}}usable')
-        self.usable = True if not u else u
+        self.usable = False if u is not None and u in ['false', '0'] else True
         self.target_role = e.attrib.get(f'{{{const.NS_XBRLDT}}}targetRole')
         self.axis = e.attrib.get('axis')  # for tableBreakdownArc
         if self.xlink is not None:

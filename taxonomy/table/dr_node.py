@@ -9,9 +9,12 @@ class DimensionalRelationshipNode(def_node.DefinitionNode):
         self.role = None
         self.formula_axis = 'descendant-or-self'
         self.generations = None
+        self.dimension = None
+        super().__init__(e, container_xlink)
         self.detail_parsers = {
             f'{{{const.NS_TABLE}}}relationshipSource': self.l_rel_src,
             f'{{{const.NS_TABLE}}}relationshipSourceExpression': self.l_rel_src,
+            f'{{{const.NS_TABLE}}}dimension': self.l_dimension,
             f'{{{const.NS_TABLE}}}linkrole': self.l_linkrole,
             f'{{{const.NS_TABLE}}}linkroleExpression': self.l_linkrole,
             f'{{{const.NS_TABLE}}}formulaAxis': self.l_axis,
@@ -19,7 +22,7 @@ class DimensionalRelationshipNode(def_node.DefinitionNode):
             f'{{{const.NS_TABLE}}}generations': self.l_generations,
             f'{{{const.NS_TABLE}}}generationsExpression': self.l_generations
         }
-        super().__init__(e, container_xlink)
+        self.load_details(e)
 
     def l_axis(self, e):
         self.formula_axis = e.text
@@ -29,6 +32,9 @@ class DimensionalRelationshipNode(def_node.DefinitionNode):
 
     def l_linkrole(self, e):
         self.role = e.text
+
+    def l_dimension(self, e):
+        self.dimension = e.text
 
     def l_rel_src(self, e):
         self.relationship_sources.append(e.text)
