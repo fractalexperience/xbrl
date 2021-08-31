@@ -266,11 +266,7 @@ class TableReporter(base_reporter.BaseReporter):
         dpm_map = data_wrappers.DpmMap(tid, custom_dimensions, {}, set([a for a in lo.open_dimensions.values()]))
         for c in f_cells:
             cco = c.constraints.get('concept', None)
-            # if concept_constraint is None:
-            #     continue
             concept = None if cco is None else self.taxonomy.concepts_by_qname.get(cco.Member, None)
-            # if concept is None:  # Every data point must have a metrics (taxonomy concept)
-            #     continue
             members = ['*' if m is None else m for m in
                        [c.constraints.get(dim, data_wrappers.Constraint(dim, 'N/A', None)).Member
                         for dim in sorted(custom_dimensions)]]
