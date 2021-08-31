@@ -112,10 +112,10 @@ class Taxonomy:
     def get_enumerations(self):
         enumerations = {}
         for c in [c for k, c in self.concepts.items() if c.data_type and c.data_type.endswith('enumerationItemType')]:
-            key = f'{c.linkrole}|{c.domain}|{c.head_usable}'
+            key = f'{c.role}|{c.domain}|{c.head_usable}'
             e = enumerations.get(key)
             if not e:
-                members = self.get_bs_members('definitionArc',c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE, c.domain, c.head_usable)
+                members = self.get_bs_members('definitionArc', c.role, const.XDT_DOMAIN_MEMBER_ARCROLE, c.domain, c.head_usable)
                 e = data_wrappers.Enumeration(key, [], [] if members is None else [m.Concept for m in members])
                 enumerations[key] = e
             e.Concepts.append(c)
@@ -124,10 +124,10 @@ class Taxonomy:
     def get_enumeration_sets(self):
         enum_sets = {}
         for c in [c for k, c in self.concepts.items() if c.data_type and c.data_type.endswith('enumerationSetItemType')]:
-            key = f'{c.linkrole}|{c.domain}|{c.head_usable}'
+            key = f'{c.role}|{c.domain}|{c.head_usable}'
             e = enum_sets.get(key)
             if not e:
-                members = self.get_bs_members('definitionArc', c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE, c.domain, c.head_usable)
+                members = self.get_bs_members('definitionArc', c.role, const.XDT_DOMAIN_MEMBER_ARCROLE, c.domain, c.head_usable)
                 if members is None:
                     continue
                 e = data_wrappers.Enumeration(key, [], [m.Concept for m in members])

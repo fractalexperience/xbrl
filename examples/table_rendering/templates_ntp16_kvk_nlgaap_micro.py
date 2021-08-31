@@ -16,11 +16,11 @@ eng.compile_all()
 ids = tax.tables
 for tid in ids:
     print(tid)
-#     eng.do_layout(tid)
-#     dp.save_output(eng.render_templates_html(tid), f'{ep_code}_250_{tid}_template.html')
+    eng.do_layout(tid)
+    dp.save_output(eng.render_templates_html(tid), f'{tid}_template.html')
 #     dp.save_output(eng.render_templates_html(tid, True), f'{ep_code}_250_{tid}_template_w_constraints.html')
 #     dp.save_output(eng.render_map_html(tid), f'{ep_code}_250_{tid}_map.html')
 #     dpm_map = eng.get_dpm_map(tid)
 #     dp.save_output(json.dumps(dpm_map.Mappings), f'[{tid}]_map.json')
 #
-# print(f'{len(ids)} tables processed.', 'Processing time: ', datetime.datetime.now() - t1)
+print(f'{len(ids)} tables processed.', 'Processing time: ', datetime.datetime.now() - t1)

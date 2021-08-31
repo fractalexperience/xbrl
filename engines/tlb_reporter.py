@@ -139,12 +139,39 @@ class TableReporter(base_reporter.BaseReporter):
         self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
 
     def process_cr_node(self, tbl, axis, struct, parent_node, r, lvl):
-        new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=False, lvl=lvl)
+        bs = self.taxonomy.base_sets.get(f'{r.arc_name}|{r.arcrole}|{r.role}', None)
+        if bs is None:  # This should not happen actually
+            new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=False, lvl=lvl)
+            self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
+            return
+        effective_roots = []
+        for rsrc in r.relationship_sources:
+            if rsrc == 'xfi:root':
+                effective_roots += bs.roots
+            else:
+                effective_root = self.taxonomy.concepts_by_qname.get(rsrc, None)
+                if effective_root is not None:
+                    effective_roots.append(effective_root)
+        generations = None if r.generations is None else int(r.generations)
+        # TODO: Handle other types of formula axis
+        if r.formula_axis in ['child', 'child-or-self']:
+            generations = 1
+        for effective_root in effective_roots:
+            new_node = None
+            if r.formula_axis in ['child', 'descendant']:
+                new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=False, lvl=lvl)
+                new_node.add_constraint('concept', effective_root.qname)
+            self.walk_cr(tbl, axis, struct, r, bs, new_node, effective_root, generations, 0, lvl)
+
+    def walk_cr(self, tbl, axis, struct, r, bs, parent_sn, parent_concept, generations, cr_walk_lvl, lvl):
+        new_node = str_node.StructureNode(parent=parent_sn, origin=r, grayed=False, lvl=lvl)
         self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
+
 
     def process_dr_node(self, tbl, axis, struct, parent_node, r, lvl):
         new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=False, lvl=lvl)
         self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
+        
 
     def compile_all(self):
         for t in self.taxonomy.tables.values():
@@ -188,7 +215,7 @@ class TableReporter(base_reporter.BaseReporter):
         return ''.join(self.content)
 
     def render_cell_constraints_html(self, tc):
-        if tc is None or tc.constraints is None:
+        if tc is None or not tc.constraints:
             return
         self.init_table()
         for c in sorted(tc.constraints.values(), key=lambda c: c.Dimension):
@@ -201,23 +228,27 @@ class TableReporter(base_reporter.BaseReporter):
         if lo is None:
             return None
         # Flatten the 3D list and choose only fact cells
-        f_cells = [c for lz in lo.cells for ly in lz for c in ly
-                   if c.is_fact and c.constraints is not None]
-        custom_dimensions = sorted(set(d for dims in [c.constraints for c in f_cells] for d in dims if d != 'concept'))
-        dpm_map = data_wrappers.DpmMap(tid, custom_dimensions, {})
+        f_cells = [c for lz in lo.cells for ly in lz for c in ly if c.is_fact]  # and c.constraints is not None]
+        custom_dimensions = sorted(set(d for dims in [
+            [] if c.constraints is None else c.constraints for c in f_cells] for d in dims if d != 'concept'))
+        dpm_map = data_wrappers.DpmMap(tid, custom_dimensions, {}, set([a for a in lo.open_dimensions.values()]))
         for c in f_cells:
-            concept_constraint = c.constraints.get('concept', None)
-            if concept_constraint is None:
-                continue
-            concept = self.taxonomy.concepts_by_qname.get(concept_constraint.Member, None)
-            if concept is None:  # Every data point must have a metrics (taxonomy concept)
-                continue
+            cco = c.constraints.get('concept', None)
+            # if concept_constraint is None:
+            #     continue
+            concept = None if cco is None else self.taxonomy.concepts_by_qname.get(cco.Member, None)
+            # if concept is None:  # Every data point must have a metrics (taxonomy concept)
+            #     continue
             members = ['*' if m is None else m for m in
                        [c.constraints.get(dim, data_wrappers.Constraint(dim, 'N/A', None)).Member
                         for dim in sorted(custom_dimensions)]]
             dpm_map.Mappings[c.get_address()] = dict(zip(
                 [*data_wrappers.DpmMapMandatoryDimensions, *custom_dimensions, 'grayed'],
-                [c.get_label(), concept.qname, concept.data_type, concept.period_type, *members, c.is_grayed]))
+                [c.get_label(),
+                 None if concept is None else concept.qname,
+                 None if concept is None else concept.data_type,
+                 None if concept is None else concept.period_type,
+                 *members, c.is_grayed]))
         return dpm_map
 
     def render_map_html(self, ids=None):
@@ -404,6 +435,9 @@ class TableReporter(base_reporter.BaseReporter):
                             constraints[a] = m
                 parent = parent.parent
             c.add_constraints(constraints, axis)
+            # Add open dimensions to layout
+            for asp in [a for a, m in constraints.items() if m is None]:
+                self.current_layout.open_dimensions[asp] = axis
             # Check if there is a tag selector and add additional constraints for matching rule set
             if sn.origin is not None \
                     and isinstance(sn.origin, rule_node.RuleNode) \

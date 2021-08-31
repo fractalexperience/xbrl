@@ -34,7 +34,7 @@ Constraint = namedtuple('Constraint', 'Dimension,Member,Axis')
     Mappings: A Dictionary of dictionaries where outer key is the address of the data point. 
               The value is a dictionary of constraints for the cell where key is the dimension (aspect) and the value
               is the value of the member. If the dimension is open, the member value is an asterisk (*). """
-DpmMap = namedtuple('DpmMap', 'Id,Dimensions,Mappings')
+DpmMap = namedtuple('DpmMap', 'Id,Dimensions,Mappings,OpenAxes')
 
 
 DpmMapMandatoryDimensions = ['Label', 'Metrics', 'Data Type', 'Period Type']
