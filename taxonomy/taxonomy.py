@@ -138,6 +138,7 @@ class Taxonomy:
     def compile(self):
         self.compile_schemas()
         self.compile_linkbases()
+        self.compile_defaults()
         self.compile_dr_sets()
 
     def compile_schemas(self):
@@ -170,10 +171,21 @@ class Taxonomy:
             for xl in lb.links:
                 xl.compile()
 
-    def compile_dr_sets(self):
-        for bs in self.base_sets.values():
-            if bs.arc_name != 'definitionArc':
+    def compile_defaults(self):
+        key = f'definitionArc|{const.XDT_DIMENSION_DEFAULT_ARCROLE}|{const.ROLE_LINK}'
+        bs = self.base_sets.get(key, None)
+        if bs is None:
+            return
+        for dim in bs.roots:
+            chain_dn = dim.chain_dn.get(key, None)
+            if chain_dn is None:
                 continue
+            for def_node in chain_dn:
+                self.defaults[dim.qname] = def_node.Concept.qname
+                self.default_members[def_node.Concept.qname] = dim.qname
+
+    def compile_dr_sets(self):
+        for bs in [bs for bs in self.base_sets.values() if bs.arc_name == 'definitionArc']:
             if bs.arcrole == const.XDT_DIMENSION_DEFAULT_ARCROLE:
                 self.add_default_member(bs)
                 continue

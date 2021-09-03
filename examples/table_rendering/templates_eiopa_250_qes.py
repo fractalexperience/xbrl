@@ -14,13 +14,13 @@ xid_file = f'random/{ep_code}_250_instance.xbrl'
 afn = dp.cache(doc_url)
 xid = dp.add_instance_archive(afn, xid_file, None, True)
 eng = tlb_reporter.TableReporter(xid.taxonomy, xid)
-eng.compile_all()
 # for tid in xid.taxonomy.tables:
 # ids = ['s2md_tS.22.06.01.04', 's2md_tS.19.01.01.01', 's2md_tS.02.02.01.02', 's2md_tS.08.01.01.01', 's2md_tS.04.01.01.01', 's2md_tS.02.02.01.02']
-# ids = sorted(xid.taxonomy.tables)
-ids = ['s2md_tS.19.01.01.01']
+ids = sorted(xid.taxonomy.tables)
+# ids = ['s2md_tS.02.01.01.01','s2md_tS.19.01.01.01']
 for tid in ids:
     print(tid)
+    eng.compile_table_id(tid)
     eng.do_layout(tid)
     dp.save_output(eng.render_templates_html(tid), f'{ep_code}_250_{tid}_template.html')
     dp.save_output(eng.render_templates_html(tid, True), f'{ep_code}_250_{tid}_template_w_constraints.html')
