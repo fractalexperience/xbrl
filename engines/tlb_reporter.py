@@ -417,7 +417,7 @@ class TableReporter(base_reporter.BaseReporter):
             self.lay_closed_y_header(sny, rc)
         if tbl.has_rc_labels:
             self.new_cell(cell.Cell(label=" ".join(rc), html_class='rc'))
-        self.lay_tbl_body(tbl, snz, sny, h_closed['x'], position)
+        self.lay_tbl_body(snz, sny, h_closed['x'], position)
 
     def lay_open_y_header(self, open_y, rc):
         for sno in open_y:
@@ -430,7 +430,7 @@ class TableReporter(base_reporter.BaseReporter):
         cls = f'header_abstract' if sny.is_abstract else 'header'
         self.new_cell(cell.Cell(label=sny.get_caption(False), indent=sny.level * 10, html_class=cls))
 
-    def lay_tbl_body(self, tbl, snz, sny, closed_x, position):
+    def lay_tbl_body(self, snz, sny, closed_x, position):
         r_code = None if sny.origin is None else sny.origin.get_rc_label()
         if not r_code:
             r_code = f'r{position}'
@@ -442,7 +442,6 @@ class TableReporter(base_reporter.BaseReporter):
             c_code = snx.origin.get_rc_label() if snx.origin is not None else ''
             if not c_code:
                 c_code = f'c{cnt}'
-
             cls = 'grayed' if sny.is_abstract else 'fact'
             lbl = f'{sny.get_caption().strip()}/{snx.get_caption().strip()}'
             c = cell.Cell(label=lbl, html_class=cls, is_fact=True,
@@ -480,7 +479,6 @@ class TableReporter(base_reporter.BaseReporter):
 
     """ Calculates the 'grayed' property based on XDT constraints. If there is at least one dimensional relationship set
         matching constraints, then grayed is false, otherwise true."""
-
     def validate(self, c):
         if not self.current_layout.rc_code:
             return True
@@ -502,11 +500,11 @@ class TableReporter(base_reporter.BaseReporter):
         return True
 
     def validate_drs(self, c, drs):
-        checklist = {asp: cstr for asp, cstr in c.constraints.items() if asp != 'concept'}
+        checklist = {asp: co for asp, co in c.constraints.items() if asp != 'concept'}
         for hc in drs.hypercubes.values():
             for dim in hc.dimensions.values():
-                constr = checklist.get(dim.concept.qname, None)
-                if constr is None:
+                constraint = checklist.get(dim.concept.qname, None)
+                if constraint is None:
                     if [m for m in dim.members.values() if m.qname in self.taxonomy.default_members]:
                         # There is a dimension in DRS, which is not in cell. constraints, but it has a default member
                         # and can be skipped
@@ -515,11 +513,11 @@ class TableReporter(base_reporter.BaseReporter):
                         # There is a dimension in DRS, which is not in cell constraints and this dimension
                         # has no default member
                         return False
-                if constr.Member is None:
+                if constraint.Member is None:
                     del checklist[dim.concept.qname]  # This is an open dimension and so it matches
                     continue
                 for mem in dim.members.values():
-                    if mem.qname == constr.Member:
+                    if mem.qname == constraint.Member:
                         del checklist[dim.concept.qname]
                         break
         return False if checklist else True
