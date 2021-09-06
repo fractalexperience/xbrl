@@ -24,14 +24,20 @@ class HtmlHelper:
         if self.title is not None:
             self.content.append(f'<h1>{self.title}</h1>')
 
-    def init_table(self, columns=None, cls=None):
-        self.content.append(f'<table border="1" cellspacing="0" cellpadding="3" class={cls}>')
+    def init_table(self, columns=None, cls=None, attributes=None, cls_head=None, cls_body=None):
+        if attributes is None:
+            attributes = {'border': '1', 'cellspacing':'0', 'cellpadding': '3'}
+        snip = ''.join(f'{k}="{v}" ' for k, v in attributes.items())
+        self.content.append(f'<table {snip} class="{cls}">')
+        self.add_th(columns, cls_head)
+        cls_body_str ='' if cls_body is None else f' class="{cls_body}"'
+        self.add(f'<tbody{cls_body_str}>')
+
+    def add_th(self, columns, cls=None):
         if columns is None:
             return
-        self.content.append('<tr>')
-        for c in columns:
-            self.content.append(f'<th>{c}</th>')
-        self.content.append('</tr>')
+        cls_str = '' if cls is None else f' class="{cls}"'
+        self.add(f'<thead{cls_str}><tr><th>{"</th><th>".join(columns)}</th></tr></thead>')
 
     def add(self, *s):
         for tok in s:
@@ -51,11 +57,11 @@ class HtmlHelper:
             if isinstance(tok, str):
                 self.add(f'<td>{tok}</td>')
                 continue
-            self.add('<td>', '</td><td>'.join(tok), '</td>')
+            self.add('<td>', '</td><td>'.join([t if t is not None else '&nbsp;' for t in tok]), '</td>')
         self.add('</tr>')
 
     def finalize_table(self):
-        self.content.append('</table>')
+        self.content.append('</tbody></table>')
 
     def finalize_output(self):
         self.content.append('</body></html>')
