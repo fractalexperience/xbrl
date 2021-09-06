@@ -11,6 +11,8 @@ class Element(ebase.XmlElementBase):
         self.qname = f'{self.prefix}:{self.name}'
         self.unique_id = f'{{{self.schema.target_namespace}}}{self.name}'
         self.schema.elements[self.unique_id] = self
+        if self.id is not None:
+            self.schema.elements_by_id[self.id] = self
         self.substitution_group = e.attrib.get('substitutionGroup')
         nil = e.attrib.get('nillable')
         self.nillable = nil is not None and nil.lower() == 'true' or nil == '1'

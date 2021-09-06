@@ -24,6 +24,7 @@ class Schema(fbase.XmlFileBase):
         self.concepts = {}
         """ Elements, which are not concepts """
         self.elements = {}
+        self.elements_by_id = {}
         """ Role types in the schema """
         self.role_types = {}
         """ Arcrole types in the schema """

@@ -20,6 +20,7 @@ class Taxonomy:
         self.concepts_by_qname = {}
         """ General elements, which are not concepts """
         self.elements = {}
+        self.elements_by_id = {}
         """ All base set objects indexed by base set key """
         self.base_sets = {}
         """ Dimension defaults - Key is dimension QName, value is default member concept """
@@ -150,6 +151,8 @@ class Taxonomy:
                     self.concepts[key] = c
             for key, e in sh.elements.items():
                 self.elements[key] = e
+            for key, e in sh.elements_by_id.items():
+                self.elements_by_id[key] = e
             for key, art in sh.arcrole_types.items():
                 self.arcrole_types[key] = art
             for key, rt in sh.role_types.items():
