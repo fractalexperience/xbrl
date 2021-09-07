@@ -20,6 +20,7 @@ class Taxonomy:
         self.concepts_by_qname = {}
         """ General elements, which are not concepts """
         self.elements = {}
+        self.elements_by_id = {}
         """ All base set objects indexed by base set key """
         self.base_sets = {}
         """ Dimension defaults - Key is dimension QName, value is default member concept """
@@ -115,7 +116,7 @@ class Taxonomy:
             key = f'{c.linkrole}|{c.domain}|{c.head_usable}'
             e = enumerations.get(key)
             if not e:
-                members = self.get_bs_members('definitionArc',c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE, c.domain, c.head_usable)
+                members = self.get_bs_members('definitionArc', c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE, c.domain, c.head_usable)
                 e = data_wrappers.Enumeration(key, [], [] if members is None else [m.Concept for m in members])
                 enumerations[key] = e
             e.Concepts.append(c)
@@ -124,10 +125,10 @@ class Taxonomy:
     def get_enumeration_sets(self):
         enum_sets = {}
         for c in [c for k, c in self.concepts.items() if c.data_type and c.data_type.endswith('enumerationSetItemType')]:
-            key = f'{c.linkrole}|{c.domain}|{c.head_usable}'
+            key = f'{c.role}|{c.domain}|{c.head_usable}'
             e = enum_sets.get(key)
             if not e:
-                members = self.get_bs_members('definitionArc', c.linkrole, const.XDT_DOMAIN_MEMBER_ARCROLE, c.domain, c.head_usable)
+                members = self.get_bs_members('definitionArc', c.role, const.XDT_DOMAIN_MEMBER_ARCROLE, c.domain, c.head_usable)
                 if members is None:
                     continue
                 e = data_wrappers.Enumeration(key, [], [m.Concept for m in members])
@@ -138,6 +139,7 @@ class Taxonomy:
     def compile(self):
         self.compile_schemas()
         self.compile_linkbases()
+        self.compile_defaults()
         self.compile_dr_sets()
 
     def compile_schemas(self):
@@ -149,6 +151,8 @@ class Taxonomy:
                     self.concepts[key] = c
             for key, e in sh.elements.items():
                 self.elements[key] = e
+            for key, e in sh.elements_by_id.items():
+                self.elements_by_id[key] = e
             for key, art in sh.arcrole_types.items():
                 self.arcrole_types[key] = art
             for key, rt in sh.role_types.items():
@@ -170,10 +174,21 @@ class Taxonomy:
             for xl in lb.links:
                 xl.compile()
 
-    def compile_dr_sets(self):
-        for bs in self.base_sets.values():
-            if bs.arc_name != 'definitionArc':
+    def compile_defaults(self):
+        key = f'definitionArc|{const.XDT_DIMENSION_DEFAULT_ARCROLE}|{const.ROLE_LINK}'
+        bs = self.base_sets.get(key, None)
+        if bs is None:
+            return
+        for dim in bs.roots:
+            chain_dn = dim.chain_dn.get(key, None)
+            if chain_dn is None:
                 continue
+            for def_node in chain_dn:
+                self.defaults[dim.qname] = def_node.Concept.qname
+                self.default_members[def_node.Concept.qname] = dim.qname
+
+    def compile_dr_sets(self):
+        for bs in [bs for bs in self.base_sets.values() if bs.arc_name == 'definitionArc']:
             if bs.arcrole == const.XDT_DIMENSION_DEFAULT_ARCROLE:
                 self.add_default_member(bs)
                 continue

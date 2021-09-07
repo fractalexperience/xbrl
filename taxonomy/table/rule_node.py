@@ -84,10 +84,12 @@ class RuleNode(def_node.DefinitionNode):
                 print(f'Unknown element in formula:explicitDimension rule {e2.tag}')
                 continue
             for e3 in e2.iterchildren():
-                if e3.tag != f'{{{const.NS_FORMULA}}}qname':
+                if e3.tag == f'{{{const.NS_FORMULA}}}qname':
+                    restrictions[dimension_qname] = e3.text.strip()
+                elif e3.tag == f'{{{const.NS_FORMULA}}}qnameExpression':
+                    restrictions[dimension_qname] = e3.text.strip()  # TODO: Evaluate parameters
+                else:
                     print(f'Unknown element in formula:member element {e3.tag}')
-                    continue
-                restrictions[dimension_qname] = e3.text.strip()
 
     def get_constraints(self, tag='default'):
         constraints = {}

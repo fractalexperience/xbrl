@@ -35,9 +35,11 @@ class DrSet:
         pis = self.taxonomy.get_bs_members(self.bs_start.arc_name, self.bs_start.role, const.XDT_DOMAIN_MEMBER_ARCROLE)
         if not pis:
             return
-        self.primary_items.update(
-            {pi.Concept.qname: primary_item.PrimaryItem(pi.Concept, self, pi.Arc, pi.Level)
-             for pi in pis if pi.Concept.qname not in self.taxonomy.idx_mem_drs})
+        self.primary_items.update({
+            pi.Concept.qname: primary_item.PrimaryItem(pi.Concept, self, pi.Arc, pi.Level)
+            for pi in pis if pi.Concept.qname not in self.taxonomy.idx_mem_drs})
+        for pi in pis:
+            self.taxonomy.idx_pi_drs.setdefault(pi.Concept.qname, set()).add(self)
 
     def populate_hypercubes(self, pi):
         if pi.target_role:

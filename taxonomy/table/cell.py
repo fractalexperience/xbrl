@@ -17,7 +17,7 @@ class Cell:
         self.r_code = r_code
         self.html_classes = None if html_class is None else set(html_class.split(' '))
         # Final version of constraints
-        self.constraints = constraints
+        self.constraints = {} if constraints is None else constraints
 
     def add_constraints(self, constraints, axis):
         for asp, mem in constraints.items():

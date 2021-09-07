@@ -2,7 +2,7 @@ from builtins import isinstance
 
 from xbrl.taxonomy.table import breakdown, aspect_node, rule_node, cr_node, dr_node, str_node, layout, cell
 from xbrl.engines import base_reporter
-from xbrl.base import data_wrappers
+from xbrl.base import data_wrappers, const
 
 
 class TableReporter(base_reporter.BaseReporter):
@@ -101,7 +101,7 @@ class TableReporter(base_reporter.BaseReporter):
         for name in filter(lambda n: n in dct, self.resource_names):
             # Flatten the result list of lists.
             l = [res for r_lst in dct.get(name).values() for res in r_lst]
-            for r in sorted(l, key=lambda re: re.order.zfill(10)):
+            for r in sorted(l, key=lambda re: 0 if re.order is None else re.order.zfill(10)):
                 if isinstance(r, breakdown.Breakdown):
                     self.process_breakdown_node(tbl, struct, r, lvl)
                 elif isinstance(r, aspect_node.AspectNode):
@@ -133,18 +133,77 @@ class TableReporter(base_reporter.BaseReporter):
     def process_rule_node(self, tbl, axis, struct, parent_node, r, lvl):
         tbl.has_rc_labels = r.get_rc_label() is not None
         tbl.has_db_labels = r.get_db_label() is not None
-        new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=r.is_merged, lvl=lvl, abst=r.is_abstract)
+        new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=r.is_merged, lvl=lvl,
+                                          abst=r.is_abstract)
         for tag, rs in r.rule_sets.items():
             new_node.constraint_set.setdefault(tag, {}).update(rs)  # Copy any available restrictions from rule node
         self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
 
-    def process_cr_node(self, tbl, axis, struct, parent_node, r, lvl):
-        new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=False, lvl=lvl)
-        self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
+    def process_cr_node(self, tbl, axis, struct, parent_sn, r, lvl):
+        bs = self.taxonomy.base_sets.get(f'{r.arc_name}|{r.arcrole}|{r.role}', None)
+        if bs is None:  # This should not happen actually
+            new_node = str_node.StructureNode(parent=parent_sn, origin=r, grayed=False, lvl=lvl)
+            self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
+            return
+        effective_roots = self.get_effective_roots(bs, r)
+        generations = None if r.generations is None else int(r.generations)
+        # TODO: Handle other types of formula axis
+        if r.formula_axis in ['child', 'child-or-self']:
+            generations = 1
+        use_parent = True if r.formula_axis.endswith('-or-self') else False
+        for effective_root in effective_roots:
+            self.tree_walk(tbl, axis, struct, r, bs, parent_sn, effective_root, generations, 0, lvl, use_parent)
 
-    def process_dr_node(self, tbl, axis, struct, parent_node, r, lvl):
-        new_node = str_node.StructureNode(parent=parent_node, origin=r, grayed=False, lvl=lvl)
-        self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
+    def get_effective_roots(self, bs, r):
+        effective_roots = []
+        for rsrc in r.relationship_sources:
+            if rsrc == 'xfi:root':
+                effective_roots += bs.roots
+            else:
+                effective_root = self.taxonomy.concepts_by_qname.get(rsrc, None)
+                if effective_root is not None:
+                    effective_roots.append(effective_root)
+        return effective_roots
+
+    def tree_walk(self, tbl, axis, struct, r, bs, parent_sn, concept, generations, cr_walk_lvl, lvl, use_parent):
+        new_sn = parent_sn
+        is_cr = isinstance(r, cr_node.ConceptRelationshipNode)
+        if use_parent:
+            new_sn = str_node.StructureNode(parent=parent_sn, origin=r, grayed=False, lvl=lvl, concept=concept,
+                                            abst=is_cr and concept.abstract)
+            if is_cr:
+                new_sn.add_constraint('concept', concept.qname)
+            else:
+                new_sn.add_constraint(r.dimension, concept.qname)
+        if generations is not None and generations < cr_walk_lvl:
+            return
+        cbs_dn = concept.chain_dn.get(bs.get_key(), None)
+        if cbs_dn is None:
+            return
+        for node in sorted(cbs_dn, key=lambda t: 0 if t.Arc.order is None else float(t.Arc.order)):
+            self.tree_walk(tbl, axis, struct, r, bs, new_sn, node.Concept, generations, cr_walk_lvl + 1, lvl + 1, True)
+
+    def process_dr_node(self, tbl, axis, struct, parent_sn, r, lvl):
+        bs = self.taxonomy.base_sets.get(f'definitionArc|{const.XDT_DIMENSION_DOMAIN_ARCROLE}|{r.role}', None)
+        if bs is None:  # This should not happen actually
+            new_node = str_node.StructureNode(parent=parent_sn, origin=r, grayed=False, lvl=lvl)
+            self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
+            return
+        root_members = bs.get_members(start_concept=r.dimension, include_head=False)
+        generations = None if r.generations is None else int(r.generations)
+        # TODO: Handle other types of formula axis
+        if r.formula_axis in ['child', 'child-or-self']:
+            generations = 1
+        use_parent = True if r.formula_axis.endswith('-or-self') else False
+        for root_member in root_members:
+            eff_role = root_member.Arc.target_role \
+                if root_member.Arc is not None and root_member.Arc.target_role is not None else r.role
+            bs_dm = self.taxonomy.base_sets.get(f'definitionArc|{const.XDT_DOMAIN_MEMBER_ARCROLE}|{eff_role}', None)
+            if bs_dm is None:
+                continue
+            effective_roots = self.get_effective_roots(bs_dm, r)
+            for effective_root in effective_roots:
+                self.tree_walk(tbl, axis, struct, r, bs_dm, parent_sn, effective_root, generations, 0, lvl, use_parent)
 
     def compile_all(self):
         for t in self.taxonomy.tables.values():
@@ -188,7 +247,7 @@ class TableReporter(base_reporter.BaseReporter):
         return ''.join(self.content)
 
     def render_cell_constraints_html(self, tc):
-        if tc is None or tc.constraints is None:
+        if tc is None or not tc.constraints:
             return
         self.init_table()
         for c in sorted(tc.constraints.values(), key=lambda c: c.Dimension):
@@ -201,23 +260,23 @@ class TableReporter(base_reporter.BaseReporter):
         if lo is None:
             return None
         # Flatten the 3D list and choose only fact cells
-        f_cells = [c for lz in lo.cells for ly in lz for c in ly
-                   if c.is_fact and c.constraints is not None]
-        custom_dimensions = sorted(set(d for dims in [c.constraints for c in f_cells] for d in dims if d != 'concept'))
-        dpm_map = data_wrappers.DpmMap(tid, custom_dimensions, {})
+        f_cells = [c for lz in lo.cells for ly in lz for c in ly if c.is_fact]  # and c.constraints is not None]
+        custom_dimensions = sorted(set(d for dims in [
+            [] if c.constraints is None else c.constraints for c in f_cells] for d in dims if d != 'concept'))
+        dpm_map = data_wrappers.DpmMap(tid, custom_dimensions, {}, set([a for a in lo.open_dimensions.values()]))
         for c in f_cells:
-            concept_constraint = c.constraints.get('concept', None)
-            if concept_constraint is None:
-                continue
-            concept = self.taxonomy.concepts_by_qname.get(concept_constraint.Member, None)
-            if concept is None:  # Every data point must have a metrics (taxonomy concept)
-                continue
+            cco = c.constraints.get('concept', None)
+            concept = None if cco is None else self.taxonomy.concepts_by_qname.get(cco.Member, None)
             members = ['*' if m is None else m for m in
                        [c.constraints.get(dim, data_wrappers.Constraint(dim, 'N/A', None)).Member
                         for dim in sorted(custom_dimensions)]]
             dpm_map.Mappings[c.get_address()] = dict(zip(
                 [*data_wrappers.DpmMapMandatoryDimensions, *custom_dimensions, 'grayed'],
-                [c.get_label(), concept.qname, concept.data_type, concept.period_type, *members, c.is_grayed]))
+                [c.get_label(),
+                 None if concept is None else concept.qname,
+                 None if concept is None else concept.data_type,
+                 None if concept is None else concept.period_type,
+                 *members, c.is_grayed]))
         return dpm_map
 
     def render_map_html(self, ids=None):
@@ -316,14 +375,14 @@ class TableReporter(base_reporter.BaseReporter):
                 colspan = snx.span if row == snx.level else 1
                 cls = 'fake' if snx.is_fake else 'header'
                 gry = snx.is_fake or snx.is_abstract
-                self.new_cell(cell.Cell(label=snx.origin.get_label(), colspan=colspan, is_header=True,
+                self.new_cell(cell.Cell(label=snx.get_caption(False), colspan=colspan, is_header=True,
                                         html_class=cls, is_fake=snx.is_fake))
         # Optional RC header
         self.new_row()
         for snx in h_closed['x']:
             if snx.is_abstract:
                 continue
-            self.new_cell(cell.Cell(label= '' if snx.origin is None else snx.origin.get_rc_label(),
+            self.new_cell(cell.Cell(label='' if snx.origin is None else snx.origin.get_rc_label(),
                                     is_header=True, html_class='rc'))
         self.lay_y(tbl, snz, h_open, h_closed)
 
@@ -366,11 +425,10 @@ class TableReporter(base_reporter.BaseReporter):
             self.new_cell(cell.Cell(html_class='header'))
 
     def lay_closed_y_header(self, sny, rc):
-        sny_cap = sny.origin.get_label() if sny.origin is not None else ""
         sny_rc_cap = sny.origin.get_rc_label() if sny.origin is not None else ""
         rc.add(sny_rc_cap)
         cls = f'header_abstract' if sny.is_abstract else 'header'
-        self.new_cell(cell.Cell(label=sny_cap, indent=sny.level * 10, html_class=cls))
+        self.new_cell(cell.Cell(label=sny.get_caption(False), indent=sny.level * 10, html_class=cls))
 
     def lay_tbl_body(self, snz, sny, closed_x, position):
         r_code = None if sny.origin is None else sny.origin.get_rc_label()
@@ -384,13 +442,15 @@ class TableReporter(base_reporter.BaseReporter):
             c_code = snx.origin.get_rc_label() if snx.origin is not None else ''
             if not c_code:
                 c_code = f'c{cnt}'
-
             cls = 'grayed' if sny.is_abstract else 'fact'
             lbl = f'{sny.get_caption().strip()}/{snx.get_caption().strip()}'
             c = cell.Cell(label=lbl, html_class=cls, is_fact=True,
                           r_code=r_code, c_code=c_code, is_grayed=sny.is_abstract)
             self.new_cell(c)
             self.lay_constraint_set({'x': snx, 'y': sny, 'z': snz}, c)
+            if not self.validate(c):
+                c.is_grayed = True
+                c.html_classes.add('grayed')
 
     def lay_constraint_set(self, dct, c):
         for axis, sn in dct.items():
@@ -404,6 +464,9 @@ class TableReporter(base_reporter.BaseReporter):
                             constraints[a] = m
                 parent = parent.parent
             c.add_constraints(constraints, axis)
+            # Add open dimensions to layout
+            for asp in [a for a, m in constraints.items() if m is None]:
+                self.current_layout.open_dimensions[asp] = axis
             # Check if there is a tag selector and add additional constraints for matching rule set
             if sn.origin is not None \
                     and isinstance(sn.origin, rule_node.RuleNode) \
@@ -413,3 +476,48 @@ class TableReporter(base_reporter.BaseReporter):
                                               and isinstance(sn.origin, rule_node.RuleNode)
                                               and sn.origin.tag_selector in s.origin.rule_sets]:
                     c.add_constraints(tagged_constraints, axis)
+
+    """ Calculates the 'grayed' property based on XDT constraints. If there is at least one dimensional relationship set
+        matching constraints, then grayed is false, otherwise true."""
+    def validate(self, c):
+        if not self.current_layout.rc_code:
+            return True
+        constraint = c.constraints.get('concept', None)
+        if constraint is None:
+            return False
+        concept = self.taxonomy.concepts_by_qname.get(constraint.Member, None)
+        if concept is None:
+            return False
+        drs_for_pi = self.taxonomy.idx_pi_drs.get(concept.qname, None)
+        if drs_for_pi is None:
+            return False
+        drs_for_tbl = [drs for drs in drs_for_pi if self.current_layout.rc_code in drs.bs_start.role]
+        if not drs_for_tbl:
+            return False
+        valid_drs = [drs for drs in drs_for_tbl if self.validate_drs(c, drs)]
+        if not valid_drs:
+            return False
+        return True
+
+    def validate_drs(self, c, drs):
+        checklist = {asp: co for asp, co in c.constraints.items() if asp != 'concept'}
+        for hc in drs.hypercubes.values():
+            for dim in hc.dimensions.values():
+                constraint = checklist.get(dim.concept.qname, None)
+                if constraint is None:
+                    if [m for m in dim.members.values() if m.qname in self.taxonomy.default_members]:
+                        # There is a dimension in DRS, which is not in cell. constraints, but it has a default member
+                        # and can be skipped
+                        continue
+                    else:
+                        # There is a dimension in DRS, which is not in cell constraints and this dimension
+                        # has no default member
+                        return False
+                if constraint.Member is None:
+                    del checklist[dim.concept.qname]  # This is an open dimension and so it matches
+                    continue
+                for mem in dim.members.values():
+                    if mem.qname == constraint.Member:
+                        del checklist[dim.concept.qname]
+                        break
+        return False if checklist else True
