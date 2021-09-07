@@ -221,11 +221,14 @@ class TableReporter(base_reporter.BaseReporter):
             '.xbrl_other': 'background-color: Yellow;'
         })
 
-    def render_templates_html(self, table_ids=None, show_constraints=False):
+    def render_templates_html(self, table_ids=None, show_constraints=False, add_html_head=True):
         ids = [tid for tid in self.taxonomy.tables.keys()] \
             if table_ids is None else [table_ids] \
             if isinstance(table_ids, str) else table_ids
-        self.init_output_table()
+        if add_html_head:
+            self.init_output_table()
+        else:
+            self.content = []  # Just clears the content
         for tid in ids:
             lo = self.layouts.get(tid, None)
             if lo is None:
@@ -243,7 +246,8 @@ class TableReporter(base_reporter.BaseReporter):
                         self.add('</td>')
                     self.add('</tr>')
                 self.finalize_table()
-        self.finalize_output()
+        if add_html_head:
+            self.finalize_output()
         return ''.join(self.content)
 
     def render_cell_constraints_html(self, tc):
@@ -279,9 +283,12 @@ class TableReporter(base_reporter.BaseReporter):
                  *members, c.is_grayed]))
         return dpm_map
 
-    def render_map_html(self, ids=None):
+    def render_map_html(self, ids=None, add_html_head=True):
         ids = self.taxonomy.tables.keys() if ids is None else [ids] if isinstance(ids, str) else ids
-        self.init_output_table()
+        if add_html_head:
+            self.init_output_table()
+        else:
+            self.content = []  # Just clears the content
         for tid in ids:
             lo = self.layouts.get(tid, None)
             if lo is None:
@@ -292,7 +299,8 @@ class TableReporter(base_reporter.BaseReporter):
             for address, mapping in dpm_map.Mappings.items():
                 self.add_tr(address, *[mapping.get(d, '-') for d in dims])
             self.finalize_table()
-        self.finalize_output()
+        if add_html_head:
+            self.finalize_output()
         return ''.join(self.content)
 
     def do_layout(self, table_ids=None):
