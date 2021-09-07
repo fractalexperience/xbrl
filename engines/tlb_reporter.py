@@ -211,14 +211,14 @@ class TableReporter(base_reporter.BaseReporter):
 
     def init_output_table(self, title=None):
         self.init_output(title, styles={
-            '.fact': 'background-color: White;',
-            '.grayed': 'background-color: #d0d0d0;',
-            '.header': 'background-color: #d0ffd0;',
-            '.header_abstract': 'background-color: PaleGreen;',
-            '.rc': 'background-color: Khaki;',
-            '.lu': 'background-color: PaleGreen;',
-            '.fake': 'background-color: #e0ffe0;',
-            '.other': 'background-color: Yellow;'
+            '.xbrl_fact': 'background-color: White;',
+            '.xbrl_grayed': 'background-color: #d0d0d0;',
+            '.xbrl_header': 'background-color: #d0ffd0;',
+            '.xbrl_header_abstract': 'background-color: PaleGreen;',
+            '.xbrl_rc': 'background-color: Khaki;',
+            '.xbrl_lu': 'background-color: PaleGreen;',
+            '.xbrl_fake': 'background-color: #e0ffe0;',
+            '.xbrl_other': 'background-color: Yellow;'
         })
 
     def render_templates_html(self, table_ids=None, show_constraints=False):
@@ -366,14 +366,14 @@ class TableReporter(base_reporter.BaseReporter):
                 colspan = len(h_open['y']) + (1 if h_closed['y'] else 0) + (1 if tbl.has_rc_labels else 0)
                 rowspan = len(hdr['x']) + (1 if tbl.has_rc_labels else 0)
                 self.new_cell(cell.Cell(label=tbl.get_rc_label(), colspan=colspan, rowspan=rowspan, is_header=True,
-                                        html_class='lu'))
+                                        html_class='xbrl_lu'))
             # X-Headers
             for snx in hx:
                 if isinstance(snx.origin, breakdown.Breakdown) and snx.origin.is_open \
                         or isinstance(snx.origin, aspect_node.AspectNode):
                     continue
                 colspan = snx.span if row == snx.level else 1
-                cls = 'fake' if snx.is_fake else 'header'
+                cls = 'xbrl_fake' if snx.is_fake else 'xbrl_header'
                 gry = snx.is_fake or snx.is_abstract
                 self.new_cell(cell.Cell(label=snx.get_caption(False), colspan=colspan, is_header=True,
                                         html_class=cls, is_fake=snx.is_fake))
@@ -383,7 +383,7 @@ class TableReporter(base_reporter.BaseReporter):
             if snx.is_abstract:
                 continue
             self.new_cell(cell.Cell(label='' if snx.origin is None else snx.origin.get_rc_label(),
-                                    is_header=True, html_class='rc'))
+                                    is_header=True, html_class='xbrl_rc'))
         self.lay_y(tbl, snz, h_open, h_closed)
 
     def lay_y(self, tbl, snz, h_open, h_closed):
@@ -392,17 +392,17 @@ class TableReporter(base_reporter.BaseReporter):
             self.new_row()
             if h_closed['y']:
                 # Extra cell for closed-Y nodes if any
-                self.new_cell(cell.Cell(html_class='header'))
+                self.new_cell(cell.Cell(html_class='xbrl_header'))
             for sno in h_open['y']:
-                self.new_cell(cell.Cell(label=sno.get_rc_caption(), html_class='header'))
+                self.new_cell(cell.Cell(label=sno.get_rc_caption(), html_class='xbrl_header'))
             if tbl.has_rc_labels:
                 # Extra cell for RC labels if any
-                self.new_cell(cell.Cell(html_class='rc'))
+                self.new_cell(cell.Cell(html_class='xbrl_rc'))
             # Filling row with empty cells for extra open-Y header
             for snx in h_closed['x']:
                 if snx.is_abstract:
                     continue
-                self.new_cell(cell.Cell(html_class='other'))
+                self.new_cell(cell.Cell(html_class='xbrl_other'))
         cnt = -1
         for sny in h_closed['y']:
             cnt += 1
@@ -416,18 +416,18 @@ class TableReporter(base_reporter.BaseReporter):
         if sny is not None:
             self.lay_closed_y_header(sny, rc)
         if tbl.has_rc_labels:
-            self.new_cell(cell.Cell(label=" ".join(rc), html_class='rc'))
+            self.new_cell(cell.Cell(label=" ".join(rc), html_class='xbrl_rc'))
         self.lay_tbl_body(snz, sny, h_closed['x'], position)
 
     def lay_open_y_header(self, open_y, rc):
         for sno in open_y:
             rc.add(sno.origin.get_rc_label())
-            self.new_cell(cell.Cell(html_class='header'))
+            self.new_cell(cell.Cell(html_class='xbrl_header'))
 
     def lay_closed_y_header(self, sny, rc):
         sny_rc_cap = sny.origin.get_rc_label() if sny.origin is not None else ""
         rc.add(sny_rc_cap)
-        cls = f'header_abstract' if sny.is_abstract else 'header'
+        cls = f'xbrl_header_abstract' if sny.is_abstract else 'xbrl_header'
         self.new_cell(cell.Cell(label=sny.get_caption(False), indent=sny.level * 10, html_class=cls))
 
     def lay_tbl_body(self, snz, sny, closed_x, position):
@@ -442,7 +442,7 @@ class TableReporter(base_reporter.BaseReporter):
             c_code = snx.origin.get_rc_label() if snx.origin is not None else ''
             if not c_code:
                 c_code = f'c{cnt}'
-            cls = 'grayed' if sny.is_abstract else 'fact'
+            cls = 'xbrl_grayed' if sny.is_abstract else 'xbrl_fact'
             lbl = f'{sny.get_caption().strip()}/{snx.get_caption().strip()}'
             c = cell.Cell(label=lbl, html_class=cls, is_fact=True,
                           r_code=r_code, c_code=c_code, is_grayed=sny.is_abstract)
@@ -450,7 +450,7 @@ class TableReporter(base_reporter.BaseReporter):
             self.lay_constraint_set({'x': snx, 'y': sny, 'z': snz}, c)
             if not self.validate(c):
                 c.is_grayed = True
-                c.html_classes.add('grayed')
+                c.html_classes.add('xbrl_grayed')
 
     def lay_constraint_set(self, dct, c):
         for axis, sn in dct.items():
