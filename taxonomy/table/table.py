@@ -19,6 +19,10 @@ class Table(tlb_resource.TableResource):
         rc = super().get_rc_label()
         return '' if rc is None else rc
 
+    def get_rc_or_id(self):
+        rc = super().get_rc_label()
+        return self.xlabel if rc is None else rc
+
     def get_db_label(self):
         db = super().get_db_label()
         return '' if db is None else db
