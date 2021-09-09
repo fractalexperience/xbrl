@@ -74,7 +74,7 @@ def reduce_url_parts(parts):
     if not parts:
         return None
     new_parts = []
-    for p in parts:
+    for p in [p for p in parts if p != '.']:
         if p == '..' and new_parts:
             new_parts.pop()
         else:

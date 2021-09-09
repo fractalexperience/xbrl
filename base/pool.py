@@ -115,6 +115,9 @@ class Pool(resolver.Resolver):
 
     def add_reference(self, href, base):
         """ Loads schema or linkbase depending on file type. TO IMPROVE!!! """
+        allowed_extensions = ('xsd', 'xml', 'json')
+        if not href.split('.')[-1] in allowed_extensions:  # if pairs in
+            return
         if not href.startswith('http'):
             href = util.reduce_url(os.path.join(base, href).replace(os.path.sep, '/'))
         key = f'{self.current_taxonomy_hash}_{href}'

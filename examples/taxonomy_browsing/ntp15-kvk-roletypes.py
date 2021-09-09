@@ -6,6 +6,7 @@ from xbrl.engines import tax_reporter
 
 # NTP-KVK Taxonomy for 2020
 url = 'https://www.nltaxonomie.nl/nt15/kvk/20201209/entrypoints/kvk-rpt-jaarverantwoording-2020-ifrs-full.xsd'
+# url = 'http://www.nltaxonomie.nl/nt15/bd/20201209.a/entrypoints/bd-rpt-icp-opgaaf-2021.xsd'
 data_pool = pool.Pool()
 # Load the entrypoint directly from Web.
 tax = data_pool.add_taxonomy([url])
