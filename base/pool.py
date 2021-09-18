@@ -89,8 +89,10 @@ class Pool(resolver.Resolver):
             pf = self.packaged_entrypoints.get(ep)
             if not pf:
                 continue
-            pck = tpack.TaxonomyPackage(pf)
-            pck.compile()
+            pck = self.active_packages.get(pf, None)
+            if pck is None:
+                pck = tpack.TaxonomyPackage(pf)
+                pck.compile()
             for pf in pck.files.items():
                 self.packaged_locations[pf[0]] = (pck, pf[1])  # A tuple
         key = ','.join(entry_points)
@@ -128,6 +130,7 @@ class Pool(resolver.Resolver):
             sh = self.schemas.get(href, schema.Schema(href, self))
             self.current_taxonomy.attach_schema(href, sh)
         else:
+            print(href)
             lb = self.linkbases.get(href, linkbase.Linkbase(href, self))
             self.current_taxonomy.attach_linkbase(href, lb)
 

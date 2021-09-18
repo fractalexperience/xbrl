@@ -233,7 +233,8 @@ class TableReporter(base_reporter.BaseReporter):
             lo = self.layouts.get(tid, None)
             if lo is None:
                 return ''
-            self.add(f'<h3>{lo.label}</h3>')
+            cpt = tid if lo.label == tid else f'{tid} - {lo.label}'
+            self.add(f'<h3>{cpt}</h3>')
             for cz in lo.cells:
                 self.init_table()
                 for cy in cz:
