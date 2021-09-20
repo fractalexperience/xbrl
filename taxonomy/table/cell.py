@@ -34,7 +34,7 @@ class Cell:
         self.html_classes.add(cls)
 
     def get_address(self):
-        return f'{self.r_code}{self.c_code}'
+        return f'{self.r_code}.{self.c_code}'
 
     def get_class(self):
         if self.html_classes is None:

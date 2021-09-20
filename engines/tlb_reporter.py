@@ -265,7 +265,7 @@ class TableReporter(base_reporter.BaseReporter):
         if lo is None:
             return None
         # Flatten the 3D list and choose only fact cells
-        f_cells = [c for lz in lo.cells for ly in lz for c in ly if c.is_fact]  # and c.constraints is not None]
+        f_cells = [c for lz in lo.cells for ly in lz for c in ly if c.is_fact]
         custom_dimensions = sorted(set(d for dims in [
             [] if c.constraints is None else c.constraints for c in f_cells] for d in dims if d != 'concept'))
         dpm_map = data_wrappers.DpmMap(tid, custom_dimensions, {}, set([a for a in lo.open_dimensions.values()]))
@@ -284,19 +284,19 @@ class TableReporter(base_reporter.BaseReporter):
                  *members, c.is_grayed]))
         return dpm_map
 
-    def render_map_html(self, ids=None, add_html_head=True):
-        ids = self.taxonomy.tables.keys() if ids is None else [ids] if isinstance(ids, str) else ids
+    def render_map_html(self, table_ids=None, add_html_head=True):
+        table_ids = self.taxonomy.tables.keys() if table_ids is None else [table_ids] if isinstance(table_ids, str) else table_ids
         if add_html_head:
             self.init_output_table()
         else:
             self.content = []  # Just clears the content
-        for tid in ids:
+        for tid in table_ids:
             lo = self.layouts.get(tid, None)
             if lo is None:
                 continue
             dpm_map = self.get_dpm_map(tid)
             dims = data_wrappers.DpmMapMandatoryDimensions + dpm_map.Dimensions
-            self.init_table(['Address', *dims])
+            self.init_table(columns=['Address', *dims], cls_head='xbrl_header')
             for address, mapping in dpm_map.Mappings.items():
                 self.add_tr(address, *[mapping.get(d, '-') for d in dims])
             self.finalize_table()
@@ -482,8 +482,8 @@ class TableReporter(base_reporter.BaseReporter):
                     and sn.origin.tag_selector is not None:
                 for tagged_constraints in [s.origin.rule_sets[sn.origin.tag_selector] for s in dct.values()
                                            if s.origin is not None
-                                              and isinstance(sn.origin, rule_node.RuleNode)
-                                              and sn.origin.tag_selector in s.origin.rule_sets]:
+                                              and isinstance(s.origin, rule_node.RuleNode)
+                                              and s.origin.tag_selector in s.origin.rule_sets]:
                     c.add_constraints(tagged_constraints, axis)
 
     """ Calculates the 'grayed' property based on XDT constraints. If there is at least one dimensional relationship set
@@ -493,14 +493,16 @@ class TableReporter(base_reporter.BaseReporter):
             return True
         constraint = c.constraints.get('concept', None)
         if constraint is None:
-            return False
+            return False  # Every data point must have a concept constraint
         concept = self.taxonomy.concepts_by_qname.get(constraint.Member, None)
         if concept is None:
-            return False
+            return False  # The concept must be available in taxonomy
         drs_for_pi = self.taxonomy.idx_pi_drs.get(concept.qname, None)
         if drs_for_pi is None:
-            return False
-        drs_for_tbl = [drs for drs in drs_for_pi if self.current_layout.rc_code in drs.bs_start.role]
+            return False  # the concept must be a primary item and it must be connected to at least one DRS
+        drs_for_tbl = [drs for drs in drs_for_pi
+                       if self.current_layout.rc_code in drs.bs_start.role  # EBA/EIOPA specific
+                       or self.current_layout.rc_code.replace(' ', '_') in drs.bs_start.role]  # Exception for EBA
         if not drs_for_tbl:
             return False
         valid_drs = [drs for drs in drs_for_tbl if self.validate_drs(c, drs)]
@@ -514,7 +516,8 @@ class TableReporter(base_reporter.BaseReporter):
             for dim in hc.dimensions.values():
                 constraint = checklist.get(dim.concept.qname, None)
                 if constraint is None:
-                    if [m for m in dim.members.values() if m.qname in self.taxonomy.default_members]:
+                    if dim.members is not None \
+                            and [m for m in dim.members.values() if m.qname in self.taxonomy.default_members]:
                         # There is a dimension in DRS, which is not in cell. constraints, but it has a default member
                         # and can be skipped
                         continue

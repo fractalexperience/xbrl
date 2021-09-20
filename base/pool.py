@@ -130,7 +130,7 @@ class Pool(resolver.Resolver):
             sh = self.schemas.get(href, schema.Schema(href, self))
             self.current_taxonomy.attach_schema(href, sh)
         else:
-            print(href)
+            # print(href)
             lb = self.linkbases.get(href, linkbase.Linkbase(href, self))
             self.current_taxonomy.attach_linkbase(href, lb)
 
