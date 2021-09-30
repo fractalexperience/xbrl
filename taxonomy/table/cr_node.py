@@ -11,7 +11,7 @@ class ConceptRelationshipNode(def_node.DefinitionNode):
         self.formula_axis = 'descendant-or-self'
         self.generations = None
         self.link_name = None
-        self.arc_name = 'presentationArc'
+        self.arc_name = const.ARC_PRESENTATION
         super().__init__(e, container_xlink)
         self.detail_parsers = {
             f'{{{const.NS_TABLE}}}relationshipSource': self.l_rel_src,
@@ -29,6 +29,15 @@ class ConceptRelationshipNode(def_node.DefinitionNode):
             f'{{{const.NS_TABLE}}}arcname': self.l_arcname,
             f'{{{const.NS_TABLE}}}arcnameExpression': self.l_arcname
         }
+        self.dependencies = {
+            const.PARENT_CHILD_ARCROLE: const.ARC_PRESENTATION,
+            const.SUMMATION_ITEM_ARCROLE: const.ARC_CALCULATION,
+            const.GENERAL_SPECIAL_ARCROLE: const.ARC_DEFINITION,
+            const.ESSENCE_ALIAS_ARCROLE: const.ARC_DEFINITION,
+            const.SIMILAR_TUPLE_ARCROLE: const.ARC_DEFINITION,
+            const.REQUIRES_ELEMENT_ARCROLE: const.ARC_DEFINITION,
+            const.XDT_DOMAIN_MEMBER_ARCROLE: const.ARC_DEFINITION
+        }
         self.load_details(e)
 
     def l_arcname(self, e):
@@ -45,6 +54,7 @@ class ConceptRelationshipNode(def_node.DefinitionNode):
 
     def l_arcrole(self, e):
         self.arcrole = e.text
+        self.arc_name = self.dependencies.get(self.arcrole, const.ARC_PRESENTATION)
 
     def l_linkrole(self, e):
         self.role = e.text

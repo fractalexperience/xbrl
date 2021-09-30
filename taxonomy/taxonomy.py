@@ -49,9 +49,11 @@ class Taxonomy:
         self.resources = {}
         """ All locators """
         self.locators = {}
-
+        """ All parameters """
+        self.parameters = {}
+        """ All assertions by type """
         self.value_assertions = {}
-        self.existance_assertions = {}
+        self.existence_assertions = {}
         self.consistency_assertions = {}
 
         self.load()
@@ -79,7 +81,11 @@ class Taxonomy:
             f'Enumerations: {len([c for c in self.concepts.values() if c.is_enumeration])}',
             f'Enumerations Sets: {len([c for c in self.concepts.values() if c.is_enumeration_set])}',
             f'Table Groups: {len([c for c in self.concepts.values() if "table" in c.resources])}',
-            f'Tables: {len(self.tables)}'
+            f'Tables: {len(self.tables)}',
+            f'Parameters: {len(self.parameters)}',
+            f'Value Assertions: {len(self.value_assertions)}',
+            f'Existence Assertions: {len(self.existence_assertions)}',
+            f'Consistency Assertions: {len(self.consistency_assertions)}'
         ])
 
     def load(self):

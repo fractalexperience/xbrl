@@ -1,4 +1,5 @@
 from xbrl.taxonomy import arc, base_set, locator, resource
+from xbrl.taxonomy.formula import parameter, value_assertion, existence_assertion, consistency_assertion
 from xbrl.base import ebase, const, util, data_wrappers
 from xbrl.taxonomy.table import table, breakdown, rule_node, cr_node, dr_node, aspect_node
 import urllib.parse
@@ -32,7 +33,11 @@ class XLink(ebase.XmlElementBase):
             f'{{{const.NS_TABLE}}}ruleNode': self.l_rule_node,
             f'{{{const.NS_TABLE}}}conceptRelationshipNode': self.l_concept_relationship_node,
             f'{{{const.NS_TABLE}}}dimensionRelationshipNode': self.l_dimensional_relationship_node,
-            f'{{{const.NS_TABLE}}}aspectNode': self.l_aspect_node
+            f'{{{const.NS_TABLE}}}aspectNode': self.l_aspect_node,
+            f'{{{const.NS_VARIABLE}}}parameter': self.l_parameter,
+            f'{{{const.NS_VALUE_ASSERTION}}}valueAssertion': self.l_va,
+            f'{{{const.NS_VALUE_ASSERTION}}}existenceAssertion': self.l_ea,
+            f'{{{const.NS_VALUE_ASSERTION}}}consistencyAssertion': self.l_ca,
         }
         """ Locators indexed by unique identifier """
         self.locators = {}
@@ -83,6 +88,18 @@ class XLink(ebase.XmlElementBase):
         url = loc.url
         self.linkbase.pool.add_reference(url, self.linkbase.base)
 
+    def l_parameter(self, e):
+        parameter.Parameter(e, self)
+
+    def l_va(self, e):
+        value_assertion.ValueAssertion(e, self)
+
+    def l_ea(self, e):
+        existence_assertion.ExistenceAssertion(e, self)
+
+    def l_ca(self, e):
+        consistency_assertion.ConsistencyAssertion(e, self)
+
     def compile(self):
         for arc_list in [a for a in self.arcs_from.values()]:
             for a in arc_list:
@@ -113,7 +130,7 @@ class XLink(ebase.XmlElementBase):
         href = util.reduce_url(loc.href)
         res = self.linkbase.pool.current_taxonomy.resources.get(href, None)
         if res is None:
-            # print('Cannot resolve href: ', href)
+            print('Cannot resolve href: ', href)
             # TODO - handle also XBRL Formula cases
             return
         resource_list = self.resources.get(a.xl_to, None)

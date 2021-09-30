@@ -38,6 +38,21 @@ NS_EXTENSIBLE_ENUMERATIONS_2 = 'http://xbrl.org/2020/extensible-enumerations-2.0
 # OTHER
 KNOWN_PROTOCOLS = ['http', 'https', 'ftp']
 SUBSTITUTION_GROUPS = ['item', 'tuple']
+# Arc names
+ARC_PRESENTATION = 'presentationArc'
+ARC_DEFINITION = 'definitionArc'
+ARC_CALCULATION = 'calculationArc'
+ARC_LABEL = 'labelArc'
+ARC_REFERENCE = 'referenceArc'
+ARC_FOOTNOTE = 'footnoteArc'
+ARC_ARC = 'arc'
+ARC_TABLE_BREAKDOWN = 'tableBreakdownArc'
+ARC_BREAKDOWN_TREE = 'breakdownTreeArc'
+ARC_TABLE_FILTER = 'tableFilterArc'
+ARC_TABLE_PARAMETER = 'tableParameterArc'
+ARC_DEFNODE_SUBTREE = 'definitionNodeSubtreeArc'
+ARC_ASPECTNODE_FILTER = 'aspectNodeFilterArc'
+
 # Extended link role
 ROLE_LINK = 'http://www.xbrl.org/2003/role/link'
 # Standard roles
@@ -109,6 +124,14 @@ ASPECTNODE_FILTER_ARCROLE = 'http://xbrl.org/arcrole/2014/aspect-node-filter'
 ASPECTNODE_FILTER_ARCROLE_2013 = 'http://xbrl.org/arcrole/PR/2013-12-18/aspect-node-filter'
 # Formula
 NS_FORMULA = 'http://xbrl.org/2008/formula'
+NS_VARIABLE = 'http://xbrl.org/2008/variable'
+NS_ASPECT_TEST = 'http://xbrl.org/2008/variable/aspectTest'
+NS_VALIDATION = 'http://xbrl.org/2008/validation'
+NS_VALUE_ASSERTION = 'http://xbrl.org/2008/assertion/value'
+NS_EXISTANCE_ASSERTION = 'http://xbrl.org/2008/assertion/existence'
+NS_CONSISTENCY_ASSERTION = 'http://xbrl.org/2008/assertion/consistency'
+# XPath
+NS_FUNCTION = 'http://www.w3.org/2005/xpath-functions'
 # Assertions
 ASSERTION_SET_ARCROLE = 'http://xbrl.org/arcrole/2008/assertion-set'
 ASSERTION_UNSATISFIED_SEVERITY_ARCROLE = 'http://xbrl.org/arcrole/2016/assertion-unsatisfied-severity'
