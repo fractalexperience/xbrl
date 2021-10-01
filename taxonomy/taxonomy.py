@@ -55,6 +55,12 @@ class Taxonomy:
         self.value_assertions = {}
         self.existence_assertions = {}
         self.consistency_assertions = {}
+        """ Simple types """
+        self.simple_types = {}
+        """ Complex types with simple content """
+        self.item_types = {}
+        """ Complex types with complex content """
+        self.tuple_types = {}
 
         self.load()
         self.compile()
@@ -72,6 +78,9 @@ class Taxonomy:
             f'Role Types: {len(self.role_types)}',
             f'Arcrole Types: {len(self.arcrole_types)}',
             f'Concepts: {len(self.concepts)}',
+            f'Item Types: {len(self.item_types)}',
+            f'Tuple Types: {len(self.tuple_types)}',
+            f'Simple Types: {len(self.simple_types)}',
             f'Labels: {sum([0 if not "label" in c.resources else len(c.resources["label"]) for c in self.concepts.values()])}',
             f'References: {sum([0 if not "reference" in c.resources else len(c.resources["reference"]) for c in self.concepts.values()])}',
             f'Hierarchies: {len(self.base_sets)}',
@@ -167,6 +176,12 @@ class Taxonomy:
                 self.arcrole_types[key] = art
             for key, rt in sh.role_types.items():
                 self.role_types[key] = rt
+            for key, it in sh.item_types.items():
+                self.item_types[key] = it
+            for key, st in sh.simple_types.items():
+                self.simple_types[key] = st
+            for key, tt in sh.tuple_types.items():
+                self.tuple_types[key] = tt
 
     def compile_linkbases(self):
         # Pass 1 - Index global objects

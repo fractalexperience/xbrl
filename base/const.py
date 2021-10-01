@@ -138,3 +138,60 @@ ASSERTION_UNSATISFIED_SEVERITY_ARCROLE = 'http://xbrl.org/arcrole/2016/assertion
 # Xml fragment
 XML_START = '<?xml version="1.0" ?>'
 
+""" XML Schema types """
+xsd_types = {
+    'string': 's', 'boolean': 'b', 'float': 'n', 'double': 'n', 'decimal': 'n', 'duration': 'd',
+    'dateTime': 'd', 'time': 'd', 'date': 'd', 'gYearMonth': 'd', 'gYear': 'd', 'gMonthDay': 'd',
+    'gDay': 'd', 'gMonth': 'd', 'hexBinary': 'x', 'base64Binary': 'x', 'anyURI': 's', 'QName': 's',
+    'NOTATION': 's', 'normalizedString': 's', 'token': 's', 'language': 's', 'IDREFS': 's',
+    'ENTITIES': 's', 'NMTOKEN': 's', 'NMTOKENS': 's', 'Name': 's', 'NCName': 's', 'ID': 's',
+    'IDREF': 's', 'ENTITY': 's', 'integer': 'n', 'nonPositiveInteger': 'n', 'negativeInteger': 'n',
+    'long': 'n', 'int': 'n', 'short': 'n', 'byte': 'n', 'nonNegativeInteger': 'n', 'unsignedLong': 'n',
+    'unsignedInt': 'n', 'unsignedShort': 'n', 'unsignedByte': 'n', 'positiveInteger': 'n'
+    }
+""" Human readable basic kinds """
+xsd_kinds = {'s': 'String', 'n': 'Numeric', 'd': 'Date', 'b': 'Boolean', 'x': 'Binary'}
+
+""" XBRL Basic types """
+xbrl_types = {
+    'decimalItemType': 'numeric',
+    'floatItemType': 'numeric',
+    'doubleItemType': 'numeric',
+    'monetaryItemType': 'monetary',
+    'sharesItemType': 'shares',
+    'pureItemType': 'pure',
+    'fractionItemType': 'fraction',
+    'integerItemType': 'numeric',
+    'nonPositiveIntegerItemType': 'numeric',
+    'negativeIntegerItemType': 'numeric',
+    'longItemType': 'numeric',
+    'intItemType': 'numeric',
+    'shortItemType': 'numeric',
+    'byteItemType': 'numeric',
+    'nonNegativeIntegerItemType': 'numeric',
+    'unsignedLongItemType': 'numeric',
+    'unsignedIntItemType': 'numeric',
+    'unsignedShortItemType': 'numeric',
+    'unsignedByteItemType': 'numeric',
+    'positiveIntegerItemType': 'numeric',
+    'stringItemType': 'string',
+    'booleanItemType': 'boolean',
+    'hexBinaryItemType': 'binary',
+    'base64BinaryItemType': 'binary',
+    'anyURIItemType': 'string',
+    'QNameItemType': 'string',
+    'durationItemType': 'time',
+    'dateTimeItemType': 'date',
+    'timeItemType': 'time',
+    'dateItemType': 'date',
+    'gYearMonthItemType': 'date',
+    'gYearItemType': 'date',
+    'gMonthDayItemType': 'date',
+    'gDayItemType': 'date',
+    'gMonthItemType': 'date',
+    'normalizedString': 'string',
+    'tokenItemType': 'string',
+    'languageItemType': 'string',
+    'NameItemType': 'string',
+    'NCNameItemType': 'string'
+}

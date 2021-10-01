@@ -120,6 +120,8 @@ class Pool(resolver.Resolver):
         allowed_extensions = ('xsd', 'xml', 'json')
         if not href.split('.')[-1] in allowed_extensions:  # if pairs in
             return
+        if 'xbrl.org' in href:
+            return  # Basic schema objects are predefined.
         if not href.startswith('http'):
             href = util.reduce_url(os.path.join(base, href).replace(os.path.sep, '/'))
         key = f'{self.current_taxonomy_hash}_{href}'

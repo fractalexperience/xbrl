@@ -28,6 +28,9 @@ BaseSetNode = namedtuple('BaseSetNode', 'Concept,Level,Arc')
 Constraint = namedtuple('Constraint', 'Dimension,Member,Axis')
 
 
+""" Represents a restriction in a xsd:simpleType or xsd:complexType with simple content."""
+XsdRestriction = namedtuple('Restriction', 'Name,Value')
+
 """ Represents a DPM Map. DPM stands for DAta Point Model.
     Id: The identifier of the map. Normally this is the table id. 
     Dimensions: Set of all custom dimensions included in the map. Note that not all cells will include all dimensions.

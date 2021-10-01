@@ -4,7 +4,6 @@ import hashlib
 from xbrl.base import const
 
 
-
 def u_dct_list(dct, key, val):
     """ Updates a dictionary, where key is a string and value is a list with a specific value. """
     lst = dct.get(key, None)
@@ -90,3 +89,29 @@ def reduce_url(url):
 
 def get_hash(s, digest_size=12):
     return hashlib.shake_256(s.encode()).hexdigest(digest_size)
+
+
+def is_numeric_type(s):
+    kind = const.xsd_types.get(s, None)
+    return False if kind is None or kind != 'n' else True
+
+
+def is_date_type(s):
+    kind = const.xsd_types.get(s, None)
+    return False if kind is None or kind != 'd' else True
+
+
+def is_string_type(s):
+    kind = const.xsd_types.get(s, None)
+    return False if kind is None or kind != 's' else True
+
+
+def is_boolean_type(s):
+    kind = const.xsd_types.get(s, None)
+    return False if kind is None or kind != 'b' else True
+
+
+def is_binary_type(s):
+    kind = const.xsd_types.get(s, None)
+    return False if kind is None or kind != 'x' else True
+
