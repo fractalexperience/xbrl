@@ -8,4 +8,5 @@ class ConsistencyAssertion(assertion.Assertion):
         self.strict = e.attrib.get('strict')
         self.abs_radius = e.attrib.get('absoluteAcceptanceRadius')
         self.prop_radius = e.attrib.get('proportionalAcceptanceRadius')
+        container_xlink.resources.setdefault(self.xlabel, []).append(self)
         container_xlink.linkbase.pool.current_taxonomy.consistency_assertions[self.xlabel] = self

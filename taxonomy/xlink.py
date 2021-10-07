@@ -25,6 +25,7 @@ class XLink(ebase.XmlElementBase):
             f'{{{const.NS_TABLE}}}definitionNodeSubtreeArc': self.l_arc,
             f'{{{const.NS_LINK}}}loc': self.l_loc,
             f'{{{const.NS_LINK}}}label': self.l_resource,
+            f'{{{const.NS_FORMULA_MESSAGE}}}message': self.l_resource,
             f'{{{const.NS_GEN_LABEL}}}label': self.l_resource,
             f'{{{const.NS_LINK}}}reference': self.l_reference,
             f'{{{const.NS_GEN_REF}}}reference': self.l_reference,
@@ -36,8 +37,8 @@ class XLink(ebase.XmlElementBase):
             f'{{{const.NS_TABLE}}}aspectNode': self.l_aspect_node,
             f'{{{const.NS_VARIABLE}}}parameter': self.l_parameter,
             f'{{{const.NS_VALUE_ASSERTION}}}valueAssertion': self.l_va,
-            f'{{{const.NS_VALUE_ASSERTION}}}existenceAssertion': self.l_ea,
-            f'{{{const.NS_VALUE_ASSERTION}}}consistencyAssertion': self.l_ca,
+            f'{{{const.NS_EXISTANCE_ASSERTION}}}existenceAssertion': self.l_ea,
+            f'{{{const.NS_CONSISTENCY_ASSERTION}}}consistencyAssertion': self.l_ca,
         }
         """ Locators indexed by unique identifier """
         self.locators = {}
@@ -130,8 +131,7 @@ class XLink(ebase.XmlElementBase):
         href = util.reduce_url(loc.href)
         res = self.linkbase.pool.current_taxonomy.resources.get(href, None)
         if res is None:
-            print('Cannot resolve href: ', href)
-            # TODO - handle also XBRL Formula cases
+            self.try_connect_role_type(a, href)
             return
         resource_list = self.resources.get(a.xl_to, None)
         if resource_list is not None:
@@ -139,6 +139,29 @@ class XLink(ebase.XmlElementBase):
                 res2.parent = res
                 key = f'{res2.lang}|{res2.role}' if res2.lang or res2.role else res2.xlabel
                 res.nested.setdefault(res2.name, {}).setdefault(key, []).append(res2)
+
+    def try_connect_role_type(self, a, href):
+        rt = self.linkbase.pool.current_taxonomy.role_types_by_href.get(href, None)
+        if rt is None:
+            self.try_connect_arcrole_type(a, href)
+            return
+        self.add_res_list(a, rt)
+
+    def try_connect_arcrole_type(self, a, href):
+        art = self.linkbase.pool.current_taxonomy.arcrole_types_by_href.get(href, None)
+        if art is None:
+            print('Cannot resolve href: ', href)
+            # TODO - handle also XBRL Formula cases
+            return
+        self.add_res_list(a, art)
+
+    def add_res_list(self, a, obj):
+        resource_list = self.resources.get(a.xl_to, None)
+        if resource_list is not None:
+            for res2 in resource_list:
+                res2.parent = obj
+                key = f'{res2.lang}|{res2.role}' if res2.lang or res2.role else res2.xlabel
+                obj.labels.setdefault(res2.name, {}).setdefault(key, []).append(res2)
 
     def try_connect_concept(self, a, loc):
         href = urllib.parse.unquote(util.reduce_url(loc.href))

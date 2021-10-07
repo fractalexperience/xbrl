@@ -130,6 +130,7 @@ NS_VALIDATION = 'http://xbrl.org/2008/validation'
 NS_VALUE_ASSERTION = 'http://xbrl.org/2008/assertion/value'
 NS_EXISTANCE_ASSERTION = 'http://xbrl.org/2008/assertion/existence'
 NS_CONSISTENCY_ASSERTION = 'http://xbrl.org/2008/assertion/consistency'
+NS_FORMULA_MESSAGE = 'http://xbrl.org/2010/message'
 # XPath
 NS_FUNCTION = 'http://www.w3.org/2005/xpath-functions'
 # Assertions

@@ -43,8 +43,10 @@ class Taxonomy:
         self.tables = {}
         """ All role types in all schemas """
         self.role_types = {}
+        self.role_types_by_href = {}
         """ All arcrole types in all schemas """
         self.arcrole_types = {}
+        self.arcrole_types_by_href = {}
         """ Global resources - these, which have an id attribute """
         self.resources = {}
         """ All locators """
@@ -174,8 +176,10 @@ class Taxonomy:
                 self.elements_by_id[key] = e
             for key, art in sh.arcrole_types.items():
                 self.arcrole_types[key] = art
+                self.arcrole_types_by_href[f'{sh.location}#{art.id}'] = art
             for key, rt in sh.role_types.items():
                 self.role_types[key] = rt
+                self.role_types_by_href[f'{sh.location}#{rt.id}'] = rt
             for key, it in sh.item_types.items():
                 self.item_types[key] = it
             for key, st in sh.simple_types.items():

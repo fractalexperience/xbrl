@@ -6,4 +6,5 @@ class ValueAssertion(assertion.Assertion):
         self.xlink = container_xlink
         super().__init__(e)
         self.test = e.attrib.get('test')
+        container_xlink.resources.setdefault(self.xlabel, []).append(self)
         container_xlink.linkbase.pool.current_taxonomy.value_assertions[self.xlabel] = self
