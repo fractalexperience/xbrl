@@ -1,5 +1,6 @@
-from xbrl.taxonomy import arc, base_set, locator, resource
-from xbrl.taxonomy.formula import parameter, value_assertion, existence_assertion, consistency_assertion
+from xbrl.taxonomy import arc, base_set, locator, resource, concept, roletype, arcroletype
+from xbrl.taxonomy.formula import parameter, value_assertion, existence_assertion, consistency_assertion, assertion, \
+    filter, assertion_set
 from xbrl.base import ebase, const, util, data_wrappers
 from xbrl.taxonomy.table import table, breakdown, rule_node, cr_node, dr_node, aspect_node
 import urllib.parse
@@ -36,10 +37,24 @@ class XLink(ebase.XmlElementBase):
             f'{{{const.NS_TABLE}}}dimensionRelationshipNode': self.l_dimensional_relationship_node,
             f'{{{const.NS_TABLE}}}aspectNode': self.l_aspect_node,
             f'{{{const.NS_VARIABLE}}}parameter': self.l_parameter,
+            f'{{{const.NS_VALIDATION}}}assertionSet': self.l_ass,
             f'{{{const.NS_VALUE_ASSERTION}}}valueAssertion': self.l_va,
             f'{{{const.NS_EXISTANCE_ASSERTION}}}existenceAssertion': self.l_ea,
             f'{{{const.NS_CONSISTENCY_ASSERTION}}}consistencyAssertion': self.l_ca,
+            f'{{{const.NS_DIMENSION_FILTER}}}explicitDimension': self.l_filter,
+            f'{{{const.NS_DIMENSION_FILTER}}}typedDimension': self.l_filter,
         }
+        self.conn_methods = {
+            'Concept=>Resource': self.conn_cr,
+            'Resource=>Resource': self.conn_rr,
+            'Resource=>String': self.conn_rstr,
+            'Concept=>Concept': self.conn_cc,
+            'RoleType=>Resource': self.conn_rtr,
+            'ArcroleType=>Resource': self.conn_artr,
+            'Concept=>RoleType': self.conn_crt,
+            'Concept=>ArcroleType': self.conn_cart
+        }
+
         """ Locators indexed by unique identifier """
         self.locators = {}
         """ Locators by href """
@@ -92,6 +107,9 @@ class XLink(ebase.XmlElementBase):
     def l_parameter(self, e):
         parameter.Parameter(e, self)
 
+    def l_ass(self, e):
+        assertion_set.AssertionSet(e, self)
+
     def l_va(self, e):
         value_assertion.ValueAssertion(e, self)
 
@@ -101,93 +119,40 @@ class XLink(ebase.XmlElementBase):
     def l_ca(self, e):
         consistency_assertion.ConsistencyAssertion(e, self)
 
+    def l_filter(self, e):
+        filter.Filter(e, self)
+
     def compile(self):
         for arc_list in [a for a in self.arcs_from.values()]:
             for a in arc_list:
-                loc = self.locators.get(a.xl_from, None)
-                if loc is not None:
-                    self.try_connect_concept(a, loc)
-                    continue
-                self.try_connect_resource(a)
+                from_objects = self.identify_objects(a.xl_from)
+                if from_objects is None:
+                    print('Cannot resolve arc.from: ', a.xl_from, 'in', self.linkbase.location)
+                    return
+                to_objects = self.identify_objects(a.xl_to)
+                if to_objects is None:
+                    print('Cannot resolve arc.to: ', a.xl_to, 'in', self.linkbase.location)
+                    return
+                for obj_from in from_objects:
+                    for obj_to in to_objects:
+                        self.try_connect_objects(a, obj_from, obj_to)
 
-    def try_connect_resource(self, a):
-        from_resources = self.resources.get(a.xl_from, None)
-        if from_resources is None:
+    def try_connect_objects(self, a, obj_from, obj_to):
+        key = f'{self.get_obj_type(obj_from)}=>{self.get_obj_type(obj_to)}'
+        method = self.conn_methods.get(key, None)
+        if method is None:
+            print('Unknown object types combination: ', key)
             return
+        method(a, obj_from, obj_to)
 
-        for res in from_resources:
-            nested_list = self.resources.get(a.xl_to, None)
-            if nested_list is None:
-                continue
-            for res2 in nested_list:
-                res2.parent = res
-                res2.order = a.order
-                key = f'{res2.lang}|{res2.role}' if res2.lang or res2.role else res2.xlabel
-                if isinstance(res2, breakdown.Breakdown):
-                    res2.axis = a.axis
-                res.nested.setdefault(res2.name, {}).setdefault(key, []).append(res2)
+    def conn_cr(self, a, c, res):
+        r_list = c.resources.get(res.name, None)
+        if r_list is None:
+            r_list = {}
+            c.resources[res.name] = r_list
+        r_list.setdefault(self.get_resource_key(res), []).append(res)  # Multiple resources of the same type may be related
 
-    def try_connect_global_resource(self, a, loc):
-        href = util.reduce_url(loc.href)
-        res = self.linkbase.pool.current_taxonomy.resources.get(href, None)
-        if res is None:
-            self.try_connect_role_type(a, href)
-            return
-        resource_list = self.resources.get(a.xl_to, None)
-        if resource_list is not None:
-            for res2 in resource_list:
-                res2.parent = res
-                key = f'{res2.lang}|{res2.role}' if res2.lang or res2.role else res2.xlabel
-                res.nested.setdefault(res2.name, {}).setdefault(key, []).append(res2)
-
-    def try_connect_role_type(self, a, href):
-        rt = self.linkbase.pool.current_taxonomy.role_types_by_href.get(href, None)
-        if rt is None:
-            self.try_connect_arcrole_type(a, href)
-            return
-        self.add_res_list(a, rt)
-
-    def try_connect_arcrole_type(self, a, href):
-        art = self.linkbase.pool.current_taxonomy.arcrole_types_by_href.get(href, None)
-        if art is None:
-            print('Cannot resolve href: ', href)
-            # TODO - handle also XBRL Formula cases
-            return
-        self.add_res_list(a, art)
-
-    def add_res_list(self, a, obj):
-        resource_list = self.resources.get(a.xl_to, None)
-        if resource_list is not None:
-            for res2 in resource_list:
-                res2.parent = obj
-                key = f'{res2.lang}|{res2.role}' if res2.lang or res2.role else res2.xlabel
-                obj.labels.setdefault(res2.name, {}).setdefault(key, []).append(res2)
-
-    def try_connect_concept(self, a, loc):
-        href = urllib.parse.unquote(util.reduce_url(loc.href))
-        c = self.linkbase.pool.current_taxonomy.concepts.get(href, None)
-        if c is None:
-            self.try_connect_global_resource(a, loc)
-            return
-        resource_list = self.resources.get(a.xl_to, None)
-        if resource_list is not None:
-            for res in resource_list:
-                c_resources = c.resources.get(res.name, None)
-                if c_resources is None:
-                    c_resources = {}
-                    c.resources[res.name] = c_resources
-                key = f'{res.lang}|{res.role}'
-                c_resources.setdefault(key, []).append(res)  # Multiple resources of the same type may be related
-            return
-        # if no resources are connected, try to find inter-concept relations
-        loc2 = self.locators.get(a.xl_to, None)
-        if loc2 is None:
-            return
-        href2 = urllib.parse.unquote(util.reduce_url(loc2.href))
-        c2 = self.linkbase.pool.current_taxonomy.concepts.get(href2, None)
-        if c2 is None:
-            self.try_connect_resource_concept(c, href2)
-            return
+    def conn_cc(self, a, c_from, c_to):
         key = f'{a.arcrole}|{a.xl_from}'
         is_root = key not in self.arcs_to
         bs_key = f'{a.name}|{a.arcrole}|{self.role}'
@@ -195,22 +160,86 @@ class XLink(ebase.XmlElementBase):
         if bs is None:
             bs = base_set.BaseSet(a.name, a.arcrole, self.role)
             self.linkbase.pool.current_taxonomy.base_sets[bs_key] = bs
-        if is_root and c not in bs.roots:
-            bs.roots.append(c)
+        if is_root and c_from not in bs.roots:
+            bs.roots.append(c_from)
         # Populate concept child and parent sets
-        c.chain_dn.setdefault(bs_key, []).append(data_wrappers.BaseSetNode(c2, 0, a))
-        c2.chain_up.setdefault(bs_key, []).append(data_wrappers.BaseSetNode(c, 0, a))
+        c_from.chain_dn.setdefault(bs_key, []).append(data_wrappers.BaseSetNode(c_to, 0, a))
+        c_to.chain_up.setdefault(bs_key, []).append(data_wrappers.BaseSetNode(c_from, 0, a))
 
-    def try_connect_resource_concept(self, c, href):
-        res = self.linkbase.pool.current_taxonomy.resources.get(href, None)
-        if res is None:
-            self.try_connect_roletype(c, href)
-            return
-        key = f'{res.lang}|{res.role}' if res.lang is not None and res.role is not None else res.xlabel
-        c.resources.setdefault(res.name, {}).setdefault(key, []).append(res)
+    def conn_rr(self, a, r_from, r_to):
+        r_to.parent = r_from
+        r_to.order = a.order
+        if isinstance(r_to, breakdown.Breakdown):
+            r_to.axis = a.axis
+        r_from.nested.setdefault(r_to.name, {}).setdefault(self.get_resource_key(r_to), []).append(r_to)
 
-    def try_connect_roletype(self, c, href):
-        rt = self.linkbase.pool.current_taxonomy.role_types.get(href, None)
-        if rt is None:
-            return
+    def conn_rstr(self, a, ass, sev):
+        if isinstance(ass, assertion.Assertion):
+            ass.severity = sev
+
+    def conn_rtr(self, a, rt, res):
+        res.parent = rt
+        rt.labels.setdefault(res.name, {}).setdefault(self.get_resource_key(res), []).append(res)
+
+    def conn_artr(self, a, art, res):
+        res.parent = art
+        art.labels.setdefault(res.name, {}).setdefault(self.get_resource_key(res), []).append(res)
+
+    def conn_crt(self, a, c, rt):
         c.resources.setdefault(rt.name, {}).setdefault(rt.role_uri, []).append(rt)
+
+    def conn_cart(self, a, c, art):
+        c.resources.setdefault(art.name, {}).setdefault(art.arcrole_uri, []).append(art)
+
+    """ Identifies a list of objects referred by a XLabel identifier
+        xbrl is the from, or to attribute of the arc """
+    def identify_objects(self, xlbl):
+        # Seek by XLabel directly in current link
+        res = self.resources.get(xlbl, None)
+        if res is not None:
+            return res
+        # Seek role type by roleUri in taxonomy
+        rt = self.linkbase.pool.current_taxonomy.role_types.get(xlbl, None)
+        if rt is not None:
+            return [rt]
+        # Seek arcrole type by roleUri in taxonomy
+        art = self.linkbase.pool.current_taxonomy.arcrole_types.get(xlbl, None)
+        if art is not None:
+            return [art]
+        loc = self.locators.get(xlbl, None)
+        if loc is None:
+            return None
+        if loc.url == const.URL_ASSERTION_SEVERITIES:
+            return [loc.fragment_identifier]  # Directly assign severity to assertion
+        href = urllib.parse.unquote(util.reduce_url(loc.href))
+        # Seek for a concept
+        c = self.linkbase.pool.current_taxonomy.concepts.get(href, None)
+        if c is not None:
+            return [c]
+        # Seek global resource by XPointer
+        res = self.linkbase.pool.current_taxonomy.resources.get(href, None)
+        if res is not None:
+            return [res]
+        # Seek role type by XPointer
+        rt = self.linkbase.pool.current_taxonomy.role_types_by_href.get(href, None)
+        if rt is not None:
+            return [rt]
+        # Seek arcrole type by XPointer
+        art = self.linkbase.pool.current_taxonomy.arcrole_types_by_href.get(href, None)
+        if art is not None:
+            return [art]
+
+    def get_resource_key(self, res):
+        return f'{res.lang}|{res.role}' if res.lang or res.role else res.xlabel
+
+    def get_obj_type(self, obj):
+        if isinstance(obj, str):
+            return 'String'
+        if isinstance(obj, concept.Concept):
+            return 'Concept'
+        if isinstance(obj, resource.Resource):
+            return 'Resource'
+        if isinstance(obj, roletype.RoleType):
+            return 'RoleType'
+        if isinstance(obj, arcroletype.ArcroleType):
+            return 'ArcroleType'

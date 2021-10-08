@@ -57,6 +57,8 @@ class Taxonomy:
         self.value_assertions = {}
         self.existence_assertions = {}
         self.consistency_assertions = {}
+        """ Assertion Sets """
+        self.assertion_sets = {}
         """ Simple types """
         self.simple_types = {}
         """ Complex types with simple content """
@@ -94,6 +96,7 @@ class Taxonomy:
             f'Table Groups: {len([c for c in self.concepts.values() if "table" in c.resources])}',
             f'Tables: {len(self.tables)}',
             f'Parameters: {len(self.parameters)}',
+            f'Assertion Sets: {len(self.assertion_sets)}',
             f'Value Assertions: {len(self.value_assertions)}',
             f'Existence Assertions: {len(self.existence_assertions)}',
             f'Consistency Assertions: {len(self.consistency_assertions)}'

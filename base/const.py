@@ -131,11 +131,16 @@ NS_VALUE_ASSERTION = 'http://xbrl.org/2008/assertion/value'
 NS_EXISTANCE_ASSERTION = 'http://xbrl.org/2008/assertion/existence'
 NS_CONSISTENCY_ASSERTION = 'http://xbrl.org/2008/assertion/consistency'
 NS_FORMULA_MESSAGE = 'http://xbrl.org/2010/message'
+
+NS_DIMENSION_FILTER = 'http://xbrl.org/2008/filter/dimension'
+# TODO - Add other filters
+
 # XPath
 NS_FUNCTION = 'http://www.w3.org/2005/xpath-functions'
 # Assertions
 ASSERTION_SET_ARCROLE = 'http://xbrl.org/arcrole/2008/assertion-set'
 ASSERTION_UNSATISFIED_SEVERITY_ARCROLE = 'http://xbrl.org/arcrole/2016/assertion-unsatisfied-severity'
+URL_ASSERTION_SEVERITIES = 'http://www.xbrl.org/2016/severities.xml'
 # Xml fragment
 XML_START = '<?xml version="1.0" ?>'
 
