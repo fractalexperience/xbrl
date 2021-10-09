@@ -87,6 +87,11 @@ def reduce_url(url):
     return '/'.join(reduce_url_parts(url.replace(os.path.sep, "/").split('/'))) if url else None
 
 
+def shorten(s, maxlen=100):
+    """ Shortens a string and add ... at the end """
+    return (s[:maxlen] + ' ...') if len(s) > maxlen else s
+
+
 def get_hash(s, digest_size=12):
     return hashlib.shake_256(s.encode()).hexdigest(digest_size)
 
@@ -114,4 +119,3 @@ def is_boolean_type(s):
 def is_binary_type(s):
     kind = const.xsd_types.get(s, None)
     return False if kind is None or kind != 'x' else True
-

@@ -127,12 +127,12 @@ class XLink(ebase.XmlElementBase):
             for a in arc_list:
                 from_objects = self.identify_objects(a.xl_from)
                 if from_objects is None:
-                    print('Cannot resolve arc.from: ', a.xl_from, 'in', self.linkbase.location)
-                    return
+                    # print('Cannot resolve arc.from: ', a.xl_from, 'in', self.linkbase.location)
+                    continue
                 to_objects = self.identify_objects(a.xl_to)
                 if to_objects is None:
-                    print('Cannot resolve arc.to: ', a.xl_to, 'in', self.linkbase.location)
-                    return
+                    # print('Cannot resolve arc.to: ', a.xl_to, 'in', self.linkbase.location)
+                    continue
                 for obj_from in from_objects:
                     for obj_to in to_objects:
                         self.try_connect_objects(a, obj_from, obj_to)
@@ -167,7 +167,8 @@ class XLink(ebase.XmlElementBase):
         c_to.chain_up.setdefault(bs_key, []).append(data_wrappers.BaseSetNode(c_from, 0, a))
 
     def conn_rr(self, a, r_from, r_to):
-        r_to.parent = r_from
+        if not isinstance(r_from, assertion_set.AssertionSet):
+            r_to.parent = r_from
         r_to.order = a.order
         if isinstance(r_to, breakdown.Breakdown):
             r_to.axis = a.axis
