@@ -128,11 +128,11 @@ class Pool(resolver.Resolver):
         if key in self.discovered:
             return
         self.discovered[key] = False
+        # print(href)
         if href.endswith(".xsd"):
             sh = self.schemas.get(href, schema.Schema(href, self))
             self.current_taxonomy.attach_schema(href, sh)
         else:
-            # print(href)
             lb = self.linkbases.get(href, linkbase.Linkbase(href, self))
             self.current_taxonomy.attach_linkbase(href, lb)
 
