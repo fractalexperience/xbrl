@@ -47,7 +47,7 @@ class Cell:
     def get_indent(self):
         if self.indent == 0:
             return ''
-        return f' style="text-indent: {self.indent}"'
+        return f' style="text-indent: {self.indent}px;"'
 
     def get_colspan(self):
         if self.colspan == 1:
