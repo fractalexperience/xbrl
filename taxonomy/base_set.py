@@ -21,15 +21,12 @@ class BaseSet:
         members = []
         for r in self.roots:
             self.get_branch_members(r, members, start_concept, include_head, False, 0, None, [r])
-        # print(self.role, self.arcrole, ' => ', len(members), 'members')
         return members
 
     def get_branch_members(
             self, concept, members, start_concept, include_head, flag_include, level, related_arc, stack):
         if concept is None:
             return
-        # if concept in stack:
-        #     return  # Indirect recursion
         trigger_include = (not start_concept and level == 0) or (start_concept and start_concept == concept.qname)
         new_flag_include = flag_include or trigger_include
         if (trigger_include and include_head) or flag_include:
