@@ -71,7 +71,6 @@ class Schema(fbase.XmlFileBase):
             if e2.tag == f'{{{const.NS_XS}}}complexContent':
                 tuple_type.TupleType(e, self)
 
-
     def l_simple_type(self, e):
        simple_type.SimpleType(e, self)
 

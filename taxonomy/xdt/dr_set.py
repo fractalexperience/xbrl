@@ -20,6 +20,7 @@ class DrSet:
         return self.info()
 
     def compile(self):
+        # print('start compiling DRS', self.bs_start.role)
         self.root_primary_items.update({pi.qname: primary_item.PrimaryItem(pi, self) for pi in self.bs_start.roots})
         if not self.root_primary_items:
             return
