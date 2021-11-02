@@ -1,6 +1,4 @@
-import os
-import itertools
-import hashlib
+import os, itertools, hashlib, datetime
 from xbrl.base import const
 
 
@@ -94,6 +92,10 @@ def shorten(s, maxlen=100):
 
 def get_hash(s, digest_size=12):
     return hashlib.shake_256(s.encode()).hexdigest(digest_size)
+
+
+def get_id():
+    return get_hash(str(datetime.datetime.now()))
 
 
 def is_numeric_type(s):

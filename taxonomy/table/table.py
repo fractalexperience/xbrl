@@ -21,7 +21,7 @@ class Table(tlb_resource.TableResource):
 
     def get_rc_or_id(self):
         rc = super().get_rc_label()
-        return self.xlabel if rc is None else rc
+        return rc if rc else self.xlabel
 
     def get_db_label(self):
         db = super().get_db_label()

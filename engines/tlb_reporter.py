@@ -101,7 +101,7 @@ class TableReporter(base_reporter.BaseReporter):
         for name in filter(lambda n: n in dct, self.resource_names):
             # Flatten the result list of lists.
             l = [res for r_lst in dct.get(name).values() for res in r_lst]
-            for r in sorted(l, key=lambda re: 0 if re.order is None else str(re.order).zfill(10)):
+            for r in sorted(l, key=lambda re: '0' if re.order is None else re.order.zfill(10)):
                 if isinstance(r, breakdown.Breakdown):
                     self.process_breakdown_node(tbl, struct, r, lvl)
                 elif isinstance(r, aspect_node.AspectNode):
@@ -285,7 +285,8 @@ class TableReporter(base_reporter.BaseReporter):
         return dpm_map
 
     def render_map_html(self, table_ids=None, add_html_head=True):
-        table_ids = self.taxonomy.tables.keys() if table_ids is None else [table_ids] if isinstance(table_ids, str) else table_ids
+        table_ids = self.taxonomy.tables.keys() if table_ids is None else [table_ids] if isinstance(table_ids,
+                                                                                                    str) else table_ids
         if add_html_head:
             self.init_output_table()
         else:
@@ -488,6 +489,7 @@ class TableReporter(base_reporter.BaseReporter):
 
     """ Calculates the 'grayed' property based on XDT constraints. If there is at least one dimensional relationship set
         matching constraints, then grayed is false, otherwise true."""
+
     def validate(self, c):
         if not self.current_layout.rc_code:
             return True
