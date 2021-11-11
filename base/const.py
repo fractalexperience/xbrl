@@ -201,3 +201,12 @@ xbrl_types = {
     'NameItemType': 'string',
     'NCNameItemType': 'string'
 }
+graph_arcroles = (
+    PARENT_CHILD_ARCROLE,
+    SUMMATION_ITEM_ARCROLE,
+    GENERAL_SPECIAL_ARCROLE,
+    SIMILAR_TUPLE_ARCROLE,
+    ESSENCE_ALIAS_ARCROLE,
+    REQUIRES_ELEMENT_ARCROLE,
+    XDT_DOMAIN_MEMBER_ARCROLE
+)
