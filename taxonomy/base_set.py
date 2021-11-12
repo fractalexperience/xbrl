@@ -47,6 +47,15 @@ class BaseSet:
                 node.Concept, members, start_concept, include_head, new_flag_include, level + 1, node.Arc, stack)
             stack.remove(node.Concept)
 
+    def get_langs(self):
+        langs = set()
+        lbls = [n.Concept.resources.get('label', {}) for n in self.get_members()]
+        for dct in lbls:
+            for v in dct.values():
+                for lbl in v:
+                    langs.add(lbl.lang)
+        return langs
+
     def info(self):
         rts = ','.join([r.qname for r in self.roots])
         return '\n'.join([

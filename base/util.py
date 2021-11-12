@@ -11,6 +11,11 @@ def u_dct_list(dct, key, val):
     lst.append(val)
 
 
+def get_lang(resources):
+    res = resources.get('label', {})
+    li = [v.lang for l in res.values() for v in l]
+    return li[0] if li else None
+
 def get_label(lst, lang='en', role='/label'):
     li = [lbl.text for lbl in get_resource_nlr(lst, 'label', lang, role)]
     if not li:

@@ -46,6 +46,9 @@ class Concept(element.Element):
     def get_label(self, lang='en', role='/label'):
         return util.get_label(self.resources, lang, role)
 
+    def get_lang(self):
+        return util.get_lang(self.resources)
+
     def get_enum_label(self, role):
         labels = self.resources.get('label', None)
         if labels is None:
