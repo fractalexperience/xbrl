@@ -8,6 +8,7 @@ class DrSet:
 
     def __init__(self, start_base_set, container_taxonomy):
         self.bs_start = start_base_set
+        self.drs_type = 'including' if self.bs_start.arcrole == const.XDT_ALL_ARCROLE else 'excluding'
         self.taxonomy = container_taxonomy
         self.root_primary_items = {}
         self.primary_items = {}
@@ -96,6 +97,12 @@ class DrSet:
                 self.taxonomy.idx_mem_drs.setdefault(m.Concept.qname, set({})).add(self)
                 if m.Arc is None or m.Arc.usable is True:
                     dim.members[m.Concept.qname] = m.Concept
+
+    def get_dimensions(self):
+        dims = set()
+        for hc in self.hypercubes.values():
+            dims.update(d for d in hc.dimensions)
+        return dims
 
     def info(self):
         return self.bs_start.get_key()

@@ -26,6 +26,7 @@ class Concept(element.Element):
         self.is_explicit_dimension = True if self.is_dimension and self.typed_domain_ref is None else False
         self.is_enumeration = True if self.data_type and self.data_type.endswith('enumerationItemType') else False
         self.is_enumeration_set = True if self.data_type and self.data_type.endswith('enumerationSetItemType') else False
+
         if self.schema is not None:
             self.namespace = self.schema.target_namespace
         # Collections
