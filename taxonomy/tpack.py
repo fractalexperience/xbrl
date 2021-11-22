@@ -103,7 +103,7 @@ class TaxonomyPackage(resolver.Resolver):
                         prefix = e2.text
                     elif str(e2.tag).endswith('description'):
                         desc = e2.text
-                self.entrypoints.append(data_wrappers.EntryPoint(prefix, ep, desc))
+                self.entrypoints.append(data_wrappers.EntryPoint(prefix, ep, desc, util.get_hash(''.join(ep))))
 
     def l_superseded(self, ep):
         for e in ep.iterchildren():
