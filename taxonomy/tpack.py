@@ -19,6 +19,8 @@ class TaxonomyPackage(resolver.Resolver):
         self.properties = {}
         """ List of superseded packages, each represented by ts URL. """
         self.superseded_packages = []
+        """ List of XBRL reports included in the package """
+        self.reports = []
         self.files = None
         self.redirects = {}
         self.redirects_reduced = None
@@ -50,6 +52,7 @@ class TaxonomyPackage(resolver.Resolver):
         with self.archive.open(zi_catalog) as cf:
             catalog = lxml.XML(cf.read())
             self.l_redirects(catalog)
+        self.reports = [f for f in zil if '/reports/' in f.filename]
 
     def get_url(self, url):
         """ Reads the binary content of a file addressed by a URL. """
@@ -72,6 +75,7 @@ class TaxonomyPackage(resolver.Resolver):
         for fn in [zi.filename for zi in zip_infos if not zi.is_dir()]:
             matched_redirects = [(u, r) for u, r in self.redirects_reduced.items() if fn.startswith(r)]
             if not matched_redirects:
+                self.files[fn] = fn
                 continue
             file_root = matched_redirects[0][1]
             rewrite_prefix = matched_redirects[0][0]
