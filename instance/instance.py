@@ -46,7 +46,6 @@ Filing Indicators: {len(self.xbrl.filing_indicators)}"""
         s = ''.join(self.ixbrl.output)
         root = lxml.XML(s)
         self.l_xbrl(root)
-        # self.xbrl = m_xbrl.XbrlModel(root, self)
 
     def to_xml(self):
         return self.ixbrl.to_xml() if self.ixbrl else self.xbrl.to_xml() if self.xbrl else None

@@ -77,8 +77,10 @@ class IxbrlModel(ebase.XmlElementBase):
             if not name:
                 continue
             cref = nn.origin.attrib.get('contextRef')
-            text = self.get_full_content(nn.origin, [])
-            self.output.append(f'<{name} contextRef="{cref}">{text}</{name}>')
+            part1 = f'{(nn.origin.text if nn.origin.text else "")}' if len(nn.origin) else ''
+            rest = self.get_full_content(nn.origin, [])
+            content = util.escape_xml(f'{part1}{rest}')
+            self.output.append(f'<{name} contextRef="{cref}">{content}</{name}>')
 
     def strip_non_fraction(self):
         non_fractions = self.idx_n.get('nonFraction')
@@ -136,13 +138,15 @@ class IxbrlModel(ebase.XmlElementBase):
                 continued_at = a[1].strip()
         if is_escaped:
             return util.escape_xml(e.text)
-
         result = []
         if len(e):
             for e2 in e.iterchildren():
                 result.append(self.get_full_content(e2, stack))
-        elif e.text:
-            result.append(e.text)
+        else:
+            if e.text:
+                result.append(e.text)
+            if e.tail and e.tag != f'{{{const.NS_IXBRL}}}nonNumeric':
+                result.append(e.tail)
         continuations = self.idx_nav.get(f'continuation|id|{continued_at}')
         if continued_at and continuations:
             for continuation in continuations:
@@ -151,7 +155,7 @@ class IxbrlModel(ebase.XmlElementBase):
                 stack.append(continuation)
                 result.append(self.get_full_content(continuation.origin, stack))
                 stack.pop()
-        return util.escape_xml(''.join(result))
+        return ''.join(result)
 
     def to_canonical_format(self, text, frmt):
         if not frmt:
@@ -168,7 +172,8 @@ class IxbrlModel(ebase.XmlElementBase):
             if scle:
                 f = float(formatted)
                 s = float(scle)
-                return f'{f * math.pow(10, s)}'
+                fstr = f'{f * math.pow(10, s)}'
+                return fstr[:-2] if fstr[-2:] == '.0' else fstr
             return formatted
         except:
             return value

@@ -50,7 +50,110 @@ class Formatter:
             'stateprovnameen': self.c_sec_stateprovnameen,
             'countrynameen': self.c_sec_countrynameen,
             'edgarprovcountryen': self.c_sec_edgarprovcountryen,
-            'entityfilercategoryen': self.c_sec_entityfilercategoryen
+            'entityfilercategoryen': self.c_sec_entityfilercategoryen,
+
+            # TR5
+            'date-day-month': self.tr5_repeat,
+            'date-day-month-year': self.tr5_repeat,
+            'date-day-monthname-bg': self.tr5_repeat,
+            'date-day-monthname-cs': self.tr5_repeat,
+            'date-day-monthname-cy': self.tr5_repeat,
+            'date-day-monthname-da': self.tr5_repeat,
+            'date-day-monthname-de': self.tr5_repeat,
+            'date-day-monthname-el': self.tr5_repeat,
+            'date-day-monthname-en': self.tr5_repeat,
+            'date-day-monthname-es': self.tr5_repeat,
+            'date-day-monthname-et': self.tr5_repeat,
+            'date-day-monthname-fi': self.tr5_repeat,
+            'date-day-monthname-fr': self.tr5_repeat,
+            'date-day-monthname-hr': self.tr5_repeat,
+            'date-day-monthname-it': self.tr5_repeat,
+            'date-day-monthname-lv': self.tr5_repeat,
+            'date-day-monthname-nl': self.tr5_repeat,
+            'date-day-monthname-no': self.tr5_repeat,
+            'date-day-monthname-pl': self.tr5_repeat,
+            'date-day-monthname-pt': self.tr5_repeat,
+            'date-day-monthname-ro': self.tr5_repeat,
+            'date-day-monthname-sk': self.tr5_repeat,
+            'date-day-monthname-sl': self.tr5_repeat,
+            'date-day-monthname-sv': self.tr5_repeat,
+            'date-day-monthname-year-bg': self.tr5_repeat,
+            'date-day-monthname-year-cs': self.tr5_repeat,
+            'date-day-monthname-year-cy': self.tr5_repeat,
+            'date-day-monthname-year-da': self.tr5_repeat,
+            'date-day-monthname-year-de': self.tr5_repeat,
+            'date-day-monthname-year-el': self.tr5_repeat,
+            'date-day-monthname-year-en': self.tr5_repeat,
+            'date-day-monthname-year-es': self.tr5_repeat,
+            'date-day-monthname-year-et': self.tr5_repeat,
+            'date-day-monthname-year-fi': self.tr5_repeat,
+            'date-day-monthname-year-fr': self.tr5_repeat,
+            'date-day-monthname-year-hi': self.tr5_repeat,
+            'date-day-monthname-year-hr': self.tr5_repeat,
+            'date-day-monthname-year-it': self.tr5_repeat,
+            'date-day-monthname-year-nl': self.tr5_repeat,
+            'date-day-monthname-year-no': self.tr5_repeat,
+            'date-day-monthname-year-pl': self.tr5_repeat,
+            'date-day-monthname-year-pt': self.tr5_repeat,
+            'date-day-monthname-year-ro': self.tr5_repeat,
+            'date-day-monthname-year-sk': self.tr5_repeat,
+            'date-day-monthname-year-sl': self.tr5_repeat,
+            'date-day-monthname-year-sv': self.tr5_repeat,
+            'date-day-monthroman': self.tr5_repeat,
+            'date-day-monthroman-year': self.tr5_repeat,
+            'date-ind-day-monthname-year-hi': self.tr5_repeat,
+            'date-jpn-era-year-month': self.tr5_repeat,
+            'date-jpn-era-year-month-day': self.tr5_repeat,
+            'date-month-day': self.tr5_repeat,
+            'date-month-day-year': self.tr5_repeat,
+            'date-month-year': self.tr5_repeat,
+            'date-monthname-day-en': self.tr5_repeat,
+            'date-monthname-day-hu': self.tr5_repeat,
+            'date-monthname-day-lt': self.tr5_repeat,
+            'date-monthname-day-year-en': self.tr5_repeat,
+            'date-monthname-year-bg': self.tr5_repeat,
+            'date-monthname-year-cs': self.tr5_repeat,
+            'date-monthname-year-cy': self.tr5_repeat,
+            'date-monthname-year-da': self.tr5_repeat,
+            'date-monthname-year-de': self.tr5_repeat,
+            'date-monthname-year-el': self.tr5_repeat,
+            'date-monthname-year-en': self.tr5_repeat,
+            'date-monthname-year-es': self.tr5_repeat,
+            'date-monthname-year-et': self.tr5_repeat,
+            'date-monthname-year-fi': self.tr5_repeat,
+            'date-monthname-year-fr': self.tr5_repeat,
+            'date-monthname-year-hi': self.tr5_repeat,
+            'date-monthname-year-hr': self.tr5_repeat,
+            'date-monthname-year-it': self.tr5_repeat,
+            'date-monthname-year-nl': self.tr5_repeat,
+            'date-monthname-year-no': self.tr5_repeat,
+            'date-monthname-year-pl': self.tr5_repeat,
+            'date-monthname-year-pt': self.tr5_repeat,
+            'date-monthname-year-ro': self.tr5_repeat,
+            'date-monthname-year-sk': self.tr5_repeat,
+            'date-monthname-year-sl': self.tr5_repeat,
+            'date-monthname-year-sv': self.tr5_repeat,
+            'date-monthroman-year': self.tr5_repeat,
+            'date-year-day-monthname-lv': self.tr5_repeat,
+            'date-year-month': self.tr5_repeat,
+            'date-year-month-day': self.tr5_repeat,
+            'date-year-monthname-day-hu': self.tr5_repeat,
+            'date-year-monthname-day-lt': self.tr5_repeat,
+            'date-year-monthname-en': self.tr5_repeat,
+            'date-year-monthname-hu': self.tr5_repeat,
+            'date-year-monthname-lt': self.tr5_repeat,
+            'date-year-monthname-lv': self.tr5_repeat,
+            'fixed-empty': self.tr5_fixedempty,
+            'fixed-false': self.tr5_fixedfalse,
+            'fixed-true': self.tr5_fixedtrue,
+            'fixed-zero': self.tr5_fixedzero,
+            'num-comma-decimal': self.tr5_numdotdecimal,
+            'num-dot-decimal': self.tr5_numcommadecimal,
+            'num-unit-decimal': self.tr5_repeat,
+            'num-comma-decimal-apos': self.tr5_numdotdecimal,
+            'num-dot-decimal-apos': self.tr5_numcommadecimal,
+            'num-unit-decimal-apos': self.tr5_repeat
+
         }
         self.sec_states = {
             'alabama': 'AL', 'alaska': 'AK', 'arizona': 'AZ', 'arkansas': 'AR', 'california': 'CA',
@@ -81,10 +184,35 @@ class Formatter:
             t = method(v)
             return t[0] if t and t[0] else v  # First member of the tuple
         else:
-            return v  # TODO: Give a message if there is an error
+            print('Unknown format:', f, 'for value', v)
+            return v
 
     # Numeric
+    def tr5_repeat(self, v):
+        print('Known, but unsupported format for value', v)
+        return v, None
+
+    def tr5_fixedempty(self, v):
+        return '', None
+
+    def tr5_fixedfalse(self, v):
+        return 'false', None
+
+    def tr5_fixedtrue(self, v):
+        return 'true', None
+
+    def tr5_fixedzero(self, v):
+        return '0', None
+
+    def tr5_numdotdecimal(self, v):
+        return self.c_numdotdecimal(''.join([c for c in v if c.isdigit() or c == '.' or c == 'e']))
+
+    def tr5_numcommadecimal(self, v):
+        return self.c_numcomma(''.join([c for c in v if c.isdigit() or c == ',' or c == 'e']))
+
     def c_numdotdecimal(self, v):
+        if not v:
+            return v
         p = '[0-9]{1,3}((,| | )?[0-9]{3})*(\\.[0-9]+)?'
         if not re.fullmatch(p, v):
             return None, f'Value {v} does not match pattern {p}'
@@ -105,7 +233,7 @@ class Formatter:
         d = float(v)
         if not d or d < 0:
             return None, 'Incorrect decimal format'
-        return f'{d}', None
+        return d, None
 
     def c_zerodash(self, v):
         if v not in self.zerodash_chars:
