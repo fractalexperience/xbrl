@@ -74,7 +74,7 @@ class IxbrlModel(ebase.XmlElementBase):
             if nn in self.idx_tuple_content:
                 continue
             name = nn.origin.attrib.get('name')
-            if not name:
+            if not name or nn.origin is None:
                 continue
             cref = nn.origin.attrib.get('contextRef')
             part1 = f'{(nn.origin.text if nn.origin.text else "")}' if len(nn.origin) else ''
@@ -199,7 +199,7 @@ class IxbrlModel(ebase.XmlElementBase):
                 self.serialize_ix_element(e2)
             self.output.append(f'</{self.qname}>')
         else:
-            if text_content:
+            if text_content and self.origin:
                 self.output.append(f'>{self.origin.text}</{self.qname}>')
             else:
                 self.output.append("/>")

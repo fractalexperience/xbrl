@@ -39,6 +39,8 @@ XsdRestriction = namedtuple('Restriction', 'Name,Value')
               is the value of the member. If the dimension is open, the member value is an asterisk (*). """
 DpmMap = namedtuple('DpmMap', 'Id,Dimensions,Mappings,OpenAxes')
 
+""" Represents a fact according OIM (Open Information Model) - the fact value + all associated aspects.  """
+OimFact = namedtuple('OimFact', 'Signature,Value')
 
 DpmMapMandatoryDimensions = ['Label', 'Metrics', 'Data Type', 'Period Type']
 Axis = enum.Enum('Axis', 'X Y Z')
