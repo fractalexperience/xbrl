@@ -106,6 +106,19 @@ class Taxonomy:
         for ep in self.entry_points:
             self.pool.add_reference(ep, '')
 
+    def resolve_prefix(self, pref):
+        for sh in self.schemas.values():
+            ns = sh.namespaces.get(pref, None)
+            if ns is not None:
+                return ns
+        return None
+
+    def resolve_qname(self, qname):
+        pref = qname.split(':')[0] if ':' in qname else ''
+        ns = self.resolve_prefix(pref)
+        nm = qname.split(':')[1] if ':' in qname else qname
+        return f'{ns}:{nm}'
+
     def attach_schema(self, href, sh):
         if href in self.schemas:
             return

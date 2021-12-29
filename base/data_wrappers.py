@@ -40,7 +40,7 @@ XsdRestriction = namedtuple('Restriction', 'Name,Value')
 DpmMap = namedtuple('DpmMap', 'Id,Dimensions,Mappings,OpenAxes')
 
 """ Represents a fact according OIM (Open Information Model) - the fact value + all associated aspects.  """
-OimFact = namedtuple('OimFact', 'Signature,Value')
+OimFact = namedtuple('OimFact', 'Id,Signature,Value')
 
 DpmMapMandatoryDimensions = ['Label', 'Metrics', 'Data Type', 'Period Type']
 Axis = enum.Enum('Axis', 'X Y Z')
