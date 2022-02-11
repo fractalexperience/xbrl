@@ -145,8 +145,11 @@ class IxbrlModel(ebase.XmlElementBase):
         else:
             if e.text:
                 result.append(e.text)
-            if e.tail and e.tag != f'{{{const.NS_IXBRL}}}nonNumeric':
+
+            # TODO - Verify this with normative examples
+            if e.tail and e.tag == f'{{{const.NS_IXBRL}}}nonNumeric':
                 result.append(e.tail)
+
         continuations = self.idx_nav.get(f'continuation|id|{continued_at}')
         if continued_at and continuations:
             for continuation in continuations:
@@ -165,6 +168,8 @@ class IxbrlModel(ebase.XmlElementBase):
     def normalize_numeric_content(self, e):
         value = self.get_full_content(e, [])
         frmt = e.attrib.get('format')
+        if frmt is None:
+            return value
         scle = e.attrib.get('scale')
         # This gives a tuple where the first member is the formatted value and the second is the error message
         formatted = self.to_canonical_format(value, frmt)
@@ -188,6 +193,8 @@ class IxbrlModel(ebase.XmlElementBase):
         return self.get_inherited_attribute(parent, name, f'{value if value and concatenate_parent else ""}{initial}', concatenate_parent)
 
     def serialize_ix_element(self, e):
+        if e.tag is lxml.Comment:
+            return
         text_content = self.get_full_content(e, [e])
         eb = ebase.XmlElementBase(e, parsers=None, assign_origin=True)
         self.prefixes[eb.prefix] = True

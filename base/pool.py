@@ -20,6 +20,8 @@ class Pool(resolver.Resolver):
         self.packaged_locations = None
         """ Currently opened taxonomy packages """
         self.active_packages = {}
+        """ Currently opened archive, where files can be read from - optional."""
+        self.active_file_archive = None
 
     def __str__(self):
         return self.info()

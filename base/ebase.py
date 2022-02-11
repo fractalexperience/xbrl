@@ -30,6 +30,8 @@ class XmlElementBase:
     def serialize(self):
         if self.origin is None:
             return None
+        if self.origin.tag is lxml.Comment:
+            return f'<!-- {self.origin.text} -->'
         output = [f'<{self.qname}']
         self.serialize_attributes(output)
         if len(self.origin):

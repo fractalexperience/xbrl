@@ -44,7 +44,8 @@ Filing Indicators: {len(self.xbrl.filing_indicators)}"""
         self.l_namespaces_rec(e)
         self.ixbrl.strip()
         s = ''.join(self.ixbrl.output)
-        root = lxml.XML(s)
+        parser = lxml.XMLParser(huge_tree=True)
+        root = lxml.XML(s, parser)
         self.l_xbrl(root)
 
     def to_xml(self):

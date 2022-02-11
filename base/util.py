@@ -1,4 +1,4 @@
-import os, itertools, hashlib, datetime
+import os, itertools, hashlib, datetime, string
 from xbrl.base import const
 
 
@@ -15,6 +15,7 @@ def get_lang(resources):
     res = resources.get('label', {})
     li = [v.lang for l in res.values() for v in l]
     return li[0] if li else None
+
 
 def get_label(lst, lang='en', role='/label'):
     li = [lbl.text for lbl in get_resource_nlr(lst, 'label', lang, role)]
@@ -126,3 +127,23 @@ def is_boolean_type(s):
 def is_binary_type(s):
     kind = const.xsd_types.get(s, None)
     return False if kind is None or kind != 'x' else True
+
+
+def strip_chars(s, allowed):
+    o = []
+    for c in s.strip():
+        if c.isnumeric() or c in allowed:
+            o.append(c)
+    return ''.join(o)
+
+def get_key_lower(s):
+    if not s:
+        return s
+    return s.translate(str.maketrans('', '', string.punctuation)).lower()
+
+def create_key_index(dct):
+    result = {}
+    for k, v in dct.items():
+        result[get_key_lower(k)] = v
+    return result
+
