@@ -1,4 +1,4 @@
-import os, itertools, hashlib, datetime, string
+import os, itertools, hashlib, datetime, string, re
 from xbrl.base import const
 
 
@@ -65,6 +65,11 @@ def normalize(s):
             o.append(c)
         is_ws = c.isspace()
     return ''.join(o)
+
+
+def strip_inside_brackets(s, opening, closing):
+    rexp = '\\'+opening+'[^()]*\\'+closing
+    return normalize(re.sub(rexp, '', s))
 
 
 def get_local_name(tag):

@@ -168,20 +168,22 @@ class IxbrlModel(ebase.XmlElementBase):
     def normalize_numeric_content(self, e):
         value = self.get_full_content(e, [])
         frmt = e.attrib.get('format')
-        if frmt is None:
-            return value
         scle = e.attrib.get('scale')
+        sign = e.attrib.get('sign')
+        sgn = '' if sign is None else sign
         # This gives a tuple where the first member is the formatted value and the second is the error message
         formatted = self.to_canonical_format(value, frmt)
         try:
+            fstr = f'{formatted}'
             if scle:
                 f = float(formatted)
                 s = float(scle)
                 fstr = f'{f * math.pow(10, s)}'
-                return fstr[:-2] if fstr[-2:] == '.0' else fstr
-            return formatted
-        except:
-            return value
+            fstr = fstr[:-2] if fstr[-2:] == '.0' else fstr
+            return f'{sgn}{fstr}'
+            # return f'{sgn}{formatted}'
+        except Exception as ex:
+            return f'{sgn}{value}'
 
     def get_inherited_attribute(self, e, name, initial='', concatenate_parent=False):
         if e is None:

@@ -1,3 +1,4 @@
+import os
 from xbrl.instance import m_xbrl
 from xbrl.base import fbase, const
 from xbrl.ixbrl import m_ixbrl
@@ -14,8 +15,7 @@ class Instance(fbase.XmlFileBase):
             f'{{{const.NS_XHTML}}}html': self.l_ixbrl,
             f'{{{const.NS_XBRLI}}}xbrl': self.l_xbrl
         }
-        if location:
-            self.location = location
+        self.location = location
         super().__init__(location, container_pool, parsers, root)
 
     def __str__(self):

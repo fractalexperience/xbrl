@@ -1,4 +1,4 @@
-import urllib.request
+import urllib.request, os
 from lxml import etree as lxml
 from xbrl.base import ebase, util, const
 
@@ -11,9 +11,11 @@ class XmlFileBase(ebase.XmlElementBase):
         self.namespaces = {}  # Key is the prefix and value is the URI
         self.namespaces_reverse = {}  # Key is the UrI and value is the prefix
         self.schema_location_parts = {}
+        self.base = ''
         if location:
             self.location = util.reduce_url(location)
-            self.base = self.location.replace('\\', '/')[:location.rfind("/")]
+            # self.base = self.location.replace('\\', '/')[:location.rfind("/")]
+            self.base = os.path.split(location)[0]
             if root is None:  # Only parsing file again the root element is not explicitly passed
                 root = self.get_root()
         if root is None:

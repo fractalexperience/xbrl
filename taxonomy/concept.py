@@ -24,6 +24,7 @@ class Concept(element.Element):
         self.is_dimension = self.substitution_group.endswith('dimensionItem')
         self.is_hypercube = self.substitution_group.endswith('hypercubeItem')
         self.is_explicit_dimension = True if self.is_dimension and self.typed_domain_ref is None else False
+        self.is_typed_dimension = True if self.is_dimension and self.typed_domain_ref is not None else False
         self.is_enumeration = True if self.data_type and self.data_type.endswith('enumerationItemType') else False
         self.is_enumeration_set = True if self.data_type and self.data_type.endswith('enumerationSetItemType') else False
 

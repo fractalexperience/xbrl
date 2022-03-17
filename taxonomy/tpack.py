@@ -6,11 +6,11 @@ from xbrl.base import const, resolver, util, data_wrappers
 
 class TaxonomyPackage(resolver.Resolver):
     """ Implements taxonomy package functionality """
-    def __init__(self, location, cache_folder=None, output_folder=None):
+    def __init__(self, location=None, cache_folder=None, output_folder=None, archive=None):
         super().__init__(cache_folder, output_folder)
-        self.archive = None
+        self.archive = archive
         self.location = location
-        if location.startswith('http'):
+        if self.location and self.location.startswith('http'):
             # Download the taxonomy package and save in the cache folder
             self.location = self.cache(location)
         """ Entry points is a list of tuples with following structure: (prefix, location, description) """
@@ -25,9 +25,8 @@ class TaxonomyPackage(resolver.Resolver):
         self.redirects = {}
         self.redirects_reduced = None
         self.catalog_location = None
-        if not os.path.exists(self.location):
-            return
-        self.archive = zipfile.ZipFile(self.location)
+        if self.location and os.path.exists(self.location):
+            self.archive = zipfile.ZipFile(self.location)
         self.init()
 
     def __del__(self):
@@ -36,7 +35,10 @@ class TaxonomyPackage(resolver.Resolver):
 
     def init(self):
         zil = self.archive.infolist()
-        package_file = [f for f in zil if f.filename.endswith('META-INF/taxonomyPackage.xml')][0]
+        package_files = [f for f in zil if f.filename.endswith('META-INF/taxonomyPackage.xml')]
+        if len(package_files) == 0:
+            return
+        package_file = package_files[0]
         with self.archive.open(package_file) as zf:
             package = lxml.XML(zf.read())
             for e in package.iterchildren():

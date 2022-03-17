@@ -43,7 +43,7 @@ class Pool(resolver.Resolver):
         for pf in package_files:
             self.index_package(tpack.TaxonomyPackage(pf))
 
-    def index_package(self, package, ):
+    def index_package(self, package):
         for ep in package.entrypoints:
             eps = ep.Urls
             for path in eps:
@@ -88,20 +88,26 @@ class Pool(resolver.Resolver):
         ep_list = entry_points if isinstance(entry_points, list) else [entry_points]
         self.packaged_locations = {}
         for ep in ep_list:
-            pf = self.packaged_entrypoints.get(ep)
-            if not pf:
-                continue
-            pck = self.active_packages.get(pf, None)
-            if pck is None:
-                pck = tpack.TaxonomyPackage(pf)
-                pck.compile()
-            for pf in pck.files.items():
-                self.packaged_locations[pf[0]] = (pck, pf[1])  # A tuple
+            # if self.active_file_archive and ep in self.active_file_archive.namelist():
+            #     self.packaged_locations[ep] = (self.active_file_archive, ep)
+            # else:
+            self.add_packaged_entrypoints(ep)
         key = ','.join(entry_points)
         taxonomy.Taxonomy(ep_list, self)  # Sets the new taxonomy as current
         self.taxonomies[key] = self.current_taxonomy
         self.packaged_locations = None
         return self.current_taxonomy
+
+    def add_packaged_entrypoints(self, ep):
+        pf = self.packaged_entrypoints.get(ep)
+        if not pf:
+            return  # Not found
+        pck = self.active_packages.get(pf, None)
+        if pck is None:
+            pck = tpack.TaxonomyPackage(pf)
+            pck.compile()
+        for pf in pck.files.items():
+            self.packaged_locations[pf[0]] = (pck, pf[1])  # A tuple
 
     """ Stores a taxonomy package from a Web location to local taxonomy package repository """
     def cache_package(self, location):

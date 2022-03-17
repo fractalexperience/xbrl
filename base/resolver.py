@@ -29,9 +29,9 @@ class Resolver:
     def cache(self, location):
         if location is None:
             return None
-        parts = location.replace(os.path.pathsep, "/").split('/')
+        parts = location.replace(os.path.sep, "/").split('/')
         new_parts = util.reduce_url_parts(parts)
-        protocol = new_parts[0].replace(':','')
+        protocol = new_parts[0].replace(':', '')
         if protocol not in const.KNOWN_PROTOCOLS:
             return location
         cached_file = self.cache_folder
