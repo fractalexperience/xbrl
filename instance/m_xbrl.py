@@ -1,6 +1,6 @@
 from xbrl.instance import fact, footnote, unit, context
 from xbrl.taxonomy import arc, locator
-from xbrl.base import ebase, const
+from xbrl.base import ebase, const, util
 
 
 class XbrlModel(ebase.XmlElementBase):
@@ -11,7 +11,9 @@ class XbrlModel(ebase.XmlElementBase):
         self.linkbase_refs = set([])
         self.schema_refs = set([])
         self.contexts = {}
+        self.contexts_hashed = {}  # Key is the hash code based on full context signature, value is the context object
         self.units = {}
+        self.units_hashed = {}
         self.facts = {}
         self.footnotes = {}
         self.footnote_links = []
@@ -38,6 +40,10 @@ class XbrlModel(ebase.XmlElementBase):
             f'{{{const.NS_FIND}}}fIndicators': self.l_filing_indicators,
             f'{{{const.NS_FIND}}}filingIndicator': self.l_filing_indicator
         }
+        # Helper dictionaries for merge process
+        self.map_ctx = {}  # Map contextRef of merged fact to new contextRef
+        self.map_uni = {}  # Map unitRef of merged fact to new unitRef
+
         super().__init__(e, self.parsers)
         self.compile()
 
@@ -103,16 +109,9 @@ class XbrlModel(ebase.XmlElementBase):
 
     def compile(self):
         # Set references to contexts
-        for fid in self.facts:
-            fct = self.facts.get(fid)
-            if fct.context_ref is not None:
-                ctx = self.contexts.get(fct.context_ref)
-                if ctx is not None:
-                    fct.context = ctx
-            if fct.unit_ref is not None:
-                uni = self.units.get(fct.unit_ref)
-                if uni is not None:
-                    fct.unit = uni
+        for fct in self.facts.values():
+            fct.context = self.contexts.get(fct.context_ref, None)
+            fct.unit = self.units.get(fct.unit_ref, None)
         # Set links between facts and footnotes
         for footnote_link in self.footnote_links:
             self.locators = {}
@@ -123,7 +122,7 @@ class XbrlModel(ebase.XmlElementBase):
             loc = self.locators.get(a.xl_from)
             if loc is None:
                 continue
-            fct = self.facts.get(loc.fragment_identifier)
+            fct = self.facts.get(loc.fragment_identifier, None)
             fn = self.footnotes.get(a.xl_to)
             if fct is None or fn is None:
                 continue
@@ -131,6 +130,86 @@ class XbrlModel(ebase.XmlElementBase):
             fn.facts.append(fct)
         self.locators = None
         self.arcs = None
+
+    def index_hashed(self):
+        self.contexts_hashed = {}
+        for ctx in self.contexts.values():
+            sig_hash = util.get_hash(ctx.get_signature())
+            self.contexts_hashed[sig_hash] = ctx
+
+        self.units_hashed = {}
+        for uni in self.units.values():
+            sig_hash = util.get_hash(uni.get_aspect_value())
+            self.units_hashed[sig_hash] = uni
+
+    def merge(self, xid):
+        self.index_hashed()
+        self.merge_contexts(xid)
+        self.merge_units(xid)
+        self.merge_facts(xid)
+        # TODO: Merge footnotes and references
+
+    def merge_facts(self, xid):
+        # Merge facts
+        for fct in xid.facts.values():
+            if fct.context_ref in self.map_ctx:
+                fct.context_ref = self.map_ctx[fct.context_ref]
+            fct.context = self.contexts.get(fct.context_ref, None)
+            if fct.unit_ref in self.map_uni:
+                fct.unit_ref = self.map_uni[fct.unit_ref]
+            fct.unit = self.units.get(fct.unit_ref, None)
+            if fct.id in self.facts:
+                new_fct_id = f'f{(len(self.facts)+1)}'
+                fct.id = new_fct_id
+            self.facts[fct.id] = fct
+
+    def merge_units(self, xid):
+        self.map_uni = {}  # Map unitRef of merged fact to new unitRef
+        # Merge units of new instance document into its own units
+        for uid, uni in xid.units.items():
+            msr = uni.get_aspect_value()
+            uni_hash = util.get_hash(msr)
+            if uid in self.units:
+                # There is already an unit with the same id
+                # Try to find an existing unit with the same signature
+                existing_uni = self.units.get(uni_hash, None)
+                if existing_uni is None:
+                    # We create a new id
+                    uni.id = uni_hash
+                    self.units[uni_hash] = uni
+                    self.units_hashed[uni_hash] = uni
+                    self.map_uni[uni.id] = uni_hash
+                else:
+                    # Replace unitRef
+                    self.map_uni[uni.id] = existing_uni.id
+            else:
+                # Just add merged unit to current document
+                self.units[uni.id] = uni
+                self.units_hashed[uni_hash] = uni
+
+    def merge_contexts(self, xid):
+        self.map_ctx = {}  # Map contextRef of merged fact to new contextRef
+        for cid, ctx in xid.contexts.items():
+            sig_hash = util.get_hash(ctx.get_signature())
+            if cid in self.contexts:
+                # There is already a context with that id - Replace contextRef
+                # Try to find a context with identical signature
+                existing_ctx = self.contexts_hashed.get(sig_hash, None)
+                if existing_ctx is None:
+                    # If there is no existing context with that signature, we create a new id for the merged context
+                    # and add it to contexts in current document
+                    ctx.id = sig_hash
+                    self.contexts[sig_hash] = ctx
+                    self.contexts_hashed[sig_hash] = ctx
+                    self.map_ctx[ctx.id] = sig_hash
+                else:
+                    # If there is an existing context with that signature, we just replace the context ref
+                    self.map_ctx[ctx.id] = existing_ctx.id
+            else:
+                # Add the merged context to current document
+                self.contexts[ctx.id] = ctx
+                self.contexts_hashed[sig_hash] = ctx
+
 
     def serialize(self):
         self.output = []

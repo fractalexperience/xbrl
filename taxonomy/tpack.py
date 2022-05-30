@@ -27,7 +27,7 @@ class TaxonomyPackage(resolver.Resolver):
         self.catalog_location = None
         if self.location and os.path.exists(self.location):
             self.archive = zipfile.ZipFile(self.location)
-        self.init()
+            self.init()
 
     def __del__(self):
         if self.archive:
@@ -60,11 +60,13 @@ class TaxonomyPackage(resolver.Resolver):
         """ Reads the binary content of a file addressed by a URL. """
         if not self.files:
             self.compile()
-        key = self.files.get(url)
-        if not key:
+        file = self.files.get(url)
+        if not file:
             return None
-        with self.archive.open(key) as f:
-            return f.read()
+        if self.archive is not None:
+            with self.archive.open(file) as f:
+                return f.read()
+        return bytes(file, encoding='utf-8')
 
     def get_hash(self):
         return util.get_hash(self.location)

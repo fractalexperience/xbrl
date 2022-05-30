@@ -163,8 +163,8 @@ class XLink(ebase.XmlElementBase):
         if is_root and c_from not in bs.roots:
             bs.roots.append(c_from)
         # Populate concept child and parent sets
-        c_from.chain_dn.setdefault(bs_key, []).append(data_wrappers.BaseSetNode(c_to, 0, a, False))
-        c_to.chain_up.setdefault(bs_key, []).append(data_wrappers.BaseSetNode(c_from, 0, a, False))
+        c_from.chain_dn.setdefault(bs_key, []).append(data_wrappers.BaseSetNode(c_to, 0, a))
+        c_to.chain_up.setdefault(bs_key, []).append(data_wrappers.BaseSetNode(c_from, 0, a))
 
     def conn_rr(self, a, r_from, r_to):
         if not isinstance(r_from, assertion_set.AssertionSet):

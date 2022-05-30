@@ -54,7 +54,8 @@ class XmlElementBase:
             a_uri = util.get_namespace(a[0])
             a_qname = a_name
             if a_uri:
-                a_prefix = self.origin.nsmap.get(a_uri)
+                plist = [p for p, u in self.origin.nsmap.items() if u == a_uri]
+                a_prefix = plist[0] if plist else 'ns1'
                 a_qname = f'{a_prefix}:{a_name}'
             output.append(f' {a_qname}="{a_value}"')
 

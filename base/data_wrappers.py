@@ -18,10 +18,8 @@ Enumeration = namedtuple('Enumeration', 'Key,Concepts,Members')
     Arc: Reference to the arc objects, which points to that concept. If the node is in the chain_dn collection, 
     then the arc's 'to' attribute points to the concept. If it is in the chain_up collection, then 
     the arc's 'from' attribute points to the concept.
-    ChangeSign: Boolean value to indicate that the node has a different "balance" compared to the first node 
-    in the branch - so the sign has to be changed.  
 """
-BaseSetNode = namedtuple('BaseSetNode', 'Concept,Level,Arc,ChangeSign')
+BaseSetNode = namedtuple('BaseSetNode', 'Concept,Level,Arc')
 
 
 """ Represents a constraint in a table cell.

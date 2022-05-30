@@ -1,4 +1,5 @@
 import os, itertools, hashlib, datetime, string, re
+from functools import reduce
 from xbrl.base import const
 
 
@@ -67,7 +68,13 @@ def normalize(s):
     return ''.join(o)
 
 
+def remove_chars(s, disallowed):
+    return reduce(lambda x, y: x.replace(y, ''), [s] + disallowed)
+
+
 def strip_inside_brackets(s, opening, closing):
+    if s is None:
+        return ''
     rexp = '\\'+opening+'[^()]*\\'+closing
     return normalize(re.sub(rexp, '', s))
 
@@ -103,6 +110,10 @@ def shorten(s, maxlen=100):
 
 def get_hash(s, digest_size=12):
     return hashlib.shake_256(s.encode()).hexdigest(digest_size)
+
+
+def get_hash40(s):
+    return get_hash(s, digest_size=20)
 
 
 def get_id():
@@ -141,14 +152,26 @@ def strip_chars(s, allowed):
             o.append(c)
     return ''.join(o)
 
+
 def get_key_lower(s):
     if not s:
         return s
     return s.translate(str.maketrans('', '', string.punctuation)).lower()
+
 
 def create_key_index(dct):
     result = {}
     for k, v in dct.items():
         result[get_key_lower(k)] = v
     return result
+
+
+def is_float(s):
+    if not s:
+        return False
+    return False if re.fullmatch('^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$', s) is None else True
+
+
+def split_camel(s):
+    return ''.join([' ' + c.lower() if c.isupper() else c for c in s]).strip().split(' ')
 

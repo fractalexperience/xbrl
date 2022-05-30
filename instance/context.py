@@ -66,10 +66,10 @@ class Context(ebase.XmlElementBase):
         return f'{self.period_start}/{self.period_end}'
 
     def get_xdt_signature(self):
-        return "|".join([f'{k}#{self.descriptors.get(k).text}' for k in self.descriptors])
+        return "|".join(sorted([f'{k}#{self.descriptors.get(k).text}' for k in self.descriptors]))
 
     def get_simplified_signature(self):
-        return "|".join([f'{k}' for k in self.descriptors])
+        return "|".join(sorted([f'{k}' for k in self.descriptors]))
 
     def get_signature(self):
         return "|".join([

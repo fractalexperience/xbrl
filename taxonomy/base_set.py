@@ -25,18 +25,18 @@ class BaseSet:
     def get_members(self, start_concept=None, include_head=True, s_groups=None):
         members = []
         for r in self.roots:
-            self.get_branch_members(r, members, start_concept, include_head, False, False, 0, None, [r], s_groups)
+            self.get_branch_members(r, members, start_concept, include_head, False, 0, None, [r], s_groups)
         return members
 
     def get_branch_members(
             self, concept, members, start_concept, inc_head,
-            flag_include, change_sign, level, related_arc, stack, s_groups=None):
+            flag_include, level, related_arc, stack, s_groups=None):
         if concept is None:
             return
         trigger_include = (not start_concept and level == 0) or (start_concept and start_concept == concept.qname)
         new_flag_include = flag_include or trigger_include
         if (trigger_include and inc_head) or flag_include:
-            members.append(data_wrappers.BaseSetNode(concept, level, related_arc, change_sign))
+            members.append(data_wrappers.BaseSetNode(concept, level, related_arc))
 
         cbs_dn = concept.chain_dn.get(self.get_key(), None)
         if cbs_dn is None:
@@ -53,10 +53,8 @@ class BaseSet:
                 balance = node.Concept.balance  # Set only first time
             used.add(node.Concept.qname)
             stack.append(node.Concept)
-            new_change_sign = \
-                node.Concept.balance is not None and balance is not None and node.Concept.balance != balance
             self.get_branch_members(
-                node.Concept, members, start_concept, inc_head, new_flag_include, new_change_sign, level + 1, node.Arc, stack, s_groups)
+                node.Concept, members, start_concept, inc_head, new_flag_include, level + 1, node.Arc, stack, s_groups)
             stack.remove(node.Concept)
 
     def get_langs(self):

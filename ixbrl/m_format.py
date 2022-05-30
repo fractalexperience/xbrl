@@ -413,8 +413,7 @@ class Formatter:
         return v, None  # TODO: Support transfroamtion
 
     def c_sec_durwordsen(self, v):
-        return '0', None if v.lower() in ['no',
-                                            'none'] else v, 'Unrecognized [durwordsen] value'  # TODO: Support transformation
+        return '0', None if v.lower() in ['no', 'none'] else v, 'Unrecognized [durwordsen] value'
 
     def c_sec_numwordsen(self, v):
         v = util.normalize(v.lower().replace('-', ' ').replace(',', ''))

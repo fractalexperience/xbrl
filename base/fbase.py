@@ -20,6 +20,9 @@ class XmlFileBase(ebase.XmlElementBase):
                 root = self.get_root()
         if root is None:
             return
+        # Predefined
+        self.namespaces['xsi'] = 'http://www.w3.org/2001/XMLSchema-instance'
+        self.namespaces_reverse['http://www.w3.org/2001/XMLSchema-instance'] = 'xsi'
         self.l_namespaces(root)
         self.l_schema_location(root)
         super().__init__(root, parsers)
@@ -32,7 +35,14 @@ class XmlFileBase(ebase.XmlElementBase):
             if t:
                 pck = t[0]
                 content = pck.get_url(url)
-                return lxml.XML(content)
+                p = lxml.XMLParser(huge_tree=True)
+                try:
+                    return lxml.XML(content, parser=p)
+                except Exception:
+                    s = content.decode('utf-8')
+                    s = s.replace('\n', '')  # Try to correct eventually broken lines
+                    root = lxml.XML(bytes(s, encoding='utf-8'), parser=p)
+                    return root
         filename = url
         if self.pool:
             filename = self.pool.cache(url)
@@ -63,9 +73,10 @@ class XmlFileBase(ebase.XmlElementBase):
             self.namespaces[prefix] = uri
             self.namespaces_reverse[uri] = prefix
 
-    def l_namespaces_rec(self, e):
+    def l_namespaces_rec(self, e, target_tags=None):
         if not isinstance(e, lxml._Element):
             return
-        self.l_namespaces(e)
+        if target_tags is None or e.tag in target_tags:
+            self.l_namespaces(e)
         for e2 in e.iterchildren():
             self.l_namespaces_rec(e2)

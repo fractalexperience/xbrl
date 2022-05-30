@@ -16,6 +16,7 @@ class Instance(fbase.XmlFileBase):
             f'{{{const.NS_XBRLI}}}xbrl': self.l_xbrl
         }
         self.location = location
+
         super().__init__(location, container_pool, parsers, root)
 
     def __str__(self):
@@ -41,7 +42,10 @@ Filing Indicators: {len(self.xbrl.filing_indicators)}"""
         self.ixbrl = m_ixbrl.IxbrlModel(e, self)
         # Recursive read all namespaces, because in some cases namespace prefixes
         # are defined deeper in the XML structure.
-        self.l_namespaces_rec(e)
+        self.l_namespaces(e)
+        # self.l_namespaces_rec(e, target_tags=[
+        #     f'{{{const.NS_IXBRL}}}nonNumeric',
+        #     f'{{{const.NS_IXBRL}}}nonFraction'])
         self.ixbrl.strip()
         s = ''.join(self.ixbrl.output)
         parser = lxml.XMLParser(huge_tree=True)
