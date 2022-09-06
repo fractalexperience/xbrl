@@ -14,7 +14,7 @@ class Fact(ebase.XmlElementBase):
         self.nested_facts = {}
         self.counter = 0
         parsers = {'default': self.l_nested}
-        super().__init__(e, parsers)
+        super().__init__(e, parsers, assign_origin=True)
         if self.id is None:
             self.id = default_id
 

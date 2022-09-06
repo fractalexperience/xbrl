@@ -68,8 +68,8 @@ def normalize(s):
     return ''.join(o)
 
 
-def remove_chars(s, disallowed):
-    return reduce(lambda x, y: x.replace(y, ''), [s] + disallowed)
+def remove_chars(s, disallowed, replacement=''):
+    return reduce(lambda x, y: x.replace(y, replacement), [s] + disallowed)
 
 
 def strip_inside_brackets(s, opening, closing):

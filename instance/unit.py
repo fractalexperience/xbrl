@@ -14,7 +14,7 @@ class Unit(ebase.XmlElementBase):
             f'{{{const.NS_XBRLI}}}unitNumerator': self.l_numerator,
             f'{{{const.NS_XBRLI}}}unitDenominator': self.l_denominator
         }
-        super().__init__(e, parsers)
+        super().__init__(e, parsers, assign_origin=True)
 
     def l_unit(self, e):
         self.l_children(e)

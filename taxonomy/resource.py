@@ -2,10 +2,10 @@ from xbrl.base import ebase, const, util
 
 
 class Resource(ebase.XmlElementBase):
-    def __init__(self, e, container_xlink=None):
+    def __init__(self, e, container_xlink=None, assign_origin=False):
         self.xlink = container_xlink
         self.nested = {}
-        super().__init__(e)
+        super().__init__(e, assign_origin=assign_origin)
         self.xlabel = e.attrib.get(f'{{{const.NS_XLINK}}}label')
         self.role = e.attrib.get(f'{{{const.NS_XLINK}}}role')
         self.text = e.text

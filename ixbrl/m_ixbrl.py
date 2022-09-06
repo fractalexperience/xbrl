@@ -16,6 +16,7 @@ class IxbrlModel(ebase.XmlElementBase):
         self.idx_tuple_content = set([]) # All elements, which are inside tuple content
         self.output = None
         self.prefixes = {}
+        self.followed = {}  # Followed continuations
         self.allowed_reference_names = [
             f'{{{const.NS_LINK}}}schemaRef',
             f'{{{const.NS_LINK}}}linkbaseRef']
@@ -23,14 +24,14 @@ class IxbrlModel(ebase.XmlElementBase):
         super().__init__(e)
         self.index(e)
 
-    def index(self, e):
+    def index(self, e, level=0):
         """ Populates indixes """
         if isinstance(e, lxml._ProcessingInstruction) or isinstance(e, lxml._Comment):
             return
         if e.tag.startswith(f'{{{const.NS_IXBRL}}}') or e.tag.startswith(f'{{{const.NS_IXBRL_2008}}}'):
             self.index_element(e)
         for e2 in e.iterchildren():
-            self.index(e2)
+            self.index(e2, level+1)
 
     def index_element(self, e):
         eb = ebase.XmlElementBase(e, parsers=None, assign_origin=True)
@@ -70,7 +71,9 @@ class IxbrlModel(ebase.XmlElementBase):
         non_numerics = self.idx_n.get('nonNumeric')
         if not non_numerics:
             return
+        cnt = 0
         for nn in non_numerics:
+            cnt += 1
             if nn in self.idx_tuple_content:
                 continue
             name = nn.origin.attrib.get('name')
@@ -96,7 +99,7 @@ class IxbrlModel(ebase.XmlElementBase):
             uref = nf.origin.attrib.get('unitRef')
             prec = nf.origin.attrib.get('precision')
             deci = nf.origin.attrib.get('decimals')
-            rounding = f' decimals="{deci}"' if deci else f' precision="{prec}"'
+            rounding = f' decimals="{deci}"' if deci else f' precision="{prec}"' if prec else ''
             text = self.normalize_numeric_content(nf.origin)
             self.output.append(f'<{name} contextRef="{cref}" unitRef="{uref}" {rounding}>{text}</{name}>')
 
@@ -147,14 +150,17 @@ class IxbrlModel(ebase.XmlElementBase):
                 result.append(e.text)
 
             # TODO - Verify this with normative examples
-            if e.tail and e.tag == f'{{{const.NS_IXBRL}}}nonNumeric':
-                result.append(e.tail)
+            # if e.tail and e.tag == f'{{{const.NS_IXBRL}}}nonNumeric':
+            #     result.append(e.tail)
 
         continuations = self.idx_nav.get(f'continuation|id|{continued_at}')
         if continued_at and continuations:
             for continuation in continuations:
+                if continued_at in self.followed:
+                    continue
                 if continuation in stack:
                     continue
+                self.followed[continued_at] = continuation
                 stack.append(continuation)
                 result.append(self.get_full_content(continuation.origin, stack))
                 stack.pop()

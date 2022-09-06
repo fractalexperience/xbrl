@@ -270,7 +270,7 @@ class XbrlModel(ebase.XmlElementBase):
         self.output.append(f'<{name}>')
         for it in dc.items():
             e = it[1]
-            eb = ebase.XmlElementBase(e)
+            eb = ebase.XmlElementBase(e, assign_origin=True)
             self.output.append(eb.serialize())
         self.output.append(f'</{name}>')
 

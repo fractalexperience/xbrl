@@ -22,6 +22,9 @@ class Pool(resolver.Resolver):
         self.active_packages = {}
         """ Currently opened archive, where files can be read from - optional."""
         self.active_file_archive = None
+        # Base URL in case only local references are user (SEC/EDGAR case)
+        self.base = None
+
 
     def __str__(self):
         return self.info()
@@ -93,6 +96,8 @@ class Pool(resolver.Resolver):
             # else:
             self.add_packaged_entrypoints(ep)
         key = ','.join(entry_points)
+        if key in self.taxonomies:
+            return self.taxonomies[key]  # Previously loaded
         taxonomy.Taxonomy(ep_list, self)  # Sets the new taxonomy as current
         self.taxonomies[key] = self.current_taxonomy
         self.packaged_locations = None
@@ -124,6 +129,8 @@ class Pool(resolver.Resolver):
         return tax
 
     def add_reference(self, href, base):
+        if href is None:
+            return
         """ Loads schema or linkbase depending on file type. TO IMPROVE!!! """
         allowed_extensions = ('xsd', 'xml', 'json')
         if not href.split('.')[-1] in allowed_extensions:  # if pairs in
@@ -132,6 +139,10 @@ class Pool(resolver.Resolver):
             return  # Basic schema objects are predefined.
         if not href.startswith('http'):
             href = util.reduce_url(os.path.join(base, href).replace(os.path.sep, '/'))
+
+        if not href.startswith('http') and not os.path.exists(href):
+            href = util.reduce_url(os.path.join(self.base, href).replace(os.path.sep, '/'))
+
         key = f'{self.current_taxonomy_hash}_{href}'
         if key in self.discovered:
             return
