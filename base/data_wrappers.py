@@ -18,8 +18,9 @@ Enumeration = namedtuple('Enumeration', 'Key,Concepts,Members')
     Arc: Reference to the arc objects, which points to that concept. If the node is in the chain_dn collection, 
     then the arc's 'to' attribute points to the concept. If it is in the chain_up collection, then 
     the arc's 'from' attribute points to the concept.
+    IsLeaf: True if the node does not have descendant nodes, otherwise False.
 """
-BaseSetNode = namedtuple('BaseSetNode', 'Concept,Level,Arc')
+BaseSetNode = namedtuple('BaseSetNode', 'Concept,Level,Arc,IsLeaf')
 
 
 """ Represents a constraint in a table cell.

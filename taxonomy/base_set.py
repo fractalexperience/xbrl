@@ -35,10 +35,12 @@ class BaseSet:
             return
         trigger_include = (not start_concept and level == 0) or (start_concept and start_concept == concept.qname)
         new_flag_include = flag_include or trigger_include
-        if (trigger_include and inc_head) or flag_include:
-            members.append(data_wrappers.BaseSetNode(concept, level, related_arc))
 
         cbs_dn = concept.chain_dn.get(self.get_key(), None)
+        is_leaf = True if cbs_dn is None else False
+        if (trigger_include and inc_head) or flag_include:
+            members.append(data_wrappers.BaseSetNode(concept, level, related_arc, is_leaf))
+
         if cbs_dn is None:
             return
         # Recursion

@@ -22,9 +22,6 @@ class Pool(resolver.Resolver):
         self.active_packages = {}
         """ Currently opened archive, where files can be read from - optional."""
         self.active_file_archive = None
-        # Base URL in case only local references are user (SEC/EDGAR case)
-        self.base = None
-
 
     def __str__(self):
         return self.info()
@@ -89,7 +86,7 @@ class Pool(resolver.Resolver):
 
     def add_taxonomy(self, entry_points):
         ep_list = entry_points if isinstance(entry_points, list) else [entry_points]
-        self.packaged_locations = {}
+        # self.packaged_locations = {}
         for ep in ep_list:
             # if self.active_file_archive and ep in self.active_file_archive.namelist():
             #     self.packaged_locations[ep] = (self.active_file_archive, ep)
@@ -111,6 +108,11 @@ class Pool(resolver.Resolver):
         if pck is None:
             pck = tpack.TaxonomyPackage(pf)
             pck.compile()
+        self.index_package_files(pck)
+
+    def index_package_files(self, pck):
+        if self.packaged_locations is None:
+            self.packaged_locations = {}
         for pf in pck.files.items():
             self.packaged_locations[pf[0]] = (pck, pf[1])  # A tuple
 
@@ -139,10 +141,6 @@ class Pool(resolver.Resolver):
             return  # Basic schema objects are predefined.
         if not href.startswith('http'):
             href = util.reduce_url(os.path.join(base, href).replace(os.path.sep, '/'))
-
-        if not href.startswith('http') and not os.path.exists(href):
-            href = util.reduce_url(os.path.join(self.base, href).replace(os.path.sep, '/'))
-
         key = f'{self.current_taxonomy_hash}_{href}'
         if key in self.discovered:
             return

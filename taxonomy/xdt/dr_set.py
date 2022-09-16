@@ -81,22 +81,22 @@ class DrSet:
                                      include_head=False)  # the head is the dimension itself
         if not members:
             return
-        for mem in members:
-            self.taxonomy.idx_mem_drs.setdefault(mem.Concept.qname, set({})).add(self)
-            if mem.Arc is None or mem.Arc.usable is True:
-                dim.members[mem.Concept.qname] = mem.Concept
+        for member in members:
+            self.taxonomy.idx_mem_drs.setdefault(member.Concept.qname, set({})).add(self)
+            if member.Arc is None or member.Arc.usable is True:
+                dim.members[member.Concept.qname] = member
             """ Add additional members from domain-member set. """
             additional_members = self.taxonomy.get_bs_members(
-                arc_name=bs_mem.arc_name, role=mem.Arc.target_role if mem.Arc.target_role else bs_mem.role,
-                arcrole=const.XDT_DOMAIN_MEMBER_ARCROLE, start_concept=mem.Concept.qname, include_head=False)
+                arc_name=bs_mem.arc_name, role=member.Arc.target_role if member.Arc.target_role else bs_mem.role,
+                arcrole=const.XDT_DOMAIN_MEMBER_ARCROLE, start_concept=member.Concept.qname, include_head=False)
             if not additional_members:
                 continue
-            for m in additional_members:
-                if not m or not m.Concept:
+            for additional_member in additional_members:
+                if not additional_member or not additional_member.Concept:
                     continue
-                self.taxonomy.idx_mem_drs.setdefault(m.Concept.qname, set({})).add(self)
-                if m.Arc is None or m.Arc.usable is True:
-                    dim.members[m.Concept.qname] = m.Concept
+                self.taxonomy.idx_mem_drs.setdefault(additional_member.Concept.qname, set({})).add(self)
+                if additional_member.Arc is None or additional_member.Arc.usable is True:
+                    dim.members[additional_member.Concept.qname] = additional_member
 
     def get_dimensions(self):
         dims = set()
