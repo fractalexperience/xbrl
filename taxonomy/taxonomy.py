@@ -257,3 +257,6 @@ class Taxonomy:
             for m in members:
                 self.defaults[d.qname] = m
                 self.default_members[m.qname] = d
+
+    def get_prefixes(self):
+        return set(c.prefix for c in self.concepts.values())

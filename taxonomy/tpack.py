@@ -74,6 +74,8 @@ class TaxonomyPackage(resolver.Resolver):
     def compile(self):
         self.files = {}
         zip_infos = self.archive.infolist()
+        if not zip_infos:
+            return
         # Index files by calculating effective URL based on catalog
         root = zip_infos[0].filename.split('/')[0]  # Root of the archive file
         for fn in [zi.filename for zi in zip_infos if not zi.is_dir()]:

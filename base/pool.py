@@ -161,8 +161,8 @@ class Pool(resolver.Resolver):
         return new_path
 
     def save_output(self, content, filename):
-        if '\\' in filename:
-            functools.reduce(self.check_create_path, filename.split('\\')[:-1], self.output_folder)
+        if os.path.sep in filename:
+            functools.reduce(self.check_create_path, filename.split(os.path.sep)[:-1], self.output_folder)
         location = os.path.join(self.output_folder, filename)
         with open(location, 'wt', encoding="utf-8") as f:
             f.write(content)

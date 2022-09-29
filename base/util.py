@@ -116,6 +116,10 @@ def get_hash40(s):
     return get_hash(s, digest_size=20)
 
 
+def get_sha1(s):
+    return hashlib.sha1(s.encode()).hexdigest()
+
+
 def get_id():
     return get_hash(str(datetime.datetime.now()))
 

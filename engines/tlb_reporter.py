@@ -519,7 +519,7 @@ class TableReporter(base_reporter.BaseReporter):
                 constraint = checklist.get(dim.concept.qname, None)
                 if constraint is None:
                     if dim.members is not None \
-                            and [m for m in dim.members.values() if m.qname in self.taxonomy.default_members]:
+                            and [m for m in dim.members.values() if m.Concept.qname in self.taxonomy.default_members]:
                         # There is a dimension in DRS, which is not in cell. constraints, but it has a default member
                         # and can be skipped
                         continue
@@ -531,7 +531,7 @@ class TableReporter(base_reporter.BaseReporter):
                     del checklist[dim.concept.qname]  # This is an open dimension and so it matches
                     continue
                 for mem in dim.members.values():
-                    if mem.qname == constraint.Member:
+                    if mem.Concept.qname == constraint.Member:
                         del checklist[dim.concept.qname]
                         break
         return False if checklist else True

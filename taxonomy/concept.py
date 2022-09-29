@@ -48,6 +48,14 @@ class Concept(element.Element):
     def get_label(self, lang='en', role='/label'):
         return util.get_label(self.resources, lang, role)
 
+    def get_label_or_qname(self, lang='en', role='/label'):
+        lbl = util.get_label(self.resources, lang, role)
+        return lbl if lbl else self.qname
+
+    def get_label_or_name(self, lang='en', role='/label'):
+        lbl = util.get_label(self.resources, lang, role)
+        return self.name if lbl is None else lbl
+
     def get_lang(self):
         return util.get_lang(self.resources)
 
