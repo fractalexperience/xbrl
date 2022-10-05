@@ -1,8 +1,9 @@
-from zipfile import ZipFile
+from zipfile import ZipFile, ZIP_DEFLATED
 from xbrl.base import util
 import lxml.html as lhtml
 import zlib
 import os
+import json
 
 
 class Archiver:
@@ -38,7 +39,7 @@ class Archiver:
         if archive is not None:
             return archive
         if os.path.exists(zip_path):
-            archive = ZipFile(zip_path, mode='a')
+            archive = ZipFile(zip_path, mode='a', compression=ZIP_DEFLATED, compresslevel=7)
         else:
             archive = self.create_archive(zip_prefix)
         self.zip_cache[zip_prefix] = archive
@@ -74,11 +75,14 @@ class Archiver:
             ext = '' if '.' not in filename else filename.split('.')[-1]
             content_hash = util.get_sha1(filename)
             if not s.startswith('<?xml'):
-                dom = lhtml.fromstring(s)
-                # Calculate a hash code based on content. IMPORTANT: We remove href attributes before calculating hash.
-                content_no_hrefs = lhtml.tostring(lhtml.rewrite_links(dom, lambda l: None))
-                content_hash = util.get_sha1(content_no_hrefs.decode())
-                map_id_dom[filename] = dom
+                try:
+                    dom = lhtml.fromstring(s)
+                    # Calculate a hash code based on content. IMPORTANT: We remove href attributes before calculating hash.
+                    content_no_hrefs = lhtml.tostring(lhtml.rewrite_links(dom, lambda l: None))
+                    content_hash = util.get_sha1(content_no_hrefs.decode())
+                    map_id_dom[filename] = dom
+                except:
+                    continue
             self.map_id_hash[filename] = f'{content_hash}.{ext}'
 
         # Replace references inside HTML reports with content based hashes and save to ZIP archives
@@ -108,6 +112,9 @@ class Archiver:
         self.zip_cache = {}
         # Clear HTMl cache
         self.html_cache = {}
+
+        with open(os.path.join(self.zip_folder, 'map.json'), "w") as f:
+            json.dump(self.map_id_hash, f)
         # print('written hashes: ', len(self.written_hashes))
 
     def open(self):
