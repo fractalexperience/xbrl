@@ -113,9 +113,9 @@ class Archiver:
         # Clear HTMl cache
         self.html_cache = {}
 
-        with open(os.path.join(self.zip_folder, 'map.json'), "w") as f:
-            json.dump(self.map_id_hash, f)
-        # print('written hashes: ', len(self.written_hashes))
+        # with open(os.path.join(self.zip_folder, 'map.json'), "w") as f:
+        #     json.dump(self.map_id_hash, f)
+        print('closed - written hashes: ', len(self.written_hashes))
 
     def open(self):
         files = [it.path for it in os.scandir(self.zip_folder) if it.path.endswith('zip')]
@@ -126,6 +126,7 @@ class Archiver:
             # self.zip_cache[pref] = archive
             self.written_hashes.update(set([f.filename for f in archive.filelist]))
             archive.close()
+        print('opened - written hashes: ', len(self.written_hashes))
 
     def reset_database(self):
         exts = ['zip']
