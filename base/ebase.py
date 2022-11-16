@@ -44,7 +44,7 @@ class XmlElementBase:
             if not self.origin.text:
                 output.append("/>")
             else:
-                output.append(f'>{self.origin.text}</{self.qname}>')
+                output.append(f'>{util.escape_xml(self.origin.text)}</{self.qname}>')
         return ''.join(output)
 
     def serialize_attributes(self, output):
