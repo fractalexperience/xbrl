@@ -126,6 +126,7 @@ class Pool(resolver.Resolver):
         using all entrypoints in the package and returns the taxonomy object. """
     def add_package(self, location):
         package = self.cache_package(location)
+        self.active_packages[location] = package
         entry_points = [f for ep in package.entrypoints for f in ep.Urls]
         tax = self.add_taxonomy(entry_points)
         return tax
