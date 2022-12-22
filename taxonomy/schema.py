@@ -33,10 +33,14 @@ class Schema(fbase.XmlFileBase):
         self.arcrole_types = {}
         """ Simple types """
         self.simple_types = {}
-        """ Complex types with simple content """
+        """ Complex types with simple content: Key is qname, value is the item type object """
         self.item_types = {}
-        """ Complex types with complex content """
+        """ Complex types with simple content: Key is unique identifier, value is the item type object """
+        self.item_types_by_id = {}
+        """ Complex types with complex content: Key is qname, value is the tuple type object """
         self.tuple_types = {}
+        """ Complex types with complex content: Key is unique identifier, value is the tuple type object """
+        self.tuple_types_by_id = {}
 
         self.pool = container_pool
         resolved_location = util.reduce_url(location)

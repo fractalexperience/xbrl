@@ -61,10 +61,14 @@ class Taxonomy:
         self.assertion_sets = {}
         """ Simple types """
         self.simple_types = {}
-        """ Complex types with simple content """
+        """ Complex types with simple content. Key is the QName, value is the item type object. """
         self.item_types = {}
-        """ Complex types with complex content """
+        """ Complex types with simple content. Key is the unique identifier, value is the item type object. """
+        self.item_types_by_id = {}
+        """ Complex types with complex content: Key is qname, value is the tuple type object """
         self.tuple_types = {}
+        """ Complex types with complex content: Key is unique identifier, value is the tuple type object """
+        self.tuple_types_by_id = {}
 
         self.load()
         self.compile()
@@ -196,12 +200,18 @@ class Taxonomy:
             for key, rt in sh.role_types.items():
                 self.role_types[key] = rt
                 self.role_types_by_href[f'{sh.location}#{rt.id}'] = rt
+
             for key, it in sh.item_types.items():
                 self.item_types[key] = it
-            for key, st in sh.simple_types.items():
-                self.simple_types[key] = st
+            for key, it in sh.item_types_by_id.items():
+                self.item_types_by_id[key] = it
             for key, tt in sh.tuple_types.items():
                 self.tuple_types[key] = tt
+            for key, tt in sh.tuple_types_by_id.items():
+                self.tuple_types_by_id[key] = tt
+
+            for key, st in sh.simple_types.items():
+                self.simple_types[key] = st
 
     def compile_linkbases(self):
         # Pass 1 - Index global objects
@@ -260,3 +270,6 @@ class Taxonomy:
 
     def get_prefixes(self):
         return set(c.prefix for c in self.concepts.values())
+
+    def get_languages(self):
+        return set([r.lang for k, r in self.resources.items() if r.name == 'label'])

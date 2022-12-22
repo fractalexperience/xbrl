@@ -7,8 +7,12 @@ class ItemType(element.Element):
         super().__init__(e, container_schema)
         self.restrictions = []
         self.base = None
+        if container_schema is not None:
+            self.namespace = container_schema.target_namespace
+            self.qname = f'{container_schema.target_namespace_prefix}:{self.name}'
         unique_id = f'{self.namespace}:{self.name}'
-        self.schema.item_types[unique_id] = self
+        self.schema.item_types[self.qname] = self
+        self.schema.item_types_by_id[unique_id] = self
         self.l_restrictions(e)
 
     def l_restrictions(self, e):
