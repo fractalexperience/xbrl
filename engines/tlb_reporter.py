@@ -14,16 +14,18 @@ class TableReporter(base_reporter.BaseReporter):
         self.headers = {}
         self.layouts = {}
         self.current_layout = None
+        self.current_lang = 'en'
         self.current_z = None
         self.current_y = None
         self.current_x = None
         self.resource_names = ['breakdown', 'ruleNode', 'aspectNode', 'conceptRelationshipNode',
                                'dimensionRelationshipNode']
 
-    def compile_table_id(self, table_id):
-        self.compile_table(self.taxonomy.tables.get(table_id, None))
+    def compile_table_id(self, table_id, lang='en'):
+        t = self.taxonomy.tables.get(table_id)
+        self.compile_table(t, lang)
 
-    def compile_table(self, t):
+    def compile_table(self, t, lang='en'):
         if t is None:
             return
         struct = self.structures.setdefault(t.xlabel, {})
@@ -32,10 +34,11 @@ class TableReporter(base_reporter.BaseReporter):
             for sn in s_lst:
                 depth = self.get_max_depth(sn, 0)
                 self.set_uniform_depth(sn, 0, depth)
-        self.compile_headers(struct, t)
+        self.compile_headers(struct, t, lang)
 
-    def compile_headers(self, struct, t):
-        headers = self.headers.setdefault(t.xlabel, {})
+    def compile_headers(self, struct, t, lang='en'):
+        key = f'{t.xlabel}|{lang}'
+        headers = self.headers.setdefault(key, {})
         self.populate_headers(headers, struct, t)
 
     def populate_headers(self, matrix, struct, t):
@@ -221,7 +224,7 @@ class TableReporter(base_reporter.BaseReporter):
             '.xbrl_other': 'background-color: Yellow;'
         })
 
-    def render_templates_html(self, table_ids=None, show_constraints=False, add_html_head=True):
+    def render_templates_html(self, table_ids=None, show_constraints=False, add_html_head=True, lang='en'):
         ids = [tid for tid in self.taxonomy.tables.keys()] \
             if table_ids is None else [table_ids] \
             if isinstance(table_ids, str) else table_ids
@@ -230,7 +233,8 @@ class TableReporter(base_reporter.BaseReporter):
         else:
             self.content = []  # Just clears the content
         for tid in ids:
-            lo = self.layouts.get(tid, None)
+            key = f'{tid}|{lang}'
+            lo = self.layouts.get(key)
             if lo is None:
                 return ''
             cpt = tid if lo.label == tid else f'{tid} - {lo.label}'
@@ -260,8 +264,9 @@ class TableReporter(base_reporter.BaseReporter):
                 f'<tr><td>{c.Dimension}</td><td>{("*" if c.Member is None else c.Member)}</td><td>{c.Axis}</td></tr>')
         self.finalize_table()
 
-    def get_dpm_map(self, tid):
-        lo = self.layouts.get(tid, None)
+    def get_dpm_map(self, tid, lang='en'):
+        key = f'{tid}|{self.current_lang}'
+        lo = self.layouts.get(key, None)
         if lo is None:
             return None
         # Flatten the 3D list and choose only fact cells
@@ -277,25 +282,26 @@ class TableReporter(base_reporter.BaseReporter):
                         for dim in sorted(custom_dimensions)]]
             dpm_map.Mappings[c.get_address()] = dict(zip(
                 [*data_wrappers.DpmMapMandatoryDimensions, *custom_dimensions, 'grayed'],
-                [c.get_label(),
+                [c.get_label(lang=lang),
                  None if concept is None else concept.qname,
                  None if concept is None else concept.data_type,
                  None if concept is None else concept.period_type,
                  *members, c.is_grayed]))
         return dpm_map
 
-    def render_map_html(self, table_ids=None, add_html_head=True):
-        table_ids = self.taxonomy.tables.keys() if table_ids is None else [table_ids] if isinstance(table_ids,
-                                                                                                    str) else table_ids
+    def render_map_html(self, table_ids=None, add_html_head=True, lang='en'):
+        table_ids = self.taxonomy.tables.keys() \
+            if table_ids is None else [table_ids] if isinstance(table_ids, str) else table_ids
         if add_html_head:
             self.init_output_table()
         else:
             self.content = []  # Just clears the content
         for tid in table_ids:
-            lo = self.layouts.get(tid, None)
+            key = f'{tid}|{lang}'
+            lo = self.layouts.get(key, None)
             if lo is None:
                 continue
-            dpm_map = self.get_dpm_map(tid)
+            dpm_map = self.get_dpm_map(tid, lang)
             dims = data_wrappers.DpmMapMandatoryDimensions + dpm_map.Dimensions
             self.init_table(columns=['Address', *dims], cls_head='xbrl_header')
             for address, mapping in dpm_map.Mappings.items():
@@ -305,17 +311,20 @@ class TableReporter(base_reporter.BaseReporter):
             self.finalize_output()
         return ''.join(self.content)
 
-    def do_layout(self, table_ids=None):
+    def do_layout(self, table_ids=None, lang='en'):
+        self.current_lang = lang
         ids = self.taxonomy.tables.keys() if table_ids is None else [table_ids] \
             if isinstance(table_ids, str) else table_ids
 
         for tid in ids:
-            headers = self.headers.get(tid, None)
+            key = f'{tid}|{self.current_lang}'
+            headers = self.headers.get(key)
             if headers is None:
                 continue
             tbl = self.taxonomy.tables.get(tid, None)
             # Create a layout for table
-            self.current_layout = self.layouts.setdefault(tid, layout.Layout(tbl.get_label(), tbl.get_rc_label()))
+            self.current_layout = self.layouts.setdefault(
+                key, layout.Layout(tbl.get_label(lang=lang), tbl.get_rc_label()))
             # Prepare dictionary of closed headers and ensure that each one has at least one member
             hdr, h_open, h_closed = {}, {}, {}
             for axis in ['x', 'y', 'z']:
@@ -385,8 +394,8 @@ class TableReporter(base_reporter.BaseReporter):
                 colspan = snx.span if row == snx.level else 1
                 cls = 'xbrl_fake' if snx.is_fake else 'xbrl_header'
                 gry = snx.is_fake or snx.is_abstract
-                self.new_cell(cell.Cell(label=snx.get_caption(False), colspan=colspan, is_header=True,
-                                        html_class=cls, is_fake=snx.is_fake))
+                self.new_cell(cell.Cell(label=snx.get_caption(use_id=False, lang=self.current_lang),
+                                        colspan=colspan, is_header=True, html_class=cls, is_fake=snx.is_fake))
         # Optional RC header
         self.new_row()
         for snx in h_closed['x']:
@@ -438,7 +447,7 @@ class TableReporter(base_reporter.BaseReporter):
         sny_rc_cap = sny.origin.get_rc_label() if sny.origin is not None else ""
         rc.add(sny_rc_cap)
         cls = f'xbrl_header_abstract' if sny.is_abstract else 'xbrl_header'
-        self.new_cell(cell.Cell(label=sny.get_caption(False), indent=sny.level * 10, html_class=cls))
+        self.new_cell(cell.Cell(label=sny.get_caption(use_id=False, lang=self.current_lang), indent=sny.level * 10, html_class=cls))
 
     def lay_tbl_body(self, snz, sny, closed_x, position):
         r_code = None if sny.origin is None else sny.origin.get_rc_label()
@@ -453,7 +462,7 @@ class TableReporter(base_reporter.BaseReporter):
             if not c_code:
                 c_code = f'c{cnt}'
             cls = 'xbrl_grayed' if sny.is_abstract else 'xbrl_fact'
-            lbl = f'{sny.get_caption().strip()}/{snx.get_caption().strip()}'
+            lbl = f'{sny.get_caption(lang=self.current_lang).strip()}/{snx.get_caption().strip()}'
             c = cell.Cell(label=lbl, html_class=cls, is_fact=True,
                           r_code=r_code, c_code=c_code, is_grayed=sny.is_abstract)
             self.new_cell(c)

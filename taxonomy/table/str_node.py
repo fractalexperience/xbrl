@@ -30,12 +30,12 @@ class StructureNode:
     def add_constraint(self, aspect, value, tag='default'):
         self.constraint_set.setdefault(tag, {})[aspect] = value
 
-    def get_caption(self, use_id=True):
+    def get_caption(self, use_id=True, lang='en'):
         if self.concept is not None:
-            cap = self.concept.get_label()
+            cap = self.concept.get_label(lang=lang)
             return cap if cap else self.concept.qname
         if self.origin is not None:
-            cap = self.origin.get_label()
+            cap = self.origin.get_label(lang=lang)
             return cap if cap else f'{self.origin.xlabel}' if use_id else ''
         return ''
 

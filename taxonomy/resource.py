@@ -14,11 +14,17 @@ class Resource(ebase.XmlElementBase):
         if self.xlink is not None:
             self.xlink.resources.setdefault(self.xlabel, []).append(self)
 
-    def get_label(self):
-        return util.get_label(self.nested)
+    def get_label(self, lang='en', role='/label'):
+        return util.get_label(self.nested, lang, role)
 
     def get_rc_label(self):
         return util.get_rc_label(self.nested)
 
     def get_db_label(self):
         return util.get_db_label(self.nested)
+
+    def get_languages(self):
+        return [lbl.lang
+                for kind, res_dict in self.nested.items()
+                for key_label, list_labels in res_dict.items()
+                for lbl in list_labels if kind == 'label']
