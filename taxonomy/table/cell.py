@@ -55,6 +55,6 @@ class Cell:
         return f' colspan="{self.colspan}"'
 
     def get_rowspan(self):
-        if self.rowspan==1:
+        if self.rowspan == 1:
             return ''
         return f' rowspan="{self.rowspan}"'

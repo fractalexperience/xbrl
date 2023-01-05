@@ -282,7 +282,7 @@ class TableReporter(base_reporter.BaseReporter):
                         for dim in sorted(custom_dimensions)]]
             dpm_map.Mappings[c.get_address()] = dict(zip(
                 [*data_wrappers.DpmMapMandatoryDimensions, *custom_dimensions, 'grayed'],
-                [c.get_label(lang=lang),
+                [c.get_label(),
                  None if concept is None else concept.qname,
                  None if concept is None else concept.data_type,
                  None if concept is None else concept.period_type,
