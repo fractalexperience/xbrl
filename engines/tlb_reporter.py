@@ -28,7 +28,8 @@ class TableReporter(base_reporter.BaseReporter):
     def compile_table(self, t, lang='en'):
         if t is None:
             return
-        struct = self.structures.setdefault(t.xlabel, {})
+        key = f'{t.xlabel}|{lang}'
+        struct = self.structures.setdefault(key, {})
         self.walk(t, None, struct, None, t.nested, 0)
         for axis, s_lst in struct.items():
             for sn in s_lst:
