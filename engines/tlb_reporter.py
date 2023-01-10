@@ -238,7 +238,8 @@ class TableReporter(base_reporter.BaseReporter):
             lo = self.layouts.get(key)
             if lo is None:
                 return ''
-            cpt = tid if lo.label == tid else f'{tid} - {lo.label}'
+            frag_lbl = f'<h3>{lo.label}</h3>' if lo.label != tid else ''
+            cpt = f'{frag_lbl}<div><tt>{tid}</tt></div>'
             self.add(f'<h3>{cpt}</h3>')
             for cz in lo.cells:
                 self.init_table()
@@ -399,10 +400,14 @@ class TableReporter(base_reporter.BaseReporter):
                                         colspan=colspan, is_header=True, html_class=cls, is_fake=snx.is_fake))
         # Optional RC header
         self.new_row()
+        cnt = -1
         for snx in h_closed['x']:
+            cnt += 1
             if snx.is_abstract:
                 continue
-            self.new_cell(cell.Cell(label='' if snx.origin is None else snx.origin.get_rc_label(),
+            rc_lbl = '' if snx.origin is None else snx.origin.get_rc_label()
+            rc_lbl = rc_lbl if rc_lbl else f'c{cnt}'
+            self.new_cell(cell.Cell(label=rc_lbl,
                                     is_header=True, html_class='xbrl_rc'))
         self.lay_y(tbl, snz, h_open, h_closed)
 
@@ -435,8 +440,10 @@ class TableReporter(base_reporter.BaseReporter):
             self.lay_open_y_header(h_open['y'], rc)
         if sny is not None:
             self.lay_closed_y_header(sny, rc)
+        rc_lbl = ' '.join(rc)
+        rc_lbl = rc_lbl if rc_lbl else f'r{position}'
         if tbl.has_rc_labels:
-            self.new_cell(cell.Cell(label=" ".join(rc), html_class='xbrl_rc'))
+            self.new_cell(cell.Cell(label=rc_lbl, html_class='xbrl_rc'))
         self.lay_tbl_body(snz, sny, h_closed['x'], position)
 
     def lay_open_y_header(self, open_y, rc):
