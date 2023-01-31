@@ -47,6 +47,7 @@ class TableReporter(base_reporter.BaseReporter):
         for axis, s_lst in struct.items():
             header = matrix.setdefault(axis, {})
             for sn in s_lst:
+                # print(sn.origin.__class__.__name__, sn.origin.xlabel)
                 depth = self.get_max_depth(sn, 0)
                 for lvl in range(depth + 1):
                     header.setdefault(lvl, [])
@@ -66,6 +67,7 @@ class TableReporter(base_reporter.BaseReporter):
         # childrent-first case
         if pco is not None and pco == 'children-first' and sn.nested is not None:
             for snn in sn.nested:
+                # print('[C-F]', snn.origin.__class__.__name__, snn.concept.qname if snn.concept else snn.origin.xlabel)
                 self.calculate_header(header, snn, lvl + 1, axis, pco)
         if not sn.is_fake and not isinstance(sn.origin, breakdown.Breakdown):
             header[lvl].append(sn)
@@ -81,6 +83,7 @@ class TableReporter(base_reporter.BaseReporter):
         if sn.nested is None or (pco is not None and pco == 'children-first'):
             return
         for snn in sn.nested:
+            # print('[P-F]', snn.origin.__class__.__name__, snn.concept.qname if snn.concept else snn.origin.xlabel)
             self.calculate_header(header, snn, lvl + 1, axis, pco)
 
     def get_max_depth(self, sn, depth):
@@ -393,7 +396,8 @@ class TableReporter(base_reporter.BaseReporter):
                 if isinstance(snx.origin, breakdown.Breakdown) and snx.origin.is_open \
                         or isinstance(snx.origin, aspect_node.AspectNode):
                     continue
-                colspan = snx.span if row == snx.level else 1
+                # colspan = snx.span if row == snx.level else 1
+                colspan = snx.span
                 cls = 'xbrl_fake' if snx.is_fake else 'xbrl_header'
                 gry = snx.is_fake or snx.is_abstract
                 self.new_cell(cell.Cell(label=snx.get_caption(use_id=False, lang=self.current_lang),
