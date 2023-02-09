@@ -104,5 +104,16 @@ class DrSet:
             dims.update(d for d in hc.dimensions)
         return dims
 
+    def get_dimension_members(self, dim_qname):
+        mems = []
+        for hc in self.hypercubes.values():
+            for dim in hc.dimensions.values():
+                if dim.concept.qname != dim_qname:
+                    continue
+                for mem in [m for m in dim.members.values()]:
+                                  # key=lambda m: float(m.Arc.order) if m.Arc and m.Arc.order else 0):
+                    mems.append(mem)
+        return mems
+
     def info(self):
         return self.bs_start.get_key()

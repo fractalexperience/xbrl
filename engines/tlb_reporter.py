@@ -191,26 +191,36 @@ class TableReporter(base_reporter.BaseReporter):
             self.tree_walk(tbl, axis, struct, r, bs, new_sn, node.Concept, generations, cr_walk_lvl + 1, lvl + 1, True)
 
     def process_dr_node(self, tbl, axis, struct, parent_sn, r, lvl):
-        bs = self.taxonomy.base_sets.get(f'definitionArc|{const.XDT_DIMENSION_DOMAIN_ARCROLE}|{r.role}', None)
-        if bs is None:  # This should not happen actually
+        drs = self.taxonomy.dr_sets[f'definitionArc|{const.XDT_ALL_ARCROLE}|{r.role}']
+        if drs is None:
             new_node = str_node.StructureNode(parent=parent_sn, origin=r, grayed=False, lvl=lvl)
             self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
-            return
-        root_members = bs.get_members(start_concept=r.dimension, include_head=False)
-        generations = None if r.generations is None else int(r.generations)
-        # TODO: Handle other types of formula axis
-        if r.formula_axis in ['child', 'child-or-self']:
-            generations = 1
-        use_parent = True if r.formula_axis.endswith('-or-self') else False
-        for root_member in root_members:
-            eff_role = root_member.Arc.target_role \
-                if root_member.Arc is not None and root_member.Arc.target_role is not None else r.role
-            bs_dm = self.taxonomy.base_sets.get(f'definitionArc|{const.XDT_DOMAIN_MEMBER_ARCROLE}|{eff_role}', None)
-            if bs_dm is None:
-                continue
-            effective_roots = self.get_effective_roots(bs_dm, r)
-            for effective_root in effective_roots:
-                self.tree_walk(tbl, axis, struct, r, bs_dm, parent_sn, effective_root, generations, 0, lvl, use_parent)
+
+        members = drs.get_dimension_members(r.dimension)
+        for mem in members:
+            new_sn = str_node.StructureNode(parent=parent_sn, origin=r, grayed=False, lvl=lvl, concept=mem.Concept)
+            new_sn.add_constraint(r.dimension, mem.Concept.qname)
+
+        # bs = self.taxonomy.base_sets.get(f'definitionArc|{const.XDT_DIMENSION_DOMAIN_ARCROLE}|{r.role}', None)
+        # if bs is None:  # This should not happen actually
+        #     new_node = str_node.StructureNode(parent=parent_sn, origin=r, grayed=False, lvl=lvl)
+        #     self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
+        #     return
+        # root_members = bs.get_members(start_concept=r.dimension, include_head=False)
+        # generations = None if r.generations is None else int(r.generations)
+        # # TODO: Handle other types of formula axis
+        # if r.formula_axis in ['child', 'child-or-self']:
+        #     generations = 1
+        # use_parent = True if r.formula_axis.endswith('-or-self') else False
+        # for root_member in root_members:
+        #     eff_role = root_member.Arc.target_role \
+        #         if root_member.Arc is not None and root_member.Arc.target_role is not None else r.role
+        #     bs_dm = self.taxonomy.base_sets.get(f'definitionArc|{const.XDT_DOMAIN_MEMBER_ARCROLE}|{eff_role}', None)
+        #     if bs_dm is None:
+        #         continue
+        #     effective_roots = self.get_effective_roots(bs_dm, r)
+        #     for effective_root in effective_roots:
+        #         self.tree_walk(tbl, axis, struct, r, bs_dm, parent_sn, effective_root, generations, 0, lvl, use_parent)
 
     def compile_all(self):
         for t in self.taxonomy.tables.values():
@@ -456,15 +466,16 @@ class TableReporter(base_reporter.BaseReporter):
             self.new_cell(cell.Cell(html_class='xbrl_header'))
 
     def lay_closed_y_header(self, sny, rc):
-        sny_rc_cap = sny.origin.get_rc_label() if sny.origin is not None else ""
+        sny_rc_cap = sny.origin.get_rc_label() if sny.origin is not None else ''
         rc.add(sny_rc_cap)
         cls = f'xbrl_header_abstract' if sny.is_abstract else 'xbrl_header'
-        self.new_cell(cell.Cell(label=sny.get_caption(use_id=False, lang=self.current_lang), indent=sny.level * 10, html_class=cls))
+        self.new_cell(cell.Cell(
+            label=sny.get_caption(use_id=False, lang=self.current_lang), indent=sny.level * 10, html_class=cls))
 
     def lay_tbl_body(self, snz, sny, closed_x, position):
         r_code = None if sny.origin is None else sny.origin.get_rc_label()
         if not r_code:
-            r_code = f'r{position}'
+            r_code = f'r{str(position).zfill(3)}'
         cnt = -1
         for snx in closed_x:
             if snx.is_abstract:
@@ -472,9 +483,9 @@ class TableReporter(base_reporter.BaseReporter):
             cnt += 1
             c_code = snx.origin.get_rc_label() if snx.origin is not None else ''
             if not c_code:
-                c_code = f'c{cnt}'
+                c_code = f'c{str(cnt).zfill(3)}'
             cls = 'xbrl_grayed' if sny.is_abstract else 'xbrl_fact'
-            lbl = f'{sny.get_caption(lang=self.current_lang).strip()}/{snx.get_caption().strip()}'
+            lbl = f'{sny.get_caption(use_id=False, lang=self.current_lang).strip()}/{snx.get_caption(use_id=False, lang=self.current_lang).strip()}'
             c = cell.Cell(label=lbl, html_class=cls, is_fact=True,
                           r_code=r_code, c_code=c_code, is_grayed=sny.is_abstract)
             self.new_cell(c)

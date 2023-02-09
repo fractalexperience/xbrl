@@ -14,6 +14,10 @@ class StructureNode:
         self.is_abstract = abst
         self.nested = None
         self.concept = concept
+
+        self.r_code = None
+        self.c_code = None
+
         """ Contains the untagged (tag='default') and tagged constraint sets for the node. """
         self.constraint_set = {}
         if self.parent is not None:

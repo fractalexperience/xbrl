@@ -22,6 +22,7 @@ class BaseSet:
     include_head - Flag whether to include root of the branch into the result set.
     s_groups - List of substitution groups to be included in processing. If it is None, then all are processed.
     """
+
     def get_members(self, start_concept=None, include_head=True, s_groups=None):
         members = []
         for r in self.roots:
@@ -45,7 +46,7 @@ class BaseSet:
             return
         # Recursion
         lst = sorted([n for n in cbs_dn if n.Concept not in stack],
-                   key=lambda t: 0 if t.Arc.order is None else float(t.Arc.order))
+                     key=lambda t: 0 if t.Arc.order is None else float(t.Arc.order))
         used = set()
         balance = None
         for node in lst:
