@@ -6,7 +6,7 @@ from xbrl.instance import instance
 
 
 class Pool(resolver.Resolver):
-    def __init__(self, cache_folder=None, output_folder=None):
+    def __init__(self, cache_folder=None, output_folder=None, alt_locations=None):
         super().__init__(cache_folder, output_folder)
         self.taxonomies = {}
         self.current_taxonomy = None
@@ -15,6 +15,8 @@ class Pool(resolver.Resolver):
         self.schemas = {}
         self.linkbases = {}
         self.instances = {}
+        """ Alternative locations. If set, this is used to resolve Qeb references to alternative (existing) URLs. """
+        self.alt_locations = alt_locations
         """ Index of all packages in the cache/taxonomy_packages folder by entrypoint """
         self.packaged_entrypoints = {}
         self.packaged_locations = None
@@ -140,6 +142,11 @@ class Pool(resolver.Resolver):
             return
         if 'http://xbrl.org' in href or 'http://www.xbrl.org' in href:
             return  # Basic schema objects are predefined.
+
+        # Artificially replace the reference - only done for very specific purposes.
+        if self.alt_locations and href in self.alt_locations:
+            href = self.alt_locations[href]
+
         if not href.startswith('http'):
             href = util.reduce_url(os.path.join(base, href).replace(os.path.sep, '/'))
         key = f'{self.current_taxonomy_hash}_{href}'
