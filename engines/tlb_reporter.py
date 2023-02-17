@@ -403,17 +403,23 @@ class TableReporter(base_reporter.BaseReporter):
                 self.new_cell(cell.Cell(label=tbl.get_rc_label(), colspan=colspan, rowspan=rowspan, is_header=True,
                                         html_class='xbrl_lu'))
             # X-Headers
+            cnt = -1
             for snx in hx:
                 if isinstance(snx.origin, breakdown.Breakdown) and snx.origin.is_open \
                         or isinstance(snx.origin, aspect_node.AspectNode):
                     continue
+                cnt += 1
                 # colspan = snx.span if row == snx.level else 1
                 colspan = snx.span
                 cls = 'xbrl_fake' if snx.is_fake else 'xbrl_header'
                 gry = snx.is_fake or snx.is_abstract
-                self.new_cell(cell.Cell(label=snx.get_caption(use_id=False, lang=self.current_lang),
-                                        colspan=colspan, is_header=True, html_class=cls,
-                                        is_fake=snx.is_fake, origin=snx))
+
+                c_code = snx.origin.get_rc_label() if snx.origin is not None else ''
+                if not c_code:
+                    c_code = f'c{str(cnt).zfill(3)}'
+                cap = snx.get_caption(use_id=False, lang=self.current_lang)
+                self.new_cell(cell.Cell(label=cap, colspan=colspan, is_header=True, html_class=cls,
+                                        c_code=c_code, is_fake=snx.is_fake, origin=snx))
         # Optional RC header
         self.new_row()
         cnt = -1
