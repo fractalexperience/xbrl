@@ -176,8 +176,9 @@ class TableReporter(base_reporter.BaseReporter):
         new_sn = parent_sn
         is_cr = isinstance(r, cr_node.ConceptRelationshipNode)
         if use_parent:
-            new_sn = str_node.StructureNode(parent=parent_sn, origin=r, grayed=False, lvl=lvl, concept=concept,
-                                            abst=is_cr and concept.abstract)
+            new_sn = str_node.StructureNode(
+                parent=parent_sn, origin=r, grayed=False, lvl=lvl,
+                concept=concept, abst=is_cr and concept.abstract)
             if is_cr:
                 new_sn.add_constraint('concept', concept.qname)
             else:
@@ -411,7 +412,8 @@ class TableReporter(base_reporter.BaseReporter):
                 cls = 'xbrl_fake' if snx.is_fake else 'xbrl_header'
                 gry = snx.is_fake or snx.is_abstract
                 self.new_cell(cell.Cell(label=snx.get_caption(use_id=False, lang=self.current_lang),
-                                        colspan=colspan, is_header=True, html_class=cls, is_fake=snx.is_fake))
+                                        colspan=colspan, is_header=True, html_class=cls,
+                                        is_fake=snx.is_fake, origin=snx))
         # Optional RC header
         self.new_row()
         cnt = -1
@@ -421,8 +423,7 @@ class TableReporter(base_reporter.BaseReporter):
                 continue
             rc_lbl = '' if snx.origin is None else snx.origin.get_rc_label()
             rc_lbl = rc_lbl if rc_lbl else f'c{cnt}'
-            self.new_cell(cell.Cell(label=rc_lbl,
-                                    is_header=True, html_class='xbrl_rc'))
+            self.new_cell(cell.Cell(label=rc_lbl, is_header=True, html_class='xbrl_rc', origin=snx))
         self.lay_y(tbl, snz, h_open, h_closed)
 
     def lay_y(self, tbl, snz, h_open, h_closed):
@@ -433,15 +434,20 @@ class TableReporter(base_reporter.BaseReporter):
                 # Extra cell for closed-Y nodes if any
                 self.new_cell(cell.Cell(html_class='xbrl_header'))
             for sno in h_open['y']:
-                self.new_cell(cell.Cell(label=sno.get_rc_caption(), html_class='xbrl_header'))
+                self.new_cell(cell.Cell(label=sno.get_rc_caption(), html_class='xbrl_header', origin=sno))
             if tbl.has_rc_labels:
                 # Extra cell for RC labels if any
                 self.new_cell(cell.Cell(html_class='xbrl_rc'))
             # Filling row with empty cells for extra open-Y header
+            position = 0
             for snx in h_closed['x']:
+                position += 1
                 if snx.is_abstract:
                     continue
-                self.new_cell(cell.Cell(html_class='xbrl_other'))
+                c_code = snx.origin.get_rc_label() if snx.origin else None
+                if not c_code:
+                    c_code = f'r{str(position).zfill(3)}'
+                self.new_cell(cell.Cell(html_class='xbrl_other', c_code=c_code, origin=snx))
         cnt = -1
         for sny in h_closed['y']:
             cnt += 1
@@ -453,7 +459,7 @@ class TableReporter(base_reporter.BaseReporter):
         if h_open['y']:
             self.lay_open_y_header(h_open['y'], rc)
         if sny is not None:
-            self.lay_closed_y_header(sny, rc)
+            self.lay_closed_y_header(sny, rc, position)
         rc_lbl = ' '.join(rc)
         rc_lbl = rc_lbl if rc_lbl else f'r{position}'
         if tbl.has_rc_labels:
@@ -463,14 +469,20 @@ class TableReporter(base_reporter.BaseReporter):
     def lay_open_y_header(self, open_y, rc):
         for sno in open_y:
             rc.add(sno.origin.get_rc_label())
-            self.new_cell(cell.Cell(html_class='xbrl_header'))
+            self.new_cell(cell.Cell(html_class='xbrl_header', origin=sno))
 
-    def lay_closed_y_header(self, sny, rc):
+    def lay_closed_y_header(self, sny, rc, position):
         sny_rc_cap = sny.origin.get_rc_label() if sny.origin is not None else ''
         rc.add(sny_rc_cap)
         cls = f'xbrl_header_abstract' if sny.is_abstract else 'xbrl_header'
+
+        r_code = None if sny.origin is None else sny.origin.get_rc_label()
+        if not r_code:
+            r_code = f'r{str(position).zfill(3)}'
+
         self.new_cell(cell.Cell(
-            label=sny.get_caption(use_id=False, lang=self.current_lang), indent=sny.level * 10, html_class=cls))
+            label=sny.get_caption(use_id=False, lang=self.current_lang), indent=sny.level * 10,
+            r_code=r_code, html_class=cls, origin=sny))
 
     def lay_tbl_body(self, snz, sny, closed_x, position):
         r_code = None if sny.origin is None else sny.origin.get_rc_label()
@@ -487,7 +499,7 @@ class TableReporter(base_reporter.BaseReporter):
             cls = 'xbrl_grayed' if sny.is_abstract else 'xbrl_fact'
             lbl = f'{sny.get_caption(use_id=False, lang=self.current_lang).strip()}/{snx.get_caption(use_id=False, lang=self.current_lang).strip()}'
             c = cell.Cell(label=lbl, html_class=cls, is_fact=True,
-                          r_code=r_code, c_code=c_code, is_grayed=sny.is_abstract)
+                          r_code=r_code, c_code=c_code, is_grayed=sny.is_abstract, origin=snx)
             self.new_cell(c)
             self.lay_constraint_set({'x': snx, 'y': sny, 'z': snz}, c)
             if not self.validate(c):

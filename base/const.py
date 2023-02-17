@@ -75,6 +75,7 @@ ROLE_LABEL_DEFINITION = 'http://www.xbrl.org/2003/role/documentation'
 ROLE_LABEL_DEFINITION_GUIDANCE = 'http://www.xbrl.org/2003/role/definitionGuidance'
 ROLE_LABEL_DISCLOSURE_GUIDANCE = 'http://www.xbrl.org/2003/role/disclosureGuidance'
 ROLE_LABEL_PRESENTATION_GUIDANCE = 'http://www.xbrl.org/2003/role/presentationGuidance'
+ROLE_LABEL_TOTAL = 'http://www.xbrl.org/2003/role/totalLabel'
 # EBA/EIOPA
 ROLE_LABEL_RC = 'http://www.eurofiling.info/xbrl/role/rc-code'
 ROLE_LABEL_DB = 'http://www.eba.europa.eu/xbrl/role/dpm-db-id'

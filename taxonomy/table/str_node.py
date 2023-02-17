@@ -1,4 +1,5 @@
 from xbrl.taxonomy.table import aspect_node
+from xbrl.base import const
 
 
 class StructureNode:
@@ -17,6 +18,7 @@ class StructureNode:
 
         self.r_code = None
         self.c_code = None
+        self.cells = []
 
         """ Contains the untagged (tag='default') and tagged constraint sets for the node. """
         self.constraint_set = {}
@@ -36,9 +38,13 @@ class StructureNode:
 
     def get_caption(self, use_id=True, lang='en'):
         if self.concept is not None:
+            # cap = self.concept.get_label(lang=lang, role=const.ROLE_LABEL_TOTAL)  # Preferrably total label
+            # if not cap:
             cap = self.concept.get_label(lang=lang)
             return cap if cap else self.concept.qname
         if self.origin is not None:
+            # cap = self.origin.get_label(lang=lang, role=const.ROLE_LABEL_TOTAL)
+            # if not cap:
             cap = self.origin.get_label(lang=lang)
             return cap if cap else f'{self.origin.xlabel}' if use_id else ''
         return ''
@@ -59,8 +65,8 @@ class StructureNode:
         return ''
 
     def get_fake_copy(self):
-        cloned = StructureNode(parent=self, origin=self.origin, grayed=True, lvl=self.level+1, fake=True,
-                             abst=self.is_abstract, concept=self.concept)
+        cloned = StructureNode(parent=self, origin=self.origin, grayed=True, lvl=self.level, fake=True,
+                               abst=self.is_abstract, concept=self.concept)
         for tag, dct in self.constraint_set.items():
             cloned.constraint_set.setdefault(tag, {}).update(dct)
         return cloned

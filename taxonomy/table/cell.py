@@ -1,10 +1,11 @@
+import xbrl.taxonomy.table.str_node
 from xbrl.base import data_wrappers
 
 
 class Cell:
     def __init__(self, constraints=None, label=None, colspan=1, rowspan=1, indent=0,
                  is_header=False, is_fact=False, is_fake=False, is_grayed=False,
-                 html_class=None, r_code=None, c_code=None):
+                 html_class=None, r_code=None, c_code=None, origin=None):
         self.label = label
         self.is_header = is_header
         self.is_fact = is_fact
@@ -18,6 +19,8 @@ class Cell:
         self.html_classes = None if html_class is None else set(html_class.split(' '))
         # Final version of constraints
         self.constraints = {} if constraints is None else constraints
+        if origin and isinstance(origin, xbrl.taxonomy.table.str_node.StructureNode):
+            origin.cells.append(self)
 
     def add_constraints(self, constraints, axis):
         for asp, mem in constraints.items():
