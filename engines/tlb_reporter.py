@@ -202,27 +202,6 @@ class TableReporter(base_reporter.BaseReporter):
             new_sn = str_node.StructureNode(parent=parent_sn, origin=r, grayed=False, lvl=lvl, concept=mem.Concept)
             new_sn.add_constraint(r.dimension, mem.Concept.qname)
 
-        # bs = self.taxonomy.base_sets.get(f'definitionArc|{const.XDT_DIMENSION_DOMAIN_ARCROLE}|{r.role}', None)
-        # if bs is None:  # This should not happen actually
-        #     new_node = str_node.StructureNode(parent=parent_sn, origin=r, grayed=False, lvl=lvl)
-        #     self.walk(tbl, axis, struct, new_node, r.nested, lvl + 1)
-        #     return
-        # root_members = bs.get_members(start_concept=r.dimension, include_head=False)
-        # generations = None if r.generations is None else int(r.generations)
-        # # TODO: Handle other types of formula axis
-        # if r.formula_axis in ['child', 'child-or-self']:
-        #     generations = 1
-        # use_parent = True if r.formula_axis.endswith('-or-self') else False
-        # for root_member in root_members:
-        #     eff_role = root_member.Arc.target_role \
-        #         if root_member.Arc is not None and root_member.Arc.target_role is not None else r.role
-        #     bs_dm = self.taxonomy.base_sets.get(f'definitionArc|{const.XDT_DOMAIN_MEMBER_ARCROLE}|{eff_role}', None)
-        #     if bs_dm is None:
-        #         continue
-        #     effective_roots = self.get_effective_roots(bs_dm, r)
-        #     for effective_root in effective_roots:
-        #         self.tree_walk(tbl, axis, struct, r, bs_dm, parent_sn, effective_root, generations, 0, lvl, use_parent)
-
     def compile_all(self):
         for t in self.taxonomy.tables.values():
             self.compile_table(t)
@@ -409,7 +388,6 @@ class TableReporter(base_reporter.BaseReporter):
                         or isinstance(snx.origin, aspect_node.AspectNode):
                     continue
                 cnt += 1
-                # colspan = snx.span if row == snx.level else 1
                 colspan = snx.span
                 cls = 'xbrl_fake' if snx.is_fake else 'xbrl_header'
                 gry = snx.is_fake or snx.is_abstract
