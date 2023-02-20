@@ -1,4 +1,6 @@
 from xbrl.taxonomy.table import aspect_node
+from xbrl.taxonomy.table import dr_node
+from xbrl.taxonomy.table import cr_node
 from xbrl.base import const
 
 
@@ -37,17 +39,28 @@ class StructureNode:
         self.constraint_set.setdefault(tag, {})[aspect] = value
 
     def get_caption(self, use_id=True, lang='en'):
-        if self.concept is not None:
-            # cap = self.concept.get_label(lang=lang, role=const.ROLE_LABEL_TOTAL)  # Preferrably total label
-            # if not cap:
-            cap = self.concept.get_label(lang=lang)
-            return cap if cap else self.concept.qname
-        if self.origin is not None:
-            # cap = self.origin.get_label(lang=lang, role=const.ROLE_LABEL_TOTAL)
-            # if not cap:
-            cap = self.origin.get_label(lang=lang)
-            return cap if cap else f'{self.origin.xlabel}' if use_id else ''
-        return ''
+        if not self.origin:
+            return ''
+        display_label = self.origin.get_label(lang=lang)
+        if not display_label:
+            display_label = self.origin.xlabel if use_id else ''
+        if self.concept:
+            display_label = self.concept.get_label(lang=lang)
+        if isinstance(self.origin, dr_node.DimensionalRelationshipNode):
+            display_label_tot = self.concept.get_label(lang=lang, role=const.ROLE_LABEL_TOTAL)
+            if display_label_tot:
+                display_label = display_label_tot
+        elif isinstance(self.origin, cr_node.ConceptRelationshipNode):
+            if any([s for s in self.origin.relationship_sources if 'PeriodStart' in s]):
+                display_label_start = self.concept.get_label(lang=lang, role=const.ROLE_LABEL_PERIOD_START)
+                if display_label_start:
+                    display_label = display_label_start
+            if any([s for s in self.origin.relationship_sources if 'PeriodEnd' in s]):
+                description_end = self.concept.get_label(lang=lang, role=const.ROLE_LABEL_PERIOD_END)
+                if description_end:
+                    display_label = description_end
+        return display_label
+
 
     def get_aspect_caption(self):
         return self.origin.aspect if isinstance(self.origin, aspect_node.AspectNode) else self.origin.xlabel

@@ -1,6 +1,12 @@
 from builtins import isinstance
-
-from xbrl.taxonomy.table import breakdown, aspect_node, rule_node, cr_node, dr_node, str_node, layout, cell
+from xbrl.taxonomy.table import breakdown
+from xbrl.taxonomy.table import aspect_node
+from xbrl.taxonomy.table import rule_node
+from xbrl.taxonomy.table import cr_node
+from xbrl.taxonomy.table import dr_node
+from xbrl.taxonomy.table import str_node
+from xbrl.taxonomy.table import layout
+from xbrl.taxonomy.table import cell
 from xbrl.engines import base_reporter
 from xbrl.base import data_wrappers, const
 
@@ -396,8 +402,9 @@ class TableReporter(base_reporter.BaseReporter):
                 if not c_code:
                     c_code = f'c{str(cnt).zfill(3)}'
                 cap = snx.get_caption(use_id=False, lang=self.current_lang)
-                self.new_cell(cell.Cell(label=cap, colspan=colspan, is_header=True, html_class=cls,
-                                        c_code=c_code, is_fake=snx.is_fake, origin=snx))
+                self.new_cell(cell.Cell(
+                    label=cap, colspan=colspan, is_header=True, html_class=cls,
+                    c_code=c_code, is_fake=snx.is_fake, origin=snx))
         # Optional RC header
         self.new_row()
         cnt = -1
@@ -464,9 +471,8 @@ class TableReporter(base_reporter.BaseReporter):
         if not r_code:
             r_code = f'r{str(position).zfill(3)}'
 
-        self.new_cell(cell.Cell(
-            label=sny.get_caption(use_id=False, lang=self.current_lang), indent=sny.level * 10,
-            r_code=r_code, html_class=cls, origin=sny))
+        cap = sny.get_caption(use_id=False, lang=self.current_lang)
+        self.new_cell(cell.Cell(label=cap, indent=sny.level * 10, r_code=r_code, html_class=cls, origin=sny))
 
     def lay_tbl_body(self, snz, sny, closed_x, position):
         r_code = None if sny.origin is None else sny.origin.get_rc_label()
@@ -481,7 +487,8 @@ class TableReporter(base_reporter.BaseReporter):
             if not c_code:
                 c_code = f'c{str(cnt).zfill(3)}'
             cls = 'xbrl_grayed' if sny.is_abstract else 'xbrl_fact'
-            lbl = f'{sny.get_caption(use_id=False, lang=self.current_lang).strip()}/{snx.get_caption(use_id=False, lang=self.current_lang).strip()}'
+            lbl = f'{sny.get_caption(use_id=False, lang=self.current_lang).strip()}/' \
+                  f'{snx.get_caption(use_id=False, lang=self.current_lang).strip()}'
             c = cell.Cell(label=lbl, html_class=cls, is_fact=True,
                           r_code=r_code, c_code=c_code, is_grayed=sny.is_abstract, origin=snx)
             self.new_cell(c)
