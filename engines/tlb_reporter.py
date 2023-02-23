@@ -12,8 +12,8 @@ from xbrl.base import data_wrappers, const
 
 
 class TableReporter(base_reporter.BaseReporter):
-    def __init__(self, t, d):
-        super().__init__(t, d)
+    def __init__(self, taxonomy, xid):
+        super().__init__(taxonomy, xid)
         """ Structures corresponding to compiled tables. 
             Key is table Id, value is the corresponding  x,y,z structure """
         self.structures = {}
@@ -24,6 +24,8 @@ class TableReporter(base_reporter.BaseReporter):
         self.current_z = None
         self.current_y = None
         self.current_x = None
+        """ This value will be set to parent_child_rder during table rendering and will override the original one."""
+        self.parent_child_order_override = None
         self.resource_names = ['breakdown', 'ruleNode', 'aspectNode', 'conceptRelationshipNode',
                                'dimensionRelationshipNode']
 
@@ -57,7 +59,8 @@ class TableReporter(base_reporter.BaseReporter):
                 depth = self.get_max_depth(sn, 0)
                 for lvl in range(depth + 1):
                     header.setdefault(lvl, [])
-                self.calculate_header(header, sn, 0, axis, t.parent_child_order)
+                pco = self.parent_child_order_override if self.parent_child_order_override else t.parent_child_order
+                self.calculate_header(header, sn, 0, axis, pco)
             # Calculate span
             depth = max(header)
             last_row = header.get(depth, None)
@@ -69,7 +72,7 @@ class TableReporter(base_reporter.BaseReporter):
     def calculate_header(self, header, sn, lvl, axis, pco):
         maxlvl = max(header)
         if isinstance(sn.origin, breakdown.Breakdown):
-            pco = sn.origin.parent_child_order
+            pco = self.parent_child_order_override if self.parent_child_order_override else sn.origin.parent_child_order
         # childrent-first case
         if pco is not None and pco == 'children-first' and sn.nested is not None:
             for snn in sn.nested:
