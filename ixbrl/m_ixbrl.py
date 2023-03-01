@@ -28,10 +28,14 @@ class IxbrlModel(ebase.XmlElementBase):
         """ Populates indixes """
         if isinstance(e, lxml._ProcessingInstruction) or isinstance(e, lxml._Comment):
             return
-        if e.tag.startswith(f'{{{const.NS_IXBRL}}}') or e.tag.startswith(f'{{{const.NS_IXBRL_2008}}}'):
+        if self.is_i_xbrl(e):
             self.index_element(e)
         for e2 in e.iterchildren():
             self.index(e2, level+1)
+
+    @staticmethod
+    def is_i_xbrl(e):
+        return e.tag.startswith(f'{{{const.NS_IXBRL}}}') or e.tag.startswith(f'{{{const.NS_IXBRL_2008}}}')
 
     def index_element(self, e):
         eb = ebase.XmlElementBase(e, parsers=None, assign_origin=True)
@@ -139,15 +143,21 @@ class IxbrlModel(ebase.XmlElementBase):
                 is_escaped = a[1] == 'true' or a[1] == '1'
             elif a[0] == 'continuedAt':
                 continued_at = a[1].strip()
-        if is_escaped:
-            return util.escape_xml(e.text)
+        # if is_escaped:
+        #     return
+
         result = []
         if len(e):
             for e2 in e.iterchildren():
-                result.append(self.get_full_content(e2, stack))
+                if self.is_i_xbrl(e2):
+                    result.append(self.get_full_content(e2, stack))
+                    continue
+                s = ebase.XmlElementBase(e2, assign_origin=True).serialize()
+                result.append(s)
         else:
             if e.text:
-                result.append(e.text)
+                content = util.escape_xml(e.text) if is_escaped else e.text
+                result.append(content)
 
             # TODO - Verify this with normative examples
             # if e.tail and e.tag == f'{{{const.NS_IXBRL}}}nonNumeric':
