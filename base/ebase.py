@@ -36,9 +36,15 @@ class XmlElementBase:
         self.serialize_attributes(output)
         if len(self.origin):
             output.append('>')
+            if self.origin.text:
+                output.append(self.origin.text)
             for e2 in self.origin.iterchildren():
                 eb2 = XmlElementBase(e2, parsers=None, assign_origin=True)
                 output.append(eb2.serialize())
+                if e2.tail:
+                    output.append(e2.tail)
+            if self.origin.tail:
+                output.append(self.origin.tail)
             output.append(f'</{self.qname}>')
         else:
             if not self.origin.text:
