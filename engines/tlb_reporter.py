@@ -416,7 +416,7 @@ class TableReporter(base_reporter.BaseReporter):
             if snx.is_abstract:
                 continue
             rc_lbl = '' if snx.origin is None else snx.origin.get_rc_label()
-            rc_lbl = rc_lbl if rc_lbl else f'c{cnt}'
+            rc_lbl = rc_lbl if rc_lbl else f'c{str(cnt).zfill(3)}'
             self.new_cell(cell.Cell(label=rc_lbl, is_header=True, html_class='xbrl_rc', origin=snx))
         self.lay_y(tbl, snz, h_open, h_closed)
 
@@ -455,7 +455,7 @@ class TableReporter(base_reporter.BaseReporter):
         if sny is not None:
             self.lay_closed_y_header(sny, rc, position)
         rc_lbl = ' '.join(rc)
-        rc_lbl = rc_lbl if rc_lbl else f'r{position}'
+        rc_lbl = rc_lbl if rc_lbl else f'r{str(position).zfill(3)}'
         if tbl.has_rc_labels:
             self.new_cell(cell.Cell(label=rc_lbl, html_class='xbrl_rc'))
         self.lay_tbl_body(snz, sny, h_closed['x'], position)
