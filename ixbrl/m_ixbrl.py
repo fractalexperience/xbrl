@@ -149,11 +149,17 @@ class IxbrlModel(ebase.XmlElementBase):
         result = []
         if len(e):
             for e2 in e.iterchildren():
-                if self.is_i_xbrl(e2):
+                if e.tag == f'{{{const.NS_IXBRL}}}continuation':
+                    """ Even if there is a sub-note from iXBRL namespace, we serialize it as a generic element, 
+                    otherwise we will lose HTML formatting. Then the child elements from iXBRL namespace will be separately 
+                    resulved in the processing, because they are indexed in nonNumeric and nonFraction collections."""
+                    result.append(ebase.XmlElementBase(e2, assign_origin=True).serialize())
+                    continue
+                if self.is_i_xbrl(e2):  # All other elements form iXBRL space
                     result.append(self.get_full_content(e2, stack))
                     continue
-                s = ebase.XmlElementBase(e2, assign_origin=True).serialize()
-                result.append(s)
+                # all other XML tags
+                result.append(ebase.XmlElementBase(e2, assign_origin=True).serialize())
         else:
             if e.text:
                 content = util.escape_xml(e.text) if is_escaped else e.text
