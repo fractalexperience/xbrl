@@ -36,7 +36,9 @@ class Cell:
             self.html_classes = set({})
         self.html_classes.add(cls)
 
-    def get_address(self):
+    def get_address(self, open_x=False, open_y=False, open_z=False):
+        if open_y:
+            return self.c_code  # If the table is open-Y, then we only take the column code as address
         return f'{self.r_code}.{self.c_code}'
 
     def get_class(self):

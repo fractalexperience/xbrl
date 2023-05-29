@@ -278,19 +278,36 @@ class TableReporter(base_reporter.BaseReporter):
         custom_dimensions = sorted(set(d for dims in [
             [] if c.constraints is None else c.constraints for c in f_cells] for d in dims if d != 'concept'))
         dpm_map = data_wrappers.DpmMap(tid, custom_dimensions, {}, set([a for a in lo.open_dimensions.values()]))
+        open_dimension_addresses = {}
+        typed_domain_refs = {}
+        cnt = 0
+        for d, a in lo.open_dimensions.items():
+            open_dimension_addresses[d] = f'{a}{str(cnt).zfill(3)}'
+            dim_concept = self.taxonomy.concepts_by_qname.get(d)
+            typed_domain_ref = dim_concept.typed_domain_ref if dim_concept else ''
+            typed_domain = self.taxonomy.elements_by_id.get(typed_domain_ref.split('#')[1]) if typed_domain_ref else ''
+            typed_domain_refs[d] = typed_domain.qname if typed_domain else ''
+            cnt += 1
+
         for c in f_cells:
             cco = c.constraints.get('concept', None)
             concept = None if cco is None else self.taxonomy.concepts_by_qname.get(cco.Member, None)
             members = ['*' if m is None else m for m in
                        [c.constraints.get(dim, data_wrappers.Constraint(dim, 'N/A', None)).Member
                         for dim in sorted(custom_dimensions)]]
-            dpm_map.Mappings[c.get_address()] = dict(zip(
-                [*data_wrappers.DpmMapMandatoryDimensions, *custom_dimensions, 'grayed'],
+            address = c.get_address(open_x=lo.is_open_x(), open_y=lo.is_open_y(), open_z=lo.is_open_z())
+            dpm_map.Mappings[address] = dict(zip(
+                [*data_wrappers.DpmMapMandatoryDimensions, *custom_dimensions,
+                 'grayed', 'open_dimensions', 'typed_domain'],
                 [c.get_label(),
                  None if concept is None else concept.qname,
                  None if concept is None else concept.data_type,
                  None if concept is None else concept.period_type,
-                 *members, c.is_grayed]))
+                 *members,
+                 c.is_grayed,
+                 open_dimension_addresses,
+                 typed_domain_refs
+                 ]))
         return dpm_map
 
     def render_map_html(self, table_ids=None, add_html_head=True, lang='en'):
