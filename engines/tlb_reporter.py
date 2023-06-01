@@ -1,4 +1,6 @@
 from builtins import isinstance
+
+import xbrl.taxonomy.table.breakdown
 from xbrl.taxonomy.table import breakdown
 from xbrl.taxonomy.table import aspect_node
 from xbrl.taxonomy.table import rule_node
@@ -331,6 +333,62 @@ class TableReporter(base_reporter.BaseReporter):
         if add_html_head:
             self.finalize_output()
         return ''.join(self.content)
+
+    def render_definition_html(self, res, add_html_head=True):
+        if add_html_head:
+            self.init_output_table()
+        else:
+            self.content = []  # Just clears the content
+
+        self.init_table(columns=['Axis', 'ID', 'Type', 'Label', 'Constraints'],
+                        cls_head='xbrl_header',
+                        cls='table-hover')
+        self.render_definition_html_recursive(res, '', 0)
+        if add_html_head:
+            self.finalize_output()
+        return ''.join(self.content)
+
+    def render_definition_html_recursive(self, res, axis, level):
+        if not res.nested:
+            return
+        for key, res_dct in res.nested.items():
+            if key == 'label':
+                return
+            for res_sub_id, res_sub_lst in res_dct.items():
+                for res_sub in res_sub_lst:
+                    new_axis = axis
+                    if isinstance(res_sub, xbrl.taxonomy.table.breakdown.Breakdown):
+                        new_axis = res_sub.axis
+
+                    cls_axis = 'table-warning' if new_axis == 'x' \
+                        else 'table-info' if new_axis == 'y' \
+                        else 'table-success' if new_axis == 'z' \
+                        else 'table-light'
+
+                    cls_tr = 'table-success' \
+                        if isinstance(res_sub, xbrl.taxonomy.table.breakdown.Breakdown) \
+                        else 'table-light' \
+                        if isinstance(res_sub, xbrl.taxonomy.table.rule_node.RuleNode) \
+                        else 'table-danger' \
+                        if isinstance(res_sub, xbrl.taxonomy.table.aspect_node.AspectNode) \
+                        else 'table-info' \
+                        if isinstance(res_sub, xbrl.taxonomy.table.cr_node.ConceptRelationshipNode) \
+                        else 'table-secondary' \
+                        if isinstance(res_sub, xbrl.taxonomy.table.dr_node.DimensionalRelationshipNode) \
+                        else 'table-warning'
+                    constraints = f'{res_sub.rule_sets}' \
+                        if isinstance(res_sub, xbrl.taxonomy.table.rule_node.RuleNode) \
+                        else res_sub.aspect if isinstance(res_sub, xbrl.taxonomy.table.aspect_node.AspectNode) \
+                        else ''
+                    self.add(f'<tr>'
+                             f'<td class="{cls_axis}" style="text-align: center;">{new_axis}</td>'
+                             f'<td class="{cls_tr}" style="text-indent: {level * 10}px;">{res_sub.xlabel}</td>'
+                             f'<td class="{cls_tr}">{key}</td>'
+                             f'<td class="{cls_tr}">{res_sub.get_label()}</td>'
+                             f'<td class="{cls_tr} text-primary"><tt><small>{constraints}</small></tt></td>'
+                             f'</tr>')
+                    # self.add_tr([new_axis, key, res_sub.xlabel, res_sub.get_label(), constraints])
+                    self.render_definition_html_recursive(res_sub, new_axis, level + 1)
 
     def do_layout(self, table_ids=None, lang='en'):
         self.current_lang = lang

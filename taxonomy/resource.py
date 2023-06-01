@@ -24,7 +24,7 @@ class Resource(ebase.XmlElementBase):
         return util.get_db_label(self.nested)
 
     def get_languages(self):
-        return [lbl.lang
-                for kind, res_dict in self.nested.items()
-                for key_label, list_labels in res_dict.items()
-                for lbl in list_labels if kind == 'label']
+        return set([lbl.lang
+                    for kind, res_dict in self.nested.items()
+                    for key_label, list_labels in res_dict.items()
+                    for lbl in list_labels if kind == 'label'])
