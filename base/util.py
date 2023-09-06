@@ -1,6 +1,25 @@
 import os, itertools, hashlib, datetime, string, re
 from functools import reduce
 from xbrl.base import const
+from lxml import etree as lxml
+from lxml import html as lhtml
+
+
+def parse_xml_string(s):
+    p = lxml.XMLParser(huge_tree=True)
+    try:
+        root = lxml.XML(bytes(s, encoding='utf-8'), parser=p)
+    except:
+        return None
+    return root
+
+
+def parse_html_string(s):
+    try:
+        root = lhtml.fromstring(s.encode('ascii'))
+    except:
+        return None
+    return root
 
 
 def u_dct_list(dct, key, val):
