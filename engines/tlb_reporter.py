@@ -1,3 +1,4 @@
+import json
 from builtins import isinstance
 
 import xbrl.taxonomy.table.breakdown
@@ -376,10 +377,30 @@ class TableReporter(base_reporter.BaseReporter):
                         else 'table-secondary' \
                         if isinstance(res_sub, xbrl.taxonomy.table.dr_node.DimensionalRelationshipNode) \
                         else 'table-warning'
-                    constraints = f'{res_sub.rule_sets}' \
-                        if isinstance(res_sub, xbrl.taxonomy.table.rule_node.RuleNode) \
-                        else res_sub.aspect if isinstance(res_sub, xbrl.taxonomy.table.aspect_node.AspectNode) \
-                        else ''
+                    constraints = ''
+                    if isinstance(res_sub, xbrl.taxonomy.table.rule_node.RuleNode):
+                        constraints = f'{res_sub.rule_sets}'
+                    if isinstance(res_sub, xbrl.taxonomy.table.aspect_node.AspectNode):
+                        constraints = res_sub.aspect
+                    if isinstance(res_sub, xbrl.taxonomy.table.cr_node.ConceptRelationshipNode):
+                        constraints = json.dumps({
+                            'relationship_sources':res_sub.relationship_sources,
+                            'role': res_sub.role,
+                            'arcrole': res_sub.arcrole,
+                            'formula_axis': res_sub.formula_axis,
+                            'generations': res_sub.generations,
+                            'link_name': res_sub.link_name,
+                            'arc_name': res_sub.arc_name
+                        })
+                    if isinstance(res_sub, xbrl.taxonomy.table.dr_node.DimensionalRelationshipNode):
+                        constraints = json.dumps({
+                            'relationship_sources':res_sub.relationship_sources,
+                            'role': res_sub.role,
+                            'dimension': res_sub.dimension,
+                            'formula_axis': res_sub.formula_axis,
+                            'generations': res_sub.generations
+                        })
+
                     self.add(f'<tr>'
                              f'<td class="{cls_axis}" style="text-align: center;">{new_axis}</td>'
                              f'<td class="{cls_tr}" style="text-indent: {level * 10}px;">{res_sub.xlabel}</td>'
