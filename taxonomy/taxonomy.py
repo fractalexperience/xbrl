@@ -43,16 +43,32 @@ class Taxonomy:
         self.tables = {}
         """ All role types in all schemas """
         self.role_types = {}
+        self.role_types_by_href = {}
         """ All arcrole types in all schemas """
         self.arcrole_types = {}
+        self.arcrole_types_by_href = {}
         """ Global resources - these, which have an id attribute """
         self.resources = {}
         """ All locators """
         self.locators = {}
-
+        """ All parameters """
+        self.parameters = {}
+        """ All assertions by type """
         self.value_assertions = {}
-        self.existance_assertions = {}
+        self.existence_assertions = {}
         self.consistency_assertions = {}
+        """ Assertion Sets """
+        self.assertion_sets = {}
+        """ Simple types """
+        self.simple_types = {}
+        """ Complex types with simple content. Key is the QName, value is the item type object. """
+        self.item_types = {}
+        """ Complex types with simple content. Key is the unique identifier, value is the item type object. """
+        self.item_types_by_id = {}
+        """ Complex types with complex content: Key is qname, value is the tuple type object """
+        self.tuple_types = {}
+        """ Complex types with complex content: Key is unique identifier, value is the tuple type object """
+        self.tuple_types_by_id = {}
 
         self.load()
         self.compile()
@@ -70,6 +86,9 @@ class Taxonomy:
             f'Role Types: {len(self.role_types)}',
             f'Arcrole Types: {len(self.arcrole_types)}',
             f'Concepts: {len(self.concepts)}',
+            f'Item Types: {len(self.item_types)}',
+            f'Tuple Types: {len(self.tuple_types)}',
+            f'Simple Types: {len(self.simple_types)}',
             f'Labels: {sum([0 if not "label" in c.resources else len(c.resources["label"]) for c in self.concepts.values()])}',
             f'References: {sum([0 if not "reference" in c.resources else len(c.resources["reference"]) for c in self.concepts.values()])}',
             f'Hierarchies: {len(self.base_sets)}',
@@ -79,12 +98,30 @@ class Taxonomy:
             f'Enumerations: {len([c for c in self.concepts.values() if c.is_enumeration])}',
             f'Enumerations Sets: {len([c for c in self.concepts.values() if c.is_enumeration_set])}',
             f'Table Groups: {len([c for c in self.concepts.values() if "table" in c.resources])}',
-            f'Tables: {len(self.tables)}'
+            f'Tables: {len(self.tables)}',
+            f'Parameters: {len(self.parameters)}',
+            f'Assertion Sets: {len(self.assertion_sets)}',
+            f'Value Assertions: {len(self.value_assertions)}',
+            f'Existence Assertions: {len(self.existence_assertions)}',
+            f'Consistency Assertions: {len(self.consistency_assertions)}'
         ])
 
     def load(self):
         for ep in self.entry_points:
             self.pool.add_reference(ep, '')
+
+    def resolve_prefix(self, pref):
+        for sh in self.schemas.values():
+            ns = sh.namespaces.get(pref, None)
+            if ns is not None:
+                return ns
+        return None
+
+    def resolve_qname(self, qname):
+        pref = qname.split(':')[0] if ':' in qname else ''
+        ns = self.resolve_prefix(pref)
+        nm = qname.split(':')[1] if ':' in qname else qname
+        return f'{ns}:{nm}'
 
     def attach_schema(self, href, sh):
         if href in self.schemas:
@@ -159,8 +196,22 @@ class Taxonomy:
                 self.elements_by_id[key] = e
             for key, art in sh.arcrole_types.items():
                 self.arcrole_types[key] = art
+                self.arcrole_types_by_href[f'{sh.location}#{art.id}'] = art
             for key, rt in sh.role_types.items():
                 self.role_types[key] = rt
+                self.role_types_by_href[f'{sh.location}#{rt.id}'] = rt
+
+            for key, it in sh.item_types.items():
+                self.item_types[key] = it
+            for key, it in sh.item_types_by_id.items():
+                self.item_types_by_id[key] = it
+            for key, tt in sh.tuple_types.items():
+                self.tuple_types[key] = tt
+            for key, tt in sh.tuple_types_by_id.items():
+                self.tuple_types_by_id[key] = tt
+
+            for key, st in sh.simple_types.items():
+                self.simple_types[key] = st
 
     def compile_linkbases(self):
         # Pass 1 - Index global objects
@@ -216,3 +267,9 @@ class Taxonomy:
             for m in members:
                 self.defaults[d.qname] = m
                 self.default_members[m.qname] = d
+
+    def get_prefixes(self):
+        return set(c.prefix for c in self.concepts.values())
+
+    def get_languages(self):
+        return set([r.lang for k, r in self.resources.items() if r.name == 'label'])

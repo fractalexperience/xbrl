@@ -32,11 +32,11 @@ class Context(ebase.XmlElementBase):
     def l_period(self, e):
         for e in e.iterchildren():
             if e.tag == f'{{{const.NS_XBRLI}}}instant':
-                self.period_instant = e.text
+                self.period_instant = e.text.strip()
             elif e.tag == f'{{{const.NS_XBRLI}}}startDate':
-                self.period_start = e.text
+                self.period_start = e.text.strip()
             elif e.tag == f'{{{const.NS_XBRLI}}}endDate':
-                self.period_end = e.text
+                self.period_end = e.text.strip()
 
     def l_entity(self, e):
         self.l_children(e)
@@ -66,10 +66,10 @@ class Context(ebase.XmlElementBase):
         return f'{self.period_start}/{self.period_end}'
 
     def get_xdt_signature(self):
-        return "|".join([f'{k}#{self.descriptors.get(k).text}' for k in self.descriptors])
+        return "|".join(sorted([f'{k}#{self.descriptors.get(k).text}' for k in self.descriptors]))
 
     def get_simplified_signature(self):
-        return "|".join([f'{k}' for k in self.descriptors])
+        return "|".join(sorted([f'{k}' for k in self.descriptors]))
 
     def get_signature(self):
         return "|".join([

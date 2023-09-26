@@ -35,7 +35,37 @@ class Formatter:
 
             'datemonthdayyearen': self.c_datemonthdayyearen,
             'numdotdecimal': self.c_numdotdecimal,
+            'nocontent': self.c_nocontent,
             'zerodash': self.c_zerodash,
+
+            # TR3
+            'booleanfalse': self.c_booleanfalse,
+            'booleantrue': self.c_booleantrue,
+            # 'calindaymonthyear': self.c_calindaymonthyear,
+            # 'datedaymonth': self.c_datedaymonth,
+            # 'datedaymonthdk': self.c_datedaymonthdk,
+            # 'datedaymonthen': self.c_datedaymonthen,
+            # 'datedaymonthyear': self.c_datedaymonthyear,
+            # 'datedaymonthyeardk': self.c_datedaymonthyeardk,
+            # 'datedaymonthyearen': self.c_datedaymonthyearen,
+            # 'datedaymonthyearin': self.c_datedaymonthyearin,
+            # 'dateerayearmonthdayjp': self.c_dateerayearmonthdayjp,
+            # 'dateerayearmonthjp': self.c_dateerayearmonthjp,
+            # 'datemonthday': self.c_datemonthday,
+            # 'datemonthdayen': self.c_datemonthdayen,
+            # 'datemonthdayyear': self.c_datemonthdayyearen,
+            # 'datemonthyear': self.c_datemonthyear,
+            # 'datemonthyeardk': self.c_datemonthyeardk,
+            # 'datemonthyearen': self.c_datemonthyearen,
+            # 'datemonthyearin': self.c_datemonthyearin,
+            # 'dateyearmonthday': self.c_dateyearmonthday,
+            # 'dateyearmonthdaycjk': self.c_dateyearmonthdaycjk,
+            # 'dateyearmonthcjk': self.c_dateyearmonthcjk,
+            # 'dateyearmonthen': self.c_dateyearmonthen,
+            'numdotdecimalin': self.c_numdotdecimal,
+            'numunitdecimal': self.c_numunitdecimal,
+            'numunitdecimalin': self.c_numunitdecimal,
+
             # SEC
             'duryear': self.c_sec_duryear,
             'durmonth': self.c_sec_durmonth,
@@ -50,7 +80,111 @@ class Formatter:
             'stateprovnameen': self.c_sec_stateprovnameen,
             'countrynameen': self.c_sec_countrynameen,
             'edgarprovcountryen': self.c_sec_edgarprovcountryen,
-            'entityfilercategoryen': self.c_sec_entityfilercategoryen
+            'entityfilercategoryen': self.c_sec_entityfilercategoryen,
+
+            # TR5
+            'date-day-month': self.tr5_repeat,
+            'date-day-month-year': self.tr5_repeat,
+            'date-day-monthname-bg': self.tr5_repeat,
+            'date-day-monthname-cs': self.tr5_repeat,
+            'date-day-monthname-cy': self.tr5_repeat,
+            'date-day-monthname-da': self.tr5_repeat,
+            'date-day-monthname-de': self.tr5_repeat,
+            'date-day-monthname-el': self.tr5_repeat,
+            'date-day-monthname-en': self.tr5_repeat,
+            'date-day-monthname-es': self.tr5_repeat,
+            'date-day-monthname-et': self.tr5_repeat,
+            'date-day-monthname-fi': self.tr5_repeat,
+            'date-day-monthname-fr': self.tr5_repeat,
+            'date-day-monthname-hr': self.tr5_repeat,
+            'date-day-monthname-it': self.tr5_repeat,
+            'date-day-monthname-lv': self.tr5_repeat,
+            'date-day-monthname-nl': self.tr5_repeat,
+            'date-day-monthname-no': self.tr5_repeat,
+            'date-day-monthname-pl': self.tr5_repeat,
+            'date-day-monthname-pt': self.tr5_repeat,
+            'date-day-monthname-ro': self.tr5_repeat,
+            'date-day-monthname-sk': self.tr5_repeat,
+            'date-day-monthname-sl': self.tr5_repeat,
+            'date-day-monthname-sv': self.tr5_repeat,
+            'date-day-monthname-year-bg': self.tr5_repeat,
+            'date-day-monthname-year-cs': self.tr5_repeat,
+            'date-day-monthname-year-cy': self.tr5_repeat,
+            'date-day-monthname-year-da': self.tr5_repeat,
+            'date-day-monthname-year-de': self.tr5_repeat,
+            'date-day-monthname-year-el': self.tr5_repeat,
+            'date-day-monthname-year-en': self.tr5_repeat,
+            'date-day-monthname-year-es': self.tr5_repeat,
+            'date-day-monthname-year-et': self.tr5_repeat,
+            'date-day-monthname-year-fi': self.tr5_repeat,
+            'date-day-monthname-year-fr': self.tr5_repeat,
+            'date-day-monthname-year-hi': self.tr5_repeat,
+            'date-day-monthname-year-hr': self.tr5_repeat,
+            'date-day-monthname-year-it': self.tr5_repeat,
+            'date-day-monthname-year-nl': self.tr5_repeat,
+            'date-day-monthname-year-no': self.tr5_repeat,
+            'date-day-monthname-year-pl': self.tr5_repeat,
+            'date-day-monthname-year-pt': self.tr5_repeat,
+            'date-day-monthname-year-ro': self.tr5_repeat,
+            'date-day-monthname-year-sk': self.tr5_repeat,
+            'date-day-monthname-year-sl': self.tr5_repeat,
+            'date-day-monthname-year-sv': self.tr5_repeat,
+            'date-day-monthroman': self.tr5_repeat,
+            'date-day-monthroman-year': self.tr5_repeat,
+            'date-ind-day-monthname-year-hi': self.tr5_repeat,
+            'date-jpn-era-year-month': self.tr5_repeat,
+            'date-jpn-era-year-month-day': self.tr5_repeat,
+            'date-month-day': self.tr5_repeat,
+            'date-month-day-year': self.tr5_repeat,
+            'date-month-year': self.tr5_repeat,
+            'date-monthname-day-en': self.tr5_repeat,
+            'date-monthname-day-hu': self.tr5_repeat,
+            'date-monthname-day-lt': self.tr5_repeat,
+            'date-monthname-day-year-en': self.tr5_repeat,
+            'date-monthname-year-bg': self.tr5_repeat,
+            'date-monthname-year-cs': self.tr5_repeat,
+            'date-monthname-year-cy': self.tr5_repeat,
+            'date-monthname-year-da': self.tr5_repeat,
+            'date-monthname-year-de': self.tr5_repeat,
+            'date-monthname-year-el': self.tr5_repeat,
+            'date-monthname-year-en': self.tr5_repeat,
+            'date-monthname-year-es': self.tr5_repeat,
+            'date-monthname-year-et': self.tr5_repeat,
+            'date-monthname-year-fi': self.tr5_repeat,
+            'date-monthname-year-fr': self.tr5_repeat,
+            'date-monthname-year-hi': self.tr5_repeat,
+            'date-monthname-year-hr': self.tr5_repeat,
+            'date-monthname-year-it': self.tr5_repeat,
+            'date-monthname-year-nl': self.tr5_repeat,
+            'date-monthname-year-no': self.tr5_repeat,
+            'date-monthname-year-pl': self.tr5_repeat,
+            'date-monthname-year-pt': self.tr5_repeat,
+            'date-monthname-year-ro': self.tr5_repeat,
+            'date-monthname-year-sk': self.tr5_repeat,
+            'date-monthname-year-sl': self.tr5_repeat,
+            'date-monthname-year-sv': self.tr5_repeat,
+            'date-monthroman-year': self.tr5_repeat,
+            'date-year-day-monthname-lv': self.tr5_repeat,
+            'date-year-month': self.tr5_repeat,
+            'date-year-month-day': self.tr5_repeat,
+            'date-year-monthname-day-hu': self.tr5_repeat,
+            'date-year-monthname-day-lt': self.tr5_repeat,
+            'date-year-monthname-en': self.tr5_repeat,
+            'date-year-monthname-hu': self.tr5_repeat,
+            'date-year-monthname-lt': self.tr5_repeat,
+            'date-year-monthname-lv': self.tr5_repeat,
+            'fixed-empty': self.tr5_fixedempty,
+            'fixed-false': self.tr5_fixedfalse,
+            'fixed-true': self.tr5_fixedtrue,
+            'fixed-zero': self.tr5_fixedzero,
+            'numcommadecimal': self.tr5_numcommadecimal,
+            'num-comma-decimal': self.tr5_numcommadecimal,
+            'num-dot-decimal': self.tr5_numdotdecimal,
+            'num-unit-decimal': self.tr5_repeat,
+            'num-comma-decimal-apos': self.tr5_numdotdecimal,
+            'num-dot-decimal-apos': self.tr5_numcommadecimal,
+            'num-unit-decimal-apos': self.tr5_repeat
+
         }
         self.sec_states = {
             'alabama': 'AL', 'alaska': 'AK', 'arizona': 'AZ', 'arkansas': 'AR', 'california': 'CA',
@@ -72,6 +206,40 @@ class Formatter:
             'january': 1, 'february': 2, 'march': 3, 'april': 4, 'may': 5, 'june': 6,
             'july': 7, 'august': 8, 'september': 9, 'october': 10, 'november': 11, 'december': 12}
         self.zerodash_chars = ['-', '-', '-', '֊', '־', '‐', '‑', '‒', '–', '—', '―', '﹘', '﹣', '－']
+        self.dct_numbers = {
+            'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7,
+            'eight': 8, 'nine': 9, 'ten': 10, 'eleven': 11, 'twelve': 12, 'thirteen': 13, 'fourteen': 14,
+            'fifteen': 15, 'sixteen': 16, 'seventeen': 17, 'eighteen': 18, 'nineteen': 19, 'twenty': 20,
+            'thirty': 30, 'forty': 40, 'fifty': 50, 'sixty': 60, 'seventy': 70, 'eighty': 80, 'ninety': 90}
+        self.dct_quantifiers = {
+            'hundred': 100, 'thousand': 1000, 'million': 10 ** 6, 'billion': 10 ** 9, 'trillion': 10 ** 12,
+            'quadrillion': 10 ** 15, 'quintillion': 10 ** 18}
+
+        self.exch_names = util.create_key_index({
+            'The New York Stock Exchange': 'NYSE',
+            'York Stock Exchange LLC': 'NYSE',
+            'NASDAQ Global Select Market': 'NASDAQ',
+            'The Nasdaq Stock Market LLC': 'NASDAQ',
+            'BOX Exchange LLC': 'BOX',
+            'Nasdaq BX, Inc.': 'BX',
+            'Cboe C2 Exchange, Inc.': 'C2',
+            'Cboe Exchange, Inc.': 'CBOE',
+            'Chicago Stock Exchange, Inc.': 'CHX',
+            'Cboe BYX Exchange, Inc.': 'CboeBYX',
+            'Cboe BZX Exchange, Inc.': 'CboeBZX',
+            'Cboe EDGA Exchange, Inc.': 'CboeEDGA',
+            'Cboe EDGX Exchange, Inc.': 'CboeEDGX',
+            'Nasdaq GEMX, LLC': 'GEMX',
+            'Investors Exchange LLC': 'IEX',
+            'Nasdaq ISE, LLC': 'ISE',
+            'Miami International Securities Exchange': 'MIAX',
+            'Nasdaq MRX, LLC': 'MRX',
+            'NYSE American LLC': 'NYSEAMER',
+            'NYSE Arca, Inc.': 'NYSEArca',
+            'NYSE National, Inc.': 'NYSENAT',
+            'MIAX PEARL, LLC': 'PEARL',
+            'Nasdaq PHLX LLC': 'Phlx'
+        })
 
     def apply_format(self, v, f):
         method = self.convertors.get(f)
@@ -79,12 +247,45 @@ class Formatter:
             method = self.convertors.get(f.split(':')[1])
         if method:
             t = method(v)
-            return t[0] if t and t[0] else v  # First member of the tuple
+            return t[0] if t else v  # First member of the tuple
         else:
-            return v  # TODO: Give a message if there is an error
+            print('Unknown format:', f, 'for value', v)
+            return v
 
     # Numeric
+    def tr5_repeat(self, v):
+        print('Known, but unsupported format for value', v)
+        return v, None
+
+    def tr5_fixedempty(self, v):
+        return '', None
+
+    def tr5_fixedfalse(self, v):
+        return 'false', None
+
+    def tr5_fixedtrue(self, v):
+        return 'true', None
+
+    def tr5_fixedzero(self, v):
+        return '0', None
+
+    def tr5_numdotdecimal(self, v):
+        return self.c_numdotdecimal(''.join([c for c in v if c.isdigit() or c == '.' or c == 'e']))
+
+    def tr5_numcommadecimal(self, v):
+        return self.c_numcomma(''.join([c for c in v if c.isdigit() or c == ',' or c == 'e']))
+
+    def c_nocontent(self, v):
+        return None, None  # No matter of the value, we return none
+
+    def c_numunitdecimal(self, v):
+        v = util.normalize(util.strip_chars(v, ['.', ' '])).replace(' ', '.')
+        return self.c_numdotdecimal(v)
+
     def c_numdotdecimal(self, v):
+        if not v:
+            return v
+        v = v.strip()
         p = '[0-9]{1,3}((,| | )?[0-9]{3})*(\\.[0-9]+)?'
         if not re.fullmatch(p, v):
             return None, f'Value {v} does not match pattern {p}'
@@ -103,14 +304,21 @@ class Formatter:
             return None, f'Invalid format for {v}. Should not start with a separator.'
         v = v.replace(',', '').replace(' ', '').replace(" ", '')
         d = float(v)
-        if not d or d < 0:
+        if d < 0:
             return None, 'Incorrect decimal format'
-        return f'{d}', None
+        return d, None
 
     def c_zerodash(self, v):
+        v = v.strip()
         if v not in self.zerodash_chars:
             return None, f'Invalid zerodash value {v}'
         return '0', None
+
+    def c_booleanfalse(self, v):
+        return False, None
+
+    def c_booleantrue(self, v):
+        return True, None
 
     def c_numdash(self, v):
         """ Single dash character used to denote a zero value. """
@@ -158,7 +366,7 @@ class Formatter:
             Must have at least one digit before the decimal point, if any.
             If there is a decimal, then it must be followed by at least one digit. """
         p = '\\d{1,3}(.\\d{3,3})*(,\\d+)?'
-        d = str(v).strip().replace('.', '').replace(',','.')
+        d = str(v).strip().replace('.', '').replace(',', '.')
         if not self.is_nonnegative_decimal(d):
             return None, f'Invalid nonNegativeDecimal {v}'
         return d, None
@@ -169,7 +377,7 @@ class Formatter:
             Must have at least one digit before the decimal point, if any. If there is a decimal,
             then it must be followed by at least one digit. """
         p = '\\d{1,3}( \\d{3,3})*(,\\d+)?'
-        d = str(v).strip().replace(' ', '').replace(',','.')
+        d = str(v).strip().replace(' ', '').replace(',', '.')
         if not self.is_nonnegative_decimal(d):
             return None, f'Invalid nonNegativeDecimal {v}'
         return d, None
@@ -196,40 +404,98 @@ class Formatter:
                    else None, f'Invalid Ballot Box Value {v}'
 
     def c_sec_exchnameen(self, v):
-        return None, v  # TODO: Support transfroamtion
+        resolved = self.exch_names.get(util.get_key_lower(v), None)
+        if resolved:
+            return resolved, None
+        return v, 'Unknown stock exchange name'
 
     def c_sec_datequarterend(self, v):
-        return None, v  # TODO: Support transfroamtion
+        return v, None  # TODO: Support transfroamtion
 
     def c_sec_durwordsen(self, v):
-        return '0', None if v.tolower() in ['no', 'none'] else None, v  # TODO: Support transformation
+        return '0', None if v.lower() in ['no', 'none'] else v, 'Unrecognized [durwordsen] value'
 
     def c_sec_numwordsen(self, v):
-        return None, v  # TODO: Support transformation
+        v = util.normalize(v.lower().replace('-', ' ').replace(',', ''))
+        if v in ['no', 'none', 'nil', 'zero']:
+            return '0', None
+        v = util.normalize(v.replace('\n', ' ').replace('\t', ' '))
+        parts = v.split(' ')
+        total_sum = 0
+        partial_sum = None
+        quantifier = 1
+        state = 'i'
+        old_state = state
+        to_ignore = ['and', ',']
+        for p in [p for p in parts if p not in to_ignore]:
+            pnum = self.dct_numbers.get(p, None)
+            pqtf = self.dct_quantifiers.get(p, None)
+            if pnum is None and pqtf is None:
+                return v, f'Unrecognized token in [numwordsen] {p}'
+            if pnum is not None:
+                state = 'p'
+            if pqtf is not None:
+                state = 'q'
+            transition = old_state+state
+            match transition:
+                case 'ip':
+                    partial_sum = pnum
+                case 'iq':
+                    return v, f'Invalid [numwordsen] value {v} - should not start with a quantifier.'
+                case 'pq':
+                    quantifier = quantifier * pqtf
+                    total_sum += partial_sum * quantifier
+                case 'qp':
+                    partial_sum = pnum
+                    quantifier = 1
+                case 'pp':
+                    partial_sum += pnum
+                case 'qq':
+                    total_sum -= partial_sum * quantifier
+                    quantifier = quantifier * pqtf
+                    total_sum += partial_sum * quantifier
+            # print(p, ' --> ', transition, ': (p)', partial_sum, '(q)',quantifier, '(t)', total_sum)
+            old_state = state
+
+        state = 'e'
+        transition = old_state + state
+        match transition:
+            case 'ip':
+                total_sum = partial_sum
+            case 'pq':
+                total_sum += partial_sum * quantifier
+            case 'qp':
+                total_sum += partial_sum * quantifier
+            case 'pe':
+                total_sum += partial_sum
+            case 'qe':
+                pass
+        # print('|->', transition, ': (p)', partial_sum, '(q)', quantifier, '(t)', total_sum)
+        return total_sum, None
 
     def c_sec_duryear(self, v):
-        return None, v  # TODO: Support transformation
+        return v, None  # TODO: Support transformation
 
     def c_sec_durmonth(self, v):
-        return None, v  # TODO:  Support transformation
+        return v, None  # TODO:  Support transformation
 
     def c_sec_durweek(self, v):
-        return None, v  # TODO:  Support transformation
+        return v, None  # TODO:  Support transformation
 
     def c_sec_durday(self, v):
-        return None, v  # TODO:  Support transformation
+        return v, None  # TODO:  Support transformation
 
     def c_sec_durhour(self, v):
-        return None, v  # TODO: Support transformation
+        return v, None  # TODO: Support transformation
 
     def c_sec_countrynameen(self, v):
-        return None, v
+        return v, None
 
     def c_sec_edgarprovcountryen(self, v):
-        return None, v
+        return v, None
 
     def c_sec_entityfilercategoryen(self, v):
-        return None, v
+        return v, None
 
     # Dates
     @staticmethod

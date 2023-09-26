@@ -16,6 +16,7 @@ class IxbrlModel(ebase.XmlElementBase):
         self.idx_tuple_content = set([]) # All elements, which are inside tuple content
         self.output = None
         self.prefixes = {}
+        self.followed = {}  # Followed continuations
         self.allowed_reference_names = [
             f'{{{const.NS_LINK}}}schemaRef',
             f'{{{const.NS_LINK}}}linkbaseRef']
@@ -23,14 +24,18 @@ class IxbrlModel(ebase.XmlElementBase):
         super().__init__(e)
         self.index(e)
 
-    def index(self, e):
+    def index(self, e, level=0):
         """ Populates indixes """
         if isinstance(e, lxml._ProcessingInstruction) or isinstance(e, lxml._Comment):
             return
-        if e.tag.startswith(f'{{{const.NS_IXBRL}}}') or e.tag.startswith(f'{{{const.NS_IXBRL_2008}}}'):
+        if self.is_i_xbrl(e):
             self.index_element(e)
         for e2 in e.iterchildren():
-            self.index(e2)
+            self.index(e2, level+1)
+
+    @staticmethod
+    def is_i_xbrl(e):
+        return e.tag.startswith(f'{{{const.NS_IXBRL}}}') or e.tag.startswith(f'{{{const.NS_IXBRL_2008}}}')
 
     def index_element(self, e):
         eb = ebase.XmlElementBase(e, parsers=None, assign_origin=True)
@@ -70,15 +75,19 @@ class IxbrlModel(ebase.XmlElementBase):
         non_numerics = self.idx_n.get('nonNumeric')
         if not non_numerics:
             return
+        cnt = 0
         for nn in non_numerics:
+            cnt += 1
             if nn in self.idx_tuple_content:
                 continue
             name = nn.origin.attrib.get('name')
-            if not name:
+            if not name or nn.origin is None:
                 continue
             cref = nn.origin.attrib.get('contextRef')
-            text = self.get_full_content(nn.origin, [])
-            self.output.append(f'<{name} contextRef="{cref}">{text}</{name}>')
+            part1 = f'{(nn.origin.text if nn.origin.text else "")}' if len(nn.origin) else ''
+            rest = self.get_full_content(nn.origin, [])
+            content = util.escape_xml(f'{part1}{rest}')
+            self.output.append(f'<{name} contextRef="{cref}">{content}</{name}>')
 
     def strip_non_fraction(self):
         non_fractions = self.idx_n.get('nonFraction')
@@ -94,7 +103,7 @@ class IxbrlModel(ebase.XmlElementBase):
             uref = nf.origin.attrib.get('unitRef')
             prec = nf.origin.attrib.get('precision')
             deci = nf.origin.attrib.get('decimals')
-            rounding = f' decimals="{deci}"' if deci else f' precision="{prec}"'
+            rounding = f' decimals="{deci}"' if deci else f' precision="{prec}"' if prec else ''
             text = self.normalize_numeric_content(nf.origin)
             self.output.append(f'<{name} contextRef="{cref}" unitRef="{uref}" {rounding}>{text}</{name}>')
 
@@ -134,24 +143,44 @@ class IxbrlModel(ebase.XmlElementBase):
                 is_escaped = a[1] == 'true' or a[1] == '1'
             elif a[0] == 'continuedAt':
                 continued_at = a[1].strip()
-        if is_escaped:
-            return util.escape_xml(e.text)
+        # if is_escaped:
+        #     return
 
         result = []
         if len(e):
             for e2 in e.iterchildren():
-                result.append(self.get_full_content(e2, stack))
-        elif e.text:
-            result.append(e.text)
+                if e.tag == f'{{{const.NS_IXBRL}}}continuation':
+                    """ Even if there is a sub-note from iXBRL namespace, we serialize it as a generic element, 
+                    otherwise we will lose HTML formatting. Then the child elements from iXBRL namespace will be separately 
+                    resulved in the processing, because they are indexed in nonNumeric and nonFraction collections."""
+                    result.append(ebase.XmlElementBase(e2, assign_origin=True).serialize())
+                    continue
+                if self.is_i_xbrl(e2):  # All other elements form iXBRL space
+                    result.append(self.get_full_content(e2, stack))
+                    continue
+                # all other XML tags
+                result.append(ebase.XmlElementBase(e2, assign_origin=True).serialize())
+        else:
+            if e.text:
+                content = util.escape_xml(e.text) if is_escaped else e.text
+                result.append(content)
+
+            # TODO - Verify this with normative examples
+            # if e.tail and e.tag == f'{{{const.NS_IXBRL}}}nonNumeric':
+            #     result.append(e.tail)
+
         continuations = self.idx_nav.get(f'continuation|id|{continued_at}')
         if continued_at and continuations:
             for continuation in continuations:
+                if continued_at in self.followed:
+                    continue
                 if continuation in stack:
                     continue
+                self.followed[continued_at] = continuation
                 stack.append(continuation)
                 result.append(self.get_full_content(continuation.origin, stack))
                 stack.pop()
-        return util.escape_xml(''.join(result))
+        return ''.join(result)
 
     def to_canonical_format(self, text, frmt):
         if not frmt:
@@ -162,16 +191,21 @@ class IxbrlModel(ebase.XmlElementBase):
         value = self.get_full_content(e, [])
         frmt = e.attrib.get('format')
         scle = e.attrib.get('scale')
+        sign = e.attrib.get('sign')
+        sgn = '' if sign is None else sign
         # This gives a tuple where the first member is the formatted value and the second is the error message
         formatted = self.to_canonical_format(value, frmt)
         try:
+            fstr = f'{formatted}'
             if scle:
                 f = float(formatted)
                 s = float(scle)
-                return f'{f * math.pow(10, s)}'
-            return formatted
-        except:
-            return value
+                fstr = f'{f * math.pow(10, s)}'
+            fstr = fstr[:-2] if fstr[-2:] == '.0' else fstr
+            return f'{sgn}{fstr}'
+            # return f'{sgn}{formatted}'
+        except Exception as ex:
+            return f'{sgn}{value}'
 
     def get_inherited_attribute(self, e, name, initial='', concatenate_parent=False):
         if e is None:
@@ -183,6 +217,8 @@ class IxbrlModel(ebase.XmlElementBase):
         return self.get_inherited_attribute(parent, name, f'{value if value and concatenate_parent else ""}{initial}', concatenate_parent)
 
     def serialize_ix_element(self, e):
+        if e.tag is lxml.Comment:
+            return
         text_content = self.get_full_content(e, [e])
         eb = ebase.XmlElementBase(e, parsers=None, assign_origin=True)
         self.prefixes[eb.prefix] = True
@@ -194,7 +230,7 @@ class IxbrlModel(ebase.XmlElementBase):
                 self.serialize_ix_element(e2)
             self.output.append(f'</{self.qname}>')
         else:
-            if text_content:
+            if text_content and self.origin:
                 self.output.append(f'>{self.origin.text}</{self.qname}>')
             else:
                 self.output.append("/>")

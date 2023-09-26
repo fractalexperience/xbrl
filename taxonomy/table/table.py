@@ -11,8 +11,8 @@ class Table(tlb_resource.TableResource):
         super().__init__(e, container_xlink)
         container_xlink.linkbase.pool.current_taxonomy.tables[self.xlabel] = self
 
-    def get_label(self):
-        lbl = super().get_label()
+    def get_label(self, lang='en', role='/label'):
+        lbl = super().get_label(lang, role)
         return self.xlabel if lbl is None else lbl
 
     def get_rc_label(self):
@@ -21,7 +21,7 @@ class Table(tlb_resource.TableResource):
 
     def get_rc_or_id(self):
         rc = super().get_rc_label()
-        return self.xlabel if rc is None else rc
+        return rc if rc else self.xlabel
 
     def get_db_label(self):
         db = super().get_db_label()

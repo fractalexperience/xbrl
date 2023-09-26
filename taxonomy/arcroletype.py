@@ -1,4 +1,4 @@
-from xbrl.base import ebase, const
+from xbrl.base import ebase, const, util
 
 
 class ArcroleType(ebase.XmlElementBase):
@@ -8,6 +8,7 @@ class ArcroleType(ebase.XmlElementBase):
         self.arcrole_uri = e.attrib.get('arcroleURI')
         self.cycles_allowed = e.attrib.get('cyclesAllowed')
         self.used_on = []
+        self.labels = {}
         parsers = {
             f'{{{const.NS_LINK}}}arcroleType': self.l_children,
             f'{{{const.NS_LINK}}}definition': self.l_definition,
@@ -22,3 +23,7 @@ class ArcroleType(ebase.XmlElementBase):
 
     def l_used_on(self, e):
         self.used_on.append(e.text)
+
+    def get_label(self):
+        lbl = util.get_label(self.labels)
+        return self.definition if lbl is None or lbl == '' else lbl

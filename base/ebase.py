@@ -30,19 +30,27 @@ class XmlElementBase:
     def serialize(self):
         if self.origin is None:
             return None
+        if self.origin.tag is lxml.Comment:
+            return f'<!-- {self.origin.text} -->'
         output = [f'<{self.qname}']
         self.serialize_attributes(output)
         if len(self.origin):
             output.append('>')
+            if self.origin.text:
+                output.append(self.origin.text)
             for e2 in self.origin.iterchildren():
                 eb2 = XmlElementBase(e2, parsers=None, assign_origin=True)
                 output.append(eb2.serialize())
+                if e2.tail:
+                    output.append(e2.tail)
+            if self.origin.tail:
+                output.append(self.origin.tail)
             output.append(f'</{self.qname}>')
         else:
             if not self.origin.text:
                 output.append("/>")
             else:
-                output.append(f'>{self.origin.text}</{self.qname}>')
+                output.append(f'>{util.escape_xml(self.origin.text)}</{self.qname}>')
         return ''.join(output)
 
     def serialize_attributes(self, output):
@@ -52,7 +60,8 @@ class XmlElementBase:
             a_uri = util.get_namespace(a[0])
             a_qname = a_name
             if a_uri:
-                a_prefix = self.origin.nsmap.get(a_uri)
+                plist = [p for p, u in self.origin.nsmap.items() if u == a_uri]
+                a_prefix = plist[0] if plist else 'ns1'
                 a_qname = f'{a_prefix}:{a_name}'
             output.append(f' {a_qname}="{a_value}"')
 

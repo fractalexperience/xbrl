@@ -29,9 +29,9 @@ class Resolver:
     def cache(self, location):
         if location is None:
             return None
-        parts = location.replace(os.path.pathsep, "/").split('/')
+        parts = location.replace(os.path.sep, "/").split('/')
         new_parts = util.reduce_url_parts(parts)
-        protocol = new_parts[0].replace(':','')
+        protocol = new_parts[0].replace(':', '')
         if protocol not in const.KNOWN_PROTOCOLS:
             return location
         cached_file = self.cache_folder
@@ -45,6 +45,18 @@ class Resolver:
         fn = new_parts[-1]
         cached_file = os.path.join(cached_file, fn)
         if not os.path.exists(cached_file):
-            temp_file, headers = urllib.request.urlretrieve(new_location)
-            shutil.move(temp_file, cached_file)
+            user_agent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
+            headers = {'User-Agent': user_agent}
+            req = urllib.request.Request(new_location, headers=headers)
+            with urllib.request.urlopen(req) as response:
+                html = response.read()
+                with open(cached_file, 'w', encoding='utf-8') as f:
+                    try:
+                        s = html.decode(encoding='utf-8')
+                        f.write(s)
+                    except Exception as ex:
+                        print(ex)
+            # temp_file, headers = urllib.request.urlretrieve(new_location)
+            # shutil.move(temp_file, cached_file)
+
         return cached_file

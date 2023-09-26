@@ -8,6 +8,7 @@ class DrSet:
 
     def __init__(self, start_base_set, container_taxonomy):
         self.bs_start = start_base_set
+        self.drs_type = 'including' if self.bs_start.arcrole == const.XDT_ALL_ARCROLE else 'excluding'
         self.taxonomy = container_taxonomy
         self.root_primary_items = {}
         self.primary_items = {}
@@ -20,6 +21,7 @@ class DrSet:
         return self.info()
 
     def compile(self):
+        # print('start compiling DRS', self.bs_start.role)
         self.root_primary_items.update({pi.qname: primary_item.PrimaryItem(pi, self) for pi in self.bs_start.roots})
         if not self.root_primary_items:
             return
@@ -79,22 +81,39 @@ class DrSet:
                                      include_head=False)  # the head is the dimension itself
         if not members:
             return
-        for mem in members:
-            self.taxonomy.idx_mem_drs.setdefault(mem.Concept.qname, set({})).add(self)
-            if mem.Arc is None or mem.Arc.usable is True:
-                dim.members[mem.Concept.qname] = mem.Concept
+        for member in members:
+            self.taxonomy.idx_mem_drs.setdefault(member.Concept.qname, set({})).add(self)
+            if member.Arc is None or member.Arc.usable is True:
+                dim.members[member.Concept.qname] = member
             """ Add additional members from domain-member set. """
             additional_members = self.taxonomy.get_bs_members(
-                arc_name=bs_mem.arc_name, role=mem.Arc.target_role if mem.Arc.target_role else bs_mem.role,
-                arcrole=const.XDT_DOMAIN_MEMBER_ARCROLE, start_concept=mem.Concept.qname, include_head=False)
+                arc_name=bs_mem.arc_name, role=member.Arc.target_role if member.Arc.target_role else bs_mem.role,
+                arcrole=const.XDT_DOMAIN_MEMBER_ARCROLE, start_concept=member.Concept.qname, include_head=False)
             if not additional_members:
                 continue
-            for m in additional_members:
-                if not m or not m.Concept:
+            for additional_member in additional_members:
+                if not additional_member or not additional_member.Concept:
                     continue
-                self.taxonomy.idx_mem_drs.setdefault(m.Concept.qname, set({})).add(self)
-                if m.Arc is None or m.Arc.usable is True:
-                    dim.members[m.Concept.qname] = m.Concept
+                self.taxonomy.idx_mem_drs.setdefault(additional_member.Concept.qname, set({})).add(self)
+                if additional_member.Arc is None or additional_member.Arc.usable is True:
+                    dim.members[additional_member.Concept.qname] = additional_member
+
+    def get_dimensions(self):
+        dims = set()
+        for hc in self.hypercubes.values():
+            dims.update(d for d in hc.dimensions)
+        return dims
+
+    def get_dimension_members(self, dim_qname):
+        mems = []
+        for hc in self.hypercubes.values():
+            for dim in hc.dimensions.values():
+                if dim.concept.qname != dim_qname:
+                    continue
+                for mem in [m for m in dim.members.values()]:
+                                  # key=lambda m: float(m.Arc.order) if m.Arc and m.Arc.order else 0):
+                    mems.append(mem)
+        return mems
 
     def info(self):
         return self.bs_start.get_key()

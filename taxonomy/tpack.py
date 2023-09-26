@@ -6,11 +6,11 @@ from xbrl.base import const, resolver, util, data_wrappers
 
 class TaxonomyPackage(resolver.Resolver):
     """ Implements taxonomy package functionality """
-    def __init__(self, location, cache_folder=None, output_folder=None):
+    def __init__(self, location=None, cache_folder=None, output_folder=None, archive=None):
         super().__init__(cache_folder, output_folder)
-        self.archive = None
+        self.archive = archive
         self.location = location
-        if location.startswith('http'):
+        if self.location and self.location.startswith('http'):
             # Download the taxonomy package and save in the cache folder
             self.location = self.cache(location)
         """ Entry points is a list of tuples with following structure: (prefix, location, description) """
@@ -19,14 +19,15 @@ class TaxonomyPackage(resolver.Resolver):
         self.properties = {}
         """ List of superseded packages, each represented by ts URL. """
         self.superseded_packages = []
+        """ List of XBRL reports included in the package """
+        self.reports = []
         self.files = None
         self.redirects = {}
         self.redirects_reduced = None
         self.catalog_location = None
-        if not os.path.exists(self.location):
-            return
-        self.archive = zipfile.ZipFile(self.location)
-        self.init()
+        if self.location and os.path.exists(self.location):
+            self.archive = zipfile.ZipFile(self.location)
+            self.init()
 
     def __del__(self):
         if self.archive:
@@ -34,7 +35,10 @@ class TaxonomyPackage(resolver.Resolver):
 
     def init(self):
         zil = self.archive.infolist()
-        package_file = [f for f in zil if f.filename.endswith('META-INF/taxonomyPackage.xml')][0]
+        package_files = [f for f in zil if f.filename.endswith('META-INF/taxonomyPackage.xml')]
+        if len(package_files) == 0:
+            return
+        package_file = package_files[0]
         with self.archive.open(package_file) as zf:
             package = lxml.XML(zf.read())
             for e in package.iterchildren():
@@ -50,16 +54,19 @@ class TaxonomyPackage(resolver.Resolver):
         with self.archive.open(zi_catalog) as cf:
             catalog = lxml.XML(cf.read())
             self.l_redirects(catalog)
+        self.reports = [f for f in zil if '/reports/' in f.filename]
 
     def get_url(self, url):
         """ Reads the binary content of a file addressed by a URL. """
         if not self.files:
             self.compile()
-        key = self.files.get(url)
-        if not key:
+        file = self.files.get(url)
+        if not file:
             return None
-        with self.archive.open(key) as f:
-            return f.read()
+        if self.archive is not None:
+            with self.archive.open(file) as f:
+                return f.read()
+        return bytes(file, encoding='utf-8')
 
     def get_hash(self):
         return util.get_hash(self.location)
@@ -67,11 +74,14 @@ class TaxonomyPackage(resolver.Resolver):
     def compile(self):
         self.files = {}
         zip_infos = self.archive.infolist()
+        if not zip_infos:
+            return
         # Index files by calculating effective URL based on catalog
         root = zip_infos[0].filename.split('/')[0]  # Root of the archive file
         for fn in [zi.filename for zi in zip_infos if not zi.is_dir()]:
             matched_redirects = [(u, r) for u, r in self.redirects_reduced.items() if fn.startswith(r)]
             if not matched_redirects:
+                self.files[fn] = fn
                 continue
             file_root = matched_redirects[0][1]
             rewrite_prefix = matched_redirects[0][0]
@@ -103,7 +113,7 @@ class TaxonomyPackage(resolver.Resolver):
                         prefix = e2.text
                     elif str(e2.tag).endswith('description'):
                         desc = e2.text
-                self.entrypoints.append(data_wrappers.EntryPoint(prefix, ep, desc))
+                self.entrypoints.append(data_wrappers.EntryPoint(prefix, ep, desc, util.get_hash(''.join(ep))))
 
     def l_superseded(self, ep):
         for e in ep.iterchildren():

@@ -1,4 +1,4 @@
-from xbrl.base import ebase, const
+from xbrl.base import ebase, const, util
 
 
 class RoleType(ebase.XmlElementBase):
@@ -7,6 +7,7 @@ class RoleType(ebase.XmlElementBase):
         self.definition = None
         self.role_uri = e.attrib.get('roleURI')
         self.used_on = []
+        self.labels = {}
         parsers = {
             f'{{{const.NS_LINK}}}roleType': self.l_children,
             f'{{{const.NS_LINK}}}definition': self.l_definition,
@@ -21,3 +22,7 @@ class RoleType(ebase.XmlElementBase):
 
     def l_used_on(self, e):
         self.used_on.append(e.text)
+
+    def get_label(self):
+        lbl = util.get_label(self.labels)
+        return self.definition if lbl is None or lbl == '' else lbl

@@ -1,4 +1,4 @@
-from xbrl.taxonomy import concept, linkbase, roletype, arcroletype
+from xbrl.taxonomy import concept, linkbase, roletype, arcroletype, simple_type, item_type, tuple_type
 from xbrl.base import fbase, const, element, util
 import os
 
@@ -17,6 +17,8 @@ class Schema(fbase.XmlFileBase):
             f'{{{const.NS_LINK}}}roleType': self.l_roletype,
             f'{{{const.NS_LINK}}}arcroleType': self.l_arcroletype,
             f'{{{const.NS_XS}}}element': self.l_element,
+            f'{{{const.NS_XS}}}complexType': self.l_complex_type,
+            f'{{{const.NS_XS}}}simpleType': self.l_complex_type,
         }
         self.imports = {}
         self.linkbase_refs = {}
@@ -29,6 +31,17 @@ class Schema(fbase.XmlFileBase):
         self.role_types = {}
         """ Arcrole types in the schema """
         self.arcrole_types = {}
+        """ Simple types """
+        self.simple_types = {}
+        """ Complex types with simple content: Key is qname, value is the item type object """
+        self.item_types = {}
+        """ Complex types with simple content: Key is unique identifier, value is the item type object """
+        self.item_types_by_id = {}
+        """ Complex types with complex content: Key is qname, value is the tuple type object """
+        self.tuple_types = {}
+        """ Complex types with complex content: Key is unique identifier, value is the tuple type object """
+        self.tuple_types_by_id = {}
+
         self.pool = container_pool
         resolved_location = util.reduce_url(location)
         if self.pool is not None:
@@ -51,6 +64,19 @@ class Schema(fbase.XmlFileBase):
             concept.Concept(e, self)
         else:
             element.Element(e, self)
+
+    def l_complex_type(self, e):
+        name = e.attrib.get('name')
+        if name in const.xbrl_types:
+            return  # Basic types are predefined.
+        for e2 in e.iterchildren():
+            if e2.tag == f'{{{const.NS_XS}}}simpleContent':
+                item_type.ItemType(e, self)
+            if e2.tag == f'{{{const.NS_XS}}}complexContent':
+                tuple_type.TupleType(e, self)
+
+    def l_simple_type(self, e):
+       simple_type.SimpleType(e, self)
 
     def l_annotation(self, e):
         self.l_children(e)
