@@ -55,6 +55,9 @@ class HtmlHelper:
                 self.add('<td>&nbsp;</td>')
                 continue
             if isinstance(tok, str):
+                if tok.startswith('<td'):
+                    self.add(tok)
+                    continue
                 self.add(f'<td>{tok}</td>')
                 continue
             self.add('<td>', '</td><td>'.join([t if t is not None else '&nbsp;' for t in tok]), '</td>')
