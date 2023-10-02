@@ -72,6 +72,8 @@ def get_resource_nlr_partial(resources, lang, role):
 
 
 def escape_xml(s):
+    if not (isinstance(s, str) or isinstance(s, float) or isinstance(s, int)):
+        return ''
     if isinstance(s, int) or isinstance(s, float):
         s = f'{s}'
     return '' if not s else s \
