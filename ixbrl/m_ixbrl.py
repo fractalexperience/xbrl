@@ -35,6 +35,10 @@ class IxbrlModel(ebase.XmlElementBase):
 
     @staticmethod
     def is_i_xbrl(e):
+        if isinstance(e, lxml._Comment):
+            return False
+        if isinstance(e, lxml._ProcessingInstruction):
+            return False
         return e.tag.startswith(f'{{{const.NS_IXBRL}}}') or e.tag.startswith(f'{{{const.NS_IXBRL_2008}}}')
 
     def index_element(self, e):
