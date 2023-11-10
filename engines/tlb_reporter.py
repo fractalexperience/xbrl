@@ -586,8 +586,9 @@ class TableReporter(base_reporter.BaseReporter):
             if not c_code:
                 c_code = f'c{str(cnt).zfill(3)}'
             cls = 'xbrl_grayed' if sny.is_abstract else 'xbrl_fact'
-            lbl = f'{sny.get_caption(use_id=False, lang=self.current_lang).strip()}/' \
-                  f'{snx.get_caption(use_id=False, lang=self.current_lang).strip()}'
+            lbl = '/'.join([lb for lb in [
+                f'{sny.get_caption(use_id=False, lang=self.current_lang).strip()}',
+                f'{snx.get_caption(use_id=False, lang=self.current_lang).strip()}'] if lb])
             c = cell.Cell(label=lbl, html_class=cls, is_fact=True,
                           r_code=r_code, c_code=c_code, is_grayed=sny.is_abstract, origin=snx)
             self.new_cell(c)

@@ -77,3 +77,19 @@ class Context(ebase.XmlElementBase):
             f'period#{self.get_period_string()}',
             self.get_xdt_signature()
         ])
+
+    def get_member(self, dim):
+        """ Returns dimension member for a specified dimension QName. """
+        if not self.descriptors:
+            return None
+        e = self.descriptors.get(dim)
+        if e is None:
+            return None
+        if e.tag == f'{{{const.NS_XBRLDI}}}explicitMember':
+            return e.text
+        if e.tag == f'{{{const.NS_XBRLDI}}}typedMember':
+            o = []
+            for e2 in e.iterchildren():  # Should be only one
+                o.append(e2.text)
+            return ''.join(o)
+        return None

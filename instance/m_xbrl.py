@@ -118,16 +118,17 @@ class XbrlModel(ebase.XmlElementBase):
             self.arcs = []
             self.l_children(footnote_link)
         # Traversing arcs
-        for a in self.arcs:
-            loc = self.locators.get(a.xl_from)
-            if loc is None:
-                continue
-            fct = self.facts.get(loc.fragment_identifier, None)
-            fn = self.footnotes.get(a.xl_to)
-            if fct is None or fn is None:
-                continue
-            fct.footnotes.append(fn)
-            fn.facts.append(fct)
+        if self.arcs:
+            for a in self.arcs:
+                loc = self.locators.get(a.xl_from)
+                if loc is None:
+                    continue
+                fct = self.facts.get(loc.fragment_identifier, None)
+                fn = self.footnotes.get(a.xl_to)
+                if fct is None or fn is None:
+                    continue
+                fct.footnotes.append(fn)
+                fn.facts.append(fct)
         self.locators = None
         self.arcs = None
 
@@ -209,7 +210,6 @@ class XbrlModel(ebase.XmlElementBase):
                 # Add the merged context to current document
                 self.contexts[ctx.id] = ctx
                 self.contexts_hashed[sig_hash] = ctx
-
 
     def serialize(self):
         self.output = []
