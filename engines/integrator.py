@@ -1,8 +1,7 @@
-from xbrl.engines import tlb_reporter
-
 class Integrator:
     """ This class encapsulates functionality for manipulating instance documents such as import and render as well as
         some set operations on the set of facts such as union, intersection etc. """
+
     def __init__(self):
         self.tlb_reporter = None
         self.reported = None
@@ -68,4 +67,3 @@ class Integrator:
         for fsig, fset in self.idx_signatures.items():
             tid = self.sig_tid.get(fsig, 'ALL')
             self.bags.setdefault(tid, {})[fsig] = fset
-
