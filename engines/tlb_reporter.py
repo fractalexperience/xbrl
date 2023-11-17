@@ -119,8 +119,9 @@ class TableReporter(base_reporter.BaseReporter):
     def walk(self, tbl, axis, struct, node, dct, lvl):
         for name in filter(lambda n: n in dct, self.resource_names):
             # Flatten the result list of lists.
-            l = [res for r_lst in dct.get(name).values() for res in r_lst]
-            for r in sorted(l, key=lambda re: '0' if re.order is None else re.order.zfill(10)):
+            for r in sorted(
+                    [res for r_lst in dct.get(name).values() for res in r_lst],
+                    key=lambda re: '0' if re.order is None else re.order.zfill(10)):
                 if isinstance(r, breakdown.Breakdown):
                     self.process_breakdown_node(tbl, struct, r, lvl)
                 elif isinstance(r, aspect_node.AspectNode):
@@ -266,7 +267,7 @@ class TableReporter(base_reporter.BaseReporter):
         if tc is None or not tc.constraints:
             return
         self.init_table()
-        for c in sorted(tc.constraints.values(), key=lambda c: c.Dimension):
+        for c in sorted(tc.constraints.values(), key=lambda constr: constr.Dimension):
             self.add(
                 f'<tr><td>{c.Dimension}</td><td>{("*" if c.Member is None else c.Member)}</td><td>{c.Axis}</td></tr>')
         self.finalize_table()

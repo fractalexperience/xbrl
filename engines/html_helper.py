@@ -26,11 +26,11 @@ class HtmlHelper:
 
     def init_table(self, columns=None, cls=None, attributes=None, cls_head=None, cls_body=None):
         if attributes is None:
-            attributes = {'border': '1', 'cellspacing':'0', 'cellpadding': '3'}
+            attributes = {'border': '1', 'cellspacing': '0', 'cellpadding': '3'}
         snip = ''.join(f'{k}="{v}" ' for k, v in attributes.items())
         self.content.append(f'<table {snip} class="{cls}">')
         self.add_th(columns, cls_head)
-        cls_body_str ='' if cls_body is None else f' class="{cls_body}"'
+        cls_body_str = '' if cls_body is None else f' class="{cls_body}"'
         self.add(f'<tbody{cls_body_str}>')
 
     def add_th(self, columns, cls=None):
