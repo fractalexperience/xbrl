@@ -46,6 +46,7 @@ class TableReporter(base_reporter.BaseReporter):
             for sn in s_lst:
                 depth = self.get_max_depth(sn, 0)
                 self.set_uniform_depth(sn, 0, depth)
+        self.headers[key] = {}
         self.compile_headers(struct, t, lang)
 
     def compile_headers(self, struct, t, lang='en'):
@@ -141,6 +142,7 @@ class TableReporter(base_reporter.BaseReporter):
 
     def process_aspect_node(self, tbl, axis, struct, parent_node, r, lvl):
         tbl.open_axes.add(axis)
+        tbl.open_dimensions.setdefault(axis, set()).add(r.aspect)
         p = parent_node
         while p:
             if isinstance(p.origin, breakdown.Breakdown):
@@ -355,7 +357,7 @@ class TableReporter(base_reporter.BaseReporter):
             return
         for key, res_dct in res.nested.items():
             if key == 'label':
-                return
+                continue
             for res_sub_id, res_sub_lst in res_dct.items():
                 for res_sub in res_sub_lst:
                     new_axis = axis
