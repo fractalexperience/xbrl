@@ -20,7 +20,7 @@ Enumeration = namedtuple('Enumeration', 'Key,Concepts,Members')
     the arc's 'from' attribute points to the concept.
     IsLeaf: True if the node does not have descendant nodes, otherwise False.
 """
-BaseSetNode = namedtuple('BaseSetNode', 'Concept,Level,Arc,IsLeaf')
+BaseSetNode = namedtuple('BaseSetNode', 'Concept,Level,Arc,IsLeaf,Label')
 
 
 """ Represents a constraint in a table cell.

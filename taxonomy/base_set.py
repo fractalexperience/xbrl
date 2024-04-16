@@ -26,11 +26,12 @@ class BaseSet:
     def get_members(self, start_concept=None, include_head=True, s_groups=None):
         members = []
         for r in self.roots:
-            self.get_branch_members(r, members, start_concept, include_head, False, 0, None, [r], s_groups)
+            r_label = r.get_label()
+            self.get_branch_members(r, r_label, members, start_concept, include_head, False, 0, None, [r], s_groups)
         return members
 
     def get_branch_members(
-            self, concept, members, start_concept, inc_head,
+            self, concept, label_pref, members, start_concept, inc_head,
             flag_include, level, related_arc, stack, s_groups=None):
         if concept is None:
             return
@@ -40,7 +41,7 @@ class BaseSet:
         cbs_dn = concept.chain_dn.get(self.get_key(), None)
         is_leaf = True if cbs_dn is None else False
         if (trigger_include and inc_head) or flag_include:
-            members.append(data_wrappers.BaseSetNode(concept, level, related_arc, is_leaf))
+            members.append(data_wrappers.BaseSetNode(concept, level, related_arc, is_leaf, label_pref))
 
         if cbs_dn is None:
             return
@@ -56,8 +57,17 @@ class BaseSet:
                 balance = node.Concept.balance  # Set only first time
             used.add(node.Concept.qname)
             stack.append(node.Concept)
+            # Find preferred label
+            node_lbl = node.Concept.get_label()
+            node_lbl_pref = node_lbl
+            if node.Arc.preferredLabel:
+                node_lbl_pref = node.Concept.get_label(role=node.Arc.preferredLabel)
+            if not node_lbl_pref:
+                node_lbl_pref = node_lbl
+
             self.get_branch_members(
-                node.Concept, members, start_concept, inc_head, new_flag_include, level + 1, node.Arc, stack, s_groups)
+                node.Concept, node_lbl_pref, members, start_concept, inc_head,
+                new_flag_include, level + 1, node.Arc, stack, s_groups)
             stack.remove(node.Concept)
 
     def get_langs(self):
