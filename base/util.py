@@ -41,7 +41,8 @@ def get_label(lst, lang='en', role='/label'):
     li = [lbl.text for lbl in get_resource_nlr(lst, 'label', lang, role)]
     if not li:
         li = [lbl.text for lbl in get_resource_nlr(lst, 'label', None, role)]
-    return li[0] if li else ''
+    # If there are more than 1 label with given role, - get the shortest one
+    return sorted(li, key = lambda x: len(x))[0] if li else ''
 
 
 def get_rc_label(lst):
