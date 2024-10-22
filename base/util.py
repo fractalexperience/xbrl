@@ -40,7 +40,7 @@ def get_lang(resources):
 def get_label(lst, lang='en', role='/label'):
     li = [lbl.text for lbl in get_resource_nlr(lst, 'label', lang, role)]
     if not li:
-        li = [lbl.text for lbl in get_resource_nlr(lst, 'label', None, role)]
+        li = [lbl.text for lbl in get_resource_nlr(lst, 'label', None, role) if lbl and lbl.text]
     # If there are more than 1 label with given role, - get the shortest one
     return sorted(li, key=lambda x: len(x) if x else 0)[0] if li else ''
 

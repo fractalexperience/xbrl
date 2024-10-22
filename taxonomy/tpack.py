@@ -80,9 +80,13 @@ class TaxonomyPackage(resolver.Resolver):
         root = zip_infos[0].filename.split('/')[0]  # Root of the archive file
         for fn in [zi.filename for zi in zip_infos if not zi.is_dir()]:
             matched_redirects = [(u, r) for u, r in self.redirects_reduced.items() if fn.startswith(r)]
+
+            self.files[fn] = fn
             if not matched_redirects:
-                self.files[fn] = fn
+                # self.files[fn] = fn
                 continue
+
+
             file_root = matched_redirects[0][1]
             rewrite_prefix = matched_redirects[0][0]
             url = fn.replace(file_root, rewrite_prefix)

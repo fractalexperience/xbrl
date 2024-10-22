@@ -63,6 +63,8 @@ class Archiver:
             print(ex)
 
     def store_html(self, filename, content):
+        if content is None:
+            return
         s = content if isinstance(content, str) else (
             content.decode() if isinstance(content, bytes) else ''.join(content))
         self.html_cache[filename] = s
