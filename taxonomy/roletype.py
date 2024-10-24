@@ -25,4 +25,4 @@ class RoleType(ebase.XmlElementBase):
 
     def get_label(self):
         lbl = util.get_label(self.labels)
-        return self.definition if lbl is None or lbl == '' else lbl
+        return (self.definition if self.definition else '') if lbl is None or lbl == '' else lbl
