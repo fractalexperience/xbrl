@@ -1,6 +1,6 @@
 from xbrl.taxonomy.table import def_node, str_node
 from xbrl.base import const
-from xbrl.base import data_wrappers
+import lxml.etree
 
 
 class RuleNode(def_node.DefinitionNode):
@@ -20,6 +20,8 @@ class RuleNode(def_node.DefinitionNode):
         }
         super().__init__(e, container_xlink)
         for e2 in e.iterchildren():
+            if e2 is lxml.etree._Comment:
+                continue
             if e2.tag == f'{{{const.NS_TABLE}}}ruleSet':
                 name = e2.attrib.get('tag')
                 for e3 in e2.iterchildren():
