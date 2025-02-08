@@ -1,4 +1,5 @@
 # Open-ESEF
+Open-ESEF is a project to create a free and open-source XBRL tool for the ESEF filings following the standards set by the European Securities and Markets Authority (ESMA).
 
 ## Forked from XBRL-Model
 https://github.com/fractalexperience/xbrl/ 
