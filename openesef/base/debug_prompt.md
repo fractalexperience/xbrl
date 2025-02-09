@@ -1,7 +1,7 @@
 I was trying to modify the code from `xbrl` package to make it work for ESEF. 
 Please show me the modified code in `pool.py` and `taxonomy.py` to resolve the endless loop.
 
-The issue is, unlike xbrl, ESEF files have a folder structure and the schema references are relative to the instance file, not the taxonomy folder. Example: 
+The issue is that, unlike xbrl @ US-SEC-EDGAR, ESEF files have a folder structure, and the schema references are relative to the instance file, not the taxonomy folder. Example:
 ```
 pwd                    
 /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls
@@ -26,6 +26,7 @@ taxonomy/tpack.py
 taxonomy/linkbase.py
 taxonomy/schema.py
 taxonomy/taxonomy.py
+..
 
 
 Question: Does the current code not handling the `base` and `esef_filing_root` parameters correctly? 

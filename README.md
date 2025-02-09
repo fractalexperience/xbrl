@@ -1,6 +1,35 @@
 # Open-ESEF
 Open-ESEF is a project to create a free and open-source XBRL tool for the ESEF filings following the standards set by the European Securities and Markets Authority (ESMA).
 
+In this forked repo, I was trying to modify the code from `xbrl` package to make it work for ESEF. 
+
+The issue was that, unlike xbrl @ US-SEC-EDGAR, ESEF files have a folder structure, and the schema references are relative to the instance file, not the taxonomy folder. Example:
+```
+% ls -R examples/sap-2022-12-31-DE
+
+META-INF	reports		www.sap.com
+
+sap-2022-12-31-DE/META-INF:
+catalog.xml		taxonomyPackage.xml
+
+sap-2022-12-31-DE/reports:
+sap-2022-12-31-DE.xhtml
+
+sap-2022-12-31-DE/www.sap.com:
+sap-2022-12-31.xsd		sap-2022-12-31_cal.xml		sap-2022-12-31_def.xml		sap-2022-12-31_lab-de.xml	sap-2022-12-31_lab-en.xml	sap-2022-12-31_pre.xml
+```
+
+I have tried to modify the code to handle ESEF by adding the `esef_filing_root` parameter and passing it around.
+I added the `esef_filing_root` parameter to the following files:
+taxonomy/taxonomy.py
+base/pool.py
+base/fbase.py
+taxonomy/tpack.py
+taxonomy/linkbase.py
+taxonomy/schema.py
+taxonomy/taxonomy.py
+..
+
 ## Forked from XBRL-Model
 https://github.com/fractalexperience/xbrl/ 
 A Lightweight XBRL Taxonomy and Instance Document Model
