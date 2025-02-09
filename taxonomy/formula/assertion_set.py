@@ -1,4 +1,4 @@
-from xbrl.taxonomy import resource
+from openesef.taxonomy import resource
 
 
 class AssertionSet(resource.Resource):

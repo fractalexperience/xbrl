@@ -1,4 +1,4 @@
-from xbrl.base import const, element, util, data_wrappers
+from openesef.base import const, element, util, data_wrappers
 from lxml import etree as lxml
 
 

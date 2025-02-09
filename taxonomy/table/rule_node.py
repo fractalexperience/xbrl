@@ -1,5 +1,5 @@
-from xbrl.taxonomy.table import def_node, str_node
-from xbrl.base import const
+from openesef.taxonomy.table import def_node, str_node
+from openesef.base import const
 import lxml.etree
 
 

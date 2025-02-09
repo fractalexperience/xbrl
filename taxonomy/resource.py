@@ -1,4 +1,4 @@
-from xbrl.base import ebase, const, util
+from openesef.base import ebase, const, util
 
 
 class Resource(ebase.XmlElementBase):

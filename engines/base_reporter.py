@@ -1,4 +1,4 @@
-from xbrl.engines import html_helper
+from openesef.engines import html_helper
 
 
 class BaseReporter(html_helper.HtmlHelper):

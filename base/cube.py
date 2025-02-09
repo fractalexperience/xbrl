@@ -1,8 +1,8 @@
 import json
 import os
 import tempfile
-from xbrl.base import archiver
-from xbrl.base import data_wrappers, const
+from openesef.base import archiver
+from openesef.base import data_wrappers, const
 
 
 class Cube:

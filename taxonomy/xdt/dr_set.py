@@ -1,6 +1,6 @@
-import xbrl.taxonomy.xdt.hypercube
-from xbrl.taxonomy.xdt import primary_item, hypercube, dimension
-from xbrl.base import const
+import openesef.taxonomy.xdt.hypercube
+from openesef.taxonomy.xdt import primary_item, hypercube, dimension
+from openesef.base import const
 
 
 class DrSet:

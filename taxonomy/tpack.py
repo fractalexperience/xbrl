@@ -1,21 +1,41 @@
 import os
 import zipfile
 from lxml import etree as lxml
-from xbrl.base import const, resolver, util, data_wrappers
+from openesef.base import const, resolver, util, data_wrappers
+
 
 import logging
-# Configure logging
+
+# Get a logger.  __name__ is a good default name.
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
+
+# # Check if handlers already exist and clear them to avoid duplicates.
+# if logger.hasHandlers():
+#     logger.handlers.clear()
+
+# # Create a handler for console output.
+# handler = logging.StreamHandler()
+# handler.setLevel(logging.DEBUG)
+
+# # Create a formatter.
+# log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+# formatter = logging.Formatter(log_format)
+
+# # Set the formatter on the handler.
+# handler.setFormatter(formatter)
+
+# # Add the handler to the logger.
+# logger.addHandler(handler)
 
 
 class TaxonomyPackage(resolver.Resolver):
     """ Implements taxonomy package functionality """
-    def __init__(self, location=None, cache_folder=None, output_folder=None, archive=None, location_path=None):
+    def __init__(self, location=None, cache_folder=None, output_folder=None, archive=None, esef_filing_root=None):
         super().__init__(cache_folder, output_folder)
         self.archive = archive
         self.location = location
-        self.location_path = location_path
+        self.esef_filing_root = esef_filing_root
         if self.location and self.location.startswith('http'):
             # Download the taxonomy package and save in the cache folder
             self.location = self.cache(location)
@@ -66,6 +86,7 @@ class TaxonomyPackage(resolver.Resolver):
         """ Reads the binary content of a file addressed by a URL. """
         if not self.files:
             self.compile()
+        logger.debug(f"Trying to get URL: {url}")    
         file_path = self.files.get(url)
         if not file_path:
             return None
@@ -75,9 +96,10 @@ class TaxonomyPackage(resolver.Resolver):
                     return f.read()
             except KeyError:
                 # Handle cases where the file is not directly in the archive
-                # but within a subdirectory specified by location_path
-                if self.location_path:
-                    resolved_path = os.path.join(self.location_path, url)
+                # but within a subdirectory specified by 
+                logger.debug(f"File not found in archive: {url}")
+                if self.esef_filing_root:
+                    resolved_path = os.path.join(self.esef_filing_root, url)
                     if os.path.exists(resolved_path):
                         with open(resolved_path, 'rb') as f:
                             return f.read()
@@ -96,11 +118,11 @@ class TaxonomyPackage(resolver.Resolver):
             return
         # Index files by calculating effective URL based on catalog
         root = zip_infos[0].filename.split('/')[0]  # Root of the archive file
-        # Add files from location_path if provided
-        if self.location_path:
-            for root, _, files in os.walk(self.location_path):
+        # Add files from esef_filing_root if provided
+        if self.esef_filing_root:
+            for root, _, files in os.walk(self.esef_filing_root):
                 for file in files:
-                    file_path = os.path.relpath(os.path.join(root, file), self.location_path)
+                    file_path = os.path.relpath(os.path.join(root, file), self.esef_filing_root)
                     self.files[file_path] = file_path
 
         for fn in [zi.filename for zi in zip_infos if not zi.is_dir()]:

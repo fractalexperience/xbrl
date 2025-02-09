@@ -1,4 +1,4 @@
-from xbrl.base import const, element, util
+from openesef.base import const, element, util
 
 
 class Concept(element.Element):

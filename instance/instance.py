@@ -1,23 +1,24 @@
 import os
-from xbrl.instance import m_xbrl
-from xbrl.base import fbase, const
-from xbrl.ixbrl import m_ixbrl
+from openesef.instance import m_xbrl
+from openesef.base import fbase, const
+from openesef.ixbrl import m_ixbrl
 from lxml import etree as lxml
 
 
 class Instance(fbase.XmlFileBase):
-    def __init__(self, location=None, container_pool=None, root=None):
+    def __init__(self, location=None, container_pool=None, root=None, esef_filing_root=None):
         self.pool = container_pool
         self.taxonomy = None
         self.xbrl = None
         self.ixbrl = None
+        self.esef_filing_root = esef_filing_root
         parsers = {
             f'{{{const.NS_XHTML}}}html': self.l_ixbrl,
             f'{{{const.NS_XBRLI}}}xbrl': self.l_xbrl
         }
         self.location = location
 
-        super().__init__(location, container_pool, parsers, root)
+        super().__init__(location, container_pool, parsers, root, esef_filing_root=esef_filing_root)
 
     def __str__(self):
         return self.info()

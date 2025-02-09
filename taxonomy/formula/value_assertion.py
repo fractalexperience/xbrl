@@ -1,4 +1,4 @@
-from xbrl.taxonomy.formula import assertion
+from openesef.taxonomy.formula import assertion
 
 
 class ValueAssertion(assertion.Assertion):

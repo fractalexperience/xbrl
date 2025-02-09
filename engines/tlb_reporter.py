@@ -1,17 +1,17 @@
 import json
 from builtins import isinstance
 
-import xbrl.taxonomy.table.breakdown
-from xbrl.taxonomy.table import breakdown
-from xbrl.taxonomy.table import aspect_node
-from xbrl.taxonomy.table import rule_node
-from xbrl.taxonomy.table import cr_node
-from xbrl.taxonomy.table import dr_node
-from xbrl.taxonomy.table import str_node
-from xbrl.taxonomy.table import layout
-from xbrl.taxonomy.table import cell
-from xbrl.engines import base_reporter
-from xbrl.base import data_wrappers, const
+import openesef.taxonomy.table.breakdown
+from openesef.taxonomy.table import breakdown
+from openesef.taxonomy.table import aspect_node
+from openesef.taxonomy.table import rule_node
+from openesef.taxonomy.table import cr_node
+from openesef.taxonomy.table import dr_node
+from openesef.taxonomy.table import str_node
+from openesef.taxonomy.table import layout
+from openesef.taxonomy.table import cell
+from openesef.engines import base_reporter
+from openesef.base import data_wrappers, const
 
 
 class TableReporter(base_reporter.BaseReporter):

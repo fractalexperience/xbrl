@@ -1,14 +1,36 @@
-from xbrl.taxonomy import arc, base_set, locator, resource, concept, roletype, arcroletype
-from xbrl.taxonomy.formula import parameter, value_assertion, existence_assertion, consistency_assertion, assertion, \
+from openesef.taxonomy import arc, base_set, locator, resource, concept, roletype, arcroletype
+from openesef.taxonomy.formula import parameter, value_assertion, existence_assertion, consistency_assertion, assertion, \
     filter, assertion_set
-from xbrl.base import ebase, const, util, data_wrappers
-from xbrl.taxonomy.table import table, breakdown, rule_node, cr_node, dr_node, aspect_node
+from openesef.base import ebase, const, util, data_wrappers
+from openesef.taxonomy.table import table, breakdown, rule_node, cr_node, dr_node, aspect_node
 import urllib.parse
 
+import logging
 
+# Get a logger.  __name__ is a good default name.
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+# # Check if handlers already exist and clear them to avoid duplicates.
+# if logger.hasHandlers():
+#     logger.handlers.clear()
+
+# # Create a handler for console output.
+# handler = logging.StreamHandler()
+# handler.setLevel(logging.DEBUG)
+
+# # Create a formatter.
+# log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+# formatter = logging.Formatter(log_format)
+
+# # Set the formatter on the handler.
+# handler.setFormatter(formatter)
+
+# # Add the handler to the logger.
+# logger.addHandler(handler)
 class XLink(ebase.XmlElementBase):
     """ Represents an extended link """
-    def __init__(self, e, container_linkbase):
+    def __init__(self, e, container_linkbase, esef_filing_root=None):
         self.linkbase = container_linkbase
         parsers = {
             'default': self.l_xlink,
@@ -65,7 +87,8 @@ class XLink(ebase.XmlElementBase):
         self.arcs_to = {}
         """ All labelled resources indexed by global identifier """
         self.resources = {}
-        super(XLink, self).__init__(e, parsers)
+        #def __init__(self, location=None, container_pool=None, parsers=None, root=None, esef_filing_root = None):
+        super(XLink, self).__init__(e, parsers, esef_filing_root = esef_filing_root)
         self.role = e.attrib.get(f'{{{const.NS_XLINK}}}role')
 
     def l_xlink(self, e):
@@ -102,8 +125,9 @@ class XLink(ebase.XmlElementBase):
     def l_loc(self, e):
         loc = locator.Locator(e, self)
         url = loc.url
-        self.linkbase.pool.add_reference(url, self.linkbase.base)
-
+        #logger.debug(f"taxonomy.xlink l_loc() calling add_reference: url: {url}, self.linkbase.base: {self.linkbase.base}, self.esef_filing_root: {self.esef_filing_root}")
+        self.linkbase.pool.add_reference(url, self.linkbase.base, self.esef_filing_root)
+        #logger.debug(f"Added reference: {url} to {self.linkbase.base} with esef_filing_root: {self.esef_filing_root}")
     def l_parameter(self, e):
         parameter.Parameter(e, self)
 

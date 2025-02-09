@@ -1,5 +1,5 @@
-import xbrl.taxonomy.table.str_node
-from xbrl.base import data_wrappers
+import openesef.taxonomy.table.str_node
+from openesef.base import data_wrappers
 
 
 class Cell:

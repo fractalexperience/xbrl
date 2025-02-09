@@ -1,4 +1,4 @@
-from xbrl.taxonomy.table import tlb_resource
+from openesef.taxonomy.table import tlb_resource
 
 
 class DefinitionNode(tlb_resource.TableResource):

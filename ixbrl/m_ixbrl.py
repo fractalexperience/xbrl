@@ -1,12 +1,12 @@
-from xbrl.base import ebase, const, util
-from xbrl.ixbrl import m_format
+from openesef.base import ebase, const, util
+from openesef.ixbrl import m_format
 import math
 from lxml import etree as lxml
 
 
 class IxbrlModel(ebase.XmlElementBase):
     """ Implements an iXbrl model """
-    def __init__(self, e, container_instance):
+    def __init__(self, e, container_instance, esef_filing_root=None):
         self.instance = container_instance
         self.idx_n = {}  # iXBRL elements by element name
         self.idx_a = {}  # iXBRL elements by attribute name
@@ -14,6 +14,7 @@ class IxbrlModel(ebase.XmlElementBase):
         self.idx_av = {}  # iXBRL elements by attribute name and attribute value
         self.idx_nav = {}  # iXBRL elements by element name, attribute name and attribute value
         self.idx_tuple_content = set([]) # All elements, which are inside tuple content
+        self.esef_filing_root = esef_filing_root
         self.output = None
         self.prefixes = {}
         self.followed = {}  # Followed continuations
@@ -21,7 +22,7 @@ class IxbrlModel(ebase.XmlElementBase):
             f'{{{const.NS_LINK}}}schemaRef',
             f'{{{const.NS_LINK}}}linkbaseRef']
         self.formatter = m_format.Formatter()
-        super().__init__(e)
+        super().__init__(e, esef_filing_root=esef_filing_root)
         self.index(e)
 
     def index(self, e, level=0):

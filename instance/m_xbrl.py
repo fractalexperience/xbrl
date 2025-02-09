@@ -1,6 +1,6 @@
-from xbrl.instance import fact, footnote, unit, context
-from xbrl.taxonomy import arc, locator
-from xbrl.base import ebase, const, util
+from openesef.instance import fact, footnote, unit, context
+from openesef.taxonomy import arc, locator
+from openesef.base import ebase, const, util
 
 
 class XbrlModel(ebase.XmlElementBase):

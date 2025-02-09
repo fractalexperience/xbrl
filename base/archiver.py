@@ -1,5 +1,5 @@
 from zipfile import ZipFile, ZIP_DEFLATED
-from xbrl.base import util
+from openesef.base import util
 import lxml.html as lhtml
 import zlib
 import os

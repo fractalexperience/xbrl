@@ -1,6 +1,6 @@
 import re
 import datetime
-from xbrl.base import util as util
+from openesef.base import util as util
 
 
 class Formatter:

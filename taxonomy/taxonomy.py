@@ -1,24 +1,44 @@
-from xbrl.base import const, data_wrappers, util
-from xbrl.taxonomy.xdt import dr_set
+from openesef.base import const, data_wrappers, util
+from openesef.taxonomy.xdt import dr_set
 
 import logging
-# Configure logging
+import traceback
+# Get a logger.  __name__ is a good default name.
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
+
+# # Check if handlers already exist and clear them to avoid duplicates.
+# if logger.hasHandlers():
+#     logger.handlers.clear()
+
+# # Create a handler for console output.
+# handler = logging.StreamHandler()
+# handler.setLevel(logging.DEBUG)
+
+# # Create a formatter.
+# log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+# formatter = logging.Formatter(log_format)
+
+# # Set the formatter on the handler.
+# handler.setFormatter(formatter)
+
+# # Add the handler to the logger.
+# logger.addHandler(handler)
 
 class Taxonomy:
     """ entry_points is a list of entry point locations
         cache_folder is the place where to store cached Web resources """
-    def __init__(self, entry_points, container_pool, location_path = None):
+    def __init__(self, entry_points, container_pool, esef_filing_root = None):
         self.entry_points = entry_points
         self.pool = container_pool
         self.pool.current_taxonomy = self
         self.pool.current_taxonomy_hash = util.get_hash(','.join(entry_points))
-        self.location_path = location_path  # Add ESEF location path
+        self.esef_filing_root = esef_filing_root  # Add ESEF location path
         # All schemas indexed by resolved location 
         self.schemas = {}
         # All linkbases indexed by resolved location 
         self.linkbases = {}
+        self.processing_schemas = set()  # Track schemas being processed to prevent loops
         # All concepts  indexed by full id - target namespace + id 
         self.concepts = {}
         # All concepts indexed by QName
@@ -111,10 +131,32 @@ class Taxonomy:
             f'Consistency Assertions: {len(self.consistency_assertions)}'
         ])
 
+    def _process_entry_point(self, entry_point):
+        """Process a single entry point, tracking schema loading status"""
+        if entry_point in self.processing_schemas:
+            return  # Skip if already processing this schema
+            
+        self.processing_schemas.add(entry_point)
+        try:
+            # Load the schema
+            #schema_obj = self.container_pool.add_schema(entry_point, self.esef_filing_root)
+            schema_obj = self.pool.add_schema(entry_point, self.esef_filing_root)
+            if schema_obj:
+                self.schemas[entry_point] = schema_obj
+        except Exception as e:
+            logger.error(f'Taxonomy._process_entry_point(): Error processing {entry_point}: {e}')
+            traceback.print_exc(limit=10)
+        finally:
+            self.processing_schemas.remove(entry_point)
+
     def load(self):
         for ep in self.entry_points:
-            logger.debug(f'Taxonomy.load(): Loading {ep} with self.location_path={self.location_path}')
-            self.pool.add_reference(ep, '', self.location_path)
+            logger.debug(f'Taxonomy.load(): Loading {ep} with self.esef_filing_root={self.esef_filing_root}')
+            logger.debug(f'Calling self.pool.add_reference(...) with href = {ep}, base = "", esef_filing_root = {self.esef_filing_root}')
+            self.pool.add_reference(href = ep, 
+                                    base = '', 
+                                    esef_filing_root = self.esef_filing_root)
+            self._process_entry_point(ep)
 
     def resolve_prefix(self, pref):
         for sh in self.schemas.values():
@@ -134,19 +176,28 @@ class Taxonomy:
             return
         self.schemas[href] = sh
         for key, imp in sh.imports.items():
-            logger.debug(f'Taxonomy.attach_schema(): Adding import {key} from {sh.base} with self.location_path={self.location_path}')
-            self.pool.add_reference(key, sh.base, self.location_path)
+            logger.debug(f'Taxonomy.attach_schema(): Adding import {key} from {sh.base} with self.esef_filing_root={self.esef_filing_root}')
+            logger.debug(f'Calling self.pool.add_reference(...) with href = {key}, base = {sh.base}, esef_filing_root = {self.esef_filing_root}')
+            self.pool.add_reference(href = key, 
+                                    base = sh.base, 
+                                    esef_filing_root = self.esef_filing_root)
         for key, ref in sh.linkbase_refs.items():
-            logger.debug(f'Taxonomy.attach_schema(): Adding linkbase {key} from {sh.base} with self.location_path={self.location_path}') 
-            self.pool.add_reference(key, sh.base, self.location_path)
+            logger.debug(f'Taxonomy.attach_schema(): Adding linkbase {key} from {sh.base} with self.esef_filing_root={self.esef_filing_root}') 
+            logger.debug(f'Calling self.pool.add_reference(...) with href = {key}, base = {sh.base}, esef_filing_root = {self.esef_filing_root}')
+            self.pool.add_reference(href = key, 
+                                    base = sh.base, 
+                                    esef_filing_root = self.esef_filing_root)
 
     def attach_linkbase(self, href, lb):
         if href in self.linkbases:
             return
         self.linkbases[href] = lb
         for href in lb.refs:
-            logger.debug(f'Taxonomy.attach_linkbase(): Adding reference {href} from {lb.base} with self.location_path={self.location_path}')
-            self.pool.add_reference(href, lb.base, self.location_path)
+            logger.debug(f'Taxonomy.attach_linkbase(): Adding reference {href} from {lb.base} with self.esef_filing_root={self.esef_filing_root}')
+            logger.debug(f'Calling self.pool.add_reference(...) with href = {href}, base = {lb.base}, esef_filing_root = {self.esef_filing_root}')
+            self.pool.add_reference(href = href, 
+                                    base = lb.base, 
+                                    esef_filing_root = self.esef_filing_root)
 
     def get_bs_roots(self, arc_name, role, arcrole):
         bs = self.base_sets.get(f'{arc_name}|{arcrole}|{role}')

@@ -1,7 +1,7 @@
-from xbrl.taxonomy.table import aspect_node
-from xbrl.taxonomy.table import dr_node
-from xbrl.taxonomy.table import cr_node
-from xbrl.base import const
+from openesef.taxonomy.table import aspect_node
+from openesef.taxonomy.table import dr_node
+from openesef.taxonomy.table import cr_node
+from openesef.base import const
 
 
 class StructureNode:

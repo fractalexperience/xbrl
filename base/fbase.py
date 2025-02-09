@@ -1,10 +1,33 @@
 import urllib.request, os
 from lxml import etree as lxml
-from xbrl.base import ebase, util, const
+from openesef.base import ebase, util, const
 
+import logging
+
+# Get a logger.  __name__ is a good default name.
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+# # Check if handlers already exist and clear them to avoid duplicates.
+# if logger.hasHandlers():
+#     logger.handlers.clear()
+
+# # Create a handler for console output.
+# handler = logging.StreamHandler()
+# handler.setLevel(logging.DEBUG)
+
+# # Create a formatter.
+# log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+# formatter = logging.Formatter(log_format)
+
+# # Set the formatter on the handler.
+# handler.setFormatter(formatter)
+
+# # Add the handler to the logger.
+# logger.addHandler(handler)
 
 class XmlFileBase(ebase.XmlElementBase):
-    def __init__(self, location=None, container_pool=None, parsers=None, root=None):
+    def __init__(self, location=None, container_pool=None, parsers=None, root=None, esef_filing_root = None):
         if parsers is None:
             parsers = {}
         self.pool = container_pool
@@ -12,6 +35,7 @@ class XmlFileBase(ebase.XmlElementBase):
         self.namespaces_reverse = {}  # Key is the UrI and value is the prefix
         self.schema_location_parts = {}
         self.base = ''
+        self.esef_filing_root = esef_filing_root
         if location:
             self.location = util.reduce_url(location)
             # self.base = self.location.replace('\\', '/')[:location.rfind("/")]
@@ -25,7 +49,11 @@ class XmlFileBase(ebase.XmlElementBase):
         self.namespaces_reverse['http://www.w3.org/2001/XMLSchema-instance'] = 'xsi'
         self.l_namespaces(root)
         self.l_schema_location(root)
-        super().__init__(root, parsers)
+        #this_eb = ebase.XmlElementBase(e=None, parsers=None, assign_origin=False, esef_filing_root=None)
+        #this_eb = ebase.XmlElementBase(e = root, parsers=parsers, assign_origin=False, esef_filing_root=esef_filing_root); self = this_eb
+        super().__init__(e = root, 
+                         parsers = parsers, 
+                         esef_filing_root=esef_filing_root)
 
     def get_root(self):
         """ If the location can be found in an open package, then extract it from the package """

@@ -1,4 +1,4 @@
-from xbrl.base import data_wrappers, const
+from openesef.base import data_wrappers, const
 
 
 class BaseSet:

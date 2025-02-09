@@ -1,10 +1,33 @@
-from xbrl.taxonomy import concept, linkbase, roletype, arcroletype, simple_type, item_type, tuple_type
-from xbrl.base import fbase, const, element, util
+from openesef.taxonomy import concept, linkbase, roletype, arcroletype, simple_type, item_type, tuple_type
+from openesef.base import fbase, const, element, util
 import os
 
+import logging
+
+# Get a logger.  __name__ is a good default name.
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+# # Check if handlers already exist and clear them to avoid duplicates.
+# if logger.hasHandlers():
+#     logger.handlers.clear()
+
+# # Create a handler for console output.
+# handler = logging.StreamHandler()
+# handler.setLevel(logging.DEBUG)
+
+# # Create a formatter.
+# log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+# formatter = logging.Formatter(log_format)
+
+# # Set the formatter on the handler.
+# handler.setFormatter(formatter)
+
+# # Add the handler to the logger.
+# logger.addHandler(handler)
 
 class Schema(fbase.XmlFileBase):
-    def __init__(self, location, container_pool):
+    def __init__(self, location, container_pool, esef_filing_root=None):
         self.target_namespace = ''
         self.target_namespace_prefix = ''
         parsers = {
@@ -46,7 +69,13 @@ class Schema(fbase.XmlFileBase):
         resolved_location = util.reduce_url(location)
         if self.pool is not None:
             self.pool.discovered[location] = True
-        super().__init__(resolved_location, container_pool, parsers)
+
+        #this_fb =  fbase.XmlFileBase(location=None, container_pool=None, parsers=None, root=None, esef_filing_root = None); self = this_fb
+        super().__init__(location = resolved_location, 
+                         container_pool = container_pool, 
+                         parsers = parsers, 
+                         esef_filing_root=esef_filing_root)
+        
         if self.pool is not None:
             self.pool.schemas[resolved_location] = self
 
@@ -55,7 +84,9 @@ class Schema(fbase.XmlFileBase):
         self.target_namespace_prefix = self.namespaces_reverse.get(self.target_namespace, None)
         # Load files referenced in schemaLocation attribute
         for uri, href in self.schema_location_parts.items():
-            self.pool.add_reference(href, self.base)
+            logger.debug(f'schema.l_schema() calling add_reference: href = {href}, base = {self.base}, esef_filing_root = {self.esef_filing_root}')
+            self.pool.add_reference(href, self.base, self.esef_filing_root)
+            logger.debug(f"Added reference: {href} to {self.base} with esef_filing_root: {self.esef_filing_root}")
         self.l_children(e)
 
     def l_element(self, e):
@@ -86,7 +117,7 @@ class Schema(fbase.XmlFileBase):
 
     def l_linkbase(self, e):
         # Loading a linkbase, which is positioned internally inside annotation/appinfo element of the schema.
-        lb = linkbase.Linkbase(self.location, self.pool, e)
+        lb = linkbase.Linkbase(self.location, self.pool, e, self.esef_filing_root)
         self.pool.linkbases[self.location] = lb
         self.pool.current_taxonomy.attach_linkbase(self.location, lb)
 
@@ -95,8 +126,8 @@ class Schema(fbase.XmlFileBase):
         if not href.startswith('http'):
             href = util.reduce_url(os.path.join(self.base, href).replace('\\', '/'))
         self.linkbase_refs[href] = e
-        self.pool.add_reference(href, self.base)
-
+        self.pool.add_reference(href, self.base, self.esef_filing_root)
+        logger.debug(f"Added reference: {href} to {self.base} with esef_filing_root: {self.esef_filing_root}")
     def l_roletype(self, e):
         roletype.RoleType(e, self)
 
@@ -106,4 +137,5 @@ class Schema(fbase.XmlFileBase):
     def l_import(self, e):
         href = e.get('schemaLocation')
         self.imports[href] = e
-        self.pool.add_reference(href, self.base)
+        self.pool.add_reference(href, self.base, self.esef_filing_root)
+        logger.debug(f"Added reference: {href} to {self.base} with esef_filing_root: {self.esef_filing_root}")
