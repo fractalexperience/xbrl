@@ -1,6 +1,10 @@
 from xbrl.base import const, data_wrappers, util
 from xbrl.taxonomy.xdt import dr_set
 
+import logging
+# Configure logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 class Taxonomy:
     """ entry_points is a list of entry point locations
@@ -109,7 +113,8 @@ class Taxonomy:
 
     def load(self):
         for ep in self.entry_points:
-            self.pool.add_reference(ep, '')
+            logger.debug(f'Taxonomy.load(): Loading {ep} with self.location_path={self.location_path}')
+            self.pool.add_reference(ep, '', self.location_path)
 
     def resolve_prefix(self, pref):
         for sh in self.schemas.values():
@@ -129,16 +134,19 @@ class Taxonomy:
             return
         self.schemas[href] = sh
         for key, imp in sh.imports.items():
-            self.pool.add_reference(key, sh.base)
+            logger.debug(f'Taxonomy.attach_schema(): Adding import {key} from {sh.base} with self.location_path={self.location_path}')
+            self.pool.add_reference(key, sh.base, self.location_path)
         for key, ref in sh.linkbase_refs.items():
-            self.pool.add_reference(key, sh.base)
+            logger.debug(f'Taxonomy.attach_schema(): Adding linkbase {key} from {sh.base} with self.location_path={self.location_path}') 
+            self.pool.add_reference(key, sh.base, self.location_path)
 
     def attach_linkbase(self, href, lb):
         if href in self.linkbases:
             return
         self.linkbases[href] = lb
         for href in lb.refs:
-            self.pool.add_reference(href, lb.base)
+            logger.debug(f'Taxonomy.attach_linkbase(): Adding reference {href} from {lb.base} with self.location_path={self.location_path}')
+            self.pool.add_reference(href, lb.base, self.location_path)
 
     def get_bs_roots(self, arc_name, role, arcrole):
         bs = self.base_sets.get(f'{arc_name}|{arcrole}|{role}')

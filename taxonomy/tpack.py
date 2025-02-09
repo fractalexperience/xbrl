@@ -3,13 +3,19 @@ import zipfile
 from lxml import etree as lxml
 from xbrl.base import const, resolver, util, data_wrappers
 
+import logging
+# Configure logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
 
 class TaxonomyPackage(resolver.Resolver):
     """ Implements taxonomy package functionality """
-    def __init__(self, location=None, cache_folder=None, output_folder=None, archive=None):
+    def __init__(self, location=None, cache_folder=None, output_folder=None, archive=None, location_path=None):
         super().__init__(cache_folder, output_folder)
         self.archive = archive
         self.location = location
+        self.location_path = location_path
         if self.location and self.location.startswith('http'):
             # Download the taxonomy package and save in the cache folder
             self.location = self.cache(location)
@@ -60,24 +66,43 @@ class TaxonomyPackage(resolver.Resolver):
         """ Reads the binary content of a file addressed by a URL. """
         if not self.files:
             self.compile()
-        file = self.files.get(url)
-        if not file:
+        file_path = self.files.get(url)
+        if not file_path:
             return None
         if self.archive is not None:
-            with self.archive.open(file) as f:
-                return f.read()
-        return bytes(file, encoding='utf-8')
+            try:
+                with self.archive.open(file_path) as f:
+                    return f.read()
+            except KeyError:
+                # Handle cases where the file is not directly in the archive
+                # but within a subdirectory specified by location_path
+                if self.location_path:
+                    resolved_path = os.path.join(self.location_path, url)
+                    if os.path.exists(resolved_path):
+                        with open(resolved_path, 'rb') as f:
+                            return f.read()
+                return None  # Or raise an exception if appropriate
+        return bytes(file_path, encoding='utf-8')
 
     def get_hash(self):
         return util.get_hash(self.location)
 
     def compile(self):
         self.files = {}
+        if not self.archive:
+            return        
         zip_infos = self.archive.infolist()
         if not zip_infos:
             return
         # Index files by calculating effective URL based on catalog
         root = zip_infos[0].filename.split('/')[0]  # Root of the archive file
+        # Add files from location_path if provided
+        if self.location_path:
+            for root, _, files in os.walk(self.location_path):
+                for file in files:
+                    file_path = os.path.relpath(os.path.join(root, file), self.location_path)
+                    self.files[file_path] = file_path
+
         for fn in [zi.filename for zi in zip_infos if not zi.is_dir()]:
             matched_redirects = [(u, r) for u, r in self.redirects_reduced.items() if fn.startswith(r)]
 

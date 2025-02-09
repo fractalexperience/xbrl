@@ -45,7 +45,7 @@ import os
 
 import zipfile
 import functools
-import logging
+
 import time
 from typing import Optional, Dict, List, Union, Tuple
 import traceback
@@ -55,6 +55,7 @@ import re
 import urllib.parse
 from xbrl.base import util
 
+import logging
 # Configure logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -417,7 +418,7 @@ class Pool(resolver.Resolver):
         for pf in pck.files.items():
             self.packaged_locations[pf[0]] = (pck, pf[1])  # A tuple
 
-    def cache_package(self, location):
+    def cache_package(self, location, location_path=None):
         """ 
         Stores a taxonomy package from a Web location to local taxonomy package repository 
         Args:
@@ -425,11 +426,38 @@ class Pool(resolver.Resolver):
         Returns:
             TaxonomyPackage: The loaded taxonomy package object
         """
-        package = tpack.TaxonomyPackage(location, self.taxonomies_folder)
+        package = tpack.TaxonomyPackage(location, self.taxonomies_folder, location_path=location_path)
         self.index_packages()
         return package
+
+    def _is_esef_package(self, package):
+        """
+        Checks if the given package is an ESEF taxonomy package
+        Args:
+            package: The taxonomy package to check
+        Returns:
+            bool: True if it's an ESEF package, False otherwise
+        """
+        # Check for typical ESEF package indicators
+        if hasattr(package, 'meta_inf') and package.meta_inf:
+            # Check for ESEF-specific metadata in taxonomyPackage.xml
+            if hasattr(package.meta_inf, 'taxonomy_package'):
+                meta = package.meta_inf.taxonomy_package
+                # Check for ESEF identifiers in the metadata
+                if any('esef' in str(identifier).lower() for identifier in meta.get('identifier', [])):
+                    return True
+        
+        # Check for typical ESEF folder structure
+        if hasattr(package, 'files'):
+            file_paths = package.files.keys()
+            has_reports = any('reports' in path.lower() for path in file_paths)
+            has_taxonomy = any('taxonomy' in path.lower() for path in file_paths)
+            if has_reports and has_taxonomy:
+                return True
+        
+        return False    
     
-    def add_package(self, location):
+    def add_package(self, location, location_path = None):
         """
         Adds a taxonomy package provided in the location parameter, creates a taxonomy 
         using all entrypoints in the package and returns the taxonomy object.
@@ -438,10 +466,29 @@ class Pool(resolver.Resolver):
         Returns:
             Taxonomy: The loaded taxonomy object
         """
-        package = self.cache_package(location)
+        package = self.cache_package(location, location_path)
         self.active_packages[location] = package
         entry_points = [f for ep in package.entrypoints for f in ep.Urls]
-        tax = self.add_taxonomy(entry_points)
+        # If we have a location_path and this is an ESEF package, resolve entry points
+        if location_path and self._is_esef_package(package):
+            resolved_entry_points = []
+            for ep in entry_points:
+                if not ep.startswith(('http://', 'https://', 'file://')):
+                    # Try to find the entry point in the ESEF structure
+                    for root, _, files in os.walk(location_path):
+                        if os.path.basename(ep) in files:
+                            resolved_path = os.path.join(root, os.path.basename(ep))
+                            resolved_ep = pathlib.Path(resolved_path).as_uri()
+                            resolved_entry_points.append(resolved_ep)
+                            break
+                    else:
+                        # If not found, keep original
+                        resolved_entry_points.append(ep)
+                else:
+                    resolved_entry_points.append(ep)
+            entry_points = resolved_entry_points
+
+        tax = self.add_taxonomy(entry_points, location_path)
         return tax
 
     def add_reference(self, href, base, location_path=None): # Add location_path
@@ -455,7 +502,7 @@ class Pool(resolver.Resolver):
 
         Loads schema or linkbase depending on file type. TO IMPROVE!!! -- original comment
         """
-        logger.debug(f"\n\nCalling add_reference(...): \n{href} \nfrom base: \n{base}")
+        logger.debug(f"\n\nCalling add_reference(...): \n{href} \nfrom base: \n{base} and location_path: \n{location_path}")
         if href is None:
             logger.debug("Reference URL is None")
             return
