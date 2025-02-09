@@ -51,7 +51,7 @@ from typing import Optional, Dict, List, Union, Tuple
 import traceback
 import pathlib
 
-
+import re 
 import urllib.parse
 from xbrl.base import util
 
@@ -145,9 +145,9 @@ class Pool(resolver.Resolver):
             Instance: The loaded instance document"""        
 
         logger.info(f"\n\nAdding instance from location: {location}")
-        start_time = time.time()
+        location = os.path.abspath(location) # Ensure location is absolute
         if key is None:
-            key = location
+            key = re.sub("file://", "", location)
             logger.debug(f"Using location as key: {key}")
 
         #base_dir = os.path.dirname(location)
@@ -173,13 +173,23 @@ class Pool(resolver.Resolver):
                 resolved_href = self.resolve_schema_ref(href, location)
 
                 # THEN convert to file URL if it's a local path
-                if resolved_href:  # Check if resolved_href is not None
-                    # Update the XML with the local path FIRST
-                    schema_ref.set(f'{{{const.NS_XLINK}}}href', resolved_href)
+                if resolved_href:
+                    # 1. Ensure resolved_href is absolute BEFORE any modifications
+                    if not resolved_href.startswith(('http://', 'https://', 'file://')):
+                        resolved_href = os.path.abspath(resolved_href)
 
-                    # THEN, convert to file URL for further processing
+                    # 2. Convert to file URI if it's a local path, AFTER making it absolute
                     if not resolved_href.startswith(('http://', 'https://')):
-                        resolved_href = pathlib.Path(resolved_href).as_uri()
+                        resolved_href_removeprefix = resolved_href.replace('file://', '')
+                        try:
+                            #resolved_href = 'file://' + pathlib.Path(resolved_href_removeprefix).as_uri()
+                            resolved_href = pathlib.Path(resolved_href_removeprefix).as_uri()
+                        except Exception as e:
+                            logger.error(f"Error adding {resolved_href} as uri: {str(e)}")
+                            traceback.print_exc(limit=10)
+
+                    # 3. Set the href in the XML element
+                    schema_ref.set(f'{{{const.NS_XLINK}}}href', resolved_href)          
 
                 else:
                     logger.warning(f"Could not resolve schema reference: {href}") # Log a warning
@@ -191,14 +201,21 @@ class Pool(resolver.Resolver):
             logger.debug("Successfully wrote back modified XML")
 
             # Continue with the original implementation
-        
-            xid = instance.Instance(location=location, container_pool=self)
-            self.add_instance(xid, key, attach_taxonomy)
-            logger.info(f"Successfully added instance from {location}")
+            location_removeprefix = re.sub("file://", "", location)
+            xid = instance.Instance(location=location_removeprefix, container_pool=self)
+            try:
+                self.add_instance(xid, key, attach_taxonomy) # <= it raised an error here? 
+                logger.info(f"Successfully added instance from {location_removeprefix}")
+            except Exception as e:
+                traceback.print_exc(limit=10)
+                logger.error(f"Error adding instance from {location_removeprefix}: {str(e)}")
+                logger.error(f"key: {key}")
+                logger.error(f"location: {location}")
+                logger.error(f"location_removeprefix: {location_removeprefix}")
 
         except Exception as e:
             logger.error(f"Error processing document: {str(e)}")
-            traceback.print_exc()
+            traceback.print_exc(limit=10)
             return None
             
         return xid
@@ -287,20 +304,17 @@ class Pool(resolver.Resolver):
         if key is None:
             key = xid.location_ixbrl
         self.instances[key] = xid
-        # if attach_taxonomy and xid.xbrl is not None:
-        #     # Ensure that if schema references are relative, the location base for XBRL document is added to them
-        #     entry_points = [e if e.startswith('http') else os.path.join(xid.base, e).replace('\\', '/')
-        #                     for e in xid.xbrl.schema_refs]
-        #     tax = self.add_taxonomy(entry_points)
-        #     xid.taxonomy = tax
 
         if attach_taxonomy and xid.xbrl is not None:
             entry_points = [ref if ref.startswith('http') else self.resolve_schema_ref(ref, xid.location) # Use xid.location
                             for ref in xid.xbrl.schema_refs]
 
-            entry_points = [pathlib.Path(ep).as_uri() if not ep.startswith(('http://', 'https://')) else ep
+            #entry_points = [pathlib.Path(ep).as_uri() if not ep.startswith(('http://', 'https://')) else ep
+            #                for ep in entry_points]
+            # Convert to file URIs ONLY if it's a local file
+            entry_points = [pathlib.Path(ep).as_uri() if os.path.isfile(ep) else ep  # Check if it's a file
                             for ep in entry_points]
-
+            
             tax = self.add_taxonomy(entry_points)
             xid.taxonomy = tax
 
@@ -401,7 +415,7 @@ class Pool(resolver.Resolver):
 
         Loads schema or linkbase depending on file type. TO IMPROVE!!! -- original comment
         """
-        logger.debug(f"\n\nAdding reference: {href} from base: {base}")
+        logger.debug(f"\n\nAdding reference: \n{href} \nfrom base: \n{base}")
         if href is None:
             logger.debug("Reference URL is None")
             return
@@ -423,7 +437,7 @@ class Pool(resolver.Resolver):
         if self.alt_locations and href in self.alt_locations:
             original_href = href
             href = self.alt_locations[href]
-            logger.debug(f"Replaced href {original_href} with alternative location {href}")            
+            logger.debug(f"Replaced href \n{original_href} \nwith alternative location \n{href}")            
             
 
         # Resolve URL
@@ -440,30 +454,35 @@ class Pool(resolver.Resolver):
             self.discovered[key] = False
 
         try:
-            if resolved_href.endswith(".xsd"):  # Use resolved_href here
+            if resolved_href.endswith(".xsd"):
                 logger.debug(f"Loading schema: \n{resolved_href}")
-                # Remove file:// prefix if present
+
                 if resolved_href.startswith("file://"):
-                    resolved_href = resolved_href[7:]                
-                sh = self.schemas.get(resolved_href, schema.Schema(resolved_href, self)) # Use resolved_href
-                self.current_taxonomy.attach_schema(resolved_href, sh) # Use resolved_href
+                    schema_path = re.sub("file://", "", resolved_href) # Remove file:// for schema.Schema
+                else:
+                    schema_path = resolved_href # Use the URL directly
+
+                logger.debug(f"schema_path: \n{schema_path}")
+
+                sh = self.schemas.get(schema_path, schema.Schema(schema_path, self))
+                self.current_taxonomy.attach_schema(schema_path, sh)
             else:
                 logger.debug(f"Loading linkbase: \n{resolved_href}")
                 # Remove file:// prefix if present
                 if resolved_href.startswith("file://"):
-                    resolved_href = resolved_href[7:]                
+                    resolved_href = re.sub("file://", "", resolved_href)
 
                 lb = self.linkbases.get(resolved_href, linkbase.Linkbase(resolved_href, self)) # Use resolved_href
                 self.current_taxonomy.attach_linkbase(resolved_href, lb) # Use resolved_href
 
         except OSError as e:
-            logger.error(f"OSError Failed to load resource {href}: {str(e)}")
+            logger.error(f"OSError Failed to load resource \n{href} \n{str(e)}")
             # Log the error but don't raise it to allow continued processing
-            traceback.print_exc()
+            traceback.print_exc(limit=10)
 
         except Exception as e:
-            logger.error(f"Failed to load resource {href}: {str(e)}")
-            traceback.print_exc()
+            logger.error(f"Failed to load resource \n{href} \n{str(e)}")
+            traceback.print_exc(limit=10)
 
     @staticmethod
     def check_create_path(existing_path, part):
@@ -490,75 +509,72 @@ class Pool(resolver.Resolver):
     def _resolve_url(self, href: str, base: Optional[str]) -> str:
         """
         Resolves URLs, correctly handling relative paths and file URLs.
+        Returns a file URL for local files and an absolute URL for remote resources.
         """
-        logger.debug(f"Resolving URL - href: {href}, base: {base}")
-        try:
-            if href.startswith(('http://', 'https://')):
-                return href  # Already an absolute URL
+        logger.debug(f"Resolving URL - href: \n{href}, \nbase: \n{base}")
 
-            if href.startswith('file://'):
-                href = href[7:] # Remove the file:// prefix
-
-            if base is None: # Handle cases where base is None
-                if os.path.isfile(href): # href is a local file
-                    return pathlib.Path(href).as_uri()
-                else: # href is not a local file, prepend https
-                    return f"https://{href}"
-
-            if base.startswith(('http://', 'https://')):
-                # Use urljoin for correct URL resolution
-                resolved = urllib.parse.urljoin(base, href)
-            elif base.startswith('file://'):
-                base = base[7:] # Remove the file:// prefix
-                resolved = os.path.abspath(os.path.join(os.path.dirname(base), href)) # Resolve relative to base
-                resolved = pathlib.Path(resolved).as_uri() # Convert to file URL
-            else:
-                # Resolve relative to the base path
-                resolved = os.path.abspath(os.path.join(os.path.dirname(base), href))
-                if os.path.isfile(resolved):
-                    resolved = pathlib.Path(resolved).as_uri() # Convert to file URL
-                else:
-                    resolved = f"https://{resolved}" # Fallback: prepend https if not a file
-
-
-            logger.debug(f"Resolved URL: {resolved}")
-            return resolved
-
-        except Exception as e:
-            logger.error(f"Error resolving URL: {str(e)}", exc_info=True)
+        if href.startswith(('http://', 'https://')):
             return href
+        elif href.startswith('file://'):
+            return href
+
+        if base is None or bool(base.strip()) == False:
+            if os.path.isfile(href):
+                return pathlib.Path(os.path.abspath(href)).as_uri() # Ensure absolute path
+            else:  # Assume it's a remote URL and prepend https://
+                return f"https://{href}"
+
+        if base.startswith(('http://', 'https://')):
+            resolved = urllib.parse.urljoin(base, href)
+        elif base.startswith('file://'):
+            try:  # Use try-except to handle potential parsing errors
+                base_path = urllib.parse.urlparse(base).path
+                resolved_path = os.path.abspath(os.path.join(os.path.dirname(base_path), href))
+                resolved = pathlib.Path(resolved_path).as_uri()
+            except ValueError: # Log the error and return the original href
+                logger.error(f"Invalid base URL: {base}")
+                return href # Or handle the error differently, e.g., raise an exception
+        else:  # base is a local path
+            resolved_path = os.path.abspath(os.path.join(os.path.dirname(base), href))
+            resolved = pathlib.Path(resolved_path).as_uri()
+        # else:
+        #     resolved_path = os.path.abspath(os.path.join(os.path.dirname(base), href))
+        #     if os.path.isfile(resolved_path):
+        #         return pathlib.Path(resolved_path).as_uri() # Already absolute
+        #         #resolved = pathlib.Path(resolved_path).as_uri()
+        #     else:
+        #         # Assume it's a remote URL and prepend https://
+        #         resolved = f"https://{resolved_path}"
+
+        logger.debug(f"Resolved URL: \n{resolved}")
+        return resolved
 
     def resolve_schema_ref(self, href, instance_path):
         """
-        Resolves schema reference URL to local path if needed
-        
-        Args:
-            href (str): The schema reference URL from xlink:href
-            base_location (str): Base directory path of the instance document
-            
-        Returns:
-            str: Resolved schema path
+        Resolves schema reference URL.  Returns a local file path or an absolute URL.
         """
-        logger.debug(f"\n\nResolving schema reference: \n{href}")
-        if href.startswith(('http://', 'https://')): # More robust check
-            return href # Already an absolute URL
-        elif href.startswith('file://'):
-            return href.replace('file://', '')
+        logger.debug(f"Resolving schema reference: \n{href}")
 
-        #resolved_path = os.path.abspath(os.path.join(os.path.dirname(instance_path), href))
-        resolved_path = os.path.normpath(os.path.join(os.path.dirname(instance_path), href))
+        if href.startswith(('http://', 'https://', 'file://')):
+            return href  # Already an absolute URL
+
+        # Resolve relative to the instance_path
+        #resolved_path= os.path.abspath(os.path.join(os.path.dirname(instance_path), href))
+        resolved_path = os.path.abspath(os.path.join(os.path.dirname(instance_path), href)) # Ensure absolute path
         logger.debug(f"Resolved path: \n{resolved_path}")
-    
-        if os.path.isfile(resolved_path.replace('file://', '')):
-            return resolved_path
-        else:
-            logger.warning(f"Resolved path is not a file: {resolved_path}")
-            return None 
+
+        return resolved_path # Return the absolute path; don't prepend https://
+
+        # if os.path.isfile(resolved_path):
+        #     return resolved_path
+        # else:
+        #     # Assume it's a remote URL
+        #     return f"https://{resolved_path}" # or raise an exception if you prefer
 
     
 # to test     
 if __name__ == "__main__":
-    location="/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/"
+    location_path="/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/"
     filename="reports/sap-2022-12-31-DE.xhtml"
     data_pool = Pool(cache_folder="../data/xbrl_cache")
-    data_pool.add_instance_location(location=os.path.join(location, filename), attach_taxonomy=True)     
+    data_pool.add_instance_location(location=os.path.join(location_path, filename), attach_taxonomy=True)     
