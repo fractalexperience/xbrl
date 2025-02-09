@@ -5,69 +5,70 @@ from xbrl.taxonomy.xdt import dr_set
 class Taxonomy:
     """ entry_points is a list of entry point locations
         cache_folder is the place where to store cached Web resources """
-    def __init__(self, entry_points, container_pool):
+    def __init__(self, entry_points, container_pool, location_path = None):
         self.entry_points = entry_points
         self.pool = container_pool
         self.pool.current_taxonomy = self
         self.pool.current_taxonomy_hash = util.get_hash(','.join(entry_points))
-        """ All schemas indexed by resolved location """
+        self.location_path = location_path  # Add ESEF location path
+        # All schemas indexed by resolved location 
         self.schemas = {}
-        """ All linkbases indexed by resolved location """
+        # All linkbases indexed by resolved location 
         self.linkbases = {}
-        """ All concepts  indexed by full id - target namespace + id """
+        # All concepts  indexed by full id - target namespace + id 
         self.concepts = {}
-        """ All concepts indexed by QName"""
+        # All concepts indexed by QName
         self.concepts_by_qname = {}
-        """ General elements, which are not concepts """
+        # General elements, which are not concepts 
         self.elements = {}
         self.elements_by_id = {}
-        """ All base set objects indexed by base set key """
+        # All base set objects indexed by base set key 
         self.base_sets = {}
-        """ Dimension defaults - Key is dimension QName, value is default member concept """
+        # Dimension defaults - Key is dimension QName, value is default member concept 
         self.defaults = {}
-        """ Default Members - Key is the default member QName, value is the corresponding dimension concept. """
+        # Default Members - Key is the default member QName, value is the corresponding dimension concept. 
         self.default_members = {}
-        """ Dimensional Relationship Sets """
+        # Dimensional Relationship Sets 
         self.dr_sets = {}
-        """ Excluding Dimensional Relationship Sets """
+        # Excluding Dimensional Relationship Sets 
         self.dr_sets_excluding = {}
-        """ Key is primary item QName, value is the list of dimensional relationship sets, where it participates. """
+        # Key is primary item QName, value is the list of dimensional relationship sets, where it participates. 
         self.idx_pi_drs = {}
-        """ Key is the Qname of the dimensions. Value is the set of DR keys, where this dimension participates """
+        # Key is the Qname of the dimensions. Value is the set of DR keys, where this dimension participates 
         self.idx_dim_drs = {}
-        """ Key is the QName of the hypercube. Value is the set of DR Keys, where this hypercube participates. """
+        # Key is the QName of the hypercube. Value is the set of DR Keys, where this hypercube participates. 
         self.idx_hc_drs = {}
-        """ Key is the QName of the member. Value is the set of DR keys, where this member participates. """
+        # Key is the QName of the member. Value is the set of DR keys, where this member participates. 
         self.idx_mem_drs = {}
-        """ All table resources in taxonom """
+        # All table resources in taxonom 
         self.tables = {}
-        """ All role types in all schemas """
+        # All role types in all schemas 
         self.role_types = {}
         self.role_types_by_href = {}
-        """ All arcrole types in all schemas """
+        # All arcrole types in all schemas 
         self.arcrole_types = {}
         self.arcrole_types_by_href = {}
-        """ Global resources - these, which have an id attribute """
+        # Global resources - these, which have an id attribute 
         self.resources = {}
-        """ All locators """
+        # All locators 
         self.locators = {}
-        """ All parameters """
+        # All parameters 
         self.parameters = {}
-        """ All assertions by type """
+        # All assertions by type 
         self.value_assertions = {}
         self.existence_assertions = {}
         self.consistency_assertions = {}
-        """ Assertion Sets """
+        # Assertion Sets 
         self.assertion_sets = {}
-        """ Simple types """
+        # Simple types 
         self.simple_types = {}
-        """ Complex types with simple content. Key is the QName, value is the item type object. """
+        # Complex types with simple content. Key is the QName, value is the item type object. 
         self.item_types = {}
-        """ Complex types with simple content. Key is the unique identifier, value is the item type object. """
+        # Complex types with simple content. Key is the unique identifier, value is the item type object. 
         self.item_types_by_id = {}
-        """ Complex types with complex content: Key is qname, value is the tuple type object """
+        # Complex types with complex content: Key is qname, value is the tuple type object 
         self.tuple_types = {}
-        """ Complex types with complex content: Key is unique identifier, value is the tuple type object """
+        # Complex types with complex content: Key is unique identifier, value is the tuple type object 
         self.tuple_types_by_id = {}
 
         self.load()

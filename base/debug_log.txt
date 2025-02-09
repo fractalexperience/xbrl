@@ -1,0 +1,2241 @@
+(base) mbp16@Reeyarns-MBP code_fse % python3 try_sap2022.py                                                                                                                                    
+INFO:xbrl.base.pool:
+
+Initializing Pool with cache_folder=../data/xbrl_cache, output_folder=None
+WARNING:xbrl.base.pool:Schema file not found: /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/file:/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+WARNING:xbrl.base.pool:Could not resolve schema reference: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolving schema reference: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+INFO:xbrl.base.pool:
+
+Adding taxonomy
+INFO:xbrl.base.pool:Processing 1 entry points
+DEBUG:xbrl.base.pool:Processing entry point: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Added packaged entry points for file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Generated taxonomy key: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Loading new taxonomy
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd 
+from base: 
+
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd, 
+base: 
+
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_
+DEBUG:xbrl.base.pool:Resource not discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd from base 
+DEBUG:xbrl.base.pool:Loading schema: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource not discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading linkbase: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource not discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+ERROR:xbrl.base.pool:OSError Failed to load resource 
+sap-2022-12-31.xsd 
+Error reading file '/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd': failed to load external entity "/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd"
+Traceback (most recent call last):
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/pool.py", line 516, in add_reference
+    sh = self.schemas.get(schema_path, schema.Schema(schema_path, self))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/schema.py", line 49, in __init__
+    super().__init__(resolved_location, container_pool, parsers)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/fbase.py", line 20, in __init__
+    root = self.get_root()
+           ^^^^^^^^^^^^^^^
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/fbase.py", line 51, in get_root
+    dom = lxml.parse(filename)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "src/lxml/etree.pyx", line 3589, in lxml.etree.parse
+  File "src/lxml/parser.pxi", line 1958, in lxml.etree._parseDocument
+  File "src/lxml/parser.pxi", line 1984, in lxml.etree._parseDocumentFromURL
+  File "src/lxml/parser.pxi", line 1887, in lxml.etree._parseDocFromFile
+  File "src/lxml/parser.pxi", line 1200, in lxml.etree._BaseParser._parseDocFromFile
+  File "src/lxml/parser.pxi", line 633, in lxml.etree._ParserContext._handleParseResultDoc
+OSError: Error reading file '/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd': failed to load external entity "/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd"
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/lrr/role/negated-2009-12-16.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/lrr/role/negated-2009-12-16.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/lrr/role/negated-2009-12-16.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/lrr/role/negated-2009-12-16.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/lrr/role/negated-2009-12-16.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/lrr/role/net-2009-12-16.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource not discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_pre.xml from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_cal.xml 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_cal.xml, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_cal.xml
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_cal.xml
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_cal.xml_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_cal.xml_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource not discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_cal.xml from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading linkbase: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31_cal.xml
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolving URL - href: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd, 
+base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resolved URL: 
+file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:Resolved URL to: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:key: 42c8fdd49ef721e426c3a91b_file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd_/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Resource already discovered: file:///Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com/sap-2022-12-31.xsd from base /Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd 
+from base: 
+/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/www.sap.com
+DEBUG:xbrl.base.pool:Loading schema: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:schema_path: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs/full_ifrs-cor_2021-03-24.xsd
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+DEBUG:xbrl.base.pool:
+
+Calling add_reference(...): 
+http://www.xbrl.org/2005/xbrldt-2005.xsd 
+from base: 
+http://xbrl.ifrs.org/taxonomy/2021-03-24/full_ifrs
+DEBUG:xbrl.base.pool:Skipping basic schema object
+^CTraceback (most recent call last):
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/try_sap2022.py", line 13, in <module>
+    data_pool.add_instance_location(location_path=location_path, filename=filename, attach_taxonomy=True)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/pool.py", line 159, in add_instance_location
+    self.add_instance(xid, key, attach_taxonomy, location_path) # Pass location_path
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/pool.py", line 351, in add_instance
+    tax = self.add_taxonomy(entry_points, location_path) # Pass location_path
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/pool.py", line 380, in add_taxonomy
+    taxonomy.Taxonomy(ep_list, self)  # Sets the new taxonomy as current
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/taxonomy.py", line 73, in __init__
+    self.load()
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/taxonomy.py", line 111, in load
+    self.pool.add_reference(ep, '')
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/pool.py", line 516, in add_reference
+    sh = self.schemas.get(schema_path, schema.Schema(schema_path, self))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/schema.py", line 49, in __init__
+    super().__init__(resolved_location, container_pool, parsers)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/fbase.py", line 28, in __init__
+    super().__init__(root, parsers)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 15, in __init__
+    self.load(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/schema.py", line 59, in l_schema
+    self.l_children(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 28, in l_children
+    self.load(e2)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/schema.py", line 82, in l_annotation
+    self.l_children(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 28, in l_children
+    self.load(e2)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/schema.py", line 85, in l_appinfo
+    self.l_children(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 28, in l_children
+    self.load(e2)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/schema.py", line 98, in l_linkbase_ref
+    self.pool.add_reference(href, self.base)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/pool.py", line 524, in add_reference
+    lb = self.linkbases.get(resolved_href, linkbase.Linkbase(resolved_href, self)) # Use resolved_href
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/linkbase.py", line 26, in __init__
+    super().__init__(resolved_location, container_pool, parsers, root)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/fbase.py", line 28, in __init__
+    super().__init__(root, parsers)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 15, in __init__
+    self.load(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/linkbase.py", line 34, in l_linkbase
+    self.l_children(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 28, in l_children
+    self.load(e2)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/linkbase.py", line 37, in l_link
+    xl = xlink.XLink(e, self)
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/xlink.py", line 68, in __init__
+    super(XLink, self).__init__(e, parsers)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 15, in __init__
+    self.load(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 22, in load
+    self.l_default(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 71, in l_default
+    default_method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/xlink.py", line 72, in l_xlink
+    self.l_children(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 28, in l_children
+    self.load(e2)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/xlink.py", line 105, in l_loc
+    self.linkbase.pool.add_reference(url, self.linkbase.base)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/pool.py", line 516, in add_reference
+    sh = self.schemas.get(schema_path, schema.Schema(schema_path, self))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/schema.py", line 49, in __init__
+    super().__init__(resolved_location, container_pool, parsers)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/fbase.py", line 28, in __init__
+    super().__init__(root, parsers)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 15, in __init__
+    self.load(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/schema.py", line 59, in l_schema
+    self.l_children(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 28, in l_children
+    self.load(e2)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/schema.py", line 82, in l_annotation
+    self.l_children(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 28, in l_children
+    self.load(e2)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/schema.py", line 85, in l_appinfo
+    self.l_children(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 28, in l_children
+    self.load(e2)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/schema.py", line 98, in l_linkbase_ref
+    self.pool.add_reference(href, self.base)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/pool.py", line 524, in add_reference
+    lb = self.linkbases.get(resolved_href, linkbase.Linkbase(resolved_href, self)) # Use resolved_href
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/linkbase.py", line 26, in __init__
+    super().__init__(resolved_location, container_pool, parsers, root)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/fbase.py", line 28, in __init__
+    super().__init__(root, parsers)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 15, in __init__
+    self.load(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/linkbase.py", line 34, in l_linkbase
+    self.l_children(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 28, in l_children
+    self.load(e2)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/linkbase.py", line 37, in l_link
+    xl = xlink.XLink(e, self)
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/xlink.py", line 68, in __init__
+    super(XLink, self).__init__(e, parsers)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 15, in __init__
+    self.load(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 22, in load
+    self.l_default(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 71, in l_default
+    default_method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/xlink.py", line 72, in l_xlink
+    self.l_children(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 28, in l_children
+    self.load(e2)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/xlink.py", line 105, in l_loc
+    self.linkbase.pool.add_reference(url, self.linkbase.base)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/pool.py", line 516, in add_reference
+    sh = self.schemas.get(schema_path, schema.Schema(schema_path, self))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/schema.py", line 49, in __init__
+    super().__init__(resolved_location, container_pool, parsers)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/fbase.py", line 28, in __init__
+    super().__init__(root, parsers)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 15, in __init__
+    self.load(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/schema.py", line 59, in l_schema
+    self.l_children(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 28, in l_children
+    self.load(e2)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/base/ebase.py", line 24, in load
+    method(e)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/schema.py", line 64, in l_element
+    concept.Concept(e, self)
+  File "/Users/mbp16/Dropbox/sciebo/WebScraping+ESEF_Paper/Research/code_fse/xbrl/taxonomy/concept.py", line 10, in __init__
+    self.data_type = e.attrib.get('type')
+                     ^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+(base) mbp16@Reeyarns-MBP code_fse % 

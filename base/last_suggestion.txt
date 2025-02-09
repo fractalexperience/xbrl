@@ -1,0 +1,60 @@
+import os, zipfile, functools
+from lxml import etree as lxml
+# ... (rest of the imports)
+
+class Pool(resolver.Resolver):
+    # ... (existing code)
+
+    def add_instance_location(self, location_path, filename, key=None, attach_taxonomy=True):
+        # ... (existing code)
+
+        try:
+            # ... (parsing logic)
+
+            # Resolve schemaRefs relative to the location_path
+            for schema_ref in schema_refs:
+                href = schema_ref.get(f'{{{const.NS_XLINK}}}href')
+                if href:
+                    resolved_href = self.resolve_esef_schema_ref(href, location_path)
+                    if resolved_href:
+                        schema_ref.set(f'{{{const.NS_XLINK}}}href', resolved_href)
+                    else:
+                        logger.warning(f"Could not resolve schema reference: {href}")
+
+            # ... (rest of the function)
+
+    def resolve_esef_schema_ref(self, href, location_path):
+        resolved_path = os.path.abspath(os.path.join(location_path, href))
+        if os.path.isfile(resolved_path):
+            return pathlib.Path(resolved_path).as_uri()
+        else:
+            return None  # Return None if not found
+
+    def add_reference(self, href, base):
+        # ... (existing code)
+
+        resolved_href = self.resolve_url(href, base) # Use a consistent resolution method
+
+        key = f'{self.current_taxonomy_hash}_{resolved_href}'  # Remove base from the key
+
+        # ... (rest of the function, using resolved_href consistently)
+
+    def resolve_url(self, href, base): # Consistent URL resolution
+        if href.startswith(('http://', 'https://', 'file://')):
+            return href
+
+        if base is None:
+            if os.path.isfile(href):
+                return pathlib.Path(os.path.abspath(href)).as_uri()
+            else:
+                return href # Don't assume https
+
+        if base.startswith(('http://', 'https://')):
+            resolved = urllib.parse.urljoin(base, href)
+        else: # Local path
+            resolved_path = os.path.abspath(os.path.join(os.path.dirname(base), href))
+            resolved = pathlib.Path(resolved_path).as_uri()
+
+        return resolved
+
+    # ... (rest of the class)
