@@ -3,7 +3,9 @@ Open-ESEF is a project to create a free and open-source XBRL tool for the ESEF f
 
 In this forked repo, I was trying to modify the code from `xbrl` package to make it work for ESEF. 
 
-The issue was that, unlike xbrl @ US-SEC-EDGAR, ESEF files have a folder structure, and the schema references are relative to the instance file, not the taxonomy folder. Example:
+The issue was that, unlike xbrl @ US-SEC-EDGAR, ESEF files have a folder structure, and the schema references are relative to the instance file, not the taxonomy folder. 
+
+Using SAP SE 2022 ESEF filing as an example, the ESEF filing root folder contains the following files and folders:
 ```
 % ls -R examples/sap-2022-12-31-DE
 
