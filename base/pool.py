@@ -40,6 +40,43 @@ from xbrl.base import resolver, util
 from xbrl.taxonomy import taxonomy, schema, tpack, linkbase
 from xbrl.instance import instance
 import gzip
+from xbrl.base import const, util
+import os
+
+import zipfile
+import functools
+import logging
+import time
+from typing import Optional, Dict, List, Union, Tuple
+import traceback
+import pathlib
+
+
+import urllib.parse
+from xbrl.base import util
+
+# Configure logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+# Create handlers
+#console_handler = logging.StreamHandler()
+
+# Create formatters and add it to handlers
+#log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+#console_formatter = logging.Formatter(log_format)
+#console_handler.setFormatter(console_formatter)
+
+
+# Add handlers to the logger
+#logger.addHandler(console_handler)
+
+
+#file_handler = logging.FileHandler('xbrl_pool.log')
+#file_formatter = logging.Formatter(log_format)
+#file_handler.setFormatter(file_formatter)
+#logger.addHandler(file_handler)
+
 
 class Pool(resolver.Resolver):
     def __init__(self, cache_folder=None, output_folder=None, alt_locations=None):
@@ -50,6 +87,8 @@ class Pool(resolver.Resolver):
             output_folder (str): Path to output directory
             alt_locations (dict): Alternative URL mappings        
         """
+        logger.info(f"\n\nInitializing Pool with cache_folder={cache_folder}, output_folder={output_folder}")
+
         super().__init__(cache_folder, output_folder)
         self.taxonomies = {}
         self.current_taxonomy = None
@@ -89,6 +128,7 @@ class Pool(resolver.Resolver):
             self.index_package(tpack.TaxonomyPackage(pf))
 
     def index_package(self, package):
+        """ Index the content of a taxonomy package """
         for ep in package.entrypoints:
             eps = ep.Urls
             for path in eps:
@@ -103,10 +143,64 @@ class Pool(resolver.Resolver):
             attach_taxonomy (bool): Whether to load associated taxonomy
         Returns:
             Instance: The loaded instance document"""        
-        xid = instance.Instance(location=location, container_pool=self)
+
+        logger.info(f"\n\nAdding instance from location: {location}")
+        start_time = time.time()
         if key is None:
             key = location
-        self.add_instance(xid, key, attach_taxonomy)
+            logger.debug(f"Using location as key: {key}")
+
+        #base_dir = os.path.dirname(location)
+        
+        # Parse the XML document using the existing methods
+        parser = lxml.XMLParser(huge_tree=True)
+        logger.debug("Attempting to parse XML document")
+        try:
+            doc = lxml.parse(location, parser=parser)
+            root = doc.getroot()
+            
+            # Find schema references
+            nsmap = {'link': const.NS_LINK}
+            schema_refs = root.findall(".//link:schemaRef", namespaces=nsmap)
+            logger.info(f"Found {len(schema_refs)} schema references")
+            
+            for schema_ref in schema_refs:
+                href = schema_ref.get(f'{{{const.NS_XLINK}}}href')
+            if href:
+                logger.debug(f"Processing schema reference: {href}")
+
+                # Resolve the href first
+                resolved_href = self.resolve_schema_ref(href, location)
+
+                # THEN convert to file URL if it's a local path
+                if resolved_href:  # Check if resolved_href is not None
+                    # Update the XML with the local path FIRST
+                    schema_ref.set(f'{{{const.NS_XLINK}}}href', resolved_href)
+
+                    # THEN, convert to file URL for further processing
+                    if not resolved_href.startswith(('http://', 'https://')):
+                        resolved_href = pathlib.Path(resolved_href).as_uri()
+
+                else:
+                    logger.warning(f"Could not resolve schema reference: {href}") # Log a warning
+
+                schema_ref.set(f'{{{const.NS_XLINK}}}href', resolved_href)
+                logger.debug(f"Resolved schema reference: \n{resolved_href}")            
+            # Write back the modified XML
+            doc.write(location)
+            logger.debug("Successfully wrote back modified XML")
+
+            # Continue with the original implementation
+        
+            xid = instance.Instance(location=location, container_pool=self)
+            self.add_instance(xid, key, attach_taxonomy)
+            logger.info(f"Successfully added instance from {location}")
+
+        except Exception as e:
+            logger.error(f"Error processing document: {str(e)}")
+            traceback.print_exc()
+            return None
+            
         return xid
 
     def add_instance_archive(self, archive_location, filename, key=None, attach_taxonomy=False):
@@ -193,10 +287,20 @@ class Pool(resolver.Resolver):
         if key is None:
             key = xid.location_ixbrl
         self.instances[key] = xid
+        # if attach_taxonomy and xid.xbrl is not None:
+        #     # Ensure that if schema references are relative, the location base for XBRL document is added to them
+        #     entry_points = [e if e.startswith('http') else os.path.join(xid.base, e).replace('\\', '/')
+        #                     for e in xid.xbrl.schema_refs]
+        #     tax = self.add_taxonomy(entry_points)
+        #     xid.taxonomy = tax
+
         if attach_taxonomy and xid.xbrl is not None:
-            # Ensure that if schema references are relative, the location base for XBRL document is added to them
-            entry_points = [e if e.startswith('http') else os.path.join(xid.base, e).replace('\\', '/')
-                            for e in xid.xbrl.schema_refs]
+            entry_points = [ref if ref.startswith('http') else self.resolve_schema_ref(ref, xid.location) # Use xid.location
+                            for ref in xid.xbrl.schema_refs]
+
+            entry_points = [pathlib.Path(ep).as_uri() if not ep.startswith(('http://', 'https://')) else ep
+                            for ep in entry_points]
+
             tax = self.add_taxonomy(entry_points)
             xid.taxonomy = tax
 
@@ -208,16 +312,24 @@ class Pool(resolver.Resolver):
         Returns:
             Taxonomy: The loaded taxonomy object
         """
+        logger.info("\n\nAdding taxonomy")
         ep_list = entry_points if isinstance(entry_points, list) else [entry_points]
+        logger.info(f"Processing {len(ep_list)} entry points")
+
         # self.packaged_locations = {}
         for ep in ep_list:
             # if self.active_file_archive and ep in self.active_file_archive.namelist():
             #     self.packaged_locations[ep] = (self.active_file_archive, ep)
             # else:
+            logger.debug(f"Processing entry point: {ep}")
             self.add_packaged_entrypoints(ep)
+            logger.debug(f"Added packaged entry points for {ep}")
         key = ','.join(entry_points)
+        logger.debug(f"Generated taxonomy key: {key}")
         if key in self.taxonomies:
+            logger.debug(f"Taxonomy already loaded: {key}")
             return self.taxonomies[key]  # Previously loaded
+        logger.debug(f"Loading new taxonomy")
         taxonomy.Taxonomy(ep_list, self)  # Sets the new taxonomy as current
         self.taxonomies[key] = self.current_taxonomy
         self.packaged_locations = None
@@ -280,38 +392,78 @@ class Pool(resolver.Resolver):
 
     def add_reference(self, href, base):
         """
+
         Loads referenced schema or linkbase
         Args:
             href (str): Reference URL
             base (str): Base URL for relative references
         Returns: None
-        """
-        if href is None:
-            return
-        """ Loads schema or linkbase depending on file type. TO IMPROVE!!! """
-        allowed_extensions = ('xsd', 'xml', 'json')
-        if not href.split('.')[-1] in allowed_extensions:  # if pairs in
-            return
-        if 'http://xbrl.org' in href or 'http://www.xbrl.org' in href:
-            return  # Basic schema objects are predefined.
 
+        Loads schema or linkbase depending on file type. TO IMPROVE!!! -- original comment
+        """
+        logger.debug(f"\n\nAdding reference: {href} from base: {base}")
+        if href is None:
+            logger.debug("Reference URL is None")
+            return
+
+        # Validate file extension
+        allowed_extensions = ('xsd', 'xml', 'json')
+        file_ext = href.split('.')[-1]
+        if file_ext not in allowed_extensions:
+            logger.warning(f"Skipping reference: Invalid file extension {file_ext}")
+            return        
+
+        # Skip basic schema objects
+        if any(domain in href for domain in ['http://xbrl.org', 'http://www.xbrl.org']):
+            logger.debug("Skipping basic schema object")
+            return
+
+        # Handle alternative locations
         # Artificially replace the reference - only done for very specific purposes.
         if self.alt_locations and href in self.alt_locations:
+            original_href = href
             href = self.alt_locations[href]
+            logger.debug(f"Replaced href {original_href} with alternative location {href}")            
+            
 
+        # Resolve URL
         if not href.startswith('http'):
-            href = util.reduce_url(os.path.join(base, href).replace(os.path.sep, '/'))
-        key = f'{self.current_taxonomy_hash}_{href}'
-        if key in self.discovered:
-            return
-        self.discovered[key] = False
-        # print(href)
-        if href.endswith(".xsd"):
-            sh = self.schemas.get(href, schema.Schema(href, self))
-            self.current_taxonomy.attach_schema(href, sh)
-        else:
-            lb = self.linkbases.get(href, linkbase.Linkbase(href, self))
-            self.current_taxonomy.attach_linkbase(href, lb)
+            resolved_href = self._resolve_url(href, base)  # Use _resolve_url for consistent resolution
+            logger.debug(f"Resolved URL to: {resolved_href}")
+
+            # Check if already discovered using resolved_href
+            key = f'{self.current_taxonomy_hash}_{resolved_href}'
+            if key in self.discovered:
+                logger.debug(f"Resource already discovered: {resolved_href}")
+                return
+            logger.debug(f"Resource not discovered: {resolved_href}")
+            self.discovered[key] = False
+
+        try:
+            if resolved_href.endswith(".xsd"):  # Use resolved_href here
+                logger.debug(f"Loading schema: \n{resolved_href}")
+                # Remove file:// prefix if present
+                if resolved_href.startswith("file://"):
+                    resolved_href = resolved_href[7:]                
+                sh = self.schemas.get(resolved_href, schema.Schema(resolved_href, self)) # Use resolved_href
+                self.current_taxonomy.attach_schema(resolved_href, sh) # Use resolved_href
+            else:
+                logger.debug(f"Loading linkbase: \n{resolved_href}")
+                # Remove file:// prefix if present
+                if resolved_href.startswith("file://"):
+                    resolved_href = resolved_href[7:]                
+
+                lb = self.linkbases.get(resolved_href, linkbase.Linkbase(resolved_href, self)) # Use resolved_href
+                self.current_taxonomy.attach_linkbase(resolved_href, lb) # Use resolved_href
+
+        except OSError as e:
+            logger.error(f"OSError Failed to load resource {href}: {str(e)}")
+            # Log the error but don't raise it to allow continued processing
+            traceback.print_exc()
+
+        except Exception as e:
+            logger.error(f"Failed to load resource {href}: {str(e)}")
+            traceback.print_exc()
 
     @staticmethod
     def check_create_path(existing_path, part):
@@ -333,3 +485,80 @@ class Pool(resolver.Resolver):
         location = os.path.join(self.output_folder, filename)
         with open(location, 'wt', encoding="utf-8") as f:
             f.write(content)
+
+
+    def _resolve_url(self, href: str, base: Optional[str]) -> str:
+        """
+        Resolves URLs, correctly handling relative paths and file URLs.
+        """
+        logger.debug(f"Resolving URL - href: {href}, base: {base}")
+        try:
+            if href.startswith(('http://', 'https://')):
+                return href  # Already an absolute URL
+
+            if href.startswith('file://'):
+                href = href[7:] # Remove the file:// prefix
+
+            if base is None: # Handle cases where base is None
+                if os.path.isfile(href): # href is a local file
+                    return pathlib.Path(href).as_uri()
+                else: # href is not a local file, prepend https
+                    return f"https://{href}"
+
+            if base.startswith(('http://', 'https://')):
+                # Use urljoin for correct URL resolution
+                resolved = urllib.parse.urljoin(base, href)
+            elif base.startswith('file://'):
+                base = base[7:] # Remove the file:// prefix
+                resolved = os.path.abspath(os.path.join(os.path.dirname(base), href)) # Resolve relative to base
+                resolved = pathlib.Path(resolved).as_uri() # Convert to file URL
+            else:
+                # Resolve relative to the base path
+                resolved = os.path.abspath(os.path.join(os.path.dirname(base), href))
+                if os.path.isfile(resolved):
+                    resolved = pathlib.Path(resolved).as_uri() # Convert to file URL
+                else:
+                    resolved = f"https://{resolved}" # Fallback: prepend https if not a file
+
+
+            logger.debug(f"Resolved URL: {resolved}")
+            return resolved
+
+        except Exception as e:
+            logger.error(f"Error resolving URL: {str(e)}", exc_info=True)
+            return href
+
+    def resolve_schema_ref(self, href, instance_path):
+        """
+        Resolves schema reference URL to local path if needed
+        
+        Args:
+            href (str): The schema reference URL from xlink:href
+            base_location (str): Base directory path of the instance document
+            
+        Returns:
+            str: Resolved schema path
+        """
+        logger.debug(f"\n\nResolving schema reference: \n{href}")
+        if href.startswith(('http://', 'https://')): # More robust check
+            return href # Already an absolute URL
+        elif href.startswith('file://'):
+            return href.replace('file://', '')
+
+        #resolved_path = os.path.abspath(os.path.join(os.path.dirname(instance_path), href))
+        resolved_path = os.path.normpath(os.path.join(os.path.dirname(instance_path), href))
+        logger.debug(f"Resolved path: \n{resolved_path}")
+    
+        if os.path.isfile(resolved_path.replace('file://', '')):
+            return resolved_path
+        else:
+            logger.warning(f"Resolved path is not a file: {resolved_path}")
+            return None 
+
+    
+# to test     
+if __name__ == "__main__":
+    location="/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/"
+    filename="reports/sap-2022-12-31-DE.xhtml"
+    data_pool = Pool(cache_folder="../data/xbrl_cache")
+    data_pool.add_instance_location(location=os.path.join(location, filename), attach_taxonomy=True)     
