@@ -2,6 +2,12 @@
 https://devv.ai/search?threadId=echbdlppi9z4
 """
 
+import sys
+sys.path.insert(0, "../")
+import openesef
+print(openesef.__path__)
+print(openesef.__file__)
+
 from openesef.base import pool, const
 from openesef.engines import tax_reporter
 import os

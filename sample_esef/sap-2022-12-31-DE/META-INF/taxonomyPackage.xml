@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<tp:taxonomyPackage xml:lang="en" xmlns:tp="http://xbrl.org/2016/taxonomy-package" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:schemaLocation="http://www.xbrl.org/2016/taxonomy-package.xsd">
+  <tp:identifier>http://www.sap.com/2022-12-31</tp:identifier>
+  <tp:name>SAP SE XBRL Taxonomy 2022</tp:name>
+  <tp:description>Extended XBRL Taxonomy to display company-related extensions to the base taxonomy</tp:description>
+  <tp:version>Final Draft</tp:version>
+  <tp:publisher>SAP SE</tp:publisher>
+  <tp:publisherURL>http://www.sap.com/</tp:publisherURL>
+  <tp:publisherCountry>DE</tp:publisherCountry>
+  <tp:publicationDate>2022-12-31</tp:publicationDate>
+  <tp:entryPoints>
+    <tp:entryPoint>
+      <tp:name>SAP SE XBRL Taxonomy for 2022</tp:name>
+      <tp:description>Entry point to be used to load SAP SE XBRL report for 2022</tp:description>
+      <tp:entryPointDocument href="http://www.sap.com/sap-2022-12-31.xsd" />
+      <tp:languages>
+        <tp:language>de</tp:language>
+        <tp:language>en</tp:language>
+      </tp:languages>
+    </tp:entryPoint>
+  </tp:entryPoints>
+</tp:taxonomyPackage>
