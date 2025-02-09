@@ -65,7 +65,7 @@ class DrSet:
         if bs_dim is None:
             return
         dimensions = bs_dim.get_members(include_head=False)
-        for dim in [xbrl.taxonomy.xdt.dimension.Dimension(t.Concept, self, t.Arc) for t in dimensions]:
+        for dim in [openesef.taxonomy.xdt.dimension.Dimension(t.Concept, self, t.Arc) for t in dimensions]:
             hc.dimensions[dim.concept.qname] = dim
             self.taxonomy.idx_dim_drs.setdefault(dim.concept.qname, set({})).add(self)
             role = dim.target_role if dim.target_role else bs_dim.role
