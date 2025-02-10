@@ -13,6 +13,69 @@ ESEF.jl is a Julia package designed to extract, process, and analyze data from E
 5.  **Load into SPARQL DB:** Create local graph database for querying the XBRL filings using SPARQL.
 6.  **Load into Wikidata:** Create quickstatements to upload enriched LEI-ISIN company data to Wikidata.
 
+## **Downloading ESEF filings**
+
+
+### **Data Source for XBRL Filings**
+
+The primary source for downloading and parsing XBRL filings is, as you mentioned, `filings.xbrl.org`. The code specifically uses the index file located at:
+
+```
+https://filings.xbrl.org/index.json
+```
+
+The `get_esef_xbrl_filings()` function in `src/xbrl/esef_filings_api.jl` fetches this index, parses it, and uses the information to construct URLs for downloading the XBRL data in JSON format.
+
+### **German ESEF Filings**
+
+The code extracts German ESEF filings as part of the complete ESEF XBRL Index from `filings.xbrl.org`. The `get_esef_xbrl_filings()` function retrieves all filings listed in the index.
+
+The key parts for extracting the German filings are:
+
+1.  **`get_esef_xbrl_filings()` Function:** This function iterates through the filings in the `index.json` file.
+2.  **Country Code:** Within the loop, the code extracts the `country` from each filing (`filing_value["country"]`). This country code follows the ISO 3166-1 alpha-2 standard.
+3.  **Joining the Wikidata country names.**
+4.  **Filtering by Country:** There's a section in the `get_esef_xbrl_filings()` function that attempts to filter by country.
+
+```jl
+    df = @transform! df @subset(
+        begin
+            :country_alpha_2 == "CS"
+        end
+    ) begin
+        :country_alpha_2 = "CZ"
+    end
+```
+
+This section is intended to filter by the "CS" country code (which was mapped to Czechia/Czech Republic). If you wanted to process *only* German ESEF filings, you would modify this part to filter using the German country code, which is "DE":
+
+```jl
+    df = @transform! df @subset(
+        begin
+            :country_alpha_2 == "DE"
+        end
+    ) begin
+        :country_alpha_2 = "DE"
+    end
+```
+
+This code will:
+
+*   Filter the DataFrame `df` to include only rows where `:country_alpha_2` is equal to `"DE"`.
+*   Then, replace all `:country_alpha_2` values in those rows with `"DE"` (which effectively does nothing in this case, but is included due to the transform! macro.)
+
+**Important Considerations:**
+
+*   **Completeness of `filings.xbrl.org`:** The primary limitation is the completeness and accuracy of the `filings.xbrl.org` index. If German ESEF filings are not properly indexed on that site, they won't be accessible to ESEF.jl through this approach.
+*   **Alternative Sources:** If you need a more comprehensive source of German ESEF filings, you might need to explore other options, such as:
+    *   **The German Federal Gazette (Bundesanzeiger):** This is the official publication platform in Germany. However, accessing and processing data from the Bundesanzeiger might require scraping or using their API (if available) and adapting the ESEF.jl code to handle the specific data format and structure.
+    *   **Commercial Data Providers:** Some commercial data providers specialize in collecting and distributing financial data, including ESEF filings.
+*   **Schema Variations:** Be aware that there might be slight variations in the XBRL schemas used by different countries or even different companies within a country. The ESEF.jl code might need to be adapted to handle these variations gracefully.
+
+In summary, ESEF.jl downloads data from the public index `filings.xbrl.org`, and you can extract German ESEF filings by filtering on the "DE" country code. If you need a more comprehensive or reliable source, you might need to explore alternative data sources.
+
+
+
 ##  **Core Components & Functionality**
 
 Here's a breakdown of the key modules and their functions:
