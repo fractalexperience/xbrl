@@ -1,13 +1,7 @@
 # Open-ESEF
-Open-ESEF is an open-source project to create a free and open-source XBRL tool for the ESEF filings following the standards set by the European Securities and Markets Authority (ESMA).
+Open-ESEF is a Python-based open-source project dedicated to developing a complimentary and freely available XBRL toolkit for processing XBRL filings in accordance with the standards established by the European Securities and Markets Authority (ESMA). The project is designed to handle XBRL taxonomy and instance documents compatible with the European Single Electronic Format (ESEF). 
 
-It offers a Python-based framework designed for processing XBRL taxonomy and instance documents, with a focus on ESEF (European Single Electronic Format) compliance. 
-
-In this forked repo, I was trying to modify the code from `xbrl` package to make it work for ESEF. 
-
-The issue was that, unlike xbrl @ US-SEC-EDGAR, ESEF files have a folder structure, and the schema references are relative to the instance file, not the taxonomy folder. 
-
-Using SAP SE 2022 ESEF filing as an example, the ESEF filing root folder contains the following folders and files:
+In this forked repository, I modify the code from the `xbrl` package to facilitate its compatibility with ESEF. The issue in the original repository was that, unlike  US-SEC-EDGAR, ESEF files adhere to a folder structure. Consequently, the schema references in ESEF files are relative to the instance file rather than the taxonomy folder, and `xbrl` package does not handle this out of the box.  Using SAP SE 2022 ESEF filing as an example, the ESEF filing root folder contains the following folders and files:
 ```
 % ls -R examples/sap-2022-12-31-DE
 
