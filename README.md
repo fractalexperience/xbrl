@@ -29,9 +29,15 @@ The **openesef** project can be installed directly from its GitHub repository us
   from openesef import base, taxonomy, instance  # Core components
   ```
 
-### Usage
+### How to Use
 
-(to be added)
+```python
+# Simplified flow from search results
+cube = Cube(folder="/data/xbrl_cache")
+cube.add_fact(fact, xid_instance)  # Fact from XBRL instance
+cube.save()  # Serializes to ZIP archives
+```
+This stores facts with associated dimensions (e.g., `metric:ifrs-full:Revenue`, `entity:sap`, `period:2022`) for later analysis.
 
 https://github.com/reeyarn/openesef/blob/master/examples/try_vw2020.py
 
@@ -137,18 +143,6 @@ The project provides tools for parsing, validating, and analyzing XBRL data, par
 - **Logging**: Detailed debug logs for taxonomy resolution and instance processing.
 - **Modular Design**: Separates core components (`base`), taxonomy logic (`taxonomy`), and reporting engines (`engines`).
 
----
-
-### Example Workflow
-```python
-# Simplified flow from search results
-cube = Cube(folder="/data/xbrl_cache")
-cube.add_fact(fact, xid_instance)  # Fact from XBRL instance
-cube.save()  # Serializes to ZIP archives
-```
-This stores facts with associated dimensions (e.g., `metric:ifrs-full:Revenue`, `entity:sap`, `period:2022`) for later analysis.
-
---- 
 
 ### Supported Standards
 - **XBRL 2.1**: Core specification for facts and contexts.
