@@ -397,7 +397,7 @@ if __name__ == "__main__":
     #load_and_parse_xbrl(instance_file, taxonomy_folder)
     #concepts = load_and_parse_xbrl(instance_file, location_path)
 
-    data_pool = pool.Pool()
+    data_pool = pool.Pool(cache_folder="../data/xbrl_cache")
     
     # Find required files
     entry_point = None
