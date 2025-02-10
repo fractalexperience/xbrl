@@ -78,6 +78,20 @@ print(f"Linkbases: {len(taxonomy.linkbases)}")
 print(f"Concepts: {len(taxonomy.concepts)}")
 
 
+```
+
+Output:
+```output
+Taxonomy statistics:
+Schemas: 10
+Linkbases: 91
+Concepts: 622
+```
+
+```python
+# Add instance documents to the data pool
+
+# Parse inline document (iXBRL)
 xid_inline = data_pool.add_instance_location(
     esef_filing_root=os.getcwd(), 
     filename="aapl-20200926.htm",
@@ -86,7 +100,7 @@ xid_inline = data_pool.add_instance_location(
 )
 
 
-# Parse native document (XBRL)
+# Or parse native document (XBRL)
 xid_native = data_pool.add_instance_location(
     esef_filing_root=os.getcwd(), 
     filename="aapl-20200926_htm.xml",
@@ -96,7 +110,7 @@ xid_native = data_pool.add_instance_location(
 
 reporter = tax_reporter.TaxonomyReporter(taxonomy)
 
-
+#... (more code)
 ```
 #### Example 2: Volkswagen 2020 ESEF Filing following IFRS
 
