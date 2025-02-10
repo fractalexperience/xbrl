@@ -2,6 +2,37 @@
 Open-ESEF is a Python-based open-source project for a freely available XBRL toolkit to handle XBRL filings that follow ESEF, the European Single Electronic Format. 
 ESEF is a standard for electronic financial reporting developed by the European Securities and Markets Authority (ESMA). 
 
+## How to use the Open-ESEF
+
+### Installation
+
+The **openesef** project can be installed directly from its GitHub repository using standard Python development workflows. Here's how to set it up:
+
+1. **Clone the Repository**  
+   Use `git clone` to download the source code:
+   ```
+   git clone https://github.com/reeyarn/openesef/
+   ```
+
+2. **Install in Editable Mode**  
+   Navigate to the project directory and install using pip with the `-e` flag for development:
+   ```bash
+   cd openesef
+   pip install -e .
+   ```
+
+   This links the package to your Python environment while preserving the ability to modify code.
+
+3. Verify installation by importing modules in Python:
+  ```
+  from openesef import base, taxonomy, instance  # Core components
+  ```
+
+### Usage
+
+(to be added)
+
+
 ## Forked from XBRL-Model (`fractalexperience/xbrl/`): 
 
 In this forked repository, I modify the code from the `fractalexperience/xbrl/` package to facilitate its compatibility with ESEF. 
@@ -42,36 +73,6 @@ https://github.com/fractalexperience/xbrl/
 **Overview** The XBRL Model is able to parse XBRL instance documents and companion taxonomies and extract information such as reporting facts and their descriptors, reporting artifacts, such as taxonomy concepts, labels, references, hierarchies, enumerations, dimensions etc. It is equipped with a cache manager to allow efficiently maintain Web resources, as well as a package manager, which allows to load taxonomies  from taxonomy packages, where all files are distributed in a form of a ZIP archive.
 
 Special attention is paid to efficient in-memory storage of various resources. There is a data pool, which allows objects, which are reused across different taxonomies to be stored in memory only once. This way it is possible to maintain multiple entry points and multiple taxonomy versions at the time, without a risk of memory overflow. 
-
-## How to use the Open-ESEF
-
-### Installation
-
-The **openesef** project can be installed directly from its GitHub repository using standard Python development workflows. Here's how to set it up:
-
-1. **Clone the Repository**  
-   Use `git clone` to download the source code:
-   ```
-   git clone https://github.com/reeyarn/openesef/
-   ```
-
-2. **Install in Editable Mode**  
-   Navigate to the project directory and install using pip with the `-e` flag for development:
-   ```bash
-   cd openesef
-   pip install -e .
-   ```
-
-   This links the package to your Python environment while preserving the ability to modify code.
-
-3. Verify installation by importing modules in Python:
-  ```
-  from openesef import base, taxonomy, instance  # Core components
-  ```
-
-### Usage
-
-(to be added)
 
 
 ## Open-ESEF Architecture
