@@ -126,7 +126,4 @@ This stores facts with associated dimensions (e.g., `metric:ifrs-full:Revenue`, 
 
 The project serves as a foundation for building ESEF validation tools, financial analytics platforms, or regulatory reporting systems.
 
-Citations:
- https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/12467256/680f2e9a-70e1-4df5-be15-c4d1509e8f3e/openesef_all.md
-
 
