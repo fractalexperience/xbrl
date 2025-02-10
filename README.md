@@ -34,7 +34,9 @@ taxonomy/schema.py
 taxonomy/taxonomy.py
 ..
 
-## Forked from XBRL-Model: A Lightweight XBRL Taxonomy and Instance Document Model
+## Forked from XBRL-Model (`fractalexperience/xbrl/`): 
+
+### A Lightweight XBRL Taxonomy and Instance Document Model
 
 https://github.com/fractalexperience/xbrl/
 
@@ -63,27 +65,27 @@ The project provides tools for parsing, validating, and analyzing XBRL data, par
 ### Key Components
 
 #### 1. **Taxonomy Management**
-- **Concept Handling**: Resolves XBRL concepts, labels, and relationships using `Taxonomy` classes[1].
-- **Linkbase Processing**: Manages XBRL linkbases (presentation, definition, calculation) and resolves references to external taxonomies like IFRS 2021[1].
-- **Entry Points**: Defines `EntryPoint` objects to organize taxonomy resources (e.g., URLs, descriptions)[1].
+- **Concept Handling**: Resolves XBRL concepts, labels, and relationships using `Taxonomy` classes.
+- **Linkbase Processing**: Manages XBRL linkbases (presentation, definition, calculation) and resolves references to external taxonomies like IFRS 2021.
+- **Entry Points**: Defines `EntryPoint` objects to organize taxonomy resources (e.g., URLs, descriptions).
 
 #### 2. **Instance Document Processing**
-- **Fact Extraction**: Parses XBRL facts with contextual metadata (entity, period, units, decimals)[1].
-- **Dimensional Analysis**: Handles explicit and typed dimensions in contexts, including scenario/segment containers[1].
-- **Unit/Period Resolution**: Captures metric units (e.g., monetary units) and temporal contexts[1].
+- **Fact Extraction**: Parses XBRL facts with contextual metadata (entity, period, units, decimals).
+- **Dimensional Analysis**: Handles explicit and typed dimensions in contexts, including scenario/segment containers.
+- **Unit/Period Resolution**: Captures metric units (e.g., monetary units) and temporal contexts.
 
 #### 3. **Data Modeling (Cube Class)**
 - **Semantic Indexing**: Uses a `Cube` class to map facts to a multidimensional space:
-  - **Dimensions**: Includes `metric`, `entity`, `period`, `unit`, and custom taxonomy-defined dimensions[1].
-  - **Members**: Represents values tied to dimensions (e.g., `usd` for `unit`, `2022-12-31` for `period`)[1].
-- **Storage Optimization**: Serializes data into JSON files within ZIP archives, using SHA-1 hashing for content addressing[1].
+  - **Dimensions**: Includes `metric`, `entity`, `period`, `unit`, and custom taxonomy-defined dimensions.
+  - **Members**: Represents values tied to dimensions (e.g., `usd` for `unit`, `2022-12-31` for `period`).
+- **Storage Optimization**: Serializes data into JSON files within ZIP archives, using SHA-1 hashing for content addressing.
 
 ---
 
 ### ESEF-Specific Features
-- **ESEF Filing Root Handling**: Resolves local file paths and URLs relative to ESEF report directories (e.g., `/sap-2022-12-31-DE/`)[1].
-- **IFRS Taxonomy Integration**: References IFRS 2021 taxonomy packages (`full_ifrs-cor_2021-03-24.xsd`) for validation and concept resolution[1].
-- **Inline XBRL (iXBRL) Support**: Processes embedded XHTML/XBRL hybrid documents and extracts facts[1].
+- **ESEF Filing Root Handling**: Resolves local file paths and URLs relative to ESEF report directories (e.g., `/sap-2022-12-31-DE/`).
+- **IFRS Taxonomy Integration**: References IFRS 2021 taxonomy packages (`full_ifrs-cor_2021-03-24.xsd`) for validation and concept resolution.
+- **Inline XBRL (iXBRL) Support**: Processes embedded XHTML/XBRL hybrid documents and extracts facts.
 
 ---
 
@@ -91,19 +93,19 @@ The project provides tools for parsing, validating, and analyzing XBRL data, par
 1. **Input**: ESEF instance documents (e.g., `sap-2022-12-31-DE.xhtml`) and associated taxonomies.
 2. **Resolution**:
    - Resolves schema imports (e.g., `xbrl-instance-2003-12-31.xsd`).
-   - Maps concepts to their taxonomy-defined types (monetary, shares, dates)[1].
+   - Maps concepts to their taxonomy-defined types (monetary, shares, dates).
 3. **Fact Extraction**:
    - Captures numeric facts, contexts, and units.
-   - Generates signatures for facts using dimensional constraints (e.g., `entity:sap:metric:revenue`)[1].
-4. **Storage**: Archives processed data into structured ZIP files with partitioned JSON datasets[1].
+   - Generates signatures for facts using dimensional constraints (e.g., `entity:sap:metric:revenue`).
+4. **Storage**: Archives processed data into structured ZIP files with partitioned JSON datasets.
 
 ---
 
 ### Technical Highlights
-- **SHA-1 Hashing**: Used for content addressing and deduplication in archives[1].
-- **LXML Integration**: Parses XML/HTML documents and resolves XLink references[1].
-- **Logging**: Detailed debug logs for taxonomy resolution and instance processing[1].
-- **Modular Design**: Separates core components (`base`), taxonomy logic (`taxonomy`), and reporting engines (`engines`)[1].
+- **SHA-1 Hashing**: Used for content addressing and deduplication in archives.
+- **LXML Integration**: Parses XML/HTML documents and resolves XLink references.
+- **Logging**: Detailed debug logs for taxonomy resolution and instance processing.
+- **Modular Design**: Separates core components (`base`), taxonomy logic (`taxonomy`), and reporting engines (`engines`).
 
 ---
 
@@ -114,18 +116,18 @@ cube = Cube(folder="/data/xbrl_cache")
 cube.add_fact(fact, xid_instance)  # Fact from XBRL instance
 cube.save()  # Serializes to ZIP archives
 ```
-This stores facts with associated dimensions (e.g., `metric:ifrs-full:Revenue`, `entity:sap`, `period:2022`) for later analysis[1].
+This stores facts with associated dimensions (e.g., `metric:ifrs-full:Revenue`, `entity:sap`, `period:2022`) for later analysis.
 
 --- 
 
 ### Supported Standards
 - **XBRL 2.1**: Core specification for facts and contexts.
-- **XBRL Dimensions**: Explicit/typed dimensions via `xbrldi` namespace[1].
-- **ESEF Rules**: Compliance with EU ESMA requirements for inline XBRL[1].
+- **XBRL Dimensions**: Explicit/typed dimensions via `xbrldi` namespace.
+- **ESEF Rules**: Compliance with EU ESMA requirements for inline XBRL.
 
 The project serves as a foundation for building ESEF validation tools, financial analytics platforms, or regulatory reporting systems.
 
 Citations:
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/12467256/680f2e9a-70e1-4df5-be15-c4d1509e8f3e/openesef_all.md
+ https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/12467256/680f2e9a-70e1-4df5-be15-c4d1509e8f3e/openesef_all.md
 
 
