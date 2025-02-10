@@ -43,7 +43,35 @@ https://github.com/fractalexperience/xbrl/
 
 Special attention is paid to efficient in-memory storage of various resources. There is a data pool, which allows objects, which are reused across different taxonomies to be stored in memory only once. This way it is possible to maintain multiple entry points and multiple taxonomy versions at the time, without a risk of memory overflow. 
 
+## How to use the Open-ESEF
 
+### Installation
+
+The **openesef** project can be installed directly from its GitHub repository using standard Python development workflows. Here's how to set it up:
+
+1. **Clone the Repository**  
+   Use `git clone` to download the source code:
+   ```
+   git clone https://github.com/reeyarn/openesef/
+   ```
+
+2. **Install in Editable Mode**  
+   Navigate to the project directory and install using pip with the `-e` flag for development:
+   ```bash
+   cd openesef
+   pip install -e .
+   ```
+
+   This links the package to your Python environment while preserving the ability to modify code.
+
+3. Verify installation by importing modules in Python:
+  ```
+  from openesef import base, taxonomy, instance  # Core components
+  ```
+
+### Usage
+
+(to be added)
 
 
 ## Open-ESEF Architecture
