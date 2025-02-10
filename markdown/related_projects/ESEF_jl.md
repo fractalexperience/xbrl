@@ -18,11 +18,34 @@ ESEF.jl is a Julia package designed to extract, process, and analyze data from E
 
 ### **Data Source for XBRL Filings**
 
-The primary source for downloading and parsing XBRL filings is, as you mentioned, `filings.xbrl.org`. The code specifically uses the index file located at:
+The primary source for downloading and parsing XBRL filings is`filings.xbrl.org`. The code specifically uses the index file located at:
 
 ```
 https://filings.xbrl.org/index.json
 ```
+
+
+### **Scope of ESEF Filings on `filings.xbrl.org`**
+
+The `filings.xbrl.org` index is a community-maintained resource, and its scope depends on the contributions and indexing efforts of those involved. Therefore, providing a definitive answer to "does it have *all* ESEF filings" is tricky. However, we can make some inferences based on the available information:
+
+1.  **Community-Driven:** It is not an official regulatory database. It relies on the community to submit and maintain the index. This means there might be gaps or inconsistencies in coverage.
+2.  **Focus on XBRL-JSON:** The project specifically focuses on XBRL filings that have been converted to JSON format. The `xbrl-json` key in the `index.json` is an indicator of this. If a filing hasn't been converted to JSON and indexed, it won't be included.
+3.  **Varying Country Coverage:** The level of coverage varies by country. Some countries might have more active contributors, leading to more complete indexing.
+4.  **Temporal Scope:** The temporal scope is also dependent on community contributions. It's likely that more recent years are better represented than earlier years. To determine the period of time represented, you would need to download and analyze the `index.json` file and examine the `date` field within each filing entry.
+5.  **ESEF Mandate:** ESEF mandate started in 2020 for fiscal years beginning on or after January 1, 2020. Therefore, the index should primarily contain filings from 2020 onwards, but potentially with gaps.
+6.  **Completeness of Data:** It's important to note that even for covered countries, the index might not contain *every single* ESEF filing. There might be delays in indexing, errors in submission, or other reasons for omissions.
+
+
+
+**In summary:**
+
+*   `filings.xbrl.org` is a community-driven index, so its scope is not guaranteed to be comprehensive.
+*   Coverage varies by country and time period.
+*   The best way to assess the scope is to download and analyze the `index.json` file.
+*   Be aware of the ESEF mandate timeline (2020 onwards) and the impact of Brexit on UK filings.
+*   Consider alternative data sources if you need a more comprehensive or reliable dataset.
+
 
 The `get_esef_xbrl_filings()` function in `src/xbrl/esef_filings_api.jl` fetches this index, parses it, and uses the information to construct URLs for downloading the XBRL data in JSON format.
 
