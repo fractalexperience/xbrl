@@ -7,9 +7,9 @@ import logging
 import requests
 import traceback
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
-
+logger.setLevel(logging.DEBUG)
 
 class Resolver:
     def __init__(self, cache_folder=None, output_folder=None):
@@ -68,7 +68,7 @@ class Resolver:
                 for chunk in response.iter_content(chunk_size=8192, decode_unicode=is_text):
                     if chunk:
                         if is_text:
-                            f.write(chunk)
+                            f.write(chunk.decode(encoding='utf-8'))
                         else:
                             f.write(chunk)
                         downloaded += len(chunk)
