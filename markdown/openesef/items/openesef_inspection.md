@@ -1,0 +1,25 @@
+# inspection Contents
+## inspection/Default.xml
+```xml
+<profile version="1.0">
+  <option name="myName" value="Default" />
+  <inspection_tool class="PyCompatibilityInspection" enabled="true" level="WARNING" enabled_by_default="true">
+    <option name="ourVersions">
+      <value>
+        <list size="1">
+          <item index="0" class="java.lang.String" itemvalue="3.10" />
+        </list>
+      </value>
+    </option>
+  </inspection_tool>
+  <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+    <option name="ignoredPackages">
+      <value>
+        <list size="1">
+          <item index="0" class="java.lang.String" itemvalue="cx_Oracle" />
+        </list>
+      </value>
+    </option>
+  </inspection_tool>
+</profile>
+```

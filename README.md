@@ -1,6 +1,8 @@
 # Open-ESEF
 Open-ESEF is an open-source project to create a free and open-source XBRL tool for the ESEF filings following the standards set by the European Securities and Markets Authority (ESMA).
 
+It offers a Python-based framework designed for processing XBRL taxonomy and instance documents, with a focus on ESEF (European Single Electronic Format) compliance. 
+
 In this forked repo, I was trying to modify the code from `xbrl` package to make it work for ESEF. 
 
 The issue was that, unlike xbrl @ US-SEC-EDGAR, ESEF files have a folder structure, and the schema references are relative to the instance file, not the taxonomy folder. 
@@ -32,17 +34,98 @@ taxonomy/schema.py
 taxonomy/taxonomy.py
 ..
 
-## Forked from XBRL-Model
-https://github.com/fractalexperience/xbrl/ 
-A Lightweight XBRL Taxonomy and Instance Document Model
+## Forked from XBRL-Model: A Lightweight XBRL Taxonomy and Instance Document Model
 
-## Overview
+https://github.com/fractalexperience/xbrl/
 
-XBRL stands for e**X**tensible **B**usiness **R**eporting **L**anguage. XBRL is the open international standard for digital business reporting, managed by a global not for profit consortium, [XBRL International](https://www.xbrl.org/).  
-
-The XBRL Model is able to parse XBRL instance documents and companion taxonomies and extract information such as reporting facts and their descriptors, reporting artifacts, such as taxonomy concepts, labels, references, hierarchies, enumerations, dimensions etc. It is equipped with a cache manager to allow efficiently maintain Web resources, as well as a package manager, which allows to load taxonomies  from taxonomy packages, where all files are distributed in a form of a ZIP archive.
+**Overview** The XBRL Model is able to parse XBRL instance documents and companion taxonomies and extract information such as reporting facts and their descriptors, reporting artifacts, such as taxonomy concepts, labels, references, hierarchies, enumerations, dimensions etc. It is equipped with a cache manager to allow efficiently maintain Web resources, as well as a package manager, which allows to load taxonomies  from taxonomy packages, where all files are distributed in a form of a ZIP archive.
 
 Special attention is paid to efficient in-memory storage of various resources. There is a data pool, which allows objects, which are reused across different taxonomies to be stored in memory only once. This way it is possible to maintain multiple entry points and multiple taxonomy versions at the time, without a risk of memory overflow. 
 
-For more information see project's [Web page](https://fractalexperience.github.io/xbrl/).
+
+
+
+## Open-ESEF Architecture
+
+
+Below is a structured breakdown of its functionality and architecture:
+
+
+### Overview
+
+XBRL stands for e**X**tensible **B**usiness **R**eporting **L**anguage. XBRL is the open international standard for digital business reporting, managed by a global not for profit consortium, [XBRL International](https://www.xbrl.org/).  
+
+
+The project provides tools for parsing, validating, and analyzing XBRL data, particularly for financial reporting under the ESEF mandate. It models taxonomies, handles dimensional data, and processes instance documents while maintaining lightweight storage structures.
+
+---
+
+### Key Components
+
+#### 1. **Taxonomy Management**
+- **Concept Handling**: Resolves XBRL concepts, labels, and relationships using `Taxonomy` classes[1].
+- **Linkbase Processing**: Manages XBRL linkbases (presentation, definition, calculation) and resolves references to external taxonomies like IFRS 2021[1].
+- **Entry Points**: Defines `EntryPoint` objects to organize taxonomy resources (e.g., URLs, descriptions)[1].
+
+#### 2. **Instance Document Processing**
+- **Fact Extraction**: Parses XBRL facts with contextual metadata (entity, period, units, decimals)[1].
+- **Dimensional Analysis**: Handles explicit and typed dimensions in contexts, including scenario/segment containers[1].
+- **Unit/Period Resolution**: Captures metric units (e.g., monetary units) and temporal contexts[1].
+
+#### 3. **Data Modeling (Cube Class)**
+- **Semantic Indexing**: Uses a `Cube` class to map facts to a multidimensional space:
+  - **Dimensions**: Includes `metric`, `entity`, `period`, `unit`, and custom taxonomy-defined dimensions[1].
+  - **Members**: Represents values tied to dimensions (e.g., `usd` for `unit`, `2022-12-31` for `period`)[1].
+- **Storage Optimization**: Serializes data into JSON files within ZIP archives, using SHA-1 hashing for content addressing[1].
+
+---
+
+### ESEF-Specific Features
+- **ESEF Filing Root Handling**: Resolves local file paths and URLs relative to ESEF report directories (e.g., `/sap-2022-12-31-DE/`)[1].
+- **IFRS Taxonomy Integration**: References IFRS 2021 taxonomy packages (`full_ifrs-cor_2021-03-24.xsd`) for validation and concept resolution[1].
+- **Inline XBRL (iXBRL) Support**: Processes embedded XHTML/XBRL hybrid documents and extracts facts[1].
+
+---
+
+### Data Flow
+1. **Input**: ESEF instance documents (e.g., `sap-2022-12-31-DE.xhtml`) and associated taxonomies.
+2. **Resolution**:
+   - Resolves schema imports (e.g., `xbrl-instance-2003-12-31.xsd`).
+   - Maps concepts to their taxonomy-defined types (monetary, shares, dates)[1].
+3. **Fact Extraction**:
+   - Captures numeric facts, contexts, and units.
+   - Generates signatures for facts using dimensional constraints (e.g., `entity:sap:metric:revenue`)[1].
+4. **Storage**: Archives processed data into structured ZIP files with partitioned JSON datasets[1].
+
+---
+
+### Technical Highlights
+- **SHA-1 Hashing**: Used for content addressing and deduplication in archives[1].
+- **LXML Integration**: Parses XML/HTML documents and resolves XLink references[1].
+- **Logging**: Detailed debug logs for taxonomy resolution and instance processing[1].
+- **Modular Design**: Separates core components (`base`), taxonomy logic (`taxonomy`), and reporting engines (`engines`)[1].
+
+---
+
+### Example Workflow
+```python
+# Simplified flow from search results
+cube = Cube(folder="/data/xbrl_cache")
+cube.add_fact(fact, xid_instance)  # Fact from XBRL instance
+cube.save()  # Serializes to ZIP archives
+```
+This stores facts with associated dimensions (e.g., `metric:ifrs-full:Revenue`, `entity:sap`, `period:2022`) for later analysis[1].
+
+--- 
+
+### Supported Standards
+- **XBRL 2.1**: Core specification for facts and contexts.
+- **XBRL Dimensions**: Explicit/typed dimensions via `xbrldi` namespace[1].
+- **ESEF Rules**: Compliance with EU ESMA requirements for inline XBRL[1].
+
+The project serves as a foundation for building ESEF validation tools, financial analytics platforms, or regulatory reporting systems.
+
+Citations:
+[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/12467256/680f2e9a-70e1-4df5-be15-c4d1509e8f3e/openesef_all.md
+
 
