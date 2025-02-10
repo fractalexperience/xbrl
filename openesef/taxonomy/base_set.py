@@ -1,4 +1,4 @@
-from openesef.base import data_wrappers, const
+from ..base import data_wrappers, const
 
 
 class BaseSet:

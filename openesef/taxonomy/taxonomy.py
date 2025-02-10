@@ -1,5 +1,5 @@
-from openesef.base import const, data_wrappers, util
-from openesef.taxonomy.xdt import dr_set
+from ..base import const, data_wrappers, util
+from ..taxonomy.xdt import dr_set
 
 import logging
 import traceback

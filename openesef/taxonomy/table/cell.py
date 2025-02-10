@@ -1,5 +1,5 @@
-import openesef.taxonomy.table.str_node
-from openesef.base import data_wrappers
+from ...taxonomy.table import str_node
+from ...base import data_wrappers
 
 
 class Cell:
@@ -19,7 +19,7 @@ class Cell:
         self.html_classes = None if html_class is None else set(html_class.split(' '))
         # Final version of constraints
         self.constraints = {} if constraints is None else constraints
-        if origin and isinstance(origin, xbrl.taxonomy.table.str_node.StructureNode):
+        if origin and isinstance(origin, str_node.StructureNode):
             origin.cells.append(self)
 
     def add_constraints(self, constraints, axis):

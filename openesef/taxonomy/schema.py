@@ -1,5 +1,5 @@
-from openesef.taxonomy import concept, linkbase, roletype, arcroletype, simple_type, item_type, tuple_type
-from openesef.base import fbase, const, element, util
+from ..taxonomy import concept, linkbase, roletype, arcroletype, simple_type, item_type, tuple_type
+from ..base import fbase, const, element, util
 import os
 
 import logging

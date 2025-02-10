@@ -1,4 +1,4 @@
-from openesef.base import ebase, const, util
+from ..base import ebase, const, util
 
 
 class Resource(ebase.XmlElementBase):

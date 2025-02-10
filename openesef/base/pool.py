@@ -33,14 +33,21 @@ Class Attributes:
     active_packages (dict): Currently opened taxonomy packages
     active_file_archive (ZipFile): Currently opened archive file
 """
+import sys
+#sys.path.insert(0, "../../..")
+#sys.path.insert(0, "../../../openesef")
 
+
+
+#import openesef
+#print(openesef.__path__)
 import os, zipfile, functools
 from lxml import etree as lxml
-from openesef.base import resolver, util
-from openesef.taxonomy import taxonomy, schema, tpack, linkbase
-from openesef.instance import instance
+from ..base import resolver, util
+from ..taxonomy import taxonomy, schema, tpack, linkbase
+from ..instance import instance
 import gzip
-from openesef.base import const, util
+from ..base import const, util
 import os
 
 import zipfile
@@ -59,7 +66,7 @@ import logging
 
 # Get a logger.  __name__ is a good default name.
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 # # Check if handlers already exist and clear them to avoid duplicates.
 # if logger.hasHandlers():
@@ -120,7 +127,7 @@ class Pool(resolver.Resolver):
     def check_count_exceptions(self):
         logger.debug(f"Checking count of exceptions: {self.count_exceptions}")
         logger.warning(f"Number of exceptions: {self.count_exceptions}")
-        if self.count_exceptions > 8:
+        if self.count_exceptions > 32:
             raise Exception(f"Number of exceptions exceeded 8: {self.count_exceptions}")
 
     def __repr__(self):

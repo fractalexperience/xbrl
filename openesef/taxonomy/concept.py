@@ -1,4 +1,4 @@
-from openesef.base import const, element, util
+from ..base import const, element, util
 
 
 class Concept(element.Element):

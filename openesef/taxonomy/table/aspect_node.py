@@ -1,5 +1,5 @@
-from openesef.taxonomy.table import def_node, str_node
-from openesef.base import const
+from ...taxonomy.table import def_node, str_node
+from ...base import const
 
 
 class AspectNode(def_node.DefinitionNode):

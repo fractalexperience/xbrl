@@ -1,4 +1,4 @@
-from openesef.taxonomy import resource
+from ...taxonomy import resource
 
 
 class Parameter(resource.Resource):

@@ -1,4 +1,4 @@
-from openesef.engines import html_helper
+from ..engines import html_helper
 
 
 class BaseReporter(html_helper.HtmlHelper):

@@ -1,6 +1,6 @@
 import urllib.request, os
 from lxml import etree as lxml
-from openesef.base import ebase, util, const
+from ..base import ebase, util, const
 
 import logging
 

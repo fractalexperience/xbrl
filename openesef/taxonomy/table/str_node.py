@@ -1,7 +1,7 @@
-from openesef.taxonomy.table import aspect_node
-from openesef.taxonomy.table import dr_node
-from openesef.taxonomy.table import cr_node
-from openesef.base import const
+from ...taxonomy.table import aspect_node
+from ...taxonomy.table import dr_node
+from ...taxonomy.table import cr_node
+from ...base import const
 
 
 class StructureNode:

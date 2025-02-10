@@ -1,8 +1,8 @@
-from openesef.taxonomy import arc, base_set, locator, resource, concept, roletype, arcroletype
-from openesef.taxonomy.formula import parameter, value_assertion, existence_assertion, consistency_assertion, assertion, \
+from ..taxonomy import arc, base_set, locator, resource, concept, roletype, arcroletype
+from ..taxonomy.formula import parameter, value_assertion, existence_assertion, consistency_assertion, assertion, \
     filter, assertion_set
-from openesef.base import ebase, const, util, data_wrappers
-from openesef.taxonomy.table import table, breakdown, rule_node, cr_node, dr_node, aspect_node
+from ..base import ebase, const, util, data_wrappers
+from ..taxonomy.table import table, breakdown, rule_node, cr_node, dr_node, aspect_node
 import urllib.parse
 
 import logging

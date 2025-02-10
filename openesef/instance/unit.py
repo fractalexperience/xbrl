@@ -1,4 +1,4 @@
-from openesef.base import ebase, const
+from ..base import ebase, const
 
 
 class Unit(ebase.XmlElementBase):

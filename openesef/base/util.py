@@ -1,6 +1,6 @@
 import os, itertools, hashlib, datetime, string, re
 from functools import reduce
-from openesef.base import const
+from ..base import const
 from lxml import etree as lxml
 from lxml import html as lhtml
 

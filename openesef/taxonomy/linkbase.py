@@ -1,5 +1,5 @@
-from openesef.base import fbase, const, util
-from openesef.taxonomy import xlink
+from ..base import fbase, const, util
+from ..taxonomy import xlink
 
 import logging
 

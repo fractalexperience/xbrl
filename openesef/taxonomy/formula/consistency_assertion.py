@@ -1,4 +1,4 @@
-from openesef.taxonomy.formula import assertion
+from ...taxonomy.formula import assertion
 
 
 class ConsistencyAssertion(assertion.Assertion):

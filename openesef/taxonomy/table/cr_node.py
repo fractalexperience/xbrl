@@ -1,5 +1,5 @@
-from openesef.taxonomy.table import def_node
-from openesef.base import const
+from ...taxonomy.table import def_node
+from ...base import const
 
 
 class ConceptRelationshipNode(def_node.DefinitionNode):

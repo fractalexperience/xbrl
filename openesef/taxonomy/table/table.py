@@ -1,4 +1,4 @@
-from openesef.taxonomy.table import tlb_resource, str_node
+from ...taxonomy.table import tlb_resource, str_node
 
 
 class Table(tlb_resource.TableResource):

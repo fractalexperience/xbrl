@@ -1,4 +1,4 @@
-from openesef.taxonomy.table import tlb_resource
+from ...taxonomy.table import tlb_resource
 
 
 class Breakdown(tlb_resource.TableResource):

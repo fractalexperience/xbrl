@@ -1,5 +1,5 @@
 from lxml import etree as lxml
-from openesef.base import const, util
+from ..base import const, util
 
 
 

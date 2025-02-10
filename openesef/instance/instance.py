@@ -1,7 +1,7 @@
 import os
-from openesef.instance import m_xbrl
-from openesef.base import fbase, const
-from openesef.ixbrl import m_ixbrl
+from ..instance import m_xbrl
+from ..base import fbase, const
+from ..ixbrl import m_ixbrl
 from lxml import etree as lxml
 
 

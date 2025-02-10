@@ -1,17 +1,17 @@
 import json
 from builtins import isinstance
 
-import openesef.taxonomy.table.breakdown
-from openesef.taxonomy.table import breakdown
-from openesef.taxonomy.table import aspect_node
-from openesef.taxonomy.table import rule_node
-from openesef.taxonomy.table import cr_node
-from openesef.taxonomy.table import dr_node
-from openesef.taxonomy.table import str_node
-from openesef.taxonomy.table import layout
-from openesef.taxonomy.table import cell
-from openesef.engines import base_reporter
-from openesef.base import data_wrappers, const
+#import openesef.taxonomy.table.breakdown
+from ..taxonomy.table import breakdown
+from ..taxonomy.table import aspect_node
+from ..taxonomy.table import rule_node
+from ..taxonomy.table import cr_node
+from ..taxonomy.table import dr_node
+from ..taxonomy.table import str_node
+from ..taxonomy.table import layout
+from ..taxonomy.table import cell
+from ..engines import base_reporter
+from ..base import data_wrappers, const
 
 
 class TableReporter(base_reporter.BaseReporter):
@@ -361,7 +361,7 @@ class TableReporter(base_reporter.BaseReporter):
             for res_sub_id, res_sub_lst in res_dct.items():
                 for res_sub in res_sub_lst:
                     new_axis = axis
-                    if isinstance(res_sub, xbrl.taxonomy.table.breakdown.Breakdown):
+                    if isinstance(res_sub, breakdown.Breakdown):
                         new_axis = res_sub.axis
 
                     cls_axis = 'table-warning' if new_axis == 'x' \
@@ -370,7 +370,7 @@ class TableReporter(base_reporter.BaseReporter):
                         else 'table-light'
 
                     cls_tr = 'table-success' \
-                        if isinstance(res_sub, xbrl.taxonomy.table.breakdown.Breakdown) \
+                        if isinstance(res_sub, breakdown.Breakdown) \
                         else 'table-light' \
                         if isinstance(res_sub, xbrl.taxonomy.table.rule_node.RuleNode) \
                         else 'table-danger' \

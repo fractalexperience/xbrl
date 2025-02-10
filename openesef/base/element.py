@@ -1,4 +1,4 @@
-from openesef.base import ebase
+from ..base import ebase
 
 
 class Element(ebase.XmlElementBase):

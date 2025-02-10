@@ -1,7 +1,7 @@
 import os
 import zipfile
 from lxml import etree as lxml
-from openesef.base import const, resolver, util, data_wrappers
+from ..base import const, resolver, util, data_wrappers
 
 
 import logging
