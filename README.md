@@ -32,6 +32,11 @@ The **openesef** project can be installed directly from its GitHub repository us
 ### How to Use
 
 #### Example 1: SEC Filings with iXBRL following US -GAAP
+
+- Actually this repo is not intended to work with SEC filings. 
+- Refer to another repo https://github.com/reeyarn/sec_xbrl for extracting financial statement data from SEC filings.
+- Nevertheless, the following example shows how to use the `openesef` package to parse Apple Form 10-K from SEC EDGAR.
+
 ```python
 from openesef.base.pool import Pool
 import requests
