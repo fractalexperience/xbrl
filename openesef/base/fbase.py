@@ -6,7 +6,7 @@ import logging
 
 # Get a logger.  __name__ is a good default name.
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+#logger.setLevel(logging.DEBUG)
 
 # # Check if handlers already exist and clear them to avoid duplicates.
 # if logger.hasHandlers():
@@ -28,6 +28,10 @@ logger.setLevel(logging.DEBUG)
 
 class XmlFileBase(ebase.XmlElementBase):
     def __init__(self, location=None, container_pool=None, parsers=None, root=None, esef_filing_root = None):
+        """
+        root = None
+        this_xb = XmlFileBase(None, container_pool, parsers, root, esef_filing_root)
+        """
         if parsers is None:
             parsers = {}
         self.pool = container_pool
@@ -73,7 +77,7 @@ class XmlFileBase(ebase.XmlElementBase):
                     return root
         filename = url
         if self.pool:
-            filename = self.pool.cache(url)
+            filename = self.pool.cache(url) # <- got the error
         elif url.startswith('http://') or url.startswith('https://'):
             filename, headers = urllib.request.urlretrieve(url)
         dom = lxml.parse(filename)

@@ -5,7 +5,7 @@ import logging
 import traceback
 # Get a logger.  __name__ is a good default name.
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARNING)
 
 # # Check if handlers already exist and clear them to avoid duplicates.
 # if logger.hasHandlers():

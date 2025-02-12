@@ -69,7 +69,8 @@ import logging
 
 # Get the logger.  Don't create a new logger instance.
 logger = logging.getLogger("main.base.pool")
-logger.setLevel(logging.DEBUG)
+#logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.ERROR)
 
 # # Check if handlers already exist and clear them to avoid duplicates.
 # if logger.hasHandlers():
@@ -93,7 +94,7 @@ logger.setLevel(logging.DEBUG)
 
 
 class Pool(resolver.Resolver):
-    def __init__(self, cache_folder=None, output_folder=None, alt_locations=None, esef_filing_root=None):
+    def __init__(self, cache_folder=None, output_folder=None, alt_locations=None, esef_filing_root=None, max_error =0):
         """
         Initializes a new Pool instance
         Args:
@@ -123,15 +124,16 @@ class Pool(resolver.Resolver):
         # Currently opened archive, where files can be read from - optional.
         self.active_file_archive = None
         self.esef_filing_root = esef_filing_root
-
+        self.co_domain = None
+        self.max_error = max_error
     def __str__(self):
         return self.info()
 
     def check_count_exceptions(self):
         logger.debug(f"Checking count of exceptions: {self.count_exceptions}")
         logger.warning(f"Number of exceptions: {self.count_exceptions}")
-        if self.count_exceptions > 32:
-            raise Exception(f"Number of exceptions exceeded 8: {self.count_exceptions}")
+        if self.count_exceptions > self.max_error:
+            raise Exception(f"Number of exceptions exceeded {self.max_error}: {self.count_exceptions}")
 
     def __repr__(self):
         return self.info()
@@ -319,6 +321,31 @@ class Pool(resolver.Resolver):
         self.add_instance(xid, key, attach_taxonomy)
         return xid
 
+    def get_co_domain(self, esef_filing_root=None):
+        if self.co_domain is None:
+            for root, dirs, files in os.walk(esef_filing_root):
+                #print(root, dirs, files)
+                for dir in dirs:
+                    if re.search(r"www.|.com|.de|.net", dir):
+                        self.co_domain = dir
+                        break
+        return self.co_domain
+
+    def get_co_xsd_local_path(self, ref, esef_filing_root):
+        xsd_file_name = os.path.basename(ref)
+        if self.co_domain:
+            for root, dirs, files in os.walk(esef_filing_root):
+                for file in files:
+                    if re.search(xsd_file_name, file):
+                        return os.path.join(root, file)  
+        return ref
+    def get_esef_local_path(self, ref, esef_filing_root):
+        file_name = os.path.basename(ref)
+        for root, dirs, files in os.walk(esef_filing_root):
+                for file in files:
+                    if re.search(file_name, file):
+                        return os.path.join(root, file)  
+
     def add_instance(self, xid, key=None, attach_taxonomy=False, esef_filing_root=None): # Add esef_filing_root    
         """
         Adds an instance document to the pool
@@ -332,11 +359,13 @@ class Pool(resolver.Resolver):
             key = xid.location
 
         self.instances[key] = xid # xid is of <class 'openesef.instance.instance.Instance'>
-
+        if esef_filing_root and not self.co_domain:
+            self.get_co_domain(esef_filing_root)
         if attach_taxonomy and xid.xbrl is not None:
             # Ensure that if schema references are relative, the location base for XBRL document is added to them
-            entry_points = [ref if ref.startswith('http') else self.resolve_schema_ref(ref, xid.location)
-                            for ref in xid.xbrl.schema_refs]
+            entry_points = [  self.get_co_xsd_local_path(ref, esef_filing_root) if self.co_domain in ref  else ref for ref in xid.xbrl.schema_refs  ]
+            entry_points = [ref if ref.startswith('http') or self.co_domain in ref else self.resolve_schema_ref(ref, xid.location)
+                            for ref in entry_points]
             entry_points = [pathlib.Path(ep).as_uri() if os.path.isfile(ep) else ep for ep in entry_points]
 
             tax = self.add_taxonomy(entry_points, esef_filing_root) #<- here is the endless loop
@@ -357,15 +386,13 @@ class Pool(resolver.Resolver):
         # self.packaged_locations = {}
         for ep in ep_list:
             #ep = ep_list[0]
-
             #below is commented in original xbrl package.
             # if self.active_file_archive and ep in self.active_file_archive.namelist():
             #     self.packaged_locations[ep] = (self.active_file_archive, ep)
             # else:
-
             # For ESEF, try to resolve relative to esef_filing_root first
             if not ep.startswith(('http://', 'https://', 'file://')):
-                potential_path = os.path.join(esef_filing_root, ep)
+                potential_path = self.get_esef_local_path(ep, esef_filing_root)
                 if os.path.exists(potential_path):
                     ep = pathlib.Path(potential_path).as_uri()            
             
@@ -382,11 +409,11 @@ class Pool(resolver.Resolver):
             logger.debug(f"ep: \n{ep}")
 
         
-        #self = taxonomy.Taxonomy(entry_points = [], container_pool = self)
-        this_tax = taxonomy.Taxonomy(entry_points=ep_list,   
+        #this_tax = taxonomy.Taxonomy(entry_points = [], container_pool = self); self = this_tax
+        #self = data_pool # when coming back
+        this_tax = taxonomy.Taxonomy(entry_points=ep_list,
                           container_pool = self, 
                           esef_filing_root=esef_filing_root)  # <- endless loop
-
         # Sets the new taxonomy as current
         self.taxonomies[key] = self.current_taxonomy
         self.packaged_locations = None
@@ -511,6 +538,8 @@ class Pool(resolver.Resolver):
         # Skip basic schema objects
         if any(domain in href for domain in ['http://xbrl.org', 'http://www.xbrl.org']):
             return
+        elif re.search("xbrl.org", href):
+            return
 
         # Resolve the reference
         resolved_href = self._resolve_url(href, base, esef_filing_root)
@@ -531,7 +560,7 @@ class Pool(resolver.Resolver):
 
         logger.debug(f"\n\nCalling add_reference(...): \n{href} \nfrom base: \n{base}\n and esef_filing_root: {esef_filing_root}")    
 
-        if esef_filing_root:
+        if esef_filing_root and not href.startswith('http'):
             res_href = re.search(esef_filing_root + r"(.*)", href)
             if res_href:
                 href_local = re.sub("file://", "", res_href.group(0))
@@ -584,7 +613,7 @@ class Pool(resolver.Resolver):
                     # Fall back to base path resolution
                     resolved_href = self._resolve_url(href, base, esef_filing_root)
 
-                # potential_path = os.path.join(esef_filing_root, href) # <- this is terribly wrong
+                # potential_path = self.get_esef_local_path(ep, esef_filing_root) # <- this is terribly wrong
                 # if os.path.exists(potential_path):
                 #     resolved_href = pathlib.Path(potential_path).as_uri()
 
@@ -621,8 +650,9 @@ class Pool(resolver.Resolver):
                 # Remove file:// prefix if present
                 if resolved_href.startswith("file://"):
                     resolved_href = re.sub("file://", "", resolved_href)
-
-                lb = self.linkbases.get(resolved_href, linkbase.Linkbase(resolved_href, self, esef_filing_root=esef_filing_root)) # Use resolved_href
+                this_lb = linkbase.Linkbase(location=resolved_href, container_pool=self, esef_filing_root=esef_filing_root) #<- got error
+                #this_lb = linkbase.Linkbase(location=None, container_pool=self, esef_filing_root=esef_filing_root) #self = this_lb
+                lb = self.linkbases.get(resolved_href, this_lb) # <- got the error
                 self.current_taxonomy.attach_linkbase(resolved_href, lb) # Use resolved_href
 
         except OSError as e:
@@ -780,10 +810,31 @@ class Pool(resolver.Resolver):
     
 # to test     
 if __name__ == "__main__":
+    """
+    We run in first openesef folder. 
+    Starting to parse for observation: gvkey=352123; 
+    full_instance_path=/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/352123/2023/marley_spoon_2024-05-10_esef_xmls/222100A4X237BRODWF67-2023-12-31-en/marleyspoongroup/reports/222100A4X237BRODWF67-2023-12-31-en.xhtml
+2025-02-12 20:20:01,955 - main.parse_concepts - PID:13347 - INFO - concept_to_df: 
+    """
     #import importlib; import openesef.base.pool; from openesef.base.pool import *
+    #import importlib; import openesef.openesef.base.pool; importlib.reload(openesef.openesef.base.pool); from openesef.openesef.base.pool import *
     #from openesef.base.pool import *
-    esef_filing_root="/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/"
-    filename="reports/sap-2022-12-31-DE.xhtml"
-    data_pool = Pool(cache_folder="../data/xbrl_cache", esef_filing_root=esef_filing_root); 
+    #esef_filing_root="/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/103487/2022/sap_Jahres-_2023-04-05_esef_xmls/sap-2022-12-31-DE/"
+    #filename="reports/sap-2022-12-31-DE.xhtml"
+    esef_filing_root = "/Users/mbp16/Dropbox/data/proj/bmcg/bundesanzeiger/public/352123/2023/marley_spoon_2024-05-10_esef_xmls/222100A4X237BRODWF67-2023-12-31-en/marleyspoongroup/"
+    filename = "reports/222100A4X237BRODWF67-2023-12-31-en.xhtml"    
+    data_pool = Pool(cache_folder="../../data/xbrl_cache", esef_filing_root=esef_filing_root); 
+    #data_pool = Pool(cache_folder="../data/xbrl_cache", esef_filing_root=esef_filing_root, max_error=1024); 
     #self = data_pool; attach_taxonomy=True
     data_pool.add_instance_location(esef_filing_root=esef_filing_root, filename=filename, attach_taxonomy=True)
+    #esef_filing_root = taxonomy_folder
+    entry_point = None
+    presentation_file = None
+    for root, dirs, files in os.walk(esef_filing_root):
+        for file in files:
+            if file.endswith('.xsd'):
+                entry_point = os.path.join(root, file)
+            elif file.endswith('_pre.xml'):
+                presentation_file = os.path.join(root, file)    
+    tax = data_pool.add_taxonomy(entry_points = [entry_point, presentation_file], esef_filing_root=esef_filing_root)
+
