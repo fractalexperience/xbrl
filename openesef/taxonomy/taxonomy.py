@@ -1,11 +1,18 @@
 from ..base import const, data_wrappers, util
 from ..taxonomy.xdt import dr_set
 
-import logging
+from ..util.util_mylogger import setup_logger #util_mylogger
+import logging 
+if __name__=="__main__":
+    logger = setup_logger("main", logging.INFO, log_dir="/tmp/log/")
+else:
+    logger = logging.getLogger("main.openesf.taxonomy") 
+
+#import logging
 import traceback
-# Get a logger.  __name__ is a good default name.
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.WARNING)
+# # Get a logger.  __name__ is a good default name.
+# logger = logging.getLogger(__name__)
+# logger.setLevel(logging.WARNING)
 
 # # Check if handlers already exist and clear them to avoid duplicates.
 # if logger.hasHandlers():

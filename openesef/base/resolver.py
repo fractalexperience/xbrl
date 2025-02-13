@@ -6,10 +6,16 @@ from ..base import const, util
 import logging 
 import requests
 import traceback
-# Configure logging
-#logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
-#logger.setLevel(logging.DEBUG)
+
+from ..util.util_mylogger import setup_logger #util_mylogger
+import logging 
+if __name__=="__main__":
+    logger = setup_logger("main", logging.INFO, log_dir="/tmp/log/")
+else:
+    logger = logging.getLogger("main.openesf.resolver") 
+
+
+from io import StringIO, BytesIO
 
 class Resolver:
     def __init__(self, cache_folder=None, output_folder=None):

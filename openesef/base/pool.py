@@ -61,16 +61,23 @@ import pathlib
 import re 
 import urllib.parse
 
+from ..util.util_mylogger import setup_logger #util_mylogger
+import logging 
+if __name__=="__main__":
+    logger = setup_logger("main", logging.INFO, log_dir="/tmp/log/")
+else:
+    logger = logging.getLogger("main.openesf.pool") 
 
-import logging
 
-# Get a logger.  __name__ is a good default name.
-#logger = logging.getLogger(__name__)
+# import logging
 
-# Get the logger.  Don't create a new logger instance.
-logger = logging.getLogger("main.base.pool")
-#logger.setLevel(logging.DEBUG)
-logger.setLevel(logging.ERROR)
+# # Get a logger.  __name__ is a good default name.
+# #logger = logging.getLogger(__name__)
+
+# # Get the logger.  Don't create a new logger instance.
+# logger = logging.getLogger("main.base.pool")
+# #logger.setLevel(logging.DEBUG)
+# logger.setLevel(logging.ERROR)
 
 # # Check if handlers already exist and clear them to avoid duplicates.
 # if logger.hasHandlers():
