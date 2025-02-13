@@ -89,14 +89,27 @@ class Resolver:
             traceback.print_exc()
             raise Exception(f"Failed to download {url}: {str(e)}")
 
-    def cache(self, location):
+    def cache(self, location, content_io=None):
+        """
+        Enhanced cache method that can handle both URLs and StringIO/BytesIO objects
+        """
+
+        # If content_io is provided, use it directly
+        if content_io is not None:
+            return self.cache_from_string(content_io, location)
+
+
         if location is None:
             return None
+
         parts = location.replace(os.path.sep, "/").split('/')
         new_parts = util.reduce_url_parts(parts)
         protocol = new_parts[0].replace(':', '')
+
         if protocol not in const.KNOWN_PROTOCOLS:
             return location
+
+
         cached_file = self.cache_folder
         new_location = '/'.join(new_parts)
         # Starts from the second part, because the first one is the protocol and the second one is empty.
@@ -117,7 +130,6 @@ class Resolver:
                 if os.path.exists(cached_file):
                     os.remove(cached_file)  # Clean up any partial download
                 
-
         # if not os.path.exists(cached_file):
         #     user_agent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
         #     headers = {'User-Agent': user_agent}
@@ -134,3 +146,66 @@ class Resolver:
         #     # shutil.move(temp_file, cached_file)
 
         return cached_file
+
+    def cache_from_string(self, content, location):
+        """
+        Cache content from a StringIO/BytesIO object
+        """
+        if location is None:
+            return None
+
+        parts = location.replace(os.path.sep, "/").split('/')
+        new_parts = util.reduce_url_parts(parts)
+        cached_file = self.cache_folder
+
+        # Create directory structure
+        for part in new_parts[2:-1]:
+            cached_file = os.path.join(cached_file, part)
+            if not os.path.exists(cached_file):
+                os.makedirs(cached_file)
+
+        fn = new_parts[-1]
+        cached_file = os.path.join(cached_file, fn)
+
+        # Write content to file
+        mode = 'w' if isinstance(content, StringIO) else 'wb'
+        with open(cached_file, mode) as f:
+            content.seek(0)
+            f.write(content.read() if isinstance(content, StringIO) else content.getvalue())
+
+        return cached_file
+
+    def download_to_memory(self, url):
+        """
+        Download a file into memory instead of saving to disk
+        Returns either StringIO or BytesIO depending on content type
+        """
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+        }
+
+        try:
+            logger.info(f"Downloading {url} to memory")
+            response = requests.get(url, headers=headers)
+            response.raise_for_status()
+
+            # Determine if the content is text or binary based on content-type
+            content_type = response.headers.get('content-type', '').lower()
+            is_text = 'text' in content_type or 'xml' in content_type
+
+            if is_text:
+                content = StringIO(response.text)
+            else:
+                content = BytesIO(response.content)
+
+            logger.info(f"Successfully downloaded {url} to memory")
+            return content
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Failed to download {url}: {str(e)}")
+            traceback.print_exc()
+            raise Exception(f"Failed to download {url}: {str(e)}")
