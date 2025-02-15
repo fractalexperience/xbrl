@@ -55,8 +55,8 @@ def setup_logger(name, level=logging.INFO, level_file=None, log_dir="/tmp", incl
         console_handler.setFormatter(formatter)
         logger.addHandler(console_handler)
     
-    return logger, log_filename
-
+    #return logger, log_filename
+    return logger
 # Set up logger
 if __name__ == "__main__":
     logger, log_file = setup_logger(__name__)

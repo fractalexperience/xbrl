@@ -73,7 +73,7 @@ for location in [location_xbrl, location_taxonomy, location_linkbase_cal, locati
         # Save the response content to a file
         with open(location.split('/')[-1], 'wb') as file:
             file.write(response.content)
-    
+
 taxonomy = data_pool.add_taxonomy(files, esef_filing_root=os.getcwd())
 
 
