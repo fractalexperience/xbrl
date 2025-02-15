@@ -49,7 +49,7 @@ CACHE_DIR = os.path.expanduser("~/.xbrl_cache")
 os.makedirs(CACHE_DIR, exist_ok=True)
 
 # Initialize pool with cache
-data_pool = Pool(cache_folder=CACHE_DIR, max_error=1024)
+data_pool = Pool(cache_folder=CACHE_DIR, max_error=10)
 
 # Apple's 10-K iXBRL and XBRL URLs
 # https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/0000320193-20-000096-index.htm

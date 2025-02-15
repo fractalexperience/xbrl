@@ -43,11 +43,11 @@ import sys
 #print(openesef.__path__)
 import os, zipfile, functools
 from lxml import etree as lxml
-from ..base import resolver, util
-from ..taxonomy import taxonomy, schema, tpack, linkbase
-from ..instance import instance
+from openesef.base import resolver, util
+from openesef.taxonomy import taxonomy, schema, tpack, linkbase
+from openesef.instance import instance
 import gzip
-from ..base import const, util
+from openesef.base import const, util
 import os
 
 import zipfile
@@ -61,7 +61,7 @@ import pathlib
 import re 
 import urllib.parse
 
-from ..util.util_mylogger import setup_logger #util_mylogger
+from openesef.util.util_mylogger import setup_logger #util_mylogger
 import logging 
 if __name__=="__main__":
     logger = setup_logger("main", logging.INFO, log_dir="/tmp/log/")
@@ -400,7 +400,7 @@ class Pool(resolver.Resolver):
             # For ESEF, try to resolve relative to esef_filing_root first
             if not ep.startswith(('http://', 'https://', 'file://')):
                 potential_path = self.get_esef_local_path(ep, esef_filing_root)
-                if os.path.exists(potential_path):
+                if potential_path and os.path.exists(potential_path):
                     ep = pathlib.Path(potential_path).as_uri()            
             
             self.add_packaged_entrypoints(ep) 
@@ -415,8 +415,8 @@ class Pool(resolver.Resolver):
         for ep in ep_list:
             logger.debug(f"ep: \n{ep}")
 
-        
-        #this_tax = taxonomy.Taxonomy(entry_points = [], container_pool = self); self = this_tax
+        #data_pool = Pool(cache_folder=CACHE_DIR, max_error=1); #self = data_pool
+        #this_tax = taxonomy.Taxonomy(entry_points = [], container_pool = data_pool); self = this_tax
         #self = data_pool # when coming back
         this_tax = taxonomy.Taxonomy(entry_points=ep_list,
                           container_pool = self, 
@@ -615,7 +615,6 @@ class Pool(resolver.Resolver):
                     href_local = re.sub("file://", "", res_href.group(0))
                     if os.path.isfile(href_local):
                         resolved_href = pathlib.Path(href_local).as_uri()
-
                 else:
                     # Fall back to base path resolution
                     resolved_href = self._resolve_url(href, base, esef_filing_root)
@@ -658,7 +657,8 @@ class Pool(resolver.Resolver):
                 if resolved_href.startswith("file://"):
                     resolved_href = re.sub("file://", "", resolved_href)
                 this_lb = linkbase.Linkbase(location=resolved_href, container_pool=self, esef_filing_root=esef_filing_root) #<- got error
-                #this_lb = linkbase.Linkbase(location=None, container_pool=self, esef_filing_root=esef_filing_root) #self = this_lb
+                #data_pool = Pool(cache_folder=CACHE_DIR, max_error=1); #self = data_pool
+                #this_lb = linkbase.Linkbase(location=None, container_pool=data_pool, esef_filing_root=esef_filing_root) #self = this_lb
                 lb = self.linkbases.get(resolved_href, this_lb) # <- got the error
                 self.current_taxonomy.attach_linkbase(resolved_href, lb) # Use resolved_href
 
@@ -712,7 +712,9 @@ class Pool(resolver.Resolver):
         elif href.startswith('file://'):
             #logger.debug(f"Resolved URL: \n{href}")
             return href
-
+        elif base.startswith(('http://', 'https://')):
+            print(f"20250215a:{base}{href}")
+            return f"{base}/{href}"
         # Try to find the file in ESEF structure first
         if esef_filing_root :
             # First, try to find in www.company.com subdirectory
@@ -727,7 +729,12 @@ class Pool(resolver.Resolver):
                     
             # If not found in www subdirectory, try base directory
             if base:
-                resolved_path = os.path.abspath(os.path.join(os.path.dirname(base), href))
+                if base.startswith(('http://', 'https://')):
+                    resolved_path = f"{base}/{href}"
+                else:
+                    resolved_path = os.path.abspath(os.path.join(os.path.dirname(base), href)) #<- this is wrong? #20250215
+                print(f"href: \n{href} -> resolved_path: \n{resolved_path}")
+                print(f"base: \n{base}")
                 if os.path.isfile(resolved_path):
                     resolved = pathlib.Path(resolved_path).as_uri()
                     #logger.debug(f"Resolved URL (ESEF base): \n{resolved}")
@@ -772,8 +779,12 @@ class Pool(resolver.Resolver):
 
         # Resolve relative to the instance_path
         #resolved_path= os.path.abspath(os.path.join(os.path.dirname(instance_path), href))
-        resolved_path = os.path.abspath(os.path.join(os.path.dirname(instance_path), href)) # Ensure absolute path
+        #resolved_path = os.path.abspath(os.path.join(os.path.dirname(instance_path), href)) # Ensure absolute path
         #logger.debug(f"Resolved path: \n{resolved_path}")
+        # Construct the full URL if href is relative
+        base_url = os.path.dirname(instance_path)  # Get the base URL from the instance path
+        resolved_path = os.path.abspath(os.path.join(base_url, href))  # Resolve relative path
+        logger.debug(f"Resolved path: \n{resolved_path}")
 
         return resolved_path # Return the absolute path; don't prepend https://
 
@@ -815,8 +826,46 @@ class Pool(resolver.Resolver):
             self.check_count_exceptions()
             return None
     
-# to test     
+
+# to test Apple
 if __name__ == "__main__":
+    #from openesef.base.pool import *
+    CACHE_DIR = os.path.expanduser("~/.xbrl_cache")
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    # Initialize pool with cache
+    data_pool = Pool(cache_folder=CACHE_DIR, max_error=1); #self = data_pool
+    taxonomy = data_pool.add_taxonomy(entry_points=["http://xbrl.fasb.org/srt/2020/elts/srt-eedm1-def-2020-01-31.xml"], esef_filing_root=os.getcwd())
+
+if False:
+    # Apple's 10-K iXBRL and XBRL URLs
+    # https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/0000320193-20-000096-index.htm
+    #location_ixbrl = 'https://www.sec.gov/ix?doc=/Archives/edgar/data/320193/000032019320000096/aapl-20200926.htm'
+    location_xbrl = 'https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/aapl-20200926_htm.xml'
+    location_taxonomy = "https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/aapl-20200926.xsd"
+    location_linkbase_cal = "https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/aapl-20200926_cal.xml"
+    location_linkbase_def = "https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/aapl-20200926_def.xml"
+    location_linkbase_lab = "https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/aapl-20200926_lab.xml"
+    location_linkbase_pre = "https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/aapl-20200926_pre.xml"
+
+
+    # Process both inline XBRL and native XBRL formats
+    # Parse inline document (iXBRL)
+
+    files = []
+    for location in [location_xbrl, location_taxonomy, location_linkbase_cal, location_linkbase_def, location_linkbase_lab, location_linkbase_pre]:
+        files.append(location.split('/')[-1])
+        if not os.path.exists(location.split('/')[-1]):
+            response = requests.get(location, headers={'User-Agent': 'Your Name <your.email@example.com>'})
+            # Save the response content to a file
+            with open(location.split('/')[-1], 'wb') as file:
+                file.write(response.content)
+
+    taxonomy = data_pool.add_taxonomy([files[1]], esef_filing_root=os.getcwd())
+    #location = "http://xbrl.fasb.org/srt/2020/srt-roles-2020-01-31.xsd"
+    #taxonomy = data_pool.add_taxonomy(files, esef_filing_root=os.getcwd())
+
+# to test ESEF
+if __name__ == "__main__" and False:
     """
     We run in first openesef folder. 
     Starting to parse for observation: gvkey=352123; 

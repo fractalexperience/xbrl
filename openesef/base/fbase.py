@@ -42,6 +42,7 @@ class XmlFileBase(ebase.XmlElementBase):
         """
         if parsers is None:
             parsers = {}
+        self.parsers = parsers
         self.pool = container_pool
         self.namespaces = {}  # Key is the prefix and value is the URI
         self.namespaces_reverse = {}  # Key is the UrI and value is the prefix
@@ -62,7 +63,7 @@ class XmlFileBase(ebase.XmlElementBase):
         self.l_namespaces(root)
         self.l_schema_location(root)
         #this_eb = ebase.XmlElementBase(e=None, parsers=None, assign_origin=False, esef_filing_root=None)
-        #this_eb = ebase.XmlElementBase(e = root, parsers=parsers, assign_origin=False, esef_filing_root=esef_filing_root); self = this_eb
+        #this_eb = ebase.XmlElementBase(e = root, parsers=parsers, assign_origin=False, esef_filing_root=esef_filing_root); #self = this_eb
         super().__init__(e = root, 
                          parsers = parsers, 
                          esef_filing_root=esef_filing_root)

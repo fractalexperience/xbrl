@@ -8,10 +8,12 @@ import traceback
 from io import StringIO, BytesIO
 import sys
 
-from ..base import const, util
+from openesef.base import const, util
 
-from ..util.util_mylogger import setup_logger #util_mylogger
+from openesef.util.util_mylogger import setup_logger #util_mylogger
+
 import logging 
+
 if __name__=="__main__":
     logger = setup_logger("main", logging.INFO, log_dir="/tmp/log/")
 else:
@@ -226,6 +228,8 @@ class Resolver:
 if __name__ == "__main__":
     data_pool = Resolver()
     location = "http://xbrl.fasb.org/srt/2020/elts/srt-2020-01-31.xsd"
+    location = "http://xbrl.fasb.org/srt/2020/srt-roles-2020-01-31.xsd"
     content = data_pool.cache(location=location, content_io=None)
+    location = "/"
     #self = data_pool; attach_taxonomy=True
     print(content)

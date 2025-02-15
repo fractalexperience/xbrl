@@ -55,6 +55,13 @@ class Linkbase(fbase.XmlFileBase):
         resolved_location = util.reduce_url(location)
         if self.pool is not None:
             self.pool.discovered[location] = True
+        #from openesef.base import ebase, fbase
+        #this_fbase = fbase.XmlFileBase(None, container_pool, parsers, root, esef_filing_root); #self = this_fbase
+        #this_ebase = ebase.XmlElementBase(None, container_pool, parsers, root, esef_filing_root); #self = this_ebase
+        
+        
+        
+        
         super().__init__(resolved_location, container_pool, parsers, root, esef_filing_root)
         if self.pool is not None:
             self.pool.linkbases[resolved_location] = self

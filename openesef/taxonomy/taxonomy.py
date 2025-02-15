@@ -101,7 +101,6 @@ class Taxonomy:
         self.tuple_types = {}
         # Complex types with complex content: Key is unique identifier, value is the tuple type object 
         self.tuple_types_by_id = {}
-
         self.load()
         self.compile()
 
