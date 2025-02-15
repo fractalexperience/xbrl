@@ -49,11 +49,11 @@ CACHE_DIR = os.path.expanduser("~/.xbrl_cache")
 os.makedirs(CACHE_DIR, exist_ok=True)
 
 # Initialize pool with cache
-data_pool = Pool(cache_folder=CACHE_DIR)
+data_pool = Pool(cache_folder=CACHE_DIR, max_error=1024)
 
 # Apple's 10-K iXBRL and XBRL URLs
 # https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/0000320193-20-000096-index.htm
-location_ixbrl = 'https://www.sec.gov/ix?doc=/Archives/edgar/data/320193/000032019320000096/aapl-20200926.htm'
+#location_ixbrl = 'https://www.sec.gov/ix?doc=/Archives/edgar/data/320193/000032019320000096/aapl-20200926.htm'
 location_xbrl = 'https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/aapl-20200926_htm.xml'
 location_taxonomy = "https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/aapl-20200926.xsd"
 location_linkbase_cal = "https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/aapl-20200926_cal.xml"
@@ -66,7 +66,7 @@ location_linkbase_pre = "https://www.sec.gov/Archives/edgar/data/320193/00003201
 # Parse inline document (iXBRL)
 
 files = []
-for location in [location_ixbrl, location_xbrl, location_taxonomy, location_linkbase_cal, location_linkbase_def, location_linkbase_lab, location_linkbase_pre]:
+for location in [location_xbrl, location_taxonomy, location_linkbase_cal, location_linkbase_def, location_linkbase_lab, location_linkbase_pre]:
     files.append(location.split('/')[-1])
     if not os.path.exists(location.split('/')[-1]):
         response = requests.get(location, headers={'User-Agent': 'Your Name <your.email@example.com>'})
