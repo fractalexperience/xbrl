@@ -713,7 +713,7 @@ class Pool(resolver.Resolver):
             #logger.debug(f"Resolved URL: \n{href}")
             return href
         elif base.startswith(('http://', 'https://')):
-            print(f"20250215a:{base}{href}")
+            #print(f"20250215a:{base}{href}")
             return f"{base}/{href}"
         # Try to find the file in ESEF structure first
         if esef_filing_root :
@@ -733,8 +733,8 @@ class Pool(resolver.Resolver):
                     resolved_path = f"{base}/{href}"
                 else:
                     resolved_path = os.path.abspath(os.path.join(os.path.dirname(base), href)) #<- this is wrong? #20250215
-                print(f"href: \n{href} -> resolved_path: \n{resolved_path}")
-                print(f"base: \n{base}")
+                #print(f"href: \n{href} -> resolved_path: \n{resolved_path}")
+                #print(f"base: \n{base}")
                 if os.path.isfile(resolved_path):
                     resolved = pathlib.Path(resolved_path).as_uri()
                     #logger.debug(f"Resolved URL (ESEF base): \n{resolved}")
