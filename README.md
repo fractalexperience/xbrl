@@ -74,7 +74,7 @@ for location in [location_xbrl, location_taxonomy, location_linkbase_cal, locati
         with open(location.split('/')[-1], 'wb') as file:
             file.write(response.content)
 
-this_tax = data_pool.add_taxonomy(files, esef_filing_root=os.getcwd())
+this_tax = data_pool.add_taxonomy([files[1]], esef_filing_root=os.getcwd())
 
 
 print("\nTaxonomy statistics:")

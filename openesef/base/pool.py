@@ -718,8 +718,19 @@ class Pool(resolver.Resolver):
         # Try to find the file in ESEF structure first
         if esef_filing_root :
             # First, try to find in www.company.com subdirectory
+            for root, _, files in os.walk(esef_filing_root):
+                if os.path.basename(href) in files:
+                    resolved_path = os.path.join(root, os.path.basename(href))                    
+                    resolved = pathlib.Path(resolved_path).as_uri()
+                    #logger.debug(f"Resolved URL (esef_filing_root): \n{resolved}")
+                    return resolved
+
             esef_filing_root_parent = os.path.dirname(esef_filing_root)
+            _i_walk = 0 
             for root, _, files in os.walk(esef_filing_root_parent):
+                _i_walk += 1
+                if _i_walk > 16:
+                    break
                 if os.path.basename(href) in files:
                     resolved_path = os.path.join(root, os.path.basename(href))
                     
@@ -728,17 +739,17 @@ class Pool(resolver.Resolver):
                     return resolved
                     
             # If not found in www subdirectory, try base directory
-            if base:
-                if base.startswith(('http://', 'https://')):
-                    resolved_path = f"{base}/{href}"
-                else:
-                    resolved_path = os.path.abspath(os.path.join(os.path.dirname(base), href)) #<- this is wrong? #20250215
-                #print(f"href: \n{href} -> resolved_path: \n{resolved_path}")
-                #print(f"base: \n{base}")
-                if os.path.isfile(resolved_path):
-                    resolved = pathlib.Path(resolved_path).as_uri()
-                    #logger.debug(f"Resolved URL (ESEF base): \n{resolved}")
-                    return resolved
+        if base:
+            if base.startswith(('http://', 'https://')):
+                resolved_path = f"{base}/{href}"
+            else:
+                resolved_path = os.path.abspath(os.path.join(os.path.dirname(base), href)) #<- this is wrong? #20250215
+            #print(f"href: \n{href} -> resolved_path: \n{resolved_path}")
+            #print(f"base: \n{base}")
+            if os.path.isfile(resolved_path):
+                resolved = pathlib.Path(resolved_path).as_uri()
+                #logger.debug(f"Resolved URL (ESEF base): \n{resolved}")
+                return resolved
 
         if base is None or not base.strip():
             if os.path.isfile(href):
@@ -828,7 +839,7 @@ class Pool(resolver.Resolver):
     
 
 # to test Apple
-if __name__ == "__main__":
+if __name__ == "__main__" and False:
     #from openesef.base.pool import *
     CACHE_DIR = os.path.expanduser("~/.xbrl_cache")
     os.makedirs(CACHE_DIR, exist_ok=True)
@@ -851,7 +862,8 @@ if __name__ == "__main__":
 
     # Process both inline XBRL and native XBRL formats
     # Parse inline document (iXBRL)
-
+    CACHE_DIR = os.path.expanduser("~/.xbrl_cache")
+    data_pool = Pool(cache_folder=CACHE_DIR, max_error=10); #self = data_pool
     files = []
     for location in [location_xbrl, location_taxonomy, location_linkbase_cal, location_linkbase_def, location_linkbase_lab, location_linkbase_pre]:
         files.append(location.split('/')[-1])
@@ -861,9 +873,13 @@ if __name__ == "__main__":
             with open(location.split('/')[-1], 'wb') as file:
                 file.write(response.content)
 
-    this_tax = data_pool.add_taxonomy([files[1]], esef_filing_root=os.getcwd())
+    this_tax = data_pool.add_taxonomy(files, esef_filing_root=os.getcwd())
     #location = "http://xbrl.fasb.org/srt/2020/srt-roles-2020-01-31.xsd"
     #taxonomy = data_pool.add_taxonomy(files, esef_filing_root=os.getcwd())
+    print("\nTaxonomy statistics:")
+    print(f"Schemas: {len(this_tax.schemas)}")
+    print(f"Linkbases: {len(this_tax.linkbases)}")
+    print(f"Concepts: {len(this_tax.concepts)}")
 
 # to test ESEF
 if __name__ == "__main__" and False:
