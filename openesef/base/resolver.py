@@ -2,10 +2,13 @@ import os
 import shutil
 import tempfile
 import urllib.request
-from ..base import const, util
 import logging 
 import requests
 import traceback
+from io import StringIO, BytesIO
+import sys
+
+from ..base import const, util
 
 from ..util.util_mylogger import setup_logger #util_mylogger
 import logging 
@@ -15,7 +18,7 @@ else:
     logger = logging.getLogger("main.openesf.resolver") 
 
 
-from io import StringIO, BytesIO
+
 
 class Resolver:
     """
@@ -58,8 +61,8 @@ class Resolver:
             #logger.info(f"Downloading {url} to {cached_file}")
             response = requests.get(url, headers=headers, stream=True)
             response.raise_for_status()
-
-            # Determine if the content is text or binary based on content-type
+            #
+            # Determine if the content is text or binary based on content-type  
             content_type = response.headers.get('content-type', '').lower()
             is_text = 'text' in content_type or 'xml' in content_type
             #
@@ -80,6 +83,7 @@ class Resolver:
                         if is_text:
                             if type(chunk) == bytes:
                                 chunk = chunk.decode(encoding='utf-8')
+                                f.write(chunk)
                             elif type(chunk) == str:
                                 f.write(chunk)
                         else:
@@ -133,7 +137,7 @@ class Resolver:
         # If file doesn't exist or is empty, download it
         if not os.path.exists(cached_file) or os.path.getsize(cached_file) == 0:
             try:
-                self.download_file(new_location, cached_file)
+                self.download_file(url=location, cached_file=cached_file)
             except Exception as e:
                 logger.error(f"Error caching {location}: {str(e)}")
                 if os.path.exists(cached_file):
@@ -221,6 +225,7 @@ class Resolver:
         
 if __name__ == "__main__":
     data_pool = Resolver()
-    content = data_pool.cache(location="http://xbrl.fasb.org/srt/2020/elts/srt-2020-01-31.xsd", content_io=None)
+    location = "http://xbrl.fasb.org/srt/2020/elts/srt-2020-01-31.xsd"
+    content = data_pool.cache(location=location, content_io=None)
     #self = data_pool; attach_taxonomy=True
     print(content)
