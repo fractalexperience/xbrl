@@ -3,7 +3,7 @@
 Date: 21 Nov 2022 
 (lol, I'm not sure if this is the correct date)
 
-Wirtschaftsprüfung / Beratung mit dem Schwerpunkt Kapitalmarktorientierte Unternehmen.
+
 
 ## OpenESEF
 `Open source implementation of ESEF-Parser/AnalysorAnalyser/Validator in Java/Kotlin`
@@ -17,8 +17,8 @@ Wirtschaftsprüfung / Beratung mit dem Schwerpunkt Kapitalmarktorientierte Unter
 `ESEF-Generator`
 
 ## Person: Xiao Yang
+Wirtschaftsprüfung / Beratung mit dem Schwerpunkt Kapitalmarktorientierte Unternehmen.
 > https://www.linkedin.com/in/qiouy/?originalSubdomain=de
-
 
 > 3rd degree connection
 > CICPA / attorney-at-law (China) / German CPA / German Tax-Consultant
