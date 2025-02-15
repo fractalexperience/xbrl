@@ -74,13 +74,13 @@ for location in [location_xbrl, location_taxonomy, location_linkbase_cal, locati
         with open(location.split('/')[-1], 'wb') as file:
             file.write(response.content)
 
-taxonomy = data_pool.add_taxonomy(files, esef_filing_root=os.getcwd())
+this_tax = data_pool.add_taxonomy(files, esef_filing_root=os.getcwd())
 
 
 print("\nTaxonomy statistics:")
-print(f"Schemas: {len(taxonomy.schemas)}")
-print(f"Linkbases: {len(taxonomy.linkbases)}")
-print(f"Concepts: {len(taxonomy.concepts)}")
+print(f"Schemas: {len(this_tax.schemas)}")
+print(f"Linkbases: {len(this_tax.linkbases)}")
+print(f"Concepts: {len(this_tax.concepts)}")
 
 
 ```
@@ -113,7 +113,7 @@ xid_native = data_pool.add_instance_location(
     attach_taxonomy=True
 )
 
-reporter = tax_reporter.TaxonomyReporter(taxonomy)
+reporter = tax_reporter.TaxonomyReporter(this_tax)
 
 #... (more code)
 ```

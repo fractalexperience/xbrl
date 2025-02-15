@@ -834,9 +834,10 @@ if __name__ == "__main__":
     os.makedirs(CACHE_DIR, exist_ok=True)
     # Initialize pool with cache
     data_pool = Pool(cache_folder=CACHE_DIR, max_error=1); #self = data_pool
-    taxonomy = data_pool.add_taxonomy(entry_points=["http://xbrl.fasb.org/srt/2020/elts/srt-eedm1-def-2020-01-31.xml"], esef_filing_root=os.getcwd())
+    this_tax = data_pool.add_taxonomy(entry_points=["http://xbrl.fasb.org/srt/2020/elts/srt-eedm1-def-2020-01-31.xml"], esef_filing_root=os.getcwd())
 
-if False:
+if __name__ == "__main__":
+    import requests
     # Apple's 10-K iXBRL and XBRL URLs
     # https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/0000320193-20-000096-index.htm
     #location_ixbrl = 'https://www.sec.gov/ix?doc=/Archives/edgar/data/320193/000032019320000096/aapl-20200926.htm'
@@ -860,7 +861,7 @@ if False:
             with open(location.split('/')[-1], 'wb') as file:
                 file.write(response.content)
 
-    taxonomy = data_pool.add_taxonomy([files[1]], esef_filing_root=os.getcwd())
+    this_tax = data_pool.add_taxonomy([files[1]], esef_filing_root=os.getcwd())
     #location = "http://xbrl.fasb.org/srt/2020/srt-roles-2020-01-31.xsd"
     #taxonomy = data_pool.add_taxonomy(files, esef_filing_root=os.getcwd())
 
