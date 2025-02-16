@@ -874,7 +874,7 @@ if __name__ == "__main__":
                 file.write(response.content)
 
     this_tax = data_pool.add_taxonomy(files, esef_filing_root=os.getcwd())
-    #location = "http://xbrl.fasb.org/srt/2020/srt-roles-2020-01-31.xsd"
+    #location = "https://xbrl.fasb.org/us-gaap/2024/elts/us-gaap-all-2024.xsd"
     #taxonomy = data_pool.add_taxonomy(files, esef_filing_root=os.getcwd())
     print("\nTaxonomy statistics:")
     print(f"Schemas: {len(this_tax.schemas)}")
