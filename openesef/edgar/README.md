@@ -4,6 +4,8 @@ Okay, I've analyzed the provided documentation to understand the terms EX-100 an
 
 https://www.sec.gov/info/edgar/edgarfm-vol2-v14.pdf
 
+https://www.sec.gov/files/edgar/filer-information/specifications/xbrl-guide.pdf
+
 **Core Concept:**
 
 *   EX-100 and EX-101 are *document type codes* used in EDGAR filings specifically for attaching files related to **interactive data**, often involving XBRL (Extensible Business Reporting Language). These documents are specifically linked to interactive data.
@@ -26,7 +28,24 @@ https://www.sec.gov/info/edgar/edgarfm-vol2-v14.pdf
     * An XBRL instance submitted in the Voluntary Filing Program must be an EX-100.INS
     * An Interactive Data instance in XBRL format must be an EX-101.INS
 
-5.  **Document Naming:** The document also states that XBRL document names must follow a specific convention. The XBRL document names must match {base}-{date}[_{suffix}].{extension}.
+5.  **Document Naming:** XBRL document names must follow a specific convention. The XBRL document names must match {base}-{date}[_{suffix}].{extension}.
+    >6 .3.3  XBRL document names must match {base}-{date}[_{suffix}].{extension}
+
+| XBRL Document | Document Name Format |
+|----------------|-------------------|
+| Instance | {base}-{date}.xml |
+| Schema | {base}-{date}.xsd |
+| Calculation Linkbase | {base}-{date}_cal.xml |
+| Definition Linkbase | {base}-{date}_def.xml |
+| Label Linkbase | {base}-{date}_lab.xml |
+| Presentation Linkbase | {base}-{date}_pre.xml |
+| Reference Linkbase | {base}-{date}_ref.xml |
+
+ - The `{base}` should begin with the registrant’s ticker symbol or other mnemonic abbreviation.
+
+ - The `{date}` must denote the ending date of the period.  If the instance document is a prospectus or other report whose period is indefinite, `{date}` should match the filing date.
+
+
     Example:
     *   abccorp-20041130\_cal.xml
     *   abccorp-20041201\_ref.xml
@@ -38,31 +57,22 @@ https://www.sec.gov/info/edgar/edgarfm-vol2-v14.pdf
 *   **EX-100:** Indicates XBRL used in a Voluntary Filing Program submission
 *   **EX-101:** Indicates interactive Data submission.
 
-I hope this helps you understand the difference between the document type codes.
+
 
 
 
 
 ```python
-
 from openesef.base.pool import Pool
-
-import importlib
 from openesef.edgar.edgar import EG_LOCAL
 from openesef.edgar.stock import Stock
 
-
-#import openesef.edgar.edgar; importlib.reload(openesef.edgar.edgar); from openesef.edgar.edgar import *
-#import openesef.edgar.stock; importlib.reload(openesef.edgar.stock); from openesef.edgar.stock import *; from openesef.edgar.stock import Stock
-#import openesef.edgar.filing; importlib.reload(openesef.edgar.filing); from openesef.edgar.filing import *; from openesef.edgar.filing import Filing
+#where you store the files downloaded from SEC's EDGAR
 egl = EG_LOCAL('/text/edgar')
-egl.symbols_data_path
 
 
 stock = Stock('AAPL', egl = egl); #self = stock
 filing = stock.get_filing(period='annual', year=2023)
-
-len(filing.documents)
 
 for key, doc in filing.documents.items():
     if re.search(r'xml|xhtml', doc.filename, flags=re.IGNORECASE) or re.search(r'101|100', doc.type, flags=re.IGNORECASE):    
@@ -95,3 +105,30 @@ IDEA: XBRL DOCUMENT
 94 FilingSummary.xml XML FilingSummary.xml 1
 IDEA: XBRL DOCUMENT
 ```
+
+## xlink:href
+
+
+6.3.6  The URI content of the xlink:href attribute, the xsi:schemaLocation attribute and the schemaLocation attribute must be relative and contain no forward slashes, or a
+recognized external location of a standard taxonomy schema file, or a “#” followed by a shorthand xpointer.
+
+The xlink:href attribute must appear on the link:loc element; the schemaLocation attribute must appear on the xsd:import element, and the xsi:schemaLocation attribute must appear on the link:linkbase element and may appear on the xbrli:xbrl element.
+
+Valid entries for the xlink:href attribute, the xsi:schemaLocation attribute and the schemaLocation attribute are document locations.  If they are relative URIs, they are subject to EDGARLink attachment naming conventions. Therefore, all documents attached to the submission will be at the same level of folder hierarchy. By restricting the content of these attributes, all documents in the DTS of an instance will be either a standard taxonomy or present in the submission.
+
+Examples:
+
+*  xlink:href="abccorp-20100123.xsd"
+
+*  <xsd:import schemaLocation="http://xbrl.org/2006/xbrldi-2006.xsd" namespace=
+…/>
+
+Counterexamples:
+
+*  xlink:href="http://www.example.com/2007/example.xsd”
+
+*  xlink:href="#element(1/4)" (Comment: this is a scheme-based xpointer, not shorthand)
+
+The XHTML namespace is intentionally omitted, since an XHTML declaration could not be a valid target for any XBRL element’s xlink:href or schemaLocation attribute, and its presence in the xsi:schemaLocation attribute would not impact XBRL validation.
+
+There are dozens of other XBRL US GAAP Taxonomies documents to be used as templates to copy from during the preparation process, but their inclusion in an EDGAR filing tends to load unused linkbases and therefore introduces unwarranted complications such as unused extended links and a need for many prohibiting arcs. Reducing the amount of content in the DTS of the instance to its essentials frees users to more easily link the submitted documents to the linkbases of their particular interest for analysis.

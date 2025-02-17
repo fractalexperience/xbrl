@@ -34,8 +34,6 @@ Class Attributes:
     active_file_archive (ZipFile): Currently opened archive file
 """
 import sys
-#sys.path.insert(0, "../../..")
-#sys.path.insert(0, "../../../openesef")
 
 
 
@@ -46,13 +44,14 @@ from lxml import etree as lxml
 from openesef.base import resolver, util
 from openesef.taxonomy import taxonomy, schema, tpack, linkbase
 from openesef.instance import instance
+import openesef
 import gzip
 from openesef.base import const, util
 import os
-
+import tempfile
 import zipfile
 import functools
-
+from pathlib import Path
 import time
 from typing import Optional, Dict, List, Union, Tuple
 import traceback
@@ -111,7 +110,17 @@ class Pool(resolver.Resolver):
             esef_filing_root (str): Path to location of the ESEF structure
         """
         logger.info(f"\n\nInitializing Pool with cache_folder={cache_folder}, output_folder={output_folder}")
-
+        if cache_folder is None:
+            repo_cache_folder = Path(openesef.__file__).parent / "xbrl_schema"
+            if os.path.exists(repo_cache_folder):
+                if os.access(repo_cache_folder, os.W_OK):
+                    cache_folder = repo_cache_folder
+                    logger.info(f"Using repository cache folder: {cache_folder}")
+            if cache_folder is None:
+                cache_folder = tempfile.gettempdir()
+                logger.info(f"Using temporary cache folder: {cache_folder}")
+        else:
+            logger.info(f"Using provided cache folder: {cache_folder}")
         super().__init__(cache_folder, output_folder)
         self.taxonomies = {}
         self.current_taxonomy = None
@@ -150,7 +159,9 @@ class Pool(resolver.Resolver):
             f'Taxonomies: {len(self.taxonomies)}',
             f'Instance documents: {len(self.instances)}',
             f'Taxonomy schemas: {len(self.schemas)}',
-            f'Taxonomy linkbases: {len(self.linkbases)}'])
+            f'Taxonomy linkbases: {len(self.linkbases)}',
+            f"cache folder: {self.cache_folder}",
+            ])
 
     def index_packages(self):
         """ Index the content of taxonomy packages found in cache/taxonomies/ """
@@ -378,7 +389,8 @@ class Pool(resolver.Resolver):
             self.get_co_domain(esef_filing_root)
         if attach_taxonomy and xid.xbrl is not None:
             # Ensure that if schema references are relative, the location base for XBRL document is added to them
-            entry_points = [  self.get_co_xsd_local_path(ref, esef_filing_root) if self.co_domain in ref  else ref for ref in xid.xbrl.schema_refs  ]
+            if esef_filing_root is not None:
+                entry_points = [  self.get_co_xsd_local_path(ref, esef_filing_root) if self.co_domain in ref  else ref for ref in xid.xbrl.schema_refs  ]
             entry_points = [ref if ref.startswith('http') or self.co_domain in ref else self.resolve_schema_ref(ref, xid.location)
                             for ref in entry_points]
             entry_points = [pathlib.Path(ep).as_uri() if os.path.isfile(ep) else ep for ep in entry_points]

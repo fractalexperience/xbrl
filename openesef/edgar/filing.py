@@ -129,12 +129,36 @@ class Filing:
 
         # Load from cache or fetch and cache
         self._load_or_fetch_filing()
+        self.xbrl_files = self.get_xbrl_files()
 
     def __str__(self):
         return f"Filing(url={self.url}, company={self.company}), local_path={self._get_cache_path()}"
     def __repr__(self):
         return self.__str__()
-
+    def get_xbrl_files(self):
+        #
+        docs =  [doc for key, doc in self.documents.items() 
+                 if doc.filename.lower().endswith('.xml') or doc.filename.lower().endswith('.xsd')]
+        docs = [doc for doc in docs if doc.filename != FILING_SUMMARY_FILE]
+        #['aapl-20230930.xsd', 'aapl-20230930_cal.xml', 'aapl-20230930_def.xml', 'aapl-20230930_lab.xml', 'aapl-20230930_pre.xml', 'aapl-20230930_htm.xml']
+        xbrl_files = {}
+        for doc in docs:
+            if "INS" in doc.type:
+                xbrl_files["xml"] = doc.filename
+            elif "SCH" in doc.type:
+                xbrl_files["sch"] = doc.filename
+            elif "CAL" in doc.type:
+                xbrl_files["cal"] = doc.filename
+            elif "DEF" in doc.type:
+                xbrl_files["def"] = doc.filename
+            elif "LAB" in doc.type:
+                xbrl_files["lab"] = doc.filename
+            elif "PRE" in doc.type:
+                xbrl_files["pre"] = doc.filename
+            elif "XML" in doc.type:
+                xbrl_files["xml"] = doc.filename
+                
+        return xbrl_files
     def _get_cache_path(self):
         """
         Generate cache path maintaining EDGAR's folder structure
