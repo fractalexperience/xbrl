@@ -174,6 +174,38 @@ https://github.com/fractalexperience/xbrl/
 
 Special attention is paid to efficient in-memory storage of various resources. There is a data pool, which allows objects, which are reused across different taxonomies to be stored in memory only once. This way it is possible to maintain multiple entry points and multiple taxonomy versions at the time, without a risk of memory overflow. 
 
+## SEC EDGAR Financial Reports
+
+
+The following modules have been added to the `edgar` folder to enhance the functionality of the Open-ESEF project for handling filings from SEC EDGAR. 
+
+These files are **under review**; I will remove redundant modules and the non-XBRL parts of code. Only filing retrieval and parsing related code will be kept.
+
+- The `edgar` folder contains modules that are used to handle filings from SEC EDGAR.
+- The `edgar` folder is a fork of the [SEC EDGAR Financial Reports](https://github.com/farhadab/sec-edgar-financials) project.
+
+  1. **stock.py**  
+     This module handles the retrieval and management of stock symbols and their associated financial filings from the SEC. It includes functionality to update the symbols data and fetch filing information based on company symbols.
+
+  2. **dtd.py**  
+     This module defines the Document Type Definition (DTD) used for EDGAR documents. It provides a structured representation of the elements within the EDGAR filings, facilitating the parsing and validation of these documents.
+
+  3. **sgml.py**  
+     This module is responsible for parsing SGML documents from SEC filings. It utilizes the DTD to convert SGML data into a more manageable dictionary format, allowing for easier data extraction and manipulation.
+
+  4. **requests_wrapper.py**  
+     This module wraps the requests library to handle HTTP requests to the SEC's EDGAR system. It includes custom error handling to manage request exceptions effectively.
+
+  5. **financials.py**  
+     This module handles the logic related to financial reports extracted from EDGAR filings. It provides functionality to parse financial data and model financial elements for further analysis.
+
+  6. **filing.py**  
+     This module contains logic related to the handling of filings and documents from the SEC. It manages the retrieval, caching, and processing of filing data, ensuring that the necessary information is available for analysis.
+
+  7. **edgar.py**  
+     This module is used to traverse the EDGAR filing system and determine the location of filings. It provides functions to access various indexes and retrieve filing information based on specified criteria.
+
+- These modules collectively enhance the Open-ESEF project by providing robust tools for interacting with SEC filings and extracting relevant financial data.
 
 ## Open-ESEF Architecture
 
