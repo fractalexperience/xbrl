@@ -185,52 +185,74 @@ class Filing:
         """Load filing text from cache and process it"""
         if ".gz" in cache_path.name:
             with gzip.open(cache_path, 'rt', encoding='utf-8') as f:
-                self.text = f.read()
+                #self.text = f.read()
+                text = f.read()
         else:
             with open(cache_path, 'r', encoding='utf-8') as f:
-                self.text = f.read()
+                #self.text = f.read()
+                text = f.read()
         
         logger.debug(f'Loaded filing from cache: {cache_path}')
         
         # Process the text
         logger.debug(f'Processing SGML from cache: {self.url}')
-        dtd = DTD()
-        self.sgml = Sgml(self.text, dtd)
+        self._process_text(text)
+        # dtd = DTD()
+        # self.sgml = Sgml(self.text, dtd)
         
+        # # Process documents
+        # self.documents = {}
+        # for document_raw in self.sgml.map[dtd.sec_document.tag][dtd.document.tag]:
+        #     document = Document(document_raw)
+        #     self.documents[document.filename] = document
+
+        # # Process filing date
+        # acceptance_datetime_element = self.sgml.map[dtd.sec_document.tag][dtd.sec_header.tag][dtd.acceptance_datetime.tag]
+        # acceptance_datetime_text = acceptance_datetime_element[:8]
+        # self.date_filed = datetime.strptime(acceptance_datetime_text, '%Y%m%d')
+
+    def _process_text(self, text):
+        """Process the text of the filing"""
+        dtd = DTD()
+        #self.sgml = Sgml(text, dtd)
+        self_sgml = Sgml(text, dtd)
         # Process documents
         self.documents = {}
-        for document_raw in self.sgml.map[dtd.sec_document.tag][dtd.document.tag]:
+        for document_raw in self_sgml.map[dtd.sec_document.tag][dtd.document.tag]:
             document = Document(document_raw)
             self.documents[document.filename] = document
 
         # Process filing date
-        acceptance_datetime_element = self.sgml.map[dtd.sec_document.tag][dtd.sec_header.tag][dtd.acceptance_datetime.tag]
+        acceptance_datetime_element = self_sgml.map[dtd.sec_document.tag][dtd.sec_header.tag][dtd.acceptance_datetime.tag]
         acceptance_datetime_text = acceptance_datetime_element[:8]
         self.date_filed = datetime.strptime(acceptance_datetime_text, '%Y%m%d')
+        
 
     def _fetch_and_process_filing(self):
         """Fetch filing from URL and process it"""
         logger.debug(f'Fetching filing from {self.url}')
         response = GetRequest(self.url).response
-        self.text = response.text
+        #self.text = response.text
+        text = response.text
         
         # Save raw text to cache before processing
-        self._save_to_cache(self.text)
+        self._save_to_cache(text)
 
         logger.debug(f'Processing SGML at {self.url}')
-        dtd = DTD()
-        self.sgml = Sgml(self.text, dtd)
+        self._process_text(text)
+        # dtd = DTD()
+        # self.sgml = Sgml(self.text, dtd)
 
-        # Process documents
-        self.documents = {}
-        for document_raw in self.sgml.map[dtd.sec_document.tag][dtd.document.tag]:
-            document = Document(document_raw)
-            self.documents[document.filename] = document
+        # # Process documents
+        # self.documents = {}
+        # for document_raw in self.sgml.map[dtd.sec_document.tag][dtd.document.tag]:
+        #     document = Document(document_raw)
+        #     self.documents[document.filename] = document
 
-        # Process filing date
-        acceptance_datetime_element = self.sgml.map[dtd.sec_document.tag][dtd.sec_header.tag][dtd.acceptance_datetime.tag]
-        acceptance_datetime_text = acceptance_datetime_element[:8]
-        self.date_filed = datetime.strptime(acceptance_datetime_text, '%Y%m%d')
+        # # Process filing date
+        # acceptance_datetime_element = self.sgml.map[dtd.sec_document.tag][dtd.sec_header.tag][dtd.acceptance_datetime.tag]
+        # acceptance_datetime_text = acceptance_datetime_element[:8]
+        # self.date_filed = datetime.strptime(acceptance_datetime_text, '%Y%m%d')
 
     def _load_or_fetch_filing(self):
         """Load filing from cache if available, otherwise fetch and cache it"""

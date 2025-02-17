@@ -208,6 +208,14 @@ class Pool(resolver.Resolver):
             else:
                 logger.warning(f"Schema file not found: {resolved_path}")
                 return None
+    def add_instance_stringio(self, contentio, key="instance", attach_taxonomy=True):
+        """
+        Adds an instance document from a StringIO object
+        This function has yet to be implemented
+        """
+        xid = instance.Instance(location="stringIO", container_pool=self, esef_filing_root="")
+        self.add_instance(xid, key, attach_taxonomy)
+        return xid
 
     def add_instance_location(self, esef_filing_root, filename, key=None, attach_taxonomy=True):
         """
