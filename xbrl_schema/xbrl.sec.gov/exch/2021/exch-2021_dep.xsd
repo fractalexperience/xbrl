@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://xbrl.sec.gov/exch-dep/2021"
+xmlns:exch-dep="http://xbrl.sec.gov/exch-dep/2021"
+xmlns:link="http://www.xbrl.org/2003/linkbase"
+xmlns:xbrldt="http://xbrl.org/2005/xbrldt"
+xmlns:xbrli="http://www.xbrl.org/2003/instance"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:deprecated-arcrole="http://www.xbrl.org/2009/arcrole/deprecated"
+xmlns:deprecated-role="http://www.xbrl.org/2009/role/deprecated"
+elementFormDefault="qualified">
+<xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
+<xs:import namespace="http://www.xbrl.org/2009/arcrole/deprecated" schemaLocation="http://www.xbrl.org/lrr/arcrole/deprecated-2009-12-16.xsd"/>
+<xs:import namespace="http://www.xbrl.org/2009/role/deprecated" schemaLocation="http://www.xbrl.org/lrr/role/deprecated-2009-12-16.xsd"/>
+<xs:annotation>
+<xs:appinfo>
+<link:linkbase id="lnk">
+<link:roleRef roleURI="http://www.xbrl.org/2009/role/deprecatedDateLabel" xlink:type="simple" xlink:href="http://www.xbrl.org/lrr/role/deprecated-2009-12-16.xsd#deprecatedDateLabel"/>
+</link:linkbase>
+</xs:appinfo>
+</xs:annotation>
+</xs:schema>

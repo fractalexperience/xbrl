@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Taxonomy Presentation Links linkbase based on XBRL standard Version 2.1.
+Created by UBmatrix Taxonomy Designer 3.0.2.2347 (2007-12-17 12:39).
+Contact www.ubmatrix.com
+Copyright (c) 2002-2020 UBmatrix inc., All Rights Reserved
+Produced on 2020-02-24 08:39:17
+-->
+<linkbase xmlns="http://www.xbrl.org/2003/linkbase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation=" http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd">
+  <presentationLink xlink:type="extended" xlink:role="http://www.xbrl.org/2003/role/link">
+    <loc xlink:type="locator" xlink:href="disclosures.xsd#disclosures_DisclosuresAbstract" xlink:label="disclosures_DisclosuresAbstract" />
+    <loc xlink:type="locator" xlink:href="disclosures.xsd#disclosures_BalanceSheet" xlink:label="disclosures_BalanceSheet" />
+    <presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="disclosures_DisclosuresAbstract" xlink:to="disclosures_BalanceSheet" order="1" use="optional" />
+    <loc xlink:type="locator" xlink:href="disclosures.xsd#disclosures_IncomeStatement" xlink:label="disclosures_IncomeStatement" />
+    <presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="disclosures_DisclosuresAbstract" xlink:to="disclosures_IncomeStatement" order="2" use="optional" />
+    <loc xlink:type="locator" xlink:href="disclosures.xsd#disclosures_ChangesInEquity" xlink:label="disclosures_ChangesInEquity" />
+    <presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="disclosures_DisclosuresAbstract" xlink:to="disclosures_ChangesInEquity" order="3" use="optional" />
+  </presentationLink>
+</linkbase>

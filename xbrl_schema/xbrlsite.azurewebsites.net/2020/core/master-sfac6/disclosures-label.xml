@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Taxonomy Label Links linkbase based on XBRL standard Version 2.1.
+Created by UBmatrix Taxonomy Designer 3.0.2.2347 (2007-12-17 12:39).
+Contact www.ubmatrix.com
+Copyright (c) 2002-2020 UBmatrix inc., All Rights Reserved
+Produced on 2020-02-24 08:39:17
+-->
+<linkbase xmlns="http://www.xbrl.org/2003/linkbase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation=" http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd">
+  <labelLink xlink:type="extended" xlink:role="http://www.xbrl.org/2003/role/link">
+    <loc xlink:type="locator" xlink:href="disclosures.xsd#disclosures_BalanceSheet" xlink:label="disclosures_BalanceSheet" />
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="disclosures_BalanceSheet" xlink:to="disclosures_BalanceSheet_lbl" />
+    <label xlink:type="resource" xlink:role="http://www.xbrl.org/2003/role/label" xlink:label="disclosures_BalanceSheet_lbl" xml:lang="en">Balance Sheet</label>
+    <loc xlink:type="locator" xlink:href="disclosures.xsd#disclosures_ChangesInEquity" xlink:label="disclosures_ChangesInEquity" />
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="disclosures_ChangesInEquity" xlink:to="disclosures_ChangesInEquity_lbl" />
+    <label xlink:type="resource" xlink:role="http://www.xbrl.org/2003/role/label" xlink:label="disclosures_ChangesInEquity_lbl" xml:lang="en">Changes in Equity</label>
+    <loc xlink:type="locator" xlink:href="disclosures.xsd#disclosures_DisclosuresAbstract" xlink:label="disclosures_DisclosuresAbstract" />
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="disclosures_DisclosuresAbstract" xlink:to="disclosures_DisclosuresAbstract_lbl" />
+    <label xlink:type="resource" xlink:role="http://www.xbrl.org/2003/role/label" xlink:label="disclosures_DisclosuresAbstract_lbl" xml:lang="en">Disclosures [Abstract]</label>
+    <loc xlink:type="locator" xlink:href="disclosures.xsd#disclosures_IncomeStatement" xlink:label="disclosures_IncomeStatement" />
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="disclosures_IncomeStatement" xlink:to="disclosures_IncomeStatement_lbl" />
+    <label xlink:type="resource" xlink:role="http://www.xbrl.org/2003/role/label" xlink:label="disclosures_IncomeStatement_lbl" xml:lang="en">Income Statement</label>
+  </labelLink>
+</linkbase>

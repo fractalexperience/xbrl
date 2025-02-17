@@ -6,6 +6,9 @@
   - [XBRL-Model](https://github.com/fractalexperience/xbrl/) project.
   - [SEC EDGAR Financial Reports](https://github.com/farhadab/sec-edgar-financials) project.
 
+- Project is under development.
+  - Development completeness: 65%.
+
 ## How to use the Open-ESEF
 
 ### Installation
@@ -174,7 +177,7 @@ https://github.com/fractalexperience/xbrl/
 
 Special attention is paid to efficient in-memory storage of various resources. There is a data pool, which allows objects, which are reused across different taxonomies to be stored in memory only once. This way it is possible to maintain multiple entry points and multiple taxonomy versions at the time, without a risk of memory overflow. 
 
-## SEC EDGAR Financial Reports
+## SEC EDGAR Financial Reports (Under Construction and Review)
 
 
 The following modules have been added to the `edgar` folder to enhance the functionality of the Open-ESEF project for handling filings from SEC EDGAR. 

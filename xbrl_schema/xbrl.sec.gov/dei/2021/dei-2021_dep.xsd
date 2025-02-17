@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://xbrl.sec.gov/dei-dep/2021"
+xmlns:dei-dep="http://xbrl.sec.gov/dei-dep/2021" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:link="http://www.xbrl.org/2003/linkbase"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:deprecated-arcrole="http://www.xbrl.org/2009/arcrole/deprecated"
+xmlns:deprecated-role="http://www.xbrl.org/2009/role/deprecated"
+elementFormDefault="qualified">
+<xs:import namespace="http://xbrl.sec.gov/dei/2021" schemaLocation="dei-2021.xsd"/>
+<xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
+<xs:import namespace="http://www.xbrl.org/2009/arcrole/deprecated" schemaLocation="http://www.xbrl.org/lrr/arcrole/deprecated-2009-12-16.xsd"/>
+<xs:import namespace="http://www.xbrl.org/2009/role/deprecated" schemaLocation="http://www.xbrl.org/lrr/role/deprecated-2009-12-16.xsd"/>
+<xs:import namespace="http://www.xbrl.org/2009/arcrole/deprecated" schemaLocation="http://www.xbrl.org/lrr/arcrole/deprecated-2009-12-16.xsd"/>
+<xs:annotation>
+<xs:appinfo>
+<link:linkbase id="lnk">
+<link:roleRef roleURI="http://xbrl.sec.gov/dei/role/deprecated/dei" xlink:type="simple" xlink:href="dei-2021.xsd#dep-dei"/>
+<link:arcroleRef arcroleURI="http://www.xbrl.org/2009/arcrole/dep-concept-deprecatedConcept" xlink:type="simple" xlink:href="http://www.xbrl.org/lrr/arcrole/deprecated-2009-12-16.xsd#dep-concept-deprecatedConcept"/>
+<link:arcroleRef arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:type="simple" xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member"/>
+<link:presentationLink xlink:type="extended" xlink:role="http://xbrl.sec.gov/dei/role/deprecated/dei">
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_DeprecatedItemsForDEI" xlink:label="DeprecatedItemsForDEI"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_ReservedItemsForDeiAbstract" xlink:label="ReservedItemsForDeiAbstract"/>
+<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="DeprecatedItemsForDEI" xlink:to="ReservedItemsForDeiAbstract" order="1.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityLocationLineItems" xlink:label="EntityLocationLineItems"/>
+<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntityLocationLineItems" order="1.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityLocationPrimary" xlink:label="EntityLocationPrimary"/>
+<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="EntityLocationLineItems" xlink:to="EntityLocationPrimary" order="1.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_ContactPersonnelUniformResourceLocatorURL" xlink:label="ContactPersonnelUniformResourceLocatorURL"/>
+<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ReservedItemsForDeiAbstract" xlink:to="ContactPersonnelUniformResourceLocatorURL" order="2.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityInformationDateToChangeFormerLegalOrRegisteredName" xlink:label="EntityInformationDateToChangeFormerLegalOrRegisteredName"/>
+<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntityInformationDateToChangeFormerLegalOrRegisteredName" order="3.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityAddressRegion" xlink:label="EntityAddressRegion"/>
+<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntityAddressRegion" order="4.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntitySectorIndustryClassificationsLineItems" xlink:label="EntitySectorIndustryClassificationsLineItems"/>
+<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntitySectorIndustryClassificationsLineItems" order="5.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntitySectorIndustryClassificationPrimary" xlink:label="EntitySectorIndustryClassificationPrimary"/>
+<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="EntitySectorIndustryClassificationsLineItems" xlink:to="EntitySectorIndustryClassificationPrimary" order="1.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityNorthAmericanIndustryClassificationsLineItems" xlink:label="EntityNorthAmericanIndustryClassificationsLineItems"/>
+<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntityNorthAmericanIndustryClassificationsLineItems" order="6.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityNorthAmericanIndustryClassificationPrimary" xlink:label="EntityNorthAmericanIndustryClassificationPrimary"/>
+<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="EntityNorthAmericanIndustryClassificationsLineItems" xlink:to="EntityNorthAmericanIndustryClassificationPrimary" order="1.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityDataUniversalNumberingSystemNumber" xlink:label="EntityDataUniversalNumberingSystemNumber"/>
+<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntityDataUniversalNumberingSystemNumber" order="7.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityOtherIdentificationType" xlink:label="EntityOtherIdentificationType"/>
+<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntityOtherIdentificationType" order="8.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityOtherIdentificationValue" xlink:label="EntityOtherIdentificationValue"/>
+<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntityOtherIdentificationValue" order="9.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_DeprecatedItemsForDEI" xlink:label="loc_DeprecatedItemsForDEI"/>
+</link:presentationLink>
+<link:definitionLink xlink:type="extended" xlink:role="http://xbrl.sec.gov/dei/role/deprecated/dei">
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_DeprecatedItemsForDEI" xlink:label="DeprecatedItemsForDEI"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_ReservedItemsForDeiAbstract" xlink:label="ReservedItemsForDeiAbstract"/>
+<link:definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="DeprecatedItemsForDEI" xlink:to="ReservedItemsForDeiAbstract" order="1.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityInformationDateToChangeFormerLegalOrRegisteredName" xlink:label="EntityInformationDateToChangeFormerLegalOrRegisteredName"/>
+<link:definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntityInformationDateToChangeFormerLegalOrRegisteredName" order="3.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityAddressRegion" xlink:label="EntityAddressRegion"/>
+<link:definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntityAddressRegion" order="4.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntitySectorIndustryClassificationsLineItems" xlink:label="EntitySectorIndustryClassificationsLineItems"/>
+<link:definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntitySectorIndustryClassificationsLineItems" order="5.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntitySectorIndustryClassificationPrimary" xlink:label="EntitySectorIndustryClassificationPrimary"/>
+<link:definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="EntitySectorIndustryClassificationsLineItems" xlink:to="EntitySectorIndustryClassificationPrimary" order="1.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityNorthAmericanIndustryClassificationsLineItems" xlink:label="EntityNorthAmericanIndustryClassificationsLineItems"/>
+<link:definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntityNorthAmericanIndustryClassificationsLineItems" order="6.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityNorthAmericanIndustryClassificationPrimary" xlink:label="EntityNorthAmericanIndustryClassificationPrimary"/>
+<link:definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="EntityNorthAmericanIndustryClassificationsLineItems" xlink:to="EntityNorthAmericanIndustryClassificationPrimary" order="1.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityDataUniversalNumberingSystemNumber" xlink:label="EntityDataUniversalNumberingSystemNumber"/>
+<link:definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntityDataUniversalNumberingSystemNumber" order="7.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityOtherIdentificationType" xlink:label="EntityOtherIdentificationType"/>
+<link:definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntityOtherIdentificationType" order="8.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityLocationLineItems" xlink:label="EntityLocationLineItems"/>
+<link:definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntityLocationLineItems" order="1.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityLocationPrimary" xlink:label="EntityLocationPrimary"/>
+<link:definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="EntityLocationLineItems" xlink:to="EntityLocationPrimary" order="1.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_ContactPersonnelUniformResourceLocatorURL" xlink:label="ContactPersonnelUniformResourceLocatorURL"/>
+<link:definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="ReservedItemsForDeiAbstract" xlink:to="ContactPersonnelUniformResourceLocatorURL" order="2.0"/>
+<link:loc xlink:type="locator" xlink:href="dei-2021.xsd#dei_EntityOtherIdentificationValue" xlink:label="EntityOtherIdentificationValue"/>
+<link:definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="ReservedItemsForDeiAbstract" xlink:to="EntityOtherIdentificationValue" order="9.0"/>
+</link:definitionLink>
+</link:linkbase>
+</xs:appinfo>
+</xs:annotation>
+</xs:schema>

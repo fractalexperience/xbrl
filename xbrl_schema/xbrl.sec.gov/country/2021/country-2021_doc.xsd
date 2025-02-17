@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://xbrl.sec.gov/country-doc/2021" xmlns:country-doc="http://xbrl.sec.gov/country-doc/2021" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:import namespace="http://xbrl.sec.gov/country/2021" schemaLocation="country-2021.xsd"/>
+	<xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<link:linkbase id="lnk">
+				<link:labelLink xlink:type="extended" xlink:role="http://www.xbrl.org/2003/role/link">
+					<link:loc xlink:type="locator" xlink:href="country-2021.xsd#country_AllCountriesDomain" xlink:label="loc_AllCountriesDomain"/>
+					<link:label xlink:type="resource" xlink:label="lab_AllCountriesDomain" xlink:role="http://www.xbrl.org/2003/role/documentation" xml:lang="en-US" id="lab_AllCountriesDomain_documentation_en-US">ISO 3166-1 alpha-2. A geopolitical area recognized by governments of the world as a country.</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_AllCountriesDomain" xlink:to="lab_AllCountriesDomain" order="1.0"/>
+				</link:labelLink>
+			</link:linkbase>
+		</xs:appinfo>
+	</xs:annotation>
+</xs:schema>

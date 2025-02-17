@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://xbrl.sec.gov/currency-dep/2021" xmlns:currency-dep="http://xbrl.sec.gov/currency-dep/2021" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:deprecated-arcrole="http://www.xbrl.org/2009/arcrole/deprecated" xmlns:deprecated-role="http://www.xbrl.org/2009/role/deprecated" elementFormDefault="qualified">
+	<xs:import namespace="http://xbrl.sec.gov/currency/2021" schemaLocation="currency-2021.xsd"/>
+	<xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
+	<xs:import namespace="http://www.xbrl.org/2009/arcrole/deprecated" schemaLocation="http://www.xbrl.org/lrr/arcrole/deprecated-2009-12-16.xsd"/>
+	<xs:import namespace="http://www.xbrl.org/2009/role/deprecated" schemaLocation="http://www.xbrl.org/lrr/role/deprecated-2009-12-16.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<link:linkbase id="lnk">
+				<link:roleRef roleURI="http://www.xbrl.org/2009/role/deprecatedDateLabel" xlink:href="http://www.xbrl.org/lrr/role/deprecated-2009-12-16.xsd#deprecatedDateLabel" xlink:type="simple"/>
+				<link:roleRef roleURI="http://www.xbrl.org/2009/role/deprecatedLabel" xlink:href="http://www.xbrl.org/lrr/role/deprecated-2009-12-16.xsd#deprecatedLabel" xlink:type="simple"/>
+				<link:roleRef roleURI="http://xbrl.sec.gov/currency/role/deprecated/currency" xlink:href="currency-2021.xsd#dep-currency" xlink:type="simple"/>
+				<link:arcroleRef arcroleURI="http://www.xbrl.org/2009/arcrole/dep-concept-deprecatedConcept" xlink:href="http://www.xbrl.org/lrr/arcrole/deprecated-2009-12-16.xsd#dep-concept-deprecatedConcept" xlink:type="simple"/>
+				<link:arcroleRef arcroleURI="http://xbrl.org/int/dim/arcrole/domain-member" xlink:href="http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member" xlink:type="simple"/>
+				<link:labelLink xlink:type="extended" xlink:role="http://www.xbrl.org/2003/role/link">
+					<link:loc xlink:href="currency-2021.xsd#currency_AllCurrenciesDomain" xlink:label="loc_AllCurrenciesDomain" xlink:type="locator"/>
+					<link:label id="lab_AllCurrenciesDomain_documentation_en-US" xml:lang="en-US" xlink:label="lab_AllCurrenciesDomain" xlink:type="resource" xlink:role="http://www.xbrl.org/2003/role/documentation">ISO 4217 currency designators.</link:label>
+					<link:labelArc xlink:type="arc" order="1.0" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_AllCurrenciesDomain" xlink:to="lab_AllCurrenciesDomain"/>
+				</link:labelLink>
+				<link:definitionLink xlink:type="extended" xlink:role="http://xbrl.sec.gov/currency/role/deprecated/currency">
+					<link:loc xlink:href="currency-2021.xsd#currency_DeprecatedItemsForCurrency" xlink:label="DeprecatedItemsForCurrency" xlink:type="locator"/>
+				</link:definitionLink>
+				<link:presentationLink xlink:type="extended" xlink:role="http://xbrl.sec.gov/currency/role/deprecated/currency">
+					<link:loc xlink:href="currency-2021.xsd#currency_DeprecatedItemsForCurrency" xlink:label="DeprecatedItemsForCurrency" xlink:type="locator"/>
+				</link:presentationLink>
+			</link:linkbase>
+		</xs:appinfo>
+	</xs:annotation>
+</xs:schema>

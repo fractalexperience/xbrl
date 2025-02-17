@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://xbrl.sec.gov/stpr-entire/2021" xmlns:stpr-entire="http://xbrl.sec.gov/stpr-entire/2021" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:stpr="http://xbrl.sec.gov/stpr/2021" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xlink="http://www.w3.org/1999/xlink" elementFormDefault="qualified">
+	<xs:import namespace="http://xbrl.sec.gov/stpr/2021" schemaLocation="stpr-2021.xsd"/>
+	<xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<link:linkbase id="lnk">
+				<link:roleRef roleURI="http://xbrl.sec.gov/stpr/role/document/StateOrProvince" xlink:type="simple" xlink:href="stpr-2021.xsd#stpr"/>
+				<link:labelLink xlink:type="extended" xlink:role="http://www.xbrl.org/2003/role/link">
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_AK" xlink:label="loc_AK"/>
+					<link:label xlink:type="resource" xlink:label="lab_AK" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_AK_label_en-US">ALASKA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_AK" xlink:to="lab_AK" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_AL" xlink:label="loc_AL"/>
+					<link:label xlink:type="resource" xlink:label="lab_AL" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_AL_label_en-US">ALABAMA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_AL" xlink:to="lab_AL" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_AR" xlink:label="loc_AR"/>
+					<link:label xlink:type="resource" xlink:label="lab_AR" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_AR_label_en-US">ARKANSAS</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_AR" xlink:to="lab_AR" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_AZ" xlink:label="loc_AZ"/>
+					<link:label xlink:type="resource" xlink:label="lab_AZ" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_AZ_label_en-US">ARIZONA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_AZ" xlink:to="lab_AZ" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA" xlink:label="loc_CA"/>
+					<link:label xlink:type="resource" xlink:label="lab_CA" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_CA_label_en-US">CALIFORNIA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_CA" xlink:to="lab_CA" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CO" xlink:label="loc_CO"/>
+					<link:label xlink:type="resource" xlink:label="lab_CO" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_CO_label_en-US">COLORADO</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_CO" xlink:to="lab_CO" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CT" xlink:label="loc_CT"/>
+					<link:label xlink:type="resource" xlink:label="lab_CT" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_CT_label_en-US">CONNECTICUT</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_CT" xlink:to="lab_CT" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_DC" xlink:label="loc_DC"/>
+					<link:label xlink:type="resource" xlink:label="lab_DC" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_DC_label_en-US">DISTRICT OF COLUMBIA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_DC" xlink:to="lab_DC" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_DE" xlink:label="loc_DE"/>
+					<link:label xlink:type="resource" xlink:label="lab_DE" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_DE_label_en-US">DELAWARE</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_DE" xlink:to="lab_DE" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_FL" xlink:label="loc_FL"/>
+					<link:label xlink:type="resource" xlink:label="lab_FL" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_FL_label_en-US">FLORIDA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_FL" xlink:to="lab_FL" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_GA" xlink:label="loc_GA"/>
+					<link:label xlink:type="resource" xlink:label="lab_GA" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_GA_label_en-US">GEORGIA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_GA" xlink:to="lab_GA" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_HI" xlink:label="loc_HI"/>
+					<link:label xlink:type="resource" xlink:label="lab_HI" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_HI_label_en-US">HAWAII</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_HI" xlink:to="lab_HI" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_IA" xlink:label="loc_IA"/>
+					<link:label xlink:type="resource" xlink:label="lab_IA" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_IA_label_en-US">IOWA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_IA" xlink:to="lab_IA" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_ID" xlink:label="loc_ID"/>
+					<link:label xlink:type="resource" xlink:label="lab_ID" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_ID_label_en-US">IDAHO</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_ID" xlink:to="lab_ID" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_IL" xlink:label="loc_IL"/>
+					<link:label xlink:type="resource" xlink:label="lab_IL" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_IL_label_en-US">ILLINOIS</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_IL" xlink:to="lab_IL" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_IN" xlink:label="loc_IN"/>
+					<link:label xlink:type="resource" xlink:label="lab_IN" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_IN_label_en-US">INDIANA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_IN" xlink:to="lab_IN" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_KS" xlink:label="loc_KS"/>
+					<link:label xlink:type="resource" xlink:label="lab_KS" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_KS_label_en-US">KANSAS</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_KS" xlink:to="lab_KS" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_KY" xlink:label="loc_KY"/>
+					<link:label xlink:type="resource" xlink:label="lab_KY" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_KY_label_en-US">KENTUCKY</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_KY" xlink:to="lab_KY" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_LA" xlink:label="loc_LA"/>
+					<link:label xlink:type="resource" xlink:label="lab_LA" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_LA_label_en-US">LOUISIANA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_LA" xlink:to="lab_LA" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_MA" xlink:label="loc_MA"/>
+					<link:label xlink:type="resource" xlink:label="lab_MA" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_MA_label_en-US">MASSACHUSETTS</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_MA" xlink:to="lab_MA" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_MD" xlink:label="loc_MD"/>
+					<link:label xlink:type="resource" xlink:label="lab_MD" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_MD_label_en-US">MARYLAND</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_MD" xlink:to="lab_MD" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_ME" xlink:label="loc_ME"/>
+					<link:label xlink:type="resource" xlink:label="lab_ME" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_ME_label_en-US">MAINE</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_ME" xlink:to="lab_ME" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_MI" xlink:label="loc_MI"/>
+					<link:label xlink:type="resource" xlink:label="lab_MI" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_MI_label_en-US">MICHIGAN</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_MI" xlink:to="lab_MI" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_MN" xlink:label="loc_MN"/>
+					<link:label xlink:type="resource" xlink:label="lab_MN" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_MN_label_en-US">MINNESOTA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_MN" xlink:to="lab_MN" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_MO" xlink:label="loc_MO"/>
+					<link:label xlink:type="resource" xlink:label="lab_MO" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_MO_label_en-US">MISSOURI</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_MO" xlink:to="lab_MO" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_MS" xlink:label="loc_MS"/>
+					<link:label xlink:type="resource" xlink:label="lab_MS" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_MS_label_en-US">MISSISSIPPI</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_MS" xlink:to="lab_MS" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_MT" xlink:label="loc_MT"/>
+					<link:label xlink:type="resource" xlink:label="lab_MT" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_MT_label_en-US">MONTANA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_MT" xlink:to="lab_MT" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_NC" xlink:label="loc_NC"/>
+					<link:label xlink:type="resource" xlink:label="lab_NC" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_NC_label_en-US">NORTH CAROLINA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_NC" xlink:to="lab_NC" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_ND" xlink:label="loc_ND"/>
+					<link:label xlink:type="resource" xlink:label="lab_ND" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_ND_label_en-US">NORTH DAKOTA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_ND" xlink:to="lab_ND" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_NE" xlink:label="loc_NE"/>
+					<link:label xlink:type="resource" xlink:label="lab_NE" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_NE_label_en-US">NEBRASKA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_NE" xlink:to="lab_NE" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_NH" xlink:label="loc_NH"/>
+					<link:label xlink:type="resource" xlink:label="lab_NH" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_NH_label_en-US">NEW HAMPSHIRE</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_NH" xlink:to="lab_NH" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_NJ" xlink:label="loc_NJ"/>
+					<link:label xlink:type="resource" xlink:label="lab_NJ" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_NJ_label_en-US">NEW JERSEY</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_NJ" xlink:to="lab_NJ" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_NM" xlink:label="loc_NM"/>
+					<link:label xlink:type="resource" xlink:label="lab_NM" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_NM_label_en-US">NEW MEXICO</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_NM" xlink:to="lab_NM" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_NV" xlink:label="loc_NV"/>
+					<link:label xlink:type="resource" xlink:label="lab_NV" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_NV_label_en-US">NEVADA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_NV" xlink:to="lab_NV" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_NY" xlink:label="loc_NY"/>
+					<link:label xlink:type="resource" xlink:label="lab_NY" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_NY_label_en-US">NEW YORK</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_NY" xlink:to="lab_NY" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_OH" xlink:label="loc_OH"/>
+					<link:label xlink:type="resource" xlink:label="lab_OH" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_OH_label_en-US">OHIO</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_OH" xlink:to="lab_OH" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_OK" xlink:label="loc_OK"/>
+					<link:label xlink:type="resource" xlink:label="lab_OK" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_OK_label_en-US">OKLAHOMA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_OK" xlink:to="lab_OK" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_OR" xlink:label="loc_OR"/>
+					<link:label xlink:type="resource" xlink:label="lab_OR" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_OR_label_en-US">OREGON</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_OR" xlink:to="lab_OR" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_PA" xlink:label="loc_PA"/>
+					<link:label xlink:type="resource" xlink:label="lab_PA" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_PA_label_en-US">PENNSYLVANIA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_PA" xlink:to="lab_PA" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_RI" xlink:label="loc_RI"/>
+					<link:label xlink:type="resource" xlink:label="lab_RI" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_RI_label_en-US">RHODE ISLAND</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_RI" xlink:to="lab_RI" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_SC" xlink:label="loc_SC"/>
+					<link:label xlink:type="resource" xlink:label="lab_SC" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_SC_label_en-US">SOUTH CAROLINA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_SC" xlink:to="lab_SC" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_SD" xlink:label="loc_SD"/>
+					<link:label xlink:type="resource" xlink:label="lab_SD" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_SD_label_en-US">SOUTH DAKOTA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_SD" xlink:to="lab_SD" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_TN" xlink:label="loc_TN"/>
+					<link:label xlink:type="resource" xlink:label="lab_TN" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_TN_label_en-US">TENNESSEE</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_TN" xlink:to="lab_TN" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_TX" xlink:label="loc_TX"/>
+					<link:label xlink:type="resource" xlink:label="lab_TX" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_TX_label_en-US">TEXAS</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_TX" xlink:to="lab_TX" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_UT" xlink:label="loc_UT"/>
+					<link:label xlink:type="resource" xlink:label="lab_UT" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_UT_label_en-US">UTAH</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_UT" xlink:to="lab_UT" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_VA" xlink:label="loc_VA"/>
+					<link:label xlink:type="resource" xlink:label="lab_VA" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_VA_label_en-US">VIRGINIA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_VA" xlink:to="lab_VA" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_VT" xlink:label="loc_VT"/>
+					<link:label xlink:type="resource" xlink:label="lab_VT" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_VT_label_en-US">VERMONT</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_VT" xlink:to="lab_VT" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_WA" xlink:label="loc_WA"/>
+					<link:label xlink:type="resource" xlink:label="lab_WA" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_WA_label_en-US">WASHINGTON</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_WA" xlink:to="lab_WA" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_WI" xlink:label="loc_WI"/>
+					<link:label xlink:type="resource" xlink:label="lab_WI" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_WI_label_en-US">WISCONSIN</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_WI" xlink:to="lab_WI" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_WV" xlink:label="loc_WV"/>
+					<link:label xlink:type="resource" xlink:label="lab_WV" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_WV_label_en-US">WEST VIRGINIA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_WV" xlink:to="lab_WV" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_WY" xlink:label="loc_WY"/>
+					<link:label xlink:type="resource" xlink:label="lab_WY" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="lab_WY_label_en-US">WYOMING</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="loc_WY" xlink:to="lab_WY" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_ActiveStateProvinceCodeDomain" xlink:label="ActiveStateProvinceCodeDomain"/>
+					<link:label xlink:type="resource" xlink:label="label_ActiveStateProvinceCodeDomain" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">Active State or Province Code [Domain]</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="label_ActiveStateProvinceCodeDomain"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-AB" xlink:label="CA-AB"/>
+					<link:label xlink:type="resource" xlink:label="label_CA-AB" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">ALBERTA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="CA-AB" xlink:to="label_CA-AB"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-BC" xlink:label="CA-BC"/>
+					<link:label xlink:type="resource" xlink:label="label_CA-BC" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">BRITISH COLUMBIA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="CA-BC" xlink:to="label_CA-BC"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-MB" xlink:label="CA-MB"/>
+					<link:label xlink:type="resource" xlink:label="label_CA-MB" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">MANITOBA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="CA-MB" xlink:to="label_CA-MB"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-NB" xlink:label="CA-NB"/>
+					<link:label xlink:type="resource" xlink:label="label_CA-NB" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">NEW BRUNSWICK</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="CA-NB" xlink:to="label_CA-NB"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-NL" xlink:label="CA-NL"/>
+					<link:label xlink:type="resource" xlink:label="label_CA-NL" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">NEWFOUNDLAND AND LABRADOR</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="CA-NL" xlink:to="label_CA-NL"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-NT" xlink:label="CA-NT"/>
+					<link:label xlink:type="resource" xlink:label="label_CA-NT" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">NORTHWEST TERRITORIES</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="CA-NT" xlink:to="label_CA-NT"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-NS" xlink:label="CA-NS"/>
+					<link:label xlink:type="resource" xlink:label="label_CA-NS" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">NOVA SCOTIA</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="CA-NS" xlink:to="label_CA-NS"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-NU" xlink:label="CA-NU"/>
+					<link:label xlink:type="resource" xlink:label="label_CA-NU" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">NUNAVUT</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="CA-NU" xlink:to="label_CA-NU"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-ON" xlink:label="CA-ON"/>
+					<link:label xlink:type="resource" xlink:label="label_CA-ON" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">ONTARIO</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="CA-ON" xlink:to="label_CA-ON"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-PE" xlink:label="CA-PE"/>
+					<link:label xlink:type="resource" xlink:label="label_CA-PE" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">PRINCE EDWARD ISLAND</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="CA-PE" xlink:to="label_CA-PE"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-QC" xlink:label="CA-QC"/>
+					<link:label xlink:type="resource" xlink:label="label_CA-QC" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">QUEBEC</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="CA-QC" xlink:to="label_CA-QC"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-SK" xlink:label="CA-SK"/>
+					<link:label xlink:type="resource" xlink:label="label_CA-SK" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">SASKATCHEWAN</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="CA-SK" xlink:to="label_CA-SK"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-YT" xlink:label="CA-YT"/>
+					<link:label xlink:type="resource" xlink:label="label_CA-YT" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US">YUKON</link:label>
+					<link:labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="CA-YT" xlink:to="label_CA-YT"/>
+				</link:labelLink>
+				<link:presentationLink xlink:type="extended" xlink:role="http://xbrl.sec.gov/stpr/role/document/StateOrProvince">
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_ActiveStateProvinceCodeDomain" xlink:label="ActiveStateProvinceCodeDomain"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_AL" xlink:label="AL"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="AL" order="1.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_AK" xlink:label="AK"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="AK" order="2.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_AZ" xlink:label="AZ"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="AZ" order="3.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_AR" xlink:label="AR"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="AR" order="4.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA" xlink:label="CA"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CA" order="5.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CO" xlink:label="CO"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CO" order="6.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CT" xlink:label="CT"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CT" order="7.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_DE" xlink:label="DE"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="DE" order="8.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_DC" xlink:label="DC"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="DC" order="9.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_FL" xlink:label="FL"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="FL" order="10.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_GA" xlink:label="GA"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="GA" order="11.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_HI" xlink:label="HI"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="HI" order="12.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_ID" xlink:label="ID"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="ID" order="13.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_IL" xlink:label="IL"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="IL" order="14.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_IN" xlink:label="IN"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="IN" order="15.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_IA" xlink:label="IA"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="IA" order="16.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_KS" xlink:label="KS"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="KS" order="17.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_KY" xlink:label="KY"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="KY" order="18.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_LA" xlink:label="LA"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="LA" order="19.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_ME" xlink:label="ME"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="ME" order="20.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_MD" xlink:label="MD"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="MD" order="21.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_MA" xlink:label="MA"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="MA" order="22.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_MI" xlink:label="MI"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="MI" order="23.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_MN" xlink:label="MN"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="MN" order="24.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_MS" xlink:label="MS"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="MS" order="25.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_MO" xlink:label="MO"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="MO" order="26.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_MT" xlink:label="MT"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="MT" order="27.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_NE" xlink:label="NE"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="NE" order="28.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_NV" xlink:label="NV"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="NV" order="29.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_NH" xlink:label="NH"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="NH" order="30.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_NJ" xlink:label="NJ"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="NJ" order="31.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_NM" xlink:label="NM"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="NM" order="32.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_NY" xlink:label="NY"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="NY" order="33.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_NC" xlink:label="NC"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="NC" order="34.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_ND" xlink:label="ND"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="ND" order="35.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_OH" xlink:label="OH"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="OH" order="36.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_OK" xlink:label="OK"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="OK" order="37.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_OR" xlink:label="OR"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="OR" order="38.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_PA" xlink:label="PA"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="PA" order="39.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_RI" xlink:label="RI"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="RI" order="40.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_SC" xlink:label="SC"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="SC" order="41.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_SD" xlink:label="SD"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="SD" order="42.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_TN" xlink:label="TN"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="TN" order="43.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_TX" xlink:label="TX"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="TX" order="44.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_UT" xlink:label="UT"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="UT" order="45.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_VT" xlink:label="VT"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="VT" order="46.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_VA" xlink:label="VA"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="VA" order="47.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_WA" xlink:label="WA"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="WA" order="48.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_WV" xlink:label="WV"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="WV" order="49.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_WI" xlink:label="WI"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="WI" order="50.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_WY" xlink:label="WY"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="WY" order="51.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-AB" xlink:label="CA-AB"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CA-AB" order="58.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-BC" xlink:label="CA-BC"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CA-BC" order="59.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-MB" xlink:label="CA-MB"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CA-MB" order="60.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-NB" xlink:label="CA-NB"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CA-NB" order="61.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-NL" xlink:label="CA-NL"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CA-NL" order="62.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-NT" xlink:label="CA-NT"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CA-NT" order="63.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-NS" xlink:label="CA-NS"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CA-NS" order="64.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-NU" xlink:label="CA-NU"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CA-NU" order="65.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-ON" xlink:label="CA-ON"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CA-ON" order="66.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-PE" xlink:label="CA-PE"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CA-PE" order="67.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-QC" xlink:label="CA-QC"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CA-QC" order="68.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-SK" xlink:label="CA-SK"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CA-SK" order="69.0"/>
+					<link:loc xlink:type="locator" xlink:href="stpr-2021.xsd#stpr_CA-YT" xlink:label="CA-YT"/>
+					<link:presentationArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/parent-child" xlink:from="ActiveStateProvinceCodeDomain" xlink:to="CA-YT" order="70.0"/>
+				</link:presentationLink>
+			</link:linkbase>
+		</xs:appinfo>
+	</xs:annotation>
+</xs:schema>

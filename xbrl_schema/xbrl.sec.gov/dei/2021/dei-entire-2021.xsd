@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://xbrl.sec.gov/dei-entire/2021"
+xmlns:dei-entire="http://xbrl.sec.gov/dei-entire/2021"
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:dei="http://xbrl.sec.gov/dei/2021"
+xmlns:dei-def="http://xbrl.sec.gov/dei-def/2021"
+xmlns:dei-dep="http://xbrl.sec.gov/dei-dep/2021"
+xmlns:dei-doc="http://xbrl.sec.gov/dei-doc/2021"
+xmlns:dei-lab="http://xbrl.sec.gov/dei-lab/2021"
+xmlns:dei-pre="http://xbrl.sec.gov/dei-pre/2021"
+xmlns:dei-ref="http://xbrl.sec.gov/dei-ref/2021"
+elementFormDefault="qualified">
+<xs:import namespace="http://xbrl.sec.gov/dei/2021" schemaLocation="dei-2021.xsd"/>
+<xs:import namespace="http://xbrl.sec.gov/dei-def/2021" schemaLocation="dei-2021_def.xsd"/>
+<xs:import namespace="http://xbrl.sec.gov/dei-dep/2021" schemaLocation="dei-2021_dep.xsd"/>
+<xs:import namespace="http://xbrl.sec.gov/dei-doc/2021" schemaLocation="dei-2021_doc.xsd"/>
+<xs:import namespace="http://xbrl.sec.gov/dei-lab/2021" schemaLocation="dei-2021_lab.xsd"/>
+<xs:import namespace="http://xbrl.sec.gov/dei-pre/2021" schemaLocation="dei-2021_pre.xsd"/>
+<xs:import namespace="http://xbrl.sec.gov/dei-ref/2021" schemaLocation="dei-2021_ref.xsd"/>
+</xs:schema>

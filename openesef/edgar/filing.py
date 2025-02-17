@@ -1,12 +1,27 @@
 '''
 Logic related to the handling of filings and documents
 '''
-from sec_xbrl.requests_wrapper import GetRequest
-from sec_xbrl.document import Document
-from sec_xbrl.sgml import Sgml
-from sec_xbrl.dtd import DTD
-from sec_xbrl.financials import get_financial_report
+from .requests_wrapper import GetRequest
+from .document import Document
+from .sgml import Sgml
+from .dtd import DTD
+from .financials import get_financial_report
+from .edgar import EG_LOCAL
+import gzip     
+
+
 from datetime import datetime
+from pathlib import Path
+#import json
+import os
+
+
+from openesef.util.util_mylogger import setup_logger #util_mylogger
+import logging 
+if __name__=="__main__":
+    logger = setup_logger("main", logging.INFO, log_dir="/tmp/log/")
+else:
+    logger = logging.getLogger("main.openesf.edgar") 
 
 from thefuzz import fuzz
 
@@ -98,34 +113,34 @@ class Statements:
     all_statements = income_statements + balance_sheets + cash_flows + retained_earnings
 
 
-from datetime import datetime
-from pathlib import Path
-#import json
-import os
-
-
 
 class Filing:
     STATEMENTS = Statements()
-    CACHE_DIR = Path('sec_reports')
+    #CACHE_DIR = Path('sec_reports')
     CACHE_VALIDITY_DAYS = 30  # Cache files for 30 days by default
     sgml = None
 
-    def __init__(self, url, company=None):
+    def __init__(self, url, company=None, egl = EG_LOCAL('edgar')):
         self.url = url
         self.company = company
-        
+        self.egl = egl
         # Create base cache directory if it doesn't exist
-        self.CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        #self.CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
         # Load from cache or fetch and cache
         self._load_or_fetch_filing()
+
+    def __str__(self):
+        return f"Filing(url={self.url}, company={self.company}), local_path={self._get_cache_path()}"
+    def __repr__(self):
+        return self.__str__()
 
     def _get_cache_path(self):
         """
         Generate cache path maintaining EDGAR's folder structure
         Example URL: https://www.sec.gov/Archives/edgar/data/100885/0001437749-22-002494.txt
-        Returns: sec_reports/100885/0001437749-22-002494.txt
+        old Returns: sec_reports/100885/0001437749-22-002494.txt
+        Should return: self.egl.cache_dir_str/10k-bycik/100885/0001437749-22-002494.txt
         """
         # Extract CIK and filename using regex
         pattern = r'/data/(\d+)/(\d+-\d+-\d+\.txt)$'
@@ -137,10 +152,13 @@ class Filing:
         cik, filename = match.groups()
         
         # Create CIK subdirectory
-        cik_dir = self.CACHE_DIR / cik
+        #cik_dir = self.CACHE_DIR / cik
+        cik_dir = self.egl.cache_dir / '10k-bycik' / cik
         cik_dir.mkdir(exist_ok=True)
-        
-        return cik_dir / filename
+        acc_num = str(filename).split('.')[0]
+        #return cik_dir / filename
+        filename = str(filename) + ".gz"
+        return cik_dir / acc_num / filename
 
     def _is_cache_valid(self, cache_path):
         """Check if cache file exists and is not too old"""
@@ -154,19 +172,28 @@ class Filing:
     def _save_to_cache(self, text):
         """Save raw text to cache"""
         cache_path = self._get_cache_path()
-        with open(cache_path, 'w', encoding='utf-8') as f:
-            f.write(text)
-        print(f'Saved filing to cache: {cache_path}')
+        os.makedirs(cache_path.parent, exist_ok=True) if not cache_path.parent.exists() else None
+        if ".gz" in cache_path.name:
+            with gzip.open(cache_path, 'wt', encoding='utf-8') as f:
+                f.write(text)
+        else:
+            with open(cache_path, 'w', encoding='utf-8') as f:
+                f.write(text)
+        logger.debug(f'Saved filing to cache: {cache_path}')
 
     def _load_from_cache(self, cache_path):
         """Load filing text from cache and process it"""
-        with open(cache_path, 'r', encoding='utf-8') as f:
-            self.text = f.read()
+        if ".gz" in cache_path.name:
+            with gzip.open(cache_path, 'rt', encoding='utf-8') as f:
+                self.text = f.read()
+        else:
+            with open(cache_path, 'r', encoding='utf-8') as f:
+                self.text = f.read()
         
-        #print(f'Loaded filing from cache: {cache_path}')
+        logger.debug(f'Loaded filing from cache: {cache_path}')
         
         # Process the text
-        #print('Processing SGML from cache: ' + self.url)
+        logger.debug(f'Processing SGML from cache: {self.url}')
         dtd = DTD()
         self.sgml = Sgml(self.text, dtd)
         
@@ -183,14 +210,14 @@ class Filing:
 
     def _fetch_and_process_filing(self):
         """Fetch filing from URL and process it"""
-        print(f'Fetching filing from {self.url}')
+        logger.debug(f'Fetching filing from {self.url}')
         response = GetRequest(self.url).response
         self.text = response.text
         
         # Save raw text to cache before processing
         self._save_to_cache(self.text)
 
-        print('Processing SGML at ' + self.url)
+        logger.debug(f'Processing SGML at {self.url}')
         dtd = DTD()
         self.sgml = Sgml(self.text, dtd)
 
@@ -210,7 +237,7 @@ class Filing:
         try:
             cache_path = self._get_cache_path()
         except ValueError as e:
-            print(f"Warning: {e}")
+            logger.warning(f"Warning: {e}")
             # If we can't parse the URL, fetch without caching
             self._fetch_and_process_filing()
             return
@@ -220,7 +247,7 @@ class Filing:
                 self._load_from_cache(cache_path)
                 return
             except Exception as e:
-                print(f'Error loading from cache: {e}. Fetching fresh data...')
+                logger.warning(f'Error loading from cache: {e}. Fetching fresh data...')
         
         self._fetch_and_process_filing()
 
@@ -250,7 +277,7 @@ class Filing:
             #names = self._get_statement(statement_short_names)[0]
             short_name = names[0]
             filename = names[1]
-            #print('Getting financial data for {0} (filename: {1})'.format(short_name, filename))
+            logger.debug(f'Getting financial data for {short_name} (filename: {filename})')
             financial_html_text = self.documents[filename].doc_text.data
 
             financial_report = get_financial_report(company = self.company, date_filed = self.date_filed, financial_html_text = financial_html_text)
@@ -289,7 +316,7 @@ class Filing:
                 #print(f'Number of statements in this filing: {num_statements}')
                 if num_statements == 0:
                     str_statements = '\n   '.join(res_longnames)
-                    print(f"Documents in this filing: \n{str_statements}")
+                    logger.debug(f"Documents in this filing: \n{str_statements}")
                     raise ValueError(f'No financial documents in this filing: {self.url}')
 
 
@@ -303,35 +330,35 @@ class Filing:
         #     print('No financial documents in this filing')
 
         if len(statement_names) == 0:
-            print(f"Documents in this filing (for debugging): \n{str_documents}")
+            logger.debug(f"Documents in this filing (for debugging): \n{str_documents}")
             raise ValueError('No financial documents could be found. Likely need to update constants in edgar.filing.Statements. See above printout for the list of documents in this filing.')
             
         return statement_names
     
-    def print_statement_names_raw(self):
-        if FILING_SUMMARY_FILE in self.documents:
-            filing_summary_doc = self.documents[FILING_SUMMARY_FILE]
-            filing_summary_xml = filing_summary_doc.doc_text.xml
-            # Solution 3: Use explicit parser
-            xml_string = str(filing_summary_xml)
-            res_longnames = re.findall(r'<longname>(.*?)</longname>', xml_string)
-            if len(res_longnames) == 0:
-                raise ValueError(f'No financial documents in this filing: {self.url}')
-            else:
-                num_statements = 0
-                for longname in res_longnames:
-                    if re.search(r'statement', longname):
-                        num_statements += 1
-                #print(f'Number of statements in this filing: {num_statements}')
-                if num_statements == 0:
-                    raise ValueError(f'No financial documents in this filing: {self.url}')
-            with open("/tmp/filing_summary.xml", "w") as f:
-                f.write(xml_string)
-            xml_bytes = xml_string.encode('utf-8')
-            #parser = lxml_etree.XMLParser(encoding='utf-8')
-            xml = lxml_etree.fromstring(xml_bytes)
-            for child in xml.getchildren():
-                print(child.tag)
+    # def print_statement_names_raw(self):
+    #     if FILING_SUMMARY_FILE in self.documents:
+    #         filing_summary_doc = self.documents[FILING_SUMMARY_FILE]
+    #         filing_summary_xml = filing_summary_doc.doc_text.xml
+    #         # Solution 3: Use explicit parser
+    #         xml_string = str(filing_summary_xml)
+    #         res_longnames = re.findall(r'<longname>(.*?)</longname>', xml_string)
+    #         if len(res_longnames) == 0:
+    #             raise ValueError(f'No financial documents in this filing: {self.url}')
+    #         else:
+    #             num_statements = 0
+    #             for longname in res_longnames:
+    #                 if re.search(r'statement', longname):
+    #                     num_statements += 1
+    #             #print(f'Number of statements in this filing: {num_statements}')
+    #             if num_statements == 0:
+    #                 raise ValueError(f'No financial documents in this filing: {self.url}')
+    #         with open("/tmp/filing_summary.xml", "w") as f:
+    #             f.write(xml_string)
+    #         xml_bytes = xml_string.encode('utf-8')
+    #         #parser = lxml_etree.XMLParser(encoding='utf-8')
+    #         xml = lxml_etree.fromstring(xml_bytes)
+    #         for child in xml.getchildren():
+    #             print(child.tag)
 
 
 
