@@ -2,6 +2,9 @@
 - Open-ESEF is a Python-based open-source project for handling XBRL filings that follow ESEF, the European Single Electronic Format. 
 
 - ESEF is a standard for electronic financial reporting developed by the European Securities and Markets Authority (ESMA). 
+- This project contains open-source code from two repos: 
+  - [XBRL-Model](https://github.com/fractalexperience/xbrl/) project.
+  - [SEC EDGAR Financial Reports](https://github.com/farhadab/sec-edgar-financials) project.
 
 ## How to use the Open-ESEF
 
