@@ -2,8 +2,8 @@
 This module ties it all together; it will be the main module that's used 
 '''
 import pandas as pd
-from sec_xbrl.edgar import get_financial_filing_info, get_latest_quarter_dir, find_latest_filing_info_going_back_from, SYMBOLS_DATA_PATH
-from sec_xbrl.filing import Filing
+from edgar import get_financial_filing_info, get_latest_quarter_dir, find_latest_filing_info_going_back_from, SYMBOLS_DATA_PATH
+from filing import Filing
 from datetime import datetime
 
 import os
