@@ -1,0 +1,897 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+(c) 2010-2019 Financial Accounting Foundation; (c) 2007-2010 XBRL US, Inc.  All Right Reserved.
+Notice: Authorized Uses are Set Forth at http://xbrl.fasb.org/terms/TaxonomiesTermsConditions.html
+  -->
+<link:linkbase xmlns:link='http://www.xbrl.org/2003/linkbase' xmlns:xbrldt='http://xbrl.org/2005/xbrldt' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd'>
+<link:roleRef roleURI='http://fasb.org/us-gaap/role/eedm/ExtensibleEnumerationLists' xlink:href='us-roles-2019-01-31.xsd#eedm' xlink:type='simple' />
+<link:arcroleRef arcroleURI='http://xbrl.org/int/dim/arcrole/domain-member' xlink:href='http://www.xbrl.org/2005/xbrldt-2005.xsd#domain-member' xlink:type='simple' />
+<link:definitionLink xlink:role='http://fasb.org/us-gaap/role/eedm/ExtensibleEnumerationLists' xlink:type='extended'>
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AssetsAbstract' xlink:label='loc_AssetsAbstract' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherAssets' xlink:label='loc_OtherAssets' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PrepaidExpenseAndOtherAssets' xlink:label='loc_PrepaidExpenseAndOtherAssets' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CashAndCashEquivalentsAtCarryingValue' xlink:label='loc_CashAndCashEquivalentsAtCarryingValue' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DerivativeAssets' xlink:label='loc_DerivativeAssets' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_Goodwill' xlink:label='loc_Goodwill' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DueFromRelatedParties' xlink:label='loc_DueFromRelatedParties' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AccruedInvestmentIncomeReceivable' xlink:label='loc_AccruedInvestmentIncomeReceivable' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_IncomeTaxReceivable' xlink:label='loc_IncomeTaxReceivable' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AssetsCurrentAbstract' xlink:label='loc_AssetsCurrentAbstract' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherAssetsCurrent' xlink:label='loc_OtherAssetsCurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PrepaidExpenseAndOtherAssetsCurrent' xlink:label='loc_PrepaidExpenseAndOtherAssetsCurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AssetsNoncurrentAbstract' xlink:label='loc_AssetsNoncurrentAbstract' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherAssetsNoncurrent' xlink:label='loc_OtherAssetsNoncurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PrepaidExpenseAndOtherAssetsNoncurrent' xlink:label='loc_PrepaidExpenseAndOtherAssetsNoncurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_BankingMember' xlink:label='loc_BankingMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CreditAndDebitCardMember' xlink:label='loc_CreditAndDebitCardMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DepositAccountMember' xlink:label='loc_DepositAccountMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MortgageBankingMember' xlink:label='loc_MortgageBankingMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_GuaranteesMember' xlink:label='loc_GuaranteesMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_BankServicingMember' xlink:label='loc_BankServicingMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ChangeInValuationTechniqueAbstract' xlink:label='loc_ChangeInValuationTechniqueAbstract' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ChangeInValuationTechniqueReasonCurrentAppraisalUnobtainableMember' xlink:label='loc_ChangeInValuationTechniqueReasonCurrentAppraisalUnobtainableMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ChangeInValuationTechniqueReasonInactiveMarketMember' xlink:label='loc_ChangeInValuationTechniqueReasonInactiveMarketMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CollateralPledgedMember' xlink:label='loc_CollateralPledgedMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_GovernmentGuaranteedCollateralMember' xlink:label='loc_GovernmentGuaranteedCollateralMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_RealEstateMember' xlink:label='loc_RealEstateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_EquitySecuritiesMember' xlink:label='loc_EquitySecuritiesMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AutomobilesMember' xlink:label='loc_AutomobilesMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_EquipmentMember' xlink:label='loc_EquipmentMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CollateralDomain' xlink:label='loc_CollateralDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ConstructionMember' xlink:label='loc_ConstructionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HomeBuildingMember' xlink:label='loc_HomeBuildingMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_GeneralContractorMember' xlink:label='loc_GeneralContractorMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ContractWithCustomerBasisOfPricingDomain' xlink:label='loc_ContractWithCustomerBasisOfPricingDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FixedPriceContractMember' xlink:label='loc_FixedPriceContractMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_TimeAndMaterialsContractMember' xlink:label='loc_TimeAndMaterialsContractMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ContractWithCustomerDurationDomain' xlink:label='loc_ContractWithCustomerDurationDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ShortTermContractWithCustomerMember' xlink:label='loc_ShortTermContractWithCustomerMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LongTermContractWithCustomerMember' xlink:label='loc_LongTermContractWithCustomerMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ContractWithCustomerSalesChannelDomain' xlink:label='loc_ContractWithCustomerSalesChannelDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SalesChannelDirectlyToConsumerMember' xlink:label='loc_SalesChannelDirectlyToConsumerMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SalesChannelThroughIntermediaryMember' xlink:label='loc_SalesChannelThroughIntermediaryMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_RepurchaseAgreementCounterpartyNameDomain' xlink:label='loc_RepurchaseAgreementCounterpartyNameDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_IndividuallyImmaterialCounterpartiesMember' xlink:label='loc_IndividuallyImmaterialCounterpartiesMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CreditCardMember' xlink:label='loc_CreditCardMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CreditCardMerchantDiscountMember' xlink:label='loc_CreditCardMerchantDiscountMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CreditQualityIndicatorUpdatedAbstract' xlink:label='loc_CreditQualityIndicatorUpdatedAbstract' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CreditQualityIndicatorUpdatedQuarterlyMember' xlink:label='loc_CreditQualityIndicatorUpdatedQuarterlyMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CreditQualityIndicatorUpdatedAnnuallyMember' xlink:label='loc_CreditQualityIndicatorUpdatedAnnuallyMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DebitCardMember' xlink:label='loc_DebitCardMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_NameOfMajorCustomerDomain' xlink:label='loc_NameOfMajorCustomerDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherCustomerMember' xlink:label='loc_OtherCustomerMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DebtSecuritiesAvailableForSaleCostOfSecuritySoldMethodAbstract' xlink:label='loc_DebtSecuritiesAvailableForSaleCostOfSecuritySoldMethodAbstract' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DebtSecuritiesAvailableForSaleCostOfSecuritySoldOrTransferredMethodAverageCostMember' xlink:label='loc_DebtSecuritiesAvailableForSaleCostOfSecuritySoldOrTransferredMethodAverageCostMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DebtSecuritiesAvailableForSaleCostOfSecuritySoldOrTransferredMethodSpecificIdentificationMember' xlink:label='loc_DebtSecuritiesAvailableForSaleCostOfSecuritySoldOrTransferredMethodSpecificIdentificationMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DebtSecuritiesMaturityAllocationDomain' xlink:label='loc_DebtSecuritiesMaturityAllocationDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DebtSecuritiesMaturityAllocationAverageRemainingLifeMember' xlink:label='loc_DebtSecuritiesMaturityAllocationAverageRemainingLifeMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DebtSecuritiesMaturityAllocationContractualMaturityMember' xlink:label='loc_DebtSecuritiesMaturityAllocationContractualMaturityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DebtSecuritiesMaturityAllocationExpectedMaturityMember' xlink:label='loc_DebtSecuritiesMaturityAllocationExpectedMaturityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DerivativeMember' xlink:label='loc_DerivativeMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ForwardContractsMember' xlink:label='loc_ForwardContractsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OptionMember' xlink:label='loc_OptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SwapMember' xlink:label='loc_SwapMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_WarrantMember' xlink:label='loc_WarrantMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FutureMember' xlink:label='loc_FutureMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OptionOnSecuritiesMember' xlink:label='loc_OptionOnSecuritiesMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_EnergyRelatedDerivativeMember' xlink:label='loc_EnergyRelatedDerivativeMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ExchangeTradedOptionsMember' xlink:label='loc_ExchangeTradedOptionsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ForeignExchangeForwardMember' xlink:label='loc_ForeignExchangeForwardMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_TotalReturnSwapMember' xlink:label='loc_TotalReturnSwapMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_VarianceSwapMember' xlink:label='loc_VarianceSwapMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InterestRateSwaptionMember' xlink:label='loc_InterestRateSwaptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CreditDefaultSwaptionMember' xlink:label='loc_CreditDefaultSwaptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CapitalSupportAgreementMember' xlink:label='loc_CapitalSupportAgreementMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DistributionAndShareholderServiceMember' xlink:label='loc_DistributionAndShareholderServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DistributionServiceMember' xlink:label='loc_DistributionServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ShareholderServiceMember' xlink:label='loc_ShareholderServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ElectricityMember' xlink:label='loc_ElectricityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ElectricityGenerationMember' xlink:label='loc_ElectricityGenerationMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ElectricityPurchasedMember' xlink:label='loc_ElectricityPurchasedMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ElectricityUsRegulatedMember' xlink:label='loc_ElectricityUsRegulatedMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ElectricDistributionMember' xlink:label='loc_ElectricDistributionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ElectricTransmissionMember' xlink:label='loc_ElectricTransmissionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_EnergyCommoditiesAndServiceMember' xlink:label='loc_EnergyCommoditiesAndServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_EnergyServiceMember' xlink:label='loc_EnergyServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CommonStockMember' xlink:label='loc_CommonStockMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PreferredStockMember' xlink:label='loc_PreferredStockMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FairValueMeasurementsFairValueHierarchyDomain' xlink:label='loc_FairValueMeasurementsFairValueHierarchyDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FairValueInputsLevel12And3Member' xlink:label='loc_FairValueInputsLevel12And3Member' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FairValueMeasuredAtNetAssetValuePerShareMember' xlink:label='loc_FairValueMeasuredAtNetAssetValuePerShareMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FairValueOptionOtherEligibleItemsMember' xlink:label='loc_FairValueOptionOtherEligibleItemsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FirmCommitmentNotRecognizedAtInceptionFairValueOptionMember' xlink:label='loc_FirmCommitmentNotRecognizedAtInceptionFairValueOptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_WrittenLoanCommitmentFairValueOptionMember' xlink:label='loc_WrittenLoanCommitmentFairValueOptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InsuranceContractRightsAndObligationsFairValueOptionMember' xlink:label='loc_InsuranceContractRightsAndObligationsFairValueOptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_WarrantyRightsAndObligationsFairValueOptionMember' xlink:label='loc_WarrantyRightsAndObligationsFairValueOptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SeparatedHostFinancialInstrumentFairValueOptionMember' xlink:label='loc_SeparatedHostFinancialInstrumentFairValueOptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FairValueInputsLevel1Member' xlink:label='loc_FairValueInputsLevel1Member' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FairValueInputsLevel2Member' xlink:label='loc_FairValueInputsLevel2Member' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FairValueInputsLevel3Member' xlink:label='loc_FairValueInputsLevel3Member' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:label='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AccruedLiabilitiesMember' xlink:label='loc_AccruedLiabilitiesMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CommitmentsToExtendCreditMember' xlink:label='loc_CommitmentsToExtendCreditMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CommoditiesInvestmentMember' xlink:label='loc_CommoditiesInvestmentMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DebtMember' xlink:label='loc_DebtMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DepositsMember' xlink:label='loc_DepositsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_EquityFundsMember' xlink:label='loc_EquityFundsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HedgeFundsMember' xlink:label='loc_HedgeFundsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InterestRateLockCommitmentsMember' xlink:label='loc_InterestRateLockCommitmentsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LoanOriginationCommitmentsMember' xlink:label='loc_LoanOriginationCommitmentsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LoanPurchaseCommitmentsMember' xlink:label='loc_LoanPurchaseCommitmentsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LongTermDebtMember' xlink:label='loc_LongTermDebtMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PolicyLoansMember' xlink:label='loc_PolicyLoansMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PrivateEquityFundsMember' xlink:label='loc_PrivateEquityFundsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_RealEstateFundsMember' xlink:label='loc_RealEstateFundsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SeniorDebtObligationsMember' xlink:label='loc_SeniorDebtObligationsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ShortTermDebtMember' xlink:label='loc_ShortTermDebtMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_UnusedLinesOfCreditMember' xlink:label='loc_UnusedLinesOfCreditMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_VentureCapitalFundsMember' xlink:label='loc_VentureCapitalFundsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FinancialServiceMember' xlink:label='loc_FinancialServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CorrespondentClearingMember' xlink:label='loc_CorrespondentClearingMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FiduciaryAndTrustMember' xlink:label='loc_FiduciaryAndTrustMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FinancialServiceOtherMember' xlink:label='loc_FinancialServiceOtherMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_TransferAgentMember' xlink:label='loc_TransferAgentMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InvestmentAdvisoryManagementAndAdministrativeServiceMember' xlink:label='loc_InvestmentAdvisoryManagementAndAdministrativeServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ClearingServiceMember' xlink:label='loc_ClearingServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FixedAnnuityMember' xlink:label='loc_FixedAnnuityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DeferredFixedAnnuityMember' xlink:label='loc_DeferredFixedAnnuityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ImmediateFixedAnnuityMember' xlink:label='loc_ImmediateFixedAnnuityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FranchisorMember' xlink:label='loc_FranchisorMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FranchiseMember' xlink:label='loc_FranchiseMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FranchisorOwnedOutletMember' xlink:label='loc_FranchisorOwnedOutletMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FundedPlanMember' xlink:label='loc_FundedPlanMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OverfundedPlanMember' xlink:label='loc_OverfundedPlanMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_UnderfundedPlanMember' xlink:label='loc_UnderfundedPlanMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DJIAIndexFutureMember' xlink:label='loc_DJIAIndexFutureMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_NASDAQIndexFutureMember' xlink:label='loc_NASDAQIndexFutureMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_EurodollarFutureMember' xlink:label='loc_EurodollarFutureMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_EuriborFutureMember' xlink:label='loc_EuriborFutureMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_BondFutureMember' xlink:label='loc_BondFutureMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SingleStockFutureMember' xlink:label='loc_SingleStockFutureMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ForeignExchangeFutureMember' xlink:label='loc_ForeignExchangeFutureMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_SegmentGeographicalDomain' xlink:label='loc_SegmentGeographicalDomain' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_AsiaMember' xlink:label='loc_AsiaMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_AsiaPacificMember' xlink:label='loc_AsiaPacificMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_AfricaMember' xlink:label='loc_AfricaMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_AmericasMember' xlink:label='loc_AmericasMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_CentralAmericaMember' xlink:label='loc_CentralAmericaMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_EMEAMember' xlink:label='loc_EMEAMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_EuropeMember' xlink:label='loc_EuropeMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_EuropeanUnionMember' xlink:label='loc_EuropeanUnionMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_LatinAmericaMember' xlink:label='loc_LatinAmericaMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MiddleEastMember' xlink:label='loc_MiddleEastMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_NorthAmericaMember' xlink:label='loc_NorthAmericaMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_SouthAmericaMember' xlink:label='loc_SouthAmericaMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_GranteeStatusDomain' xlink:label='loc_GranteeStatusDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ShareBasedPaymentArrangementEmployeeMember' xlink:label='loc_ShareBasedPaymentArrangementEmployeeMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ShareBasedPaymentArrangementNonemployeeMember' xlink:label='loc_ShareBasedPaymentArrangementNonemployeeMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HealthCareMember' xlink:label='loc_HealthCareMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HealthCarePatientServiceMember' xlink:label='loc_HealthCarePatientServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HealthCarePremiumMember' xlink:label='loc_HealthCarePremiumMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HealthCareResidentServiceMember' xlink:label='loc_HealthCareResidentServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HealthCareOtherMember' xlink:label='loc_HealthCareOtherMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HedgeFundsEquityMember' xlink:label='loc_HedgeFundsEquityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HedgeFundsEventDrivenMember' xlink:label='loc_HedgeFundsEventDrivenMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HedgeFundsGlobalOpportunityMember' xlink:label='loc_HedgeFundsGlobalOpportunityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HedgeFundsMultistrategyMember' xlink:label='loc_HedgeFundsMultistrategyMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HedgeFundsEquityLongShortMember' xlink:label='loc_HedgeFundsEquityLongShortMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_HotelMember' xlink:label='loc_HotelMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OccupancyMember' xlink:label='loc_OccupancyMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CasinoMember' xlink:label='loc_CasinoMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FoodAndBeverageMember' xlink:label='loc_FoodAndBeverageMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_RetailMember' xlink:label='loc_RetailMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HotelOwnedMember' xlink:label='loc_HotelOwnedMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HotelOtherMember' xlink:label='loc_HotelOtherMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_IncomeStatementAbstract' xlink:label='loc_IncomeStatementAbstract' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_Revenues' xlink:label='loc_Revenues' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherOperatingIncome' xlink:label='loc_OtherOperatingIncome' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherNonoperatingIncome' xlink:label='loc_OtherNonoperatingIncome' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherAmortizationOfDeferredCharges' xlink:label='loc_OtherAmortizationOfDeferredCharges' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AmortizationOfDeferredCharges' xlink:label='loc_AmortizationOfDeferredCharges' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherDepreciationAndAmortization' xlink:label='loc_OtherDepreciationAndAmortization' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherNonoperatingExpense' xlink:label='loc_OtherNonoperatingExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InterestExpense' xlink:label='loc_InterestExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InterestIncomeOperating' xlink:label='loc_InterestIncomeOperating' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CostDirectLabor' xlink:label='loc_CostDirectLabor' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CostOfGoodsAndServicesSold' xlink:label='loc_CostOfGoodsAndServicesSold' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CostOfRevenue' xlink:label='loc_CostOfRevenue' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CostsAndExpenses' xlink:label='loc_CostsAndExpenses' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DefinedBenefitPlanActuarialGainLossImmediateRecognitionAsComponentInNetPeriodicBenefitCostCredit' xlink:label='loc_DefinedBenefitPlanActuarialGainLossImmediateRecognitionAsComponentInNetPeriodicBenefitCostCredit' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DefinedBenefitPlanAmortizationOfGainsLosses' xlink:label='loc_DefinedBenefitPlanAmortizationOfGainsLosses' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DefinedBenefitPlanAmortizationOfPriorServiceCostCredit' xlink:label='loc_DefinedBenefitPlanAmortizationOfPriorServiceCostCredit' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DefinedBenefitPlanAmortizationOfTransitionAssetObligation' xlink:label='loc_DefinedBenefitPlanAmortizationOfTransitionAssetObligation' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DefinedBenefitPlanExpectedReturnOnPlanAssets' xlink:label='loc_DefinedBenefitPlanExpectedReturnOnPlanAssets' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DefinedBenefitPlanInterestCost' xlink:label='loc_DefinedBenefitPlanInterestCost' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DefinedBenefitPlanOtherCosts' xlink:label='loc_DefinedBenefitPlanOtherCosts' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DefinedBenefitPlanRecognizedNetGainLossDueToCurtailments' xlink:label='loc_DefinedBenefitPlanRecognizedNetGainLossDueToCurtailments' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DefinedBenefitPlanRecognizedNetGainLossDueToSettlements1' xlink:label='loc_DefinedBenefitPlanRecognizedNetGainLossDueToSettlements1' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DefinedBenefitPlanRecognizedNetGainLossDueToSettlementsAndCurtailments1' xlink:label='loc_DefinedBenefitPlanRecognizedNetGainLossDueToSettlementsAndCurtailments1' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DirectOperatingCosts' xlink:label='loc_DirectOperatingCosts' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_EmployeeBenefitsAndShareBasedCompensation' xlink:label='loc_EmployeeBenefitsAndShareBasedCompensation' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_GeneralAndAdministrativeExpense' xlink:label='loc_GeneralAndAdministrativeExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InterestAndDebtExpense' xlink:label='loc_InterestAndDebtExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InterestExpenseOther' xlink:label='loc_InterestExpenseOther' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InterestIncomeExpenseNet' xlink:label='loc_InterestIncomeExpenseNet' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InterestIncomeExpenseNonoperatingNet' xlink:label='loc_InterestIncomeExpenseNonoperatingNet' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InvestmentIncomeNonoperating' xlink:label='loc_InvestmentIncomeNonoperating' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LaborAndRelatedExpense' xlink:label='loc_LaborAndRelatedExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_NoninterestExpense' xlink:label='loc_NoninterestExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_NonoperatingGainsLosses' xlink:label='loc_NonoperatingGainsLosses' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_NonoperatingIncomeExpense' xlink:label='loc_NonoperatingIncomeExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OfficersCompensation' xlink:label='loc_OfficersCompensation' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OperatingCostsAndExpenses' xlink:label='loc_OperatingCostsAndExpenses' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OperatingExpenses' xlink:label='loc_OperatingExpenses' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OperatingIncomeLoss' xlink:label='loc_OperatingIncomeLoss' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherCostAndExpenseOperating' xlink:label='loc_OtherCostAndExpenseOperating' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherExpenses' xlink:label='loc_OtherExpenses' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherGeneralAndAdministrativeExpense' xlink:label='loc_OtherGeneralAndAdministrativeExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherGeneralExpense' xlink:label='loc_OtherGeneralExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherLaborRelatedExpenses' xlink:label='loc_OtherLaborRelatedExpenses' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherNoninterestExpense' xlink:label='loc_OtherNoninterestExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherNonoperatingAssetRelatedIncome' xlink:label='loc_OtherNonoperatingAssetRelatedIncome' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherNonoperatingGainsLosses' xlink:label='loc_OtherNonoperatingGainsLosses' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherNonoperatingIncomeExpense' xlink:label='loc_OtherNonoperatingIncomeExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherNonrecurringExpense' xlink:label='loc_OtherNonrecurringExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherNonrecurringIncome' xlink:label='loc_OtherNonrecurringIncome' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherNonrecurringIncomeExpense' xlink:label='loc_OtherNonrecurringIncomeExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherSellingAndMarketingExpense' xlink:label='loc_OtherSellingAndMarketingExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherSellingGeneralAndAdministrativeExpense' xlink:label='loc_OtherSellingGeneralAndAdministrativeExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_NetPeriodicDefinedBenefitsExpenseReversalOfExpenseExcludingServiceCostComponent' xlink:label='loc_NetPeriodicDefinedBenefitsExpenseReversalOfExpenseExcludingServiceCostComponent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ResultsOfOperationsGeneralAndAdministrativeRelatedToOilAndGasProducingActivities' xlink:label='loc_ResultsOfOperationsGeneralAndAdministrativeRelatedToOilAndGasProducingActivities' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SalariesAndWages' xlink:label='loc_SalariesAndWages' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SalariesWagesAndOfficersCompensation' xlink:label='loc_SalariesWagesAndOfficersCompensation' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SellingAndMarketingExpense' xlink:label='loc_SellingAndMarketingExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SellingExpense' xlink:label='loc_SellingExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SellingGeneralAndAdministrativeExpense' xlink:label='loc_SellingGeneralAndAdministrativeExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_UtilitiesOperatingExpense' xlink:label='loc_UtilitiesOperatingExpense' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_UtilitiesOperatingExpenseMaintenanceOperationsAndOtherCostsAndExpenses' xlink:label='loc_UtilitiesOperatingExpenseMaintenanceOperationsAndOtherCostsAndExpenses' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AdministrativeServiceMember' xlink:label='loc_AdministrativeServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AssetManagement1Member' xlink:label='loc_AssetManagement1Member' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InvestmentAdviceMember' xlink:label='loc_InvestmentAdviceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InvestmentPerformanceMember' xlink:label='loc_InvestmentPerformanceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LiabilitiesAbstract' xlink:label='loc_LiabilitiesAbstract' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherLiabilities' xlink:label='loc_OtherLiabilities' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AccountsPayableAndAccruedLiabilitiesCurrentAndNoncurrent' xlink:label='loc_AccountsPayableAndAccruedLiabilitiesCurrentAndNoncurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LiabilitiesCurrentAbstract' xlink:label='loc_LiabilitiesCurrentAbstract' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AccountsPayableAndAccruedLiabilitiesCurrent' xlink:label='loc_AccountsPayableAndAccruedLiabilitiesCurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DebtCurrent' xlink:label='loc_DebtCurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DueToRelatedPartiesCurrent' xlink:label='loc_DueToRelatedPartiesCurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LiabilitiesOfDisposalGroupIncludingDiscontinuedOperationCurrent' xlink:label='loc_LiabilitiesOfDisposalGroupIncludingDiscontinuedOperationCurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherLiabilitiesCurrent' xlink:label='loc_OtherLiabilitiesCurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LiabilitiesNoncurrentAbstract' xlink:label='loc_LiabilitiesNoncurrentAbstract' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LongTermDebtAndCapitalLeaseObligations' xlink:label='loc_LongTermDebtAndCapitalLeaseObligations' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherLongTermDebtNoncurrent' xlink:label='loc_OtherLongTermDebtNoncurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LongTermDebtNoncurrent' xlink:label='loc_LongTermDebtNoncurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FinanceLeaseLiabilityNoncurrent' xlink:label='loc_FinanceLeaseLiabilityNoncurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OperatingLeaseLiabilityNoncurrent' xlink:label='loc_OperatingLeaseLiabilityNoncurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AccruedIncomeTaxesNoncurrent' xlink:label='loc_AccruedIncomeTaxesNoncurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DeferredCompensationLiabilityClassifiedNoncurrent' xlink:label='loc_DeferredCompensationLiabilityClassifiedNoncurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DeferredIncomeTaxLiabilitiesNet' xlink:label='loc_DeferredIncomeTaxLiabilitiesNet' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DueToRelatedPartiesNoncurrent' xlink:label='loc_DueToRelatedPartiesNoncurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherLiabilitiesNoncurrent' xlink:label='loc_OtherLiabilitiesNoncurrent' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LifeInsuranceSegmentMember' xlink:label='loc_LifeInsuranceSegmentMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ParticipatingLifeInsurancePolicyMember' xlink:label='loc_ParticipatingLifeInsurancePolicyMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_NonparticipatingLifeInsurancePolicyMember' xlink:label='loc_NonparticipatingLifeInsurancePolicyMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_VariableLifeMember' xlink:label='loc_VariableLifeMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_UniversalLifeMember' xlink:label='loc_UniversalLifeMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InterestSensitiveLifeMember' xlink:label='loc_InterestSensitiveLifeMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ManagementServiceMember' xlink:label='loc_ManagementServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ManagementServiceBaseMember' xlink:label='loc_ManagementServiceBaseMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ManagementServiceIncentiveMember' xlink:label='loc_ManagementServiceIncentiveMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputTypeDomain' xlink:label='loc_MeasurementInputTypeDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputRiskFreeInterestRateMember' xlink:label='loc_MeasurementInputRiskFreeInterestRateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputExpectedDividendRateMember' xlink:label='loc_MeasurementInputExpectedDividendRateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputDiscountRateMember' xlink:label='loc_MeasurementInputDiscountRateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputSharePriceMember' xlink:label='loc_MeasurementInputSharePriceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputAppraisedValueMember' xlink:label='loc_MeasurementInputAppraisedValueMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputCreditSpreadMember' xlink:label='loc_MeasurementInputCreditSpreadMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputCommodityMarketPriceMember' xlink:label='loc_MeasurementInputCommodityMarketPriceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputCommodityForwardPriceMember' xlink:label='loc_MeasurementInputCommodityForwardPriceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputCommodityFuturePriceMember' xlink:label='loc_MeasurementInputCommodityFuturePriceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputMaturityMember' xlink:label='loc_MeasurementInputMaturityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputDefaultRateMember' xlink:label='loc_MeasurementInputDefaultRateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputLossSeverityMember' xlink:label='loc_MeasurementInputLossSeverityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputEbitdaMultipleMember' xlink:label='loc_MeasurementInputEbitdaMultipleMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputRevenueMultipleMember' xlink:label='loc_MeasurementInputRevenueMultipleMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputLongTermRevenueGrowthRateMember' xlink:label='loc_MeasurementInputLongTermRevenueGrowthRateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputCounterpartyCreditRiskMember' xlink:label='loc_MeasurementInputCounterpartyCreditRiskMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputExercisePriceMember' xlink:label='loc_MeasurementInputExercisePriceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputPriceVolatilityMember' xlink:label='loc_MeasurementInputPriceVolatilityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputOptionVolatilityMember' xlink:label='loc_MeasurementInputOptionVolatilityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputConversionPriceMember' xlink:label='loc_MeasurementInputConversionPriceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputExpectedTermMember' xlink:label='loc_MeasurementInputExpectedTermMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputConstantPrepaymentRateMember' xlink:label='loc_MeasurementInputConstantPrepaymentRateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputPrepaymentRateMember' xlink:label='loc_MeasurementInputPrepaymentRateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputDiscountForLackOfMarketabilityMember' xlink:label='loc_MeasurementInputDiscountForLackOfMarketabilityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputCostToSellMember' xlink:label='loc_MeasurementInputCostToSellMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputLapseRateMember' xlink:label='loc_MeasurementInputLapseRateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputMortalityRateMember' xlink:label='loc_MeasurementInputMortalityRateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputUtilizationRateMember' xlink:label='loc_MeasurementInputUtilizationRateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputWithdrawalRateMember' xlink:label='loc_MeasurementInputWithdrawalRateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputCapRateMember' xlink:label='loc_MeasurementInputCapRateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputComparabilityAdjustmentMember' xlink:label='loc_MeasurementInputComparabilityAdjustmentMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputEntityCreditRiskMember' xlink:label='loc_MeasurementInputEntityCreditRiskMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputExpectedDividendPaymentMember' xlink:label='loc_MeasurementInputExpectedDividendPaymentMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MeasurementInputControlPremiumMember' xlink:label='loc_MeasurementInputControlPremiumMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MineralMember' xlink:label='loc_MineralMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_GoldMember' xlink:label='loc_GoldMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PublicUtilitiesInventoryCoalMember' xlink:label='loc_PublicUtilitiesInventoryCoalMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MineralExplorationMember' xlink:label='loc_MineralExplorationMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OilAndGasMember' xlink:label='loc_OilAndGasMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AlternativeEnergyMember' xlink:label='loc_AlternativeEnergyMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OilAndCondensateMember' xlink:label='loc_OilAndCondensateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OilAndGasProspectMember' xlink:label='loc_OilAndGasProspectMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OilAndGasExplorationAndProductionMember' xlink:label='loc_OilAndGasExplorationAndProductionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OilAndGasOperationAndMaintenanceMember' xlink:label='loc_OilAndGasOperationAndMaintenanceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OilAndGasPurchasedMember' xlink:label='loc_OilAndGasPurchasedMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OilAndGasRefiningAndMarketingMember' xlink:label='loc_OilAndGasRefiningAndMarketingMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_NaturalGasMidstreamMember' xlink:label='loc_NaturalGasMidstreamMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_NaturalGasLiquidsReservesMember' xlink:label='loc_NaturalGasLiquidsReservesMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_NaturalGasStorageMember' xlink:label='loc_NaturalGasStorageMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_NaturalGasProductionMember' xlink:label='loc_NaturalGasProductionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_NaturalGasGatheringTransportationMarketingAndProcessingMember' xlink:label='loc_NaturalGasGatheringTransportationMarketingAndProcessingMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_NaturalGasUsRegulatedMember' xlink:label='loc_NaturalGasUsRegulatedMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PublicUtilitiesInventoryPropaneMember' xlink:label='loc_PublicUtilitiesInventoryPropaneMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_BondOptionMember' xlink:label='loc_BondOptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_StockOptionMember' xlink:label='loc_StockOptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CommodityOptionMember' xlink:label='loc_CommodityOptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CreditDefaultOptionMember' xlink:label='loc_CreditDefaultOptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InterestRateCapMember' xlink:label='loc_InterestRateCapMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InterestRateFloorMember' xlink:label='loc_InterestRateFloorMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SwaptionMember' xlink:label='loc_SwaptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ForeignExchangeOptionMember' xlink:label='loc_ForeignExchangeOptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CreditSpreadOptionMember' xlink:label='loc_CreditSpreadOptionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherInsuranceProductLineMember' xlink:label='loc_OtherInsuranceProductLineMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherShortdurationInsuranceProductLineMember' xlink:label='loc_OtherShortdurationInsuranceProductLineMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherLongdurationInsuranceProductLineMember' xlink:label='loc_OtherLongdurationInsuranceProductLineMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherPostretirementBenefitPlansDefinedBenefitMember' xlink:label='loc_OtherPostretirementBenefitPlansDefinedBenefitMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DefinedBenefitPostretirementHealthCoverageMember' xlink:label='loc_DefinedBenefitPostretirementHealthCoverageMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DefinedBenefitPostretirementLifeInsuranceMember' xlink:label='loc_DefinedBenefitPostretirementLifeInsuranceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_NonredeemablePreferredStockMember' xlink:label='loc_NonredeemablePreferredStockMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_RedeemablePreferredStockMember' xlink:label='loc_RedeemablePreferredStockMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ConvertiblePreferredStockMember' xlink:label='loc_ConvertiblePreferredStockMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ContingentConvertiblePreferredStockMember' xlink:label='loc_ContingentConvertiblePreferredStockMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PrivateEquityFundsDomesticMember' xlink:label='loc_PrivateEquityFundsDomesticMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PrivateEquityFundsForeignMember' xlink:label='loc_PrivateEquityFundsForeignMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ProductMember' xlink:label='loc_ProductMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ManufacturedProductOtherMember' xlink:label='loc_ManufacturedProductOtherMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_ProductsAndServicesDomain' xlink:label='loc_ProductsAndServicesDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_NontraditionalLongDurationContractsMember' xlink:label='loc_NontraditionalLongDurationContractsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_GroupPoliciesMember' xlink:label='loc_GroupPoliciesMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_IndividualPoliciesMember' xlink:label='loc_IndividualPoliciesMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LifeAndAnnuityInsuranceProductLineMember' xlink:label='loc_LifeAndAnnuityInsuranceProductLineMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InvestmentsSegmentMember' xlink:label='loc_InvestmentsSegmentMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AccidentAndHealthInsuranceSegmentMember' xlink:label='loc_AccidentAndHealthInsuranceSegmentMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_HealthInsuranceProductLineMember' xlink:label='loc_HealthInsuranceProductLineMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DisabilityInsurancePolicyMember' xlink:label='loc_DisabilityInsurancePolicyMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_FinancialGuaranteeInsuranceSegmentMember' xlink:label='loc_FinancialGuaranteeInsuranceSegmentMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PropertyLiabilityAndCasualtyInsuranceSegmentMember' xlink:label='loc_PropertyLiabilityAndCasualtyInsuranceSegmentMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PropertyInsuranceProductLineMember' xlink:label='loc_PropertyInsuranceProductLineMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SuretySegmentMember' xlink:label='loc_SuretySegmentMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_TitleInsuranceSegmentMember' xlink:label='loc_TitleInsuranceSegmentMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_GuaranteedInvestmentContractMember' xlink:label='loc_GuaranteedInvestmentContractMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_VariableAnnuityMember' xlink:label='loc_VariableAnnuityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_StructuredSettlementAnnuityMember' xlink:label='loc_StructuredSettlementAnnuityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_TerminalFundingAnnuityMember' xlink:label='loc_TerminalFundingAnnuityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AccidentAndHealthInsuranceExcludingWorkersCompensationMember' xlink:label='loc_AccidentAndHealthInsuranceExcludingWorkersCompensationMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_IndexedAnnuityMember' xlink:label='loc_IndexedAnnuityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ProfessionalLiabilityInsuranceMember' xlink:label='loc_ProfessionalLiabilityInsuranceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_TermLifeInsuranceMember' xlink:label='loc_TermLifeInsuranceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_VariableUniversalLifeMember' xlink:label='loc_VariableUniversalLifeMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_WholeLifeInsuranceMember' xlink:label='loc_WholeLifeInsuranceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_WorkersCompensationInsuranceMember' xlink:label='loc_WorkersCompensationInsuranceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ServiceMember' xlink:label='loc_ServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ProductAndServiceOtherMember' xlink:label='loc_ProductAndServiceOtherMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ShippingAndHandlingMember' xlink:label='loc_ShippingAndHandlingMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AdmissionMember' xlink:label='loc_AdmissionMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AdvertisingMember' xlink:label='loc_AdvertisingMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CargoAndFreightMember' xlink:label='loc_CargoAndFreightMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_EntertainmentMember' xlink:label='loc_EntertainmentMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_GovernmentContractMember' xlink:label='loc_GovernmentContractMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_GrantMember' xlink:label='loc_GrantMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LicenseMember' xlink:label='loc_LicenseMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MembershipMember' xlink:label='loc_MembershipMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PassengerMember' xlink:label='loc_PassengerMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PublicUtilitiesMember' xlink:label='loc_PublicUtilitiesMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_RoyaltyMember' xlink:label='loc_RoyaltyMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SubscriptionAndCirculationMember' xlink:label='loc_SubscriptionAndCirculationMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_TimberMember' xlink:label='loc_TimberMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_EnvironmentalRemediationMember' xlink:label='loc_EnvironmentalRemediationMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PropertyAndCasualtyPersonalInsuranceProductLineMember' xlink:label='loc_PropertyAndCasualtyPersonalInsuranceProductLineMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PropertyAndCasualtyCommercialInsuranceProductLineMember' xlink:label='loc_PropertyAndCasualtyCommercialInsuranceProductLineMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LandMember' xlink:label='loc_LandMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_TimeShareMember' xlink:label='loc_TimeShareMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ParkingMember' xlink:label='loc_ParkingMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ConcessionsMember' xlink:label='loc_ConcessionsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_RealEstateOtherMember' xlink:label='loc_RealEstateOtherMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CommercialRealEstateMember' xlink:label='loc_CommercialRealEstateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ResidentialRealEstateMember' xlink:label='loc_ResidentialRealEstateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_RelatedPartyTransactionDomain' xlink:label='loc_RelatedPartyTransactionDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AssetManagementArrangementMember' xlink:label='loc_AssetManagementArrangementMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_RelatedPartyDomain' xlink:label='loc_RelatedPartyDomain' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_AffiliatedEntityMember' xlink:label='loc_AffiliatedEntityMember' xlink:type='locator' />
+<link:loc xlink:href='http://xbrl.fasb.org/srt/2019/elts/srt-2019-01-31.xsd#srt_SubsidiariesMember' xlink:label='loc_SubsidiariesMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_TrustForBenefitOfEmployeesMember' xlink:label='loc_TrustForBenefitOfEmployeesMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_RestrictionTypeDomain' xlink:label='loc_RestrictionTypeDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AssetHeldInTrustMember' xlink:label='loc_AssetHeldInTrustMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AssetPledgedAsCollateralMember' xlink:label='loc_AssetPledgedAsCollateralMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_RetirementPlanFundingStatusDomain' xlink:label='loc_RetirementPlanFundingStatusDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_UnfundedPlanMember' xlink:label='loc_UnfundedPlanMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_RetirementPlanSponsorLocationDomain' xlink:label='loc_RetirementPlanSponsorLocationDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DomesticPlanMember' xlink:label='loc_DomesticPlanMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ForeignPlanMember' xlink:label='loc_ForeignPlanMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_RetirementPlanTaxStatusDomain' xlink:label='loc_RetirementPlanTaxStatusDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_QualifiedPlanMember' xlink:label='loc_QualifiedPlanMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_NonqualifiedPlanMember' xlink:label='loc_NonqualifiedPlanMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_RetirementPlanTypeDomain' xlink:label='loc_RetirementPlanTypeDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PensionPlansDefinedBenefitMember' xlink:label='loc_PensionPlansDefinedBenefitMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherPensionPlansDefinedBenefitMember' xlink:label='loc_OtherPensionPlansDefinedBenefitMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SupplementalEmployeeRetirementPlanDefinedBenefitMember' xlink:label='loc_SupplementalEmployeeRetirementPlanDefinedBenefitMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherPensionPlansPostretirementOrSupplementalPlansDefinedBenefitMember' xlink:label='loc_OtherPensionPlansPostretirementOrSupplementalPlansDefinedBenefitMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_PostemploymentRetirementBenefitsMember' xlink:label='loc_PostemploymentRetirementBenefitsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_SegmentDomain' xlink:label='loc_SegmentDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_AllOtherSegmentsMember' xlink:label='loc_AllOtherSegmentsMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CorporateMember' xlink:label='loc_CorporateMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CorporateAndOtherMember' xlink:label='loc_CorporateAndOtherMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_TechnologyServiceMember' xlink:label='loc_TechnologyServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LicenseAndMaintenanceMember' xlink:label='loc_LicenseAndMaintenanceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_LicenseAndServiceMember' xlink:label='loc_LicenseAndServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MaintenanceMember' xlink:label='loc_MaintenanceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OilAndGasServiceMember' xlink:label='loc_OilAndGasServiceMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ServiceOtherMember' xlink:label='loc_ServiceOtherMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_StatementOfOtherComprehensiveIncomeAbstract' xlink:label='loc_StatementOfOtherComprehensiveIncomeAbstract' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherComprehensiveIncomeUnrealizedHoldingGainLossOnSecuritiesArisingDuringPeriodBeforeTax' xlink:label='loc_OtherComprehensiveIncomeUnrealizedHoldingGainLossOnSecuritiesArisingDuringPeriodBeforeTax' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherComprehensiveIncomeLossCashFlowHedgeGainLossBeforeReclassificationAndTax' xlink:label='loc_OtherComprehensiveIncomeLossCashFlowHedgeGainLossBeforeReclassificationAndTax' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherComprehensiveIncomeLossFinancialLiabilityFairValueOptionUnrealizedGainLossArisingDuringPeriodBeforeTax' xlink:label='loc_OtherComprehensiveIncomeLossFinancialLiabilityFairValueOptionUnrealizedGainLossArisingDuringPeriodBeforeTax' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherComprehensiveIncomeLossDerivativeExcludedComponentIncreaseDecreaseBeforeAdjustmentsAndTax' xlink:label='loc_OtherComprehensiveIncomeLossDerivativeExcludedComponentIncreaseDecreaseBeforeAdjustmentsAndTax' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherComprehensiveIncomeUnrealizedHoldingGainLossOnSecuritiesArisingDuringPeriodNetOfTax' xlink:label='loc_OtherComprehensiveIncomeUnrealizedHoldingGainLossOnSecuritiesArisingDuringPeriodNetOfTax' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherComprehensiveIncomeLossCashFlowHedgeGainLossBeforeReclassificationAfterTax' xlink:label='loc_OtherComprehensiveIncomeLossCashFlowHedgeGainLossBeforeReclassificationAfterTax' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherComprehensiveIncomeLossFinancialLiabilityFairValueOptionUnrealizedGainLossArisingDuringPeriodAfterTax' xlink:label='loc_OtherComprehensiveIncomeLossFinancialLiabilityFairValueOptionUnrealizedGainLossArisingDuringPeriodAfterTax' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_OtherComprehensiveIncomeLossDerivativeExcludedComponentIncreaseDecreaseBeforeAdjustmentsAfterTax' xlink:label='loc_OtherComprehensiveIncomeLossDerivativeExcludedComponentIncreaseDecreaseBeforeAdjustmentsAfterTax' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_EquitySwapMember' xlink:label='loc_EquitySwapMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CurrencySwapMember' xlink:label='loc_CurrencySwapMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_InterestRateSwapMember' xlink:label='loc_InterestRateSwapMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_BasisSwapMember' xlink:label='loc_BasisSwapMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CreditDefaultSwapMember' xlink:label='loc_CreditDefaultSwapMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_TimingOfTransferOfGoodOrServiceDomain' xlink:label='loc_TimingOfTransferOfGoodOrServiceDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_TransferredAtPointInTimeMember' xlink:label='loc_TransferredAtPointInTimeMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_TransferredOverTimeMember' xlink:label='loc_TransferredOverTimeMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ValuationTechniqueDomain' xlink:label='loc_ValuationTechniqueDomain' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_MarketApproachValuationTechniqueMember' xlink:label='loc_MarketApproachValuationTechniqueMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_IncomeApproachValuationTechniqueMember' xlink:label='loc_IncomeApproachValuationTechniqueMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_CostApproachValuationTechniqueMember' xlink:label='loc_CostApproachValuationTechniqueMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ValuationTechniqueDiscountedCashFlowMember' xlink:label='loc_ValuationTechniqueDiscountedCashFlowMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ValuationTechniqueOptionPricingModelMember' xlink:label='loc_ValuationTechniqueOptionPricingModelMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ValuationTechniqueMatrixPricingMember' xlink:label='loc_ValuationTechniqueMatrixPricingMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ValuationTechniqueConsensusPricingModelMember' xlink:label='loc_ValuationTechniqueConsensusPricingModelMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_DeferredVariableAnnuityMember' xlink:label='loc_DeferredVariableAnnuityMember' xlink:type='locator' />
+<link:loc xlink:href='../elts/us-gaap-2019-01-31.xsd#us-gaap_ImmediateVariableAnnuityMember' xlink:label='loc_ImmediateVariableAnnuityMember' xlink:type='locator' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_AssetsAbstract' xlink:to='loc_OtherAssets' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_AssetsAbstract' xlink:to='loc_PrepaidExpenseAndOtherAssets' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_AssetsAbstract' xlink:to='loc_CashAndCashEquivalentsAtCarryingValue' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_AssetsAbstract' xlink:to='loc_DerivativeAssets' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_AssetsAbstract' xlink:to='loc_Goodwill' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_AssetsAbstract' xlink:to='loc_DueFromRelatedParties' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_AssetsAbstract' xlink:to='loc_AccruedInvestmentIncomeReceivable' xlink:type='arc' />
+<link:definitionArc order='80' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_AssetsAbstract' xlink:to='loc_IncomeTaxReceivable' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_AssetsCurrentAbstract' xlink:to='loc_OtherAssetsCurrent' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_AssetsCurrentAbstract' xlink:to='loc_PrepaidExpenseAndOtherAssetsCurrent' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_AssetsNoncurrentAbstract' xlink:to='loc_OtherAssetsNoncurrent' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_AssetsNoncurrentAbstract' xlink:to='loc_PrepaidExpenseAndOtherAssetsNoncurrent' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_BankingMember' xlink:to='loc_CreditAndDebitCardMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_BankingMember' xlink:to='loc_DepositAccountMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_BankingMember' xlink:to='loc_MortgageBankingMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_BankingMember' xlink:to='loc_GuaranteesMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_BankingMember' xlink:to='loc_BankServicingMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ChangeInValuationTechniqueAbstract' xlink:to='loc_ChangeInValuationTechniqueReasonCurrentAppraisalUnobtainableMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ChangeInValuationTechniqueAbstract' xlink:to='loc_ChangeInValuationTechniqueReasonInactiveMarketMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_CollateralPledgedMember' xlink:to='loc_GovernmentGuaranteedCollateralMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_CollateralPledgedMember' xlink:to='loc_RealEstateMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_CollateralPledgedMember' xlink:to='loc_EquitySecuritiesMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_CollateralPledgedMember' xlink:to='loc_AutomobilesMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_CollateralPledgedMember' xlink:to='loc_EquipmentMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_CollateralDomain' xlink:to='loc_CollateralPledgedMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ConstructionMember' xlink:to='loc_HomeBuildingMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ConstructionMember' xlink:to='loc_GeneralContractorMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ContractWithCustomerBasisOfPricingDomain' xlink:to='loc_FixedPriceContractMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ContractWithCustomerBasisOfPricingDomain' xlink:to='loc_TimeAndMaterialsContractMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ContractWithCustomerDurationDomain' xlink:to='loc_ShortTermContractWithCustomerMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ContractWithCustomerDurationDomain' xlink:to='loc_LongTermContractWithCustomerMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ContractWithCustomerSalesChannelDomain' xlink:to='loc_SalesChannelDirectlyToConsumerMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ContractWithCustomerSalesChannelDomain' xlink:to='loc_SalesChannelThroughIntermediaryMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RepurchaseAgreementCounterpartyNameDomain' xlink:to='loc_IndividuallyImmaterialCounterpartiesMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_CreditCardMember' xlink:to='loc_CreditCardMerchantDiscountMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_CreditQualityIndicatorUpdatedAbstract' xlink:to='loc_CreditQualityIndicatorUpdatedQuarterlyMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_CreditQualityIndicatorUpdatedAbstract' xlink:to='loc_CreditQualityIndicatorUpdatedAnnuallyMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_CreditAndDebitCardMember' xlink:to='loc_CreditCardMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_CreditAndDebitCardMember' xlink:to='loc_DebitCardMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_NameOfMajorCustomerDomain' xlink:to='loc_OtherCustomerMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DebtSecuritiesAvailableForSaleCostOfSecuritySoldMethodAbstract' xlink:to='loc_DebtSecuritiesAvailableForSaleCostOfSecuritySoldOrTransferredMethodAverageCostMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DebtSecuritiesAvailableForSaleCostOfSecuritySoldMethodAbstract' xlink:to='loc_DebtSecuritiesAvailableForSaleCostOfSecuritySoldOrTransferredMethodSpecificIdentificationMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DebtSecuritiesMaturityAllocationDomain' xlink:to='loc_DebtSecuritiesMaturityAllocationAverageRemainingLifeMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DebtSecuritiesMaturityAllocationDomain' xlink:to='loc_DebtSecuritiesMaturityAllocationContractualMaturityMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DebtSecuritiesMaturityAllocationDomain' xlink:to='loc_DebtSecuritiesMaturityAllocationExpectedMaturityMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DerivativeMember' xlink:to='loc_ForwardContractsMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DerivativeMember' xlink:to='loc_OptionMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DerivativeMember' xlink:to='loc_SwapMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DerivativeMember' xlink:to='loc_WarrantMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DerivativeMember' xlink:to='loc_FutureMember' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DerivativeMember' xlink:to='loc_OptionOnSecuritiesMember' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DerivativeMember' xlink:to='loc_EnergyRelatedDerivativeMember' xlink:type='arc' />
+<link:definitionArc order='80' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DerivativeMember' xlink:to='loc_ExchangeTradedOptionsMember' xlink:type='arc' />
+<link:definitionArc order='90' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DerivativeMember' xlink:to='loc_ForeignExchangeForwardMember' xlink:type='arc' />
+<link:definitionArc order='100' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DerivativeMember' xlink:to='loc_TotalReturnSwapMember' xlink:type='arc' />
+<link:definitionArc order='110' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DerivativeMember' xlink:to='loc_VarianceSwapMember' xlink:type='arc' />
+<link:definitionArc order='120' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DerivativeMember' xlink:to='loc_InterestRateSwaptionMember' xlink:type='arc' />
+<link:definitionArc order='130' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DerivativeMember' xlink:to='loc_CreditDefaultSwaptionMember' xlink:type='arc' />
+<link:definitionArc order='140' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DerivativeMember' xlink:to='loc_CapitalSupportAgreementMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DistributionAndShareholderServiceMember' xlink:to='loc_DistributionServiceMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_DistributionAndShareholderServiceMember' xlink:to='loc_ShareholderServiceMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ElectricityMember' xlink:to='loc_ElectricityGenerationMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ElectricityMember' xlink:to='loc_ElectricityPurchasedMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ElectricityMember' xlink:to='loc_ElectricityUsRegulatedMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ElectricityMember' xlink:to='loc_ElectricDistributionMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ElectricityMember' xlink:to='loc_ElectricTransmissionMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_EnergyCommoditiesAndServiceMember' xlink:to='loc_EnergyServiceMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_EquitySecuritiesMember' xlink:to='loc_CommonStockMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_EquitySecuritiesMember' xlink:to='loc_PreferredStockMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FairValueMeasurementsFairValueHierarchyDomain' xlink:to='loc_FairValueInputsLevel12And3Member' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FairValueMeasurementsFairValueHierarchyDomain' xlink:to='loc_FairValueMeasuredAtNetAssetValuePerShareMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FairValueOptionOtherEligibleItemsMember' xlink:to='loc_FirmCommitmentNotRecognizedAtInceptionFairValueOptionMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FairValueOptionOtherEligibleItemsMember' xlink:to='loc_WrittenLoanCommitmentFairValueOptionMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FairValueOptionOtherEligibleItemsMember' xlink:to='loc_InsuranceContractRightsAndObligationsFairValueOptionMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FairValueOptionOtherEligibleItemsMember' xlink:to='loc_WarrantyRightsAndObligationsFairValueOptionMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FairValueOptionOtherEligibleItemsMember' xlink:to='loc_SeparatedHostFinancialInstrumentFairValueOptionMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FairValueInputsLevel12And3Member' xlink:to='loc_FairValueInputsLevel1Member' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FairValueInputsLevel12And3Member' xlink:to='loc_FairValueInputsLevel2Member' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FairValueInputsLevel12And3Member' xlink:to='loc_FairValueInputsLevel3Member' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_AccruedLiabilitiesMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_CommitmentsToExtendCreditMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_CommoditiesInvestmentMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_DerivativeMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_DebtMember' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_DepositsMember' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_EquityFundsMember' xlink:type='arc' />
+<link:definitionArc order='80' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_FairValueOptionOtherEligibleItemsMember' xlink:type='arc' />
+<link:definitionArc order='90' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_HedgeFundsMember' xlink:type='arc' />
+<link:definitionArc order='100' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_InterestRateLockCommitmentsMember' xlink:type='arc' />
+<link:definitionArc order='110' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_LoanOriginationCommitmentsMember' xlink:type='arc' />
+<link:definitionArc order='120' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_LoanPurchaseCommitmentsMember' xlink:type='arc' />
+<link:definitionArc order='130' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_LongTermDebtMember' xlink:type='arc' />
+<link:definitionArc order='140' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_PolicyLoansMember' xlink:type='arc' />
+<link:definitionArc order='150' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_PrivateEquityFundsMember' xlink:type='arc' />
+<link:definitionArc order='160' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_RealEstateFundsMember' xlink:type='arc' />
+<link:definitionArc order='170' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_SeniorDebtObligationsMember' xlink:type='arc' />
+<link:definitionArc order='180' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_ShortTermDebtMember' xlink:type='arc' />
+<link:definitionArc order='190' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_UnusedLinesOfCreditMember' xlink:type='arc' />
+<link:definitionArc order='200' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TransfersAndServicingOfFinancialInstrumentsTypesOfFinancialInstrumentsDomain' xlink:to='loc_VentureCapitalFundsMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FinancialServiceMember' xlink:to='loc_BankingMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FinancialServiceMember' xlink:to='loc_CorrespondentClearingMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FinancialServiceMember' xlink:to='loc_FiduciaryAndTrustMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FinancialServiceMember' xlink:to='loc_FinancialServiceOtherMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FinancialServiceMember' xlink:to='loc_TransferAgentMember' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FinancialServiceMember' xlink:to='loc_InvestmentAdvisoryManagementAndAdministrativeServiceMember' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FinancialServiceMember' xlink:to='loc_ClearingServiceMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FixedAnnuityMember' xlink:to='loc_DeferredFixedAnnuityMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FixedAnnuityMember' xlink:to='loc_ImmediateFixedAnnuityMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FranchisorMember' xlink:to='loc_FranchiseMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FranchisorMember' xlink:to='loc_FranchisorOwnedOutletMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FundedPlanMember' xlink:to='loc_OverfundedPlanMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FundedPlanMember' xlink:to='loc_UnderfundedPlanMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FutureMember' xlink:to='loc_DJIAIndexFutureMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FutureMember' xlink:to='loc_NASDAQIndexFutureMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FutureMember' xlink:to='loc_EurodollarFutureMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FutureMember' xlink:to='loc_EuriborFutureMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FutureMember' xlink:to='loc_BondFutureMember' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FutureMember' xlink:to='loc_SingleStockFutureMember' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_FutureMember' xlink:to='loc_ForeignExchangeFutureMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentGeographicalDomain' xlink:to='loc_AsiaMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentGeographicalDomain' xlink:to='loc_AsiaPacificMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentGeographicalDomain' xlink:to='loc_AfricaMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentGeographicalDomain' xlink:to='loc_AmericasMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentGeographicalDomain' xlink:to='loc_CentralAmericaMember' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentGeographicalDomain' xlink:to='loc_EMEAMember' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentGeographicalDomain' xlink:to='loc_EuropeMember' xlink:type='arc' />
+<link:definitionArc order='80' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentGeographicalDomain' xlink:to='loc_EuropeanUnionMember' xlink:type='arc' />
+<link:definitionArc order='90' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentGeographicalDomain' xlink:to='loc_LatinAmericaMember' xlink:type='arc' />
+<link:definitionArc order='100' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentGeographicalDomain' xlink:to='loc_MiddleEastMember' xlink:type='arc' />
+<link:definitionArc order='110' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentGeographicalDomain' xlink:to='loc_NorthAmericaMember' xlink:type='arc' />
+<link:definitionArc order='120' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentGeographicalDomain' xlink:to='loc_SouthAmericaMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_GranteeStatusDomain' xlink:to='loc_ShareBasedPaymentArrangementEmployeeMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_GranteeStatusDomain' xlink:to='loc_ShareBasedPaymentArrangementNonemployeeMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HealthCareMember' xlink:to='loc_HealthCarePatientServiceMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HealthCareMember' xlink:to='loc_HealthCarePremiumMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HealthCareMember' xlink:to='loc_HealthCareResidentServiceMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HealthCareMember' xlink:to='loc_HealthCareOtherMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HedgeFundsMember' xlink:to='loc_HedgeFundsEquityMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HedgeFundsMember' xlink:to='loc_HedgeFundsEventDrivenMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HedgeFundsMember' xlink:to='loc_HedgeFundsGlobalOpportunityMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HedgeFundsMember' xlink:to='loc_HedgeFundsMultistrategyMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HedgeFundsMember' xlink:to='loc_HedgeFundsEquityLongShortMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HotelMember' xlink:to='loc_OccupancyMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HotelMember' xlink:to='loc_CasinoMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HotelMember' xlink:to='loc_FoodAndBeverageMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HotelMember' xlink:to='loc_RetailMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HotelMember' xlink:to='loc_HotelOwnedMember' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_HotelMember' xlink:to='loc_HotelOtherMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_Revenues' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherOperatingIncome' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherNonoperatingIncome' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherAmortizationOfDeferredCharges' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_AmortizationOfDeferredCharges' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherDepreciationAndAmortization' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherNonoperatingExpense' xlink:type='arc' />
+<link:definitionArc order='80' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_InterestExpense' xlink:type='arc' />
+<link:definitionArc order='90' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_InterestIncomeOperating' xlink:type='arc' />
+<link:definitionArc order='100' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_CostDirectLabor' xlink:type='arc' />
+<link:definitionArc order='110' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_CostOfGoodsAndServicesSold' xlink:type='arc' />
+<link:definitionArc order='120' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_CostOfRevenue' xlink:type='arc' />
+<link:definitionArc order='130' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_CostsAndExpenses' xlink:type='arc' />
+<link:definitionArc order='140' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_DefinedBenefitPlanActuarialGainLossImmediateRecognitionAsComponentInNetPeriodicBenefitCostCredit' xlink:type='arc' />
+<link:definitionArc order='150' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_DefinedBenefitPlanAmortizationOfGainsLosses' xlink:type='arc' />
+<link:definitionArc order='160' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_DefinedBenefitPlanAmortizationOfPriorServiceCostCredit' xlink:type='arc' />
+<link:definitionArc order='170' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_DefinedBenefitPlanAmortizationOfTransitionAssetObligation' xlink:type='arc' />
+<link:definitionArc order='180' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_DefinedBenefitPlanExpectedReturnOnPlanAssets' xlink:type='arc' />
+<link:definitionArc order='190' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_DefinedBenefitPlanInterestCost' xlink:type='arc' />
+<link:definitionArc order='200' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_DefinedBenefitPlanOtherCosts' xlink:type='arc' />
+<link:definitionArc order='210' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_DefinedBenefitPlanRecognizedNetGainLossDueToCurtailments' xlink:type='arc' />
+<link:definitionArc order='220' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_DefinedBenefitPlanRecognizedNetGainLossDueToSettlements1' xlink:type='arc' />
+<link:definitionArc order='230' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_DefinedBenefitPlanRecognizedNetGainLossDueToSettlementsAndCurtailments1' xlink:type='arc' />
+<link:definitionArc order='240' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_DirectOperatingCosts' xlink:type='arc' />
+<link:definitionArc order='250' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_EmployeeBenefitsAndShareBasedCompensation' xlink:type='arc' />
+<link:definitionArc order='260' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_GeneralAndAdministrativeExpense' xlink:type='arc' />
+<link:definitionArc order='270' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_InterestAndDebtExpense' xlink:type='arc' />
+<link:definitionArc order='280' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_InterestExpenseOther' xlink:type='arc' />
+<link:definitionArc order='290' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_InterestIncomeExpenseNet' xlink:type='arc' />
+<link:definitionArc order='300' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_InterestIncomeExpenseNonoperatingNet' xlink:type='arc' />
+<link:definitionArc order='310' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_InvestmentIncomeNonoperating' xlink:type='arc' />
+<link:definitionArc order='320' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_LaborAndRelatedExpense' xlink:type='arc' />
+<link:definitionArc order='330' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_NoninterestExpense' xlink:type='arc' />
+<link:definitionArc order='340' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_NonoperatingGainsLosses' xlink:type='arc' />
+<link:definitionArc order='350' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_NonoperatingIncomeExpense' xlink:type='arc' />
+<link:definitionArc order='360' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OfficersCompensation' xlink:type='arc' />
+<link:definitionArc order='370' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OperatingCostsAndExpenses' xlink:type='arc' />
+<link:definitionArc order='380' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OperatingExpenses' xlink:type='arc' />
+<link:definitionArc order='390' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OperatingIncomeLoss' xlink:type='arc' />
+<link:definitionArc order='400' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherCostAndExpenseOperating' xlink:type='arc' />
+<link:definitionArc order='410' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherExpenses' xlink:type='arc' />
+<link:definitionArc order='420' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherGeneralAndAdministrativeExpense' xlink:type='arc' />
+<link:definitionArc order='430' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherGeneralExpense' xlink:type='arc' />
+<link:definitionArc order='440' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherLaborRelatedExpenses' xlink:type='arc' />
+<link:definitionArc order='450' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherNoninterestExpense' xlink:type='arc' />
+<link:definitionArc order='460' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherNonoperatingAssetRelatedIncome' xlink:type='arc' />
+<link:definitionArc order='470' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherNonoperatingGainsLosses' xlink:type='arc' />
+<link:definitionArc order='480' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherNonoperatingIncomeExpense' xlink:type='arc' />
+<link:definitionArc order='490' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherNonrecurringExpense' xlink:type='arc' />
+<link:definitionArc order='500' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherNonrecurringIncome' xlink:type='arc' />
+<link:definitionArc order='510' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherNonrecurringIncomeExpense' xlink:type='arc' />
+<link:definitionArc order='520' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherSellingAndMarketingExpense' xlink:type='arc' />
+<link:definitionArc order='530' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_OtherSellingGeneralAndAdministrativeExpense' xlink:type='arc' />
+<link:definitionArc order='540' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_NetPeriodicDefinedBenefitsExpenseReversalOfExpenseExcludingServiceCostComponent' xlink:type='arc' />
+<link:definitionArc order='550' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_ResultsOfOperationsGeneralAndAdministrativeRelatedToOilAndGasProducingActivities' xlink:type='arc' />
+<link:definitionArc order='560' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_SalariesAndWages' xlink:type='arc' />
+<link:definitionArc order='570' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_SalariesWagesAndOfficersCompensation' xlink:type='arc' />
+<link:definitionArc order='580' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_SellingAndMarketingExpense' xlink:type='arc' />
+<link:definitionArc order='590' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_SellingExpense' xlink:type='arc' />
+<link:definitionArc order='600' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_SellingGeneralAndAdministrativeExpense' xlink:type='arc' />
+<link:definitionArc order='610' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_UtilitiesOperatingExpense' xlink:type='arc' />
+<link:definitionArc order='620' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeStatementAbstract' xlink:to='loc_UtilitiesOperatingExpenseMaintenanceOperationsAndOtherCostsAndExpenses' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_InvestmentAdvisoryManagementAndAdministrativeServiceMember' xlink:to='loc_AdministrativeServiceMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_InvestmentAdvisoryManagementAndAdministrativeServiceMember' xlink:to='loc_AssetManagement1Member' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_InvestmentAdvisoryManagementAndAdministrativeServiceMember' xlink:to='loc_DistributionAndShareholderServiceMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_InvestmentAdvisoryManagementAndAdministrativeServiceMember' xlink:to='loc_InvestmentAdviceMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_InvestmentAdvisoryManagementAndAdministrativeServiceMember' xlink:to='loc_InvestmentPerformanceMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesAbstract' xlink:to='loc_OtherLiabilities' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesAbstract' xlink:to='loc_AccountsPayableAndAccruedLiabilitiesCurrentAndNoncurrent' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesCurrentAbstract' xlink:to='loc_AccountsPayableAndAccruedLiabilitiesCurrent' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesCurrentAbstract' xlink:to='loc_DebtCurrent' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesCurrentAbstract' xlink:to='loc_DueToRelatedPartiesCurrent' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesCurrentAbstract' xlink:to='loc_LiabilitiesOfDisposalGroupIncludingDiscontinuedOperationCurrent' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesCurrentAbstract' xlink:to='loc_OtherLiabilitiesCurrent' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesNoncurrentAbstract' xlink:to='loc_LongTermDebtAndCapitalLeaseObligations' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesNoncurrentAbstract' xlink:to='loc_OtherLongTermDebtNoncurrent' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesNoncurrentAbstract' xlink:to='loc_LongTermDebtNoncurrent' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesNoncurrentAbstract' xlink:to='loc_FinanceLeaseLiabilityNoncurrent' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesNoncurrentAbstract' xlink:to='loc_OperatingLeaseLiabilityNoncurrent' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesNoncurrentAbstract' xlink:to='loc_AccruedIncomeTaxesNoncurrent' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesNoncurrentAbstract' xlink:to='loc_DeferredCompensationLiabilityClassifiedNoncurrent' xlink:type='arc' />
+<link:definitionArc order='80' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesNoncurrentAbstract' xlink:to='loc_DeferredIncomeTaxLiabilitiesNet' xlink:type='arc' />
+<link:definitionArc order='90' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesNoncurrentAbstract' xlink:to='loc_DueToRelatedPartiesNoncurrent' xlink:type='arc' />
+<link:definitionArc order='100' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LiabilitiesNoncurrentAbstract' xlink:to='loc_OtherLiabilitiesNoncurrent' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LifeInsuranceSegmentMember' xlink:to='loc_ParticipatingLifeInsurancePolicyMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LifeInsuranceSegmentMember' xlink:to='loc_NonparticipatingLifeInsurancePolicyMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LifeInsuranceSegmentMember' xlink:to='loc_VariableLifeMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LifeInsuranceSegmentMember' xlink:to='loc_UniversalLifeMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_LifeInsuranceSegmentMember' xlink:to='loc_InterestSensitiveLifeMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ManagementServiceMember' xlink:to='loc_ManagementServiceBaseMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ManagementServiceMember' xlink:to='loc_ManagementServiceIncentiveMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputRiskFreeInterestRateMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputExpectedDividendRateMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputDiscountRateMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputSharePriceMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputAppraisedValueMember' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputCreditSpreadMember' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputCommodityMarketPriceMember' xlink:type='arc' />
+<link:definitionArc order='80' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputCommodityForwardPriceMember' xlink:type='arc' />
+<link:definitionArc order='90' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputCommodityFuturePriceMember' xlink:type='arc' />
+<link:definitionArc order='100' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputMaturityMember' xlink:type='arc' />
+<link:definitionArc order='110' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputDefaultRateMember' xlink:type='arc' />
+<link:definitionArc order='120' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputLossSeverityMember' xlink:type='arc' />
+<link:definitionArc order='130' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputEbitdaMultipleMember' xlink:type='arc' />
+<link:definitionArc order='140' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputRevenueMultipleMember' xlink:type='arc' />
+<link:definitionArc order='150' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputLongTermRevenueGrowthRateMember' xlink:type='arc' />
+<link:definitionArc order='160' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputCounterpartyCreditRiskMember' xlink:type='arc' />
+<link:definitionArc order='170' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputExercisePriceMember' xlink:type='arc' />
+<link:definitionArc order='180' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputPriceVolatilityMember' xlink:type='arc' />
+<link:definitionArc order='190' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputOptionVolatilityMember' xlink:type='arc' />
+<link:definitionArc order='200' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputConversionPriceMember' xlink:type='arc' />
+<link:definitionArc order='210' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputExpectedTermMember' xlink:type='arc' />
+<link:definitionArc order='220' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputConstantPrepaymentRateMember' xlink:type='arc' />
+<link:definitionArc order='230' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputPrepaymentRateMember' xlink:type='arc' />
+<link:definitionArc order='240' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputDiscountForLackOfMarketabilityMember' xlink:type='arc' />
+<link:definitionArc order='250' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputCostToSellMember' xlink:type='arc' />
+<link:definitionArc order='260' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputLapseRateMember' xlink:type='arc' />
+<link:definitionArc order='270' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputMortalityRateMember' xlink:type='arc' />
+<link:definitionArc order='280' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputUtilizationRateMember' xlink:type='arc' />
+<link:definitionArc order='290' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputWithdrawalRateMember' xlink:type='arc' />
+<link:definitionArc order='300' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputCapRateMember' xlink:type='arc' />
+<link:definitionArc order='310' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputComparabilityAdjustmentMember' xlink:type='arc' />
+<link:definitionArc order='320' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputEntityCreditRiskMember' xlink:type='arc' />
+<link:definitionArc order='330' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputExpectedDividendPaymentMember' xlink:type='arc' />
+<link:definitionArc order='340' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MeasurementInputTypeDomain' xlink:to='loc_MeasurementInputControlPremiumMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MineralMember' xlink:to='loc_GoldMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MineralMember' xlink:to='loc_PublicUtilitiesInventoryCoalMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MineralMember' xlink:to='loc_MineralExplorationMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OilAndGasMember' xlink:to='loc_AlternativeEnergyMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OilAndGasMember' xlink:to='loc_OilAndCondensateMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OilAndGasMember' xlink:to='loc_OilAndGasProspectMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OilAndGasMember' xlink:to='loc_OilAndGasExplorationAndProductionMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OilAndGasMember' xlink:to='loc_OilAndGasOperationAndMaintenanceMember' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OilAndGasMember' xlink:to='loc_OilAndGasPurchasedMember' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OilAndGasMember' xlink:to='loc_OilAndGasRefiningAndMarketingMember' xlink:type='arc' />
+<link:definitionArc order='80' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OilAndGasMember' xlink:to='loc_NaturalGasMidstreamMember' xlink:type='arc' />
+<link:definitionArc order='90' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OilAndGasMember' xlink:to='loc_NaturalGasLiquidsReservesMember' xlink:type='arc' />
+<link:definitionArc order='100' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OilAndGasMember' xlink:to='loc_NaturalGasStorageMember' xlink:type='arc' />
+<link:definitionArc order='110' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OilAndGasMember' xlink:to='loc_NaturalGasProductionMember' xlink:type='arc' />
+<link:definitionArc order='120' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OilAndGasMember' xlink:to='loc_NaturalGasGatheringTransportationMarketingAndProcessingMember' xlink:type='arc' />
+<link:definitionArc order='130' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OilAndGasMember' xlink:to='loc_NaturalGasUsRegulatedMember' xlink:type='arc' />
+<link:definitionArc order='140' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OilAndGasMember' xlink:to='loc_PublicUtilitiesInventoryPropaneMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OptionMember' xlink:to='loc_BondOptionMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OptionMember' xlink:to='loc_StockOptionMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OptionMember' xlink:to='loc_CommodityOptionMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OptionMember' xlink:to='loc_CreditDefaultOptionMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OptionMember' xlink:to='loc_InterestRateCapMember' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OptionMember' xlink:to='loc_InterestRateFloorMember' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OptionMember' xlink:to='loc_SwaptionMember' xlink:type='arc' />
+<link:definitionArc order='80' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OptionMember' xlink:to='loc_ForeignExchangeOptionMember' xlink:type='arc' />
+<link:definitionArc order='90' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OptionMember' xlink:to='loc_CreditSpreadOptionMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OtherInsuranceProductLineMember' xlink:to='loc_OtherShortdurationInsuranceProductLineMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OtherInsuranceProductLineMember' xlink:to='loc_OtherLongdurationInsuranceProductLineMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OtherPostretirementBenefitPlansDefinedBenefitMember' xlink:to='loc_DefinedBenefitPostretirementHealthCoverageMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_OtherPostretirementBenefitPlansDefinedBenefitMember' xlink:to='loc_DefinedBenefitPostretirementLifeInsuranceMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_PreferredStockMember' xlink:to='loc_NonredeemablePreferredStockMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_PreferredStockMember' xlink:to='loc_RedeemablePreferredStockMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_PreferredStockMember' xlink:to='loc_ConvertiblePreferredStockMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_PreferredStockMember' xlink:to='loc_ContingentConvertiblePreferredStockMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_PrivateEquityFundsMember' xlink:to='loc_PrivateEquityFundsDomesticMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_PrivateEquityFundsMember' xlink:to='loc_PrivateEquityFundsForeignMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductMember' xlink:to='loc_ManufacturedProductOtherMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_NontraditionalLongDurationContractsMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_GroupPoliciesMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_IndividualPoliciesMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_LifeAndAnnuityInsuranceProductLineMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_LifeInsuranceSegmentMember' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_InvestmentsSegmentMember' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_AccidentAndHealthInsuranceSegmentMember' xlink:type='arc' />
+<link:definitionArc order='80' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_HealthInsuranceProductLineMember' xlink:type='arc' />
+<link:definitionArc order='90' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_DisabilityInsurancePolicyMember' xlink:type='arc' />
+<link:definitionArc order='100' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_FinancialGuaranteeInsuranceSegmentMember' xlink:type='arc' />
+<link:definitionArc order='110' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_PropertyLiabilityAndCasualtyInsuranceSegmentMember' xlink:type='arc' />
+<link:definitionArc order='120' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_PropertyInsuranceProductLineMember' xlink:type='arc' />
+<link:definitionArc order='130' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_SuretySegmentMember' xlink:type='arc' />
+<link:definitionArc order='140' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_TitleInsuranceSegmentMember' xlink:type='arc' />
+<link:definitionArc order='150' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_GuaranteedInvestmentContractMember' xlink:type='arc' />
+<link:definitionArc order='160' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_FixedAnnuityMember' xlink:type='arc' />
+<link:definitionArc order='170' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_VariableAnnuityMember' xlink:type='arc' />
+<link:definitionArc order='180' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_StructuredSettlementAnnuityMember' xlink:type='arc' />
+<link:definitionArc order='190' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_TerminalFundingAnnuityMember' xlink:type='arc' />
+<link:definitionArc order='200' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_OtherInsuranceProductLineMember' xlink:type='arc' />
+<link:definitionArc order='210' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_AccidentAndHealthInsuranceExcludingWorkersCompensationMember' xlink:type='arc' />
+<link:definitionArc order='220' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_IndexedAnnuityMember' xlink:type='arc' />
+<link:definitionArc order='230' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_ProfessionalLiabilityInsuranceMember' xlink:type='arc' />
+<link:definitionArc order='240' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_TermLifeInsuranceMember' xlink:type='arc' />
+<link:definitionArc order='250' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_VariableUniversalLifeMember' xlink:type='arc' />
+<link:definitionArc order='260' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_WholeLifeInsuranceMember' xlink:type='arc' />
+<link:definitionArc order='270' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_WorkersCompensationInsuranceMember' xlink:type='arc' />
+<link:definitionArc order='280' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_ProductMember' xlink:type='arc' />
+<link:definitionArc order='290' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_ServiceMember' xlink:type='arc' />
+<link:definitionArc order='300' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_ProductAndServiceOtherMember' xlink:type='arc' />
+<link:definitionArc order='310' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_ShippingAndHandlingMember' xlink:type='arc' />
+<link:definitionArc order='320' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_EnergyCommoditiesAndServiceMember' xlink:type='arc' />
+<link:definitionArc order='330' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_ElectricityMember' xlink:type='arc' />
+<link:definitionArc order='340' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_MineralMember' xlink:type='arc' />
+<link:definitionArc order='350' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_OilAndGasMember' xlink:type='arc' />
+<link:definitionArc order='360' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_AdmissionMember' xlink:type='arc' />
+<link:definitionArc order='370' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_AdvertisingMember' xlink:type='arc' />
+<link:definitionArc order='380' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_CargoAndFreightMember' xlink:type='arc' />
+<link:definitionArc order='390' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_RealEstateMember' xlink:type='arc' />
+<link:definitionArc order='400' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_EntertainmentMember' xlink:type='arc' />
+<link:definitionArc order='410' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_FranchisorMember' xlink:type='arc' />
+<link:definitionArc order='420' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_GovernmentContractMember' xlink:type='arc' />
+<link:definitionArc order='430' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_GrantMember' xlink:type='arc' />
+<link:definitionArc order='440' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_HealthCareMember' xlink:type='arc' />
+<link:definitionArc order='450' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_HotelMember' xlink:type='arc' />
+<link:definitionArc order='460' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_LicenseMember' xlink:type='arc' />
+<link:definitionArc order='470' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_MembershipMember' xlink:type='arc' />
+<link:definitionArc order='480' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_PassengerMember' xlink:type='arc' />
+<link:definitionArc order='490' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_PublicUtilitiesMember' xlink:type='arc' />
+<link:definitionArc order='500' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_RoyaltyMember' xlink:type='arc' />
+<link:definitionArc order='510' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_SubscriptionAndCirculationMember' xlink:type='arc' />
+<link:definitionArc order='520' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_TimberMember' xlink:type='arc' />
+<link:definitionArc order='530' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ProductsAndServicesDomain' xlink:to='loc_EnvironmentalRemediationMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_PropertyLiabilityAndCasualtyInsuranceSegmentMember' xlink:to='loc_PropertyAndCasualtyPersonalInsuranceProductLineMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_PropertyLiabilityAndCasualtyInsuranceSegmentMember' xlink:to='loc_PropertyAndCasualtyCommercialInsuranceProductLineMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RealEstateMember' xlink:to='loc_ConstructionMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RealEstateMember' xlink:to='loc_LandMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RealEstateMember' xlink:to='loc_TimeShareMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RealEstateMember' xlink:to='loc_ManagementServiceMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RealEstateMember' xlink:to='loc_ParkingMember' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RealEstateMember' xlink:to='loc_ConcessionsMember' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RealEstateMember' xlink:to='loc_RealEstateOtherMember' xlink:type='arc' />
+<link:definitionArc order='80' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RealEstateMember' xlink:to='loc_CommercialRealEstateMember' xlink:type='arc' />
+<link:definitionArc order='90' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RealEstateMember' xlink:to='loc_ResidentialRealEstateMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RelatedPartyTransactionDomain' xlink:to='loc_AssetManagementArrangementMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RelatedPartyDomain' xlink:to='loc_AffiliatedEntityMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RelatedPartyDomain' xlink:to='loc_SubsidiariesMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RelatedPartyDomain' xlink:to='loc_TrustForBenefitOfEmployeesMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RestrictionTypeDomain' xlink:to='loc_AssetHeldInTrustMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RestrictionTypeDomain' xlink:to='loc_AssetPledgedAsCollateralMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RetirementPlanFundingStatusDomain' xlink:to='loc_FundedPlanMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RetirementPlanFundingStatusDomain' xlink:to='loc_UnfundedPlanMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RetirementPlanSponsorLocationDomain' xlink:to='loc_DomesticPlanMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RetirementPlanSponsorLocationDomain' xlink:to='loc_ForeignPlanMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RetirementPlanTaxStatusDomain' xlink:to='loc_QualifiedPlanMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RetirementPlanTaxStatusDomain' xlink:to='loc_NonqualifiedPlanMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RetirementPlanTypeDomain' xlink:to='loc_PensionPlansDefinedBenefitMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RetirementPlanTypeDomain' xlink:to='loc_OtherPostretirementBenefitPlansDefinedBenefitMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RetirementPlanTypeDomain' xlink:to='loc_OtherPensionPlansDefinedBenefitMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RetirementPlanTypeDomain' xlink:to='loc_SupplementalEmployeeRetirementPlanDefinedBenefitMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RetirementPlanTypeDomain' xlink:to='loc_OtherPensionPlansPostretirementOrSupplementalPlansDefinedBenefitMember' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_RetirementPlanTypeDomain' xlink:to='loc_PostemploymentRetirementBenefitsMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentDomain' xlink:to='loc_AllOtherSegmentsMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentDomain' xlink:to='loc_CorporateMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SegmentDomain' xlink:to='loc_CorporateAndOtherMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ServiceMember' xlink:to='loc_TechnologyServiceMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ServiceMember' xlink:to='loc_LicenseAndMaintenanceMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ServiceMember' xlink:to='loc_LicenseAndServiceMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ServiceMember' xlink:to='loc_MaintenanceMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ServiceMember' xlink:to='loc_OilAndGasServiceMember' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ServiceMember' xlink:to='loc_ServiceOtherMember' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ServiceMember' xlink:to='loc_FinancialServiceMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_StatementOfOtherComprehensiveIncomeAbstract' xlink:to='loc_OtherComprehensiveIncomeUnrealizedHoldingGainLossOnSecuritiesArisingDuringPeriodBeforeTax' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_StatementOfOtherComprehensiveIncomeAbstract' xlink:to='loc_OtherComprehensiveIncomeLossCashFlowHedgeGainLossBeforeReclassificationAndTax' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_StatementOfOtherComprehensiveIncomeAbstract' xlink:to='loc_OtherComprehensiveIncomeLossFinancialLiabilityFairValueOptionUnrealizedGainLossArisingDuringPeriodBeforeTax' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_StatementOfOtherComprehensiveIncomeAbstract' xlink:to='loc_OtherComprehensiveIncomeLossDerivativeExcludedComponentIncreaseDecreaseBeforeAdjustmentsAndTax' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_StatementOfOtherComprehensiveIncomeAbstract' xlink:to='loc_OtherComprehensiveIncomeUnrealizedHoldingGainLossOnSecuritiesArisingDuringPeriodNetOfTax' xlink:type='arc' />
+<link:definitionArc order='60' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_StatementOfOtherComprehensiveIncomeAbstract' xlink:to='loc_OtherComprehensiveIncomeLossCashFlowHedgeGainLossBeforeReclassificationAfterTax' xlink:type='arc' />
+<link:definitionArc order='70' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_StatementOfOtherComprehensiveIncomeAbstract' xlink:to='loc_OtherComprehensiveIncomeLossFinancialLiabilityFairValueOptionUnrealizedGainLossArisingDuringPeriodAfterTax' xlink:type='arc' />
+<link:definitionArc order='80' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_StatementOfOtherComprehensiveIncomeAbstract' xlink:to='loc_OtherComprehensiveIncomeLossDerivativeExcludedComponentIncreaseDecreaseBeforeAdjustmentsAfterTax' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SwapMember' xlink:to='loc_EquitySwapMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SwapMember' xlink:to='loc_CurrencySwapMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SwapMember' xlink:to='loc_InterestRateSwapMember' xlink:type='arc' />
+<link:definitionArc order='40' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SwapMember' xlink:to='loc_BasisSwapMember' xlink:type='arc' />
+<link:definitionArc order='50' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_SwapMember' xlink:to='loc_CreditDefaultSwapMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TimingOfTransferOfGoodOrServiceDomain' xlink:to='loc_TransferredAtPointInTimeMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_TimingOfTransferOfGoodOrServiceDomain' xlink:to='loc_TransferredOverTimeMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ValuationTechniqueDomain' xlink:to='loc_MarketApproachValuationTechniqueMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ValuationTechniqueDomain' xlink:to='loc_IncomeApproachValuationTechniqueMember' xlink:type='arc' />
+<link:definitionArc order='30' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_ValuationTechniqueDomain' xlink:to='loc_CostApproachValuationTechniqueMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeApproachValuationTechniqueMember' xlink:to='loc_ValuationTechniqueDiscountedCashFlowMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_IncomeApproachValuationTechniqueMember' xlink:to='loc_ValuationTechniqueOptionPricingModelMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MarketApproachValuationTechniqueMember' xlink:to='loc_ValuationTechniqueMatrixPricingMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_MarketApproachValuationTechniqueMember' xlink:to='loc_ValuationTechniqueConsensusPricingModelMember' xlink:type='arc' />
+<link:definitionArc order='10' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_VariableAnnuityMember' xlink:to='loc_DeferredVariableAnnuityMember' xlink:type='arc' />
+<link:definitionArc order='20' xlink:arcrole='http://xbrl.org/int/dim/arcrole/domain-member' xlink:from='loc_VariableAnnuityMember' xlink:to='loc_ImmediateVariableAnnuityMember' xlink:type='arc' />
+</link:definitionLink>
+</link:linkbase>

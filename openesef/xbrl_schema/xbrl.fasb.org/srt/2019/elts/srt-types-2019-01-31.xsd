@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+(c) 2010-2019 Financial Accounting Foundation; (c) 2007-2010 XBRL US, Inc.  All Right Reserved.
+Notice: Authorized Uses are Set Forth at http://xbrl.fasb.org/terms/SRT_TermsConditions.html
+  -->
+<xs:schema elementFormDefault='qualified' targetNamespace='http://fasb.org/srt-types/2019-01-31' xmlns:link='http://www.xbrl.org/2003/linkbase' xmlns:nonnum='http://www.xbrl.org/dtr/type/non-numeric' xmlns:num='http://www.xbrl.org/dtr/type/numeric' xmlns:srt-types='http://fasb.org/srt-types/2019-01-31' xmlns:xbrli='http://www.xbrl.org/2003/instance' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+<xs:annotation>
+<xs:documentation>
+                This file is the schema file for srt-types (srt-types).
+                
+                The DTS starting with this schema file will not contain any linkbases.
+            </xs:documentation>
+</xs:annotation>
+<xs:import namespace='http://www.xbrl.org/2003/instance' schemaLocation='http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd' />
+<xs:import namespace='http://www.xbrl.org/dtr/type/numeric' schemaLocation='http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd' />
+<xs:import namespace='http://www.xbrl.org/dtr/type/non-numeric' schemaLocation='http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd' />
+<xs:import namespace='http://www.xbrl.org/2006/ref' schemaLocation='http://www.xbrl.org/2006/ref-2006-02-27.xsd' />
+<xs:complexType abstract='false' name='perUnitItemType'>
+<xs:simpleContent>
+<xs:restriction base='xbrli:decimalItemType' />
+</xs:simpleContent>
+</xs:complexType>
+<xs:complexType abstract='false' name='extensibleListItemType'>
+<xs:simpleContent>
+<xs:restriction base='xbrli:tokenItemType'>
+<xs:pattern value='\s*[\i-[:]][\c-[:]]*:[\i-[:]][\c-[:]]*(\s+[\i-[:]][\c-[:]]*:[\i-[:]][\c-[:]]*)*\s*' />
+<xs:attributeGroup ref='xbrli:nonNumericItemAttrs' />
+</xs:restriction>
+</xs:simpleContent>
+</xs:complexType>
+</xs:schema>

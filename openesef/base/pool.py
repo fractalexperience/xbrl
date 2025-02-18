@@ -43,6 +43,7 @@ import os, zipfile, functools
 from lxml import etree as lxml
 from openesef.base import resolver, util
 from openesef.taxonomy import taxonomy, schema, tpack, linkbase
+#from openesef.taxonomy.linkbase import Linkbase
 from openesef.instance import instance
 import openesef
 import gzip
@@ -688,8 +689,12 @@ class Pool(resolver.Resolver):
                                   container_pool=self, 
                                   esef_filing_root=esef_filing_root, 
                                   memfs=self.memfs)) #<- Endless loop
-                
-                self.current_taxonomy.attach_schema(schema_path, sh)
+                #if self.current_taxonomy:
+                try:
+                    self.current_taxonomy.attach_schema(schema_path, sh)
+                except Exception as e:
+                    logger.error(f"Failed to attach schema: location={schema_path}, esef_filing_root={esef_filing_root} \n{str(e)}")
+                    traceback.print_exc(limit=10)
             else:
                 if resolved_href in self.linkbases: # **CHECK IF ALREADY LOADED!**
                     logger.debug(f"Linkbase already loaded: {resolved_href}. Skipping.")
@@ -701,13 +706,15 @@ class Pool(resolver.Resolver):
                     linkbase_path = re.sub("mem://", "", resolved_href)
                 elif resolved_href.startswith("file://"):
                     linkbase_path = re.sub("file://", "", resolved_href)
+                else:
+                    linkbase_path = resolved_href
                 #from openesef.taxonomy import linkbase
                 #this_lb = linkbase.Linkbase(location=None, container_pool=self, esef_filing_root=esef_filing_root) #self = this_lb
                 try:
                     this_lb = linkbase.Linkbase(location=linkbase_path, container_pool=self, esef_filing_root=esef_filing_root, memfs=self.memfs) #<- got error
                     lb = self.linkbases.get(resolved_href, this_lb) # <- got the error
-                    if self.current_taxonomy:
-                        self.current_taxonomy.attach_linkbase(resolved_href, lb) # Use resolved_href
+                    #if self.current_taxonomy:
+                    self.current_taxonomy.attach_linkbase(resolved_href, lb) # Use resolved_href
                 except Exception as e:
                     logger.error(f"Failed to load linkbase: locatioon={resolved_href}, esef_filing_root={esef_filing_root} \n{str(e)}")
                     traceback.print_exc(limit=10)

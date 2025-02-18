@@ -4,10 +4,11 @@
 
 from openesef.base.pool import Pool, const
 from openesef.taxonomy.taxonomy import Taxonomy
-from openesef.base.fbase import XmlFileBase
+#from openesef.base.fbase import XmlFileBase
 from openesef.edgar.edgar import EG_LOCAL
 from openesef.edgar.stock import Stock
-from openesef.taxonomy.linkbase import Linkbase
+from openesef.edgar.filing import Filing
+#from openesef.taxonomy.linkbase import Linkbase
 from openesef.instance.instance import Instance
 import re
 from lxml import etree as lxml_etree
@@ -19,7 +20,7 @@ from openesef.util.util_mylogger import setup_logger #util_mylogger
 import logging 
 
 if __name__=="__main__":
-    logger = setup_logger("main", logging.INFO, log_dir="/tmp/log/")
+    logger = setup_logger("main", logging.DEBUG, log_dir="/tmp/log/")
 else:
     logger = logging.getLogger("main.openesf.try") 
 
@@ -43,6 +44,8 @@ memfs.listdir(".")
 
 stock = Stock('AAPL', egl = egl); #self = stock
 filing = stock.get_filing(period='annual', year=2020) #self = filing
+#alternatively:
+#filing = Filing(url="Archives/edgar/data/1318605/0001564590-20-004475.txt", egl = egl)
 
 
 def clean_doc(text):
@@ -73,8 +76,13 @@ entry_points
 data_pool = Pool(max_error=2, esef_filing_root="mem://", memfs=memfs); #self = data_pool
 
 
+this_tax = Taxonomy(entry_points=[],
+                           container_pool = data_pool, 
+                           esef_filing_root="mem://",
+                           #in_memory_content=in_memory_content,
+                           memfs=memfs)  #
 
-
+data_pool.current_taxonomy = this_tax
 
 if filing.xbrl_files.get("xml"):
     xml_filename = filing.xbrl_files.get("xml")
@@ -102,7 +110,7 @@ if filing.xbrl_files.get("xml"):
 #fbase = XmlFileBase(location=None, container_pool=data_pool, memfs=memfs, esef_filing_root="mem://"); self = fbase
 #fbase = XmlFileBase(location="aapl-20180929_pre.xml", container_pool=data_pool, memfs=memfs, esef_filing_root="mem://"); self = fbase
 
-in_memory_content = {}
+#in_memory_content = {}
 
 if filing.xbrl_files.get("sch"):
     schema_filename = filing.xbrl_files.get("sch")
@@ -111,15 +119,8 @@ if filing.xbrl_files.get("sch"):
     schema_str = filing.documents[schema_filename].doc_text.data
     schema_str = clean_doc(schema_str)
     data_pool.cache_from_string(location=this_href, content=schema_str, memfs=memfs)
-    #in_memory_content[this_href] = schema_str
-    #data_pool.add_schema_from_string(schema_str, location=f"virtual://{schema_filename}")
-    #schema_io = StringIO(schema_str)
-    #data_pool.add_reference(href=this_href, base=".", esef_filing_root="mem://") # self = data_pool
-    # schema_byte = schema_str.encode('utf-8')
-    # schema_io = BytesIO(schema_byte)
-    # schema_tree = lxml_etree.parse(schema_io)
-    # root = schema_tree.getroot()
-    #this_tax = data_pool.add_taxonomy([schema_io], esef_filing_root="mem://")
+    data_pool.add_reference(href=this_href, base="mem://", esef_filing_root="mem://", memfs=memfs)
+
 
 
 for linkbase_type in ["pre", "cal", "def", "lab" ]:
@@ -151,6 +152,7 @@ for linkbase_type in ["pre", "cal", "def", "lab" ]:
         #fbase = XmlFileBase(location=this_href, container_pool=data_pool, parsers=parsers, root=None, esef_filing_root = "mem://", memfs=memfs)
 
 
+data_pool.current_taxonomy
 
 # this_tax = data_pool.current_taxonomy
 # data_pool.current_taxonomy.linkbases
@@ -159,7 +161,7 @@ for linkbase_type in ["pre", "cal", "def", "lab" ]:
 
 memfs.listdir("/")
 
-this_tax = Taxonomy(entry_points=entry_points,
+this_tax = Taxonomy(entry_points=list(set(entry_points)),
                            container_pool = data_pool, 
                            esef_filing_root="mem://",
                            #in_memory_content=in_memory_content,
