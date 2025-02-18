@@ -1,12 +1,13 @@
 '''
 Logic related to the handling of filings and documents
 '''
-from openesef.requests_wrapper import GetRequest
-from openesef.document import Document
-from openesef.sgml import Sgml
-from openesef.dtd import DTD
-from openesef.financials import get_financial_report
-from openesef.edgar import EG_LOCAL
+from .requests_wrapper import GetRequest
+from .document import Document
+from .sgml import Sgml
+from .dtd import DTD
+from .financials import get_financial_report
+
+from .edgar import EG_LOCAL
 import gzip     
 
 
