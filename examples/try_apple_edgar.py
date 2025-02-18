@@ -42,7 +42,7 @@ memfs = fs.open_fs('mem://')
 memfs.listdir(".")
 
 
-stock = Stock('AAPL', egl = egl); #self = stock
+stock = Stock('TSLA', egl = egl); #self = stock
 filing = stock.get_filing(period='annual', year=2020) #self = filing
 #alternatively:
 #filing = Filing(url="Archives/edgar/data/1318605/0001564590-20-004475.txt", egl = egl)
@@ -76,7 +76,7 @@ entry_points
 data_pool = Pool(max_error=2, esef_filing_root="mem://", memfs=memfs); #self = data_pool
 
 
-this_tax = Taxonomy(entry_points=[],
+this_tax = Taxonomy(entry_points=entry_points,
                            container_pool = data_pool, 
                            esef_filing_root="mem://",
                            #in_memory_content=in_memory_content,
@@ -94,62 +94,62 @@ if filing.xbrl_files.get("xml"):
     root = instance_tree.getroot()
     data_pool.cache_from_string(location=xml_filename, content=instance_str, memfs=memfs)
     xid = Instance(container_pool=data_pool, root=root, memfs=memfs)
-    data_pool.add_instance(xid, key=f"mem://{xml_filename}", attach_taxonomy=False, memfs=memfs)
-    # try:
-    #     this_tax = Taxonomy(entry_points=[f"mem://{xml_filename}"],
-    #                        container_pool = data_pool, 
-    #                        esef_filing_root="mem://",
-    #                        memfs=memfs)  #
-    #     data_pool.current_taxonomy = this_tax
-    # except Exception as e:
-    #     logger.error(f"Error creating Taxonomy: {e}")
-    #     traceback.print_exc(limit=10)
-    # #exit()
+#     data_pool.add_instance(xid, key=f"mem://{xml_filename}", attach_taxonomy=False, memfs=memfs)
+#     # try:
+#     #     this_tax = Taxonomy(entry_points=[f"mem://{xml_filename}"],
+#     #                        container_pool = data_pool, 
+#     #                        esef_filing_root="mem://",
+#     #                        memfs=memfs)  #
+#     #     data_pool.current_taxonomy = this_tax
+#     # except Exception as e:
+#     #     logger.error(f"Error creating Taxonomy: {e}")
+#     #     traceback.print_exc(limit=10)
+#     # #exit()
     
 
-#fbase = XmlFileBase(location=None, container_pool=data_pool, memfs=memfs, esef_filing_root="mem://"); self = fbase
-#fbase = XmlFileBase(location="aapl-20180929_pre.xml", container_pool=data_pool, memfs=memfs, esef_filing_root="mem://"); self = fbase
+# #fbase = XmlFileBase(location=None, container_pool=data_pool, memfs=memfs, esef_filing_root="mem://"); self = fbase
+# #fbase = XmlFileBase(location="aapl-20180929_pre.xml", container_pool=data_pool, memfs=memfs, esef_filing_root="mem://"); self = fbase
 
-#in_memory_content = {}
+# #in_memory_content = {}
 
-if filing.xbrl_files.get("sch"):
-    schema_filename = filing.xbrl_files.get("sch")
-    this_href = "mem://" + schema_filename
-    entry_points.append(this_href)
-    schema_str = filing.documents[schema_filename].doc_text.data
-    schema_str = clean_doc(schema_str)
-    data_pool.cache_from_string(location=this_href, content=schema_str, memfs=memfs)
-    data_pool.add_reference(href=this_href, base="mem://", esef_filing_root="mem://", memfs=memfs)
+# if filing.xbrl_files.get("sch"):
+#     schema_filename = filing.xbrl_files.get("sch")
+#     this_href = "mem://" + schema_filename
+#     entry_points.append(this_href)
+#     schema_str = filing.documents[schema_filename].doc_text.data
+#     schema_str = clean_doc(schema_str)
+#     data_pool.cache_from_string(location=this_href, content=schema_str, memfs=memfs)
+#     data_pool.add_reference(href=this_href, base="mem://", esef_filing_root="mem://", memfs=memfs)
 
 
 
-for linkbase_type in ["pre", "cal", "def", "lab" ]:
-    #linkbase_type = "pre"; linkbase_filename = filing.xbrl_files.get(linkbase_type)
-    linkbase_filename = filing.xbrl_files.get(linkbase_type)
-    if linkbase_filename:
-        linkbase_str = filing.documents[linkbase_filename].doc_text.data
-        linkbase_str = clean_doc(linkbase_str)
-        #linkbase_io = StringIO(linkbase_str)
-        this_href = "mem://" + linkbase_filename
-        entry_points.append(this_href)
-        #in_memory_content[this_href] = linkbase_str
-        data_pool.add_reference(href=this_href, base=".", esef_filing_root="mem://", memfs=memfs)
-        #exit()
-        # data_pool.cache_from_string(location=this_href, content=linkbase_str, memfs=memfs)
-        # this_lb = Linkbase(location=None, container_pool=data_pool, esef_filing_root="mem://", memfs=memfs)        
-        # parsers = {
-        #     f'{{{const.NS_LINK}}}linkbase': this_lb.l_linkbase,
-        #     f'{{{const.NS_LINK}}}calculationLink': this_lb.l_link,
-        #     f'{{{const.NS_LINK}}}presentationLink': this_lb.l_link,
-        #     f'{{{const.NS_LINK}}}definitionLink': this_lb.l_link,
-        #     f'{{{const.NS_LINK}}}labelLink': this_lb.l_link,
-        #     f'{{{const.NS_LINK}}}referenceLink': this_lb.l_link,
-        #     f'{{{const.NS_GEN}}}link': this_lb.l_link,  # Generic link
-        #     f'{{{const.NS_LINK}}}roleRef': this_lb.l_role_ref,
-        #     f'{{{const.NS_LINK}}}arcroleRef': this_lb.l_arcrole_ref
-        # }
-        #fbase = XmlFileBase(location=this_href, container_pool=data_pool, parsers=None, root=None, esef_filing_root = "mem://", memfs=memfs)
-        #fbase = XmlFileBase(location=this_href, container_pool=data_pool, parsers=parsers, root=None, esef_filing_root = "mem://", memfs=memfs)
+# for linkbase_type in ["pre", "cal", "def", "lab" ]:
+#     #linkbase_type = "pre"; linkbase_filename = filing.xbrl_files.get(linkbase_type)
+#     linkbase_filename = filing.xbrl_files.get(linkbase_type)
+#     if linkbase_filename:
+#         linkbase_str = filing.documents[linkbase_filename].doc_text.data
+#         linkbase_str = clean_doc(linkbase_str)
+#         #linkbase_io = StringIO(linkbase_str)
+#         this_href = "mem://" + linkbase_filename
+#         entry_points.append(this_href)
+#         #in_memory_content[this_href] = linkbase_str
+#         data_pool.add_reference(href=this_href, base=".", esef_filing_root="mem://", memfs=memfs)
+#         #exit()
+#         # data_pool.cache_from_string(location=this_href, content=linkbase_str, memfs=memfs)
+#         # this_lb = Linkbase(location=None, container_pool=data_pool, esef_filing_root="mem://", memfs=memfs)        
+#         # parsers = {
+#         #     f'{{{const.NS_LINK}}}linkbase': this_lb.l_linkbase,
+#         #     f'{{{const.NS_LINK}}}calculationLink': this_lb.l_link,
+#         #     f'{{{const.NS_LINK}}}presentationLink': this_lb.l_link,
+#         #     f'{{{const.NS_LINK}}}definitionLink': this_lb.l_link,
+#         #     f'{{{const.NS_LINK}}}labelLink': this_lb.l_link,
+#         #     f'{{{const.NS_LINK}}}referenceLink': this_lb.l_link,
+#         #     f'{{{const.NS_GEN}}}link': this_lb.l_link,  # Generic link
+#         #     f'{{{const.NS_LINK}}}roleRef': this_lb.l_role_ref,
+#         #     f'{{{const.NS_LINK}}}arcroleRef': this_lb.l_arcrole_ref
+#         # }
+#         #fbase = XmlFileBase(location=this_href, container_pool=data_pool, parsers=None, root=None, esef_filing_root = "mem://", memfs=memfs)
+#         #fbase = XmlFileBase(location=this_href, container_pool=data_pool, parsers=parsers, root=None, esef_filing_root = "mem://", memfs=memfs)
 
 
 data_pool.current_taxonomy
@@ -161,11 +161,11 @@ data_pool.current_taxonomy
 
 memfs.listdir("/")
 
-this_tax = Taxonomy(entry_points=list(set(entry_points)),
-                           container_pool = data_pool, 
-                           esef_filing_root="mem://",
-                           #in_memory_content=in_memory_content,
-                           memfs=memfs)  #
+# this_tax = Taxonomy(entry_points=list(set(entry_points)),
+#                            container_pool = data_pool, 
+#                            esef_filing_root="mem://",
+#                            #in_memory_content=in_memory_content,
+#                            memfs=memfs)  #
 
 print("\nTaxonomy statistics:")
 print(f"Schemas: {len(this_tax.schemas)}") #
