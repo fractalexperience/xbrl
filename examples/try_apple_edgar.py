@@ -3,11 +3,13 @@
 """
 
 from openesef.base.pool import Pool, const
+from openesef.engines import tax_reporter
 from openesef.taxonomy.taxonomy import Taxonomy
 #from openesef.base.fbase import XmlFileBase
 from openesef.edgar.edgar import EG_LOCAL
 from openesef.edgar.stock import Stock
 from openesef.edgar.filing import Filing
+from openesef.util.parse_concepts import *
 #from openesef.taxonomy.linkbase import Linkbase
 from openesef.instance.instance import Instance
 import re
@@ -152,7 +154,7 @@ if filing.xbrl_files.get("xml"):
 #         #fbase = XmlFileBase(location=this_href, container_pool=data_pool, parsers=parsers, root=None, esef_filing_root = "mem://", memfs=memfs)
 
 
-data_pool.current_taxonomy
+this_tax = data_pool.current_taxonomy
 
 # this_tax = data_pool.current_taxonomy
 # data_pool.current_taxonomy.linkbases
@@ -175,20 +177,20 @@ print(f"Concepts: {len(this_tax.concepts)}")
 
 print(this_tax)
 
+#xid is of type <class 'openesef.instance.instance.Instance'>
+
 # Print facts with their corresponding concepts
 for key, fact in xid.xbrl.facts.items():
     # Get the concept associated with this fact
     concept = this_tax.concepts_by_qname.get(fact.qname)
-    
     if concept:
-        if re.search(r"PropertyPlantAndEquipment", concept.name):
+        if True or re.search(r"PropertyPlantAndEquipment", concept.name):
             print("Fact Details:")
             print(f"Concept Name: {concept.name}")
             if not "text" in concept.name.lower():
                 print(f"Value: {fact.value}")
             else:
                 print(f"Value: {fact.value[:100]}")
-            
             print(f"Unit Ref: {fact.unit_ref}")
             print(f"Decimals: {fact.decimals}")
             print(f"Precision: {fact.precision}")
@@ -199,19 +201,53 @@ for key, fact in xid.xbrl.facts.items():
                 print(ref_context.get_period_string())
                 # Print entity information            
                 print(f"Entity: {ref_context.entity_scheme}: {ref_context.entity_identifier}")                    
-                # # Print segment information if exists
-                # if ref_context.entity and ref_context.entity.segment:
-                #     print("\nSegment Information:")
-                #     for member in ref_context.entity.segment:
-                #         print(f"Dimension: {member.dimension}")
-                #         print(f"Member: {member.member}")
+                # Print segment information if exists
+                if ref_context.segment:
+                    print("\nSegment Information:")
+                    # The segment is stored directly in the Context object
+                    for dimension, member in ref_context.segment.items():
+                        print(f"Dimension: {dimension}")
+                        print(f"Member: {member.text if hasattr(member, 'text') else member}")
                 
-                # # Print scenario information if exists
-                # if ref_context.scenario:
-                #         print("\nScenario Information:")
-                #         for item in ref_context.scenario:
-                #             print(f"Scenario Item: {item}")
+                # Print scenario information if exists
+                if ref_context.scenario:
+                    print("\nScenario Information:")
+                    # The scenario is stored directly in the Context object
+                    for dimension, member in ref_context.scenario.items():
+                        print(f"Dimension: {dimension}")
+                        print(f"Member: {member.text if hasattr(member, 'text') else member}")
             print("-" * 50)
+
+reporter = tax_reporter.TaxonomyReporter(this_tax)
+
+networks = get_presentation_networks(this_tax)
+
+concepts_by_statement = {}
+
+for network in networks:
+    statement_name = network.role.split('/')[-1]
+    concepts = get_network_details(reporter, network)
+    if concepts:  # Only add if we found concepts
+        concepts_by_statement[statement_name] = concepts
+concept_tree_list = []
+for statement, concepts in concepts_by_statement.items():
+    statement_concept = concepts[0]
+    this_statement_list = []
+    for concept in concepts:
+        this_concept_generator = yield_concept_tree(concept) 
+        # Collect all levels of concepts
+        for this_concept_dict in this_concept_generator:
+            this_concept_dict['statement_label'] = statement_concept["label"]
+            this_concept_dict['statement_name'] = statement_concept["name"]
+            this_statement_list.append(this_concept_dict)
+    #this_statement_list = list(set(this_statement_list))         
+    concept_tree_list.append(this_statement_list)
+concept_tree_list = list(chain.from_iterable(concept_tree_list))
+df = pd.DataFrame.from_records(concept_tree_list)
+df = df.drop_duplicates(subset=["concept_name"]).reset_index(drop=True)
+df["concept_ns"] = df["concept_name"].apply(lambda x: x.split(":")[0])
+if not df.empty:
+    df["concept_is_extended"] = df["concept_name"].apply(lambda x: not re.search(r"ifrs-full|us-gaap|dei|srt|country|stpr", x))
 
 # for key, concept in this_tax.concepts.items():
 #     print(f"Concept: {key}")
