@@ -5,3 +5,4 @@ fs~=2.4.16
 python-dateutil~=2.8.0
 thefuzz~=0.22.0
 pandas~=2.2.0
+fs~=2.4.16

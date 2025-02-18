@@ -25,6 +25,7 @@ The **openesef** project can be installed directly from its GitHub repository us
    Navigate to the project directory and install using pip with the `-e` flag for development:
    ```bash
    cd openesef
+   pip install -r requirements.txt
    pip install -e .
    ```
 
