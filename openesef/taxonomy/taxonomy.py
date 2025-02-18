@@ -1,6 +1,6 @@
 from openesef.base import const, data_wrappers, util
 from openesef.taxonomy.xdt import dr_set
-from io import StringIO, BytesIO
+#from io import StringIO, BytesIO
 
 from openesef.util.util_mylogger import setup_logger #util_mylogger
 import logging 

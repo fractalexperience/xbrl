@@ -48,7 +48,7 @@ import openesef
 import gzip
 from openesef.base import const, util
 import os
-import tempfile
+#import tempfile
 import zipfile
 import functools
 from pathlib import Path
@@ -117,9 +117,9 @@ class Pool(resolver.Resolver):
                 if os.access(repo_cache_folder, os.W_OK):
                     cache_folder = repo_cache_folder
                     logger.info(f"Using repository cache folder: {cache_folder}")
-            if cache_folder is None:
-                cache_folder = tempfile.gettempdir()
-                logger.info(f"Using temporary cache folder: {cache_folder}")
+            # if cache_folder is None:
+            #     cache_folder = tempfile.gettempdir()
+            #     logger.info(f"Using temporary cache folder: {cache_folder}")
         else:
             logger.info(f"Using provided cache folder: {cache_folder}")
         super().__init__(cache_folder, output_folder)

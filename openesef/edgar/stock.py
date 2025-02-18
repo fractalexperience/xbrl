@@ -8,8 +8,8 @@ This module ties it all together; it will be the main module that's used
 
 '''
 import pandas as pd
-from .edgar import get_financial_filing_info, get_latest_quarter_dir, find_latest_filing_info_going_back_from, EG_LOCAL #,SYMBOLS_DATA_PATH
-from .filing import Filing
+from openesef.edgar import get_financial_filing_info, get_latest_quarter_dir, find_latest_filing_info_going_back_from, EG_LOCAL #,SYMBOLS_DATA_PATH
+from openesef.filing import Filing
 from datetime import datetime
 #import pandas as pd 
 import os

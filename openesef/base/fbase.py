@@ -1,6 +1,6 @@
 import urllib.request, os
 from lxml import etree as lxml
-from ..base import ebase, util, const
+from openesef.base import ebase, util, const
 from fs.base import FS
 from typing import Optional
 import fs

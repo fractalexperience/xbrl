@@ -1,4 +1,4 @@
-from ..base import ebase
+from openesef.base import ebase
 
 
 class Fact(ebase.XmlElementBase):
