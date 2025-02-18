@@ -1,46 +1,28 @@
-from ..base import const, data_wrappers, util
-from ..taxonomy.xdt import dr_set
+from openesef.base import const, data_wrappers, util
+from openesef.taxonomy.xdt import dr_set
+from io import StringIO, BytesIO
 
-from ..util.util_mylogger import setup_logger #util_mylogger
+from openesef.util.util_mylogger import setup_logger #util_mylogger
 import logging 
 if __name__=="__main__":
     logger = setup_logger("main", logging.INFO, log_dir="/tmp/log/")
 else:
     logger = logging.getLogger("main.openesf.taxonomy") 
 
-#import logging
 import traceback
-# # Get a logger.  __name__ is a good default name.
-# logger = logging.getLogger(__name__)
-# logger.setLevel(logging.WARNING)
 
-# # Check if handlers already exist and clear them to avoid duplicates.
-# if logger.hasHandlers():
-#     logger.handlers.clear()
-
-# # Create a handler for console output.
-# handler = logging.StreamHandler()
-# handler.setLevel(logging.DEBUG)
-
-# # Create a formatter.
-# log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-# formatter = logging.Formatter(log_format)
-
-# # Set the formatter on the handler.
-# handler.setFormatter(formatter)
-
-# # Add the handler to the logger.
-# logger.addHandler(handler)
 
 class Taxonomy:
     """ entry_points is a list of entry point locations
         cache_folder is the place where to store cached Web resources """
-    def __init__(self, entry_points, container_pool, esef_filing_root = None):
+    def __init__(self, entry_points, container_pool, esef_filing_root = None, in_memory_content = {}, memfs=None):
         self.entry_points = entry_points
         self.pool = container_pool
         self.pool.current_taxonomy = self
         self.pool.current_taxonomy_hash = util.get_hash(','.join(entry_points))
         self.esef_filing_root = esef_filing_root  # Add ESEF location path
+        self.in_memory_content = in_memory_content or {} # Dictionary to store in-memory content
+        self.memfs = memfs
         # All schemas indexed by resolved location 
         self.schemas = {}
         # All linkbases indexed by resolved location 
@@ -146,7 +128,9 @@ class Taxonomy:
         try:
             # Load the schema
             #schema_obj = self.container_pool.add_schema(entry_point, self.esef_filing_root)
-            schema_obj = self.pool.add_schema(entry_point, self.esef_filing_root)
+            schema_obj = self.pool.add_schema(location=entry_point, 
+                                              esef_filing_root=self.esef_filing_root, 
+                                              memfs=self.memfs)
             if schema_obj:
                 self.schemas[entry_point] = schema_obj
         except Exception as e:
@@ -159,10 +143,25 @@ class Taxonomy:
         for ep in self.entry_points:
             logger.debug(f'Taxonomy.load(): Loading {ep} with self.esef_filing_root={self.esef_filing_root}')
             logger.debug(f'Calling self.pool.add_reference(...) with href = {ep}, base = "", esef_filing_root = {self.esef_filing_root}')
-            self.pool.add_reference(href = ep, 
+            # Check if we have in-memory content
+            if self.in_memory_content and ep in self.in_memory_content:
+                logger.debug(f'Loading {ep} from memory')
+                content = self.in_memory_content[ep]
+                self.pool.add_reference_from_string(content, ep, '')
+            else:
+                logger.debug(f'Loading {ep} from file/URL')
+                #self.pool.add_reference(href=ep, base='', esef_filing_root=self.esef_filing_root)
+
+                self.pool.add_reference(href = ep, 
                                     base = '', 
-                                    esef_filing_root = self.esef_filing_root)
+                                    esef_filing_root = self.esef_filing_root,
+                                    memfs = self.memfs)
             self._process_entry_point(ep)
+
+    def add_in_memory_content(self, location, content):
+        """Add content to be loaded from memory for a specific location"""
+        self.in_memory_content[location] = content
+
 
     def resolve_prefix(self, pref):
         for sh in self.schemas.values():

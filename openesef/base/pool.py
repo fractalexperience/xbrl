@@ -56,16 +56,17 @@ import time
 from typing import Optional, Dict, List, Union, Tuple
 import traceback
 import pathlib
-
+from io import StringIO
 import re 
 import urllib.parse
-
+from fs.base import FS
+import fs
 from openesef.util.util_mylogger import setup_logger #util_mylogger
 import logging 
 if __name__=="__main__":
     logger = setup_logger("main", logging.INFO, log_dir="/tmp/log/")
 else:
-    logger = logging.getLogger("main.openesf.pool") 
+    logger = logging.getLogger("main.openesf.base.pool") 
 
 
 # import logging
@@ -100,7 +101,7 @@ else:
 
 
 class Pool(resolver.Resolver):
-    def __init__(self, cache_folder=None, output_folder=None, alt_locations=None, esef_filing_root=None, max_error =0):
+    def __init__(self, cache_folder=None, output_folder=None, alt_locations=None, esef_filing_root=None, max_error =0, memfs: Optional[FS] = None):
         """
         Initializes a new Pool instance
         Args:
@@ -129,6 +130,9 @@ class Pool(resolver.Resolver):
         self.schemas = {}
         self.linkbases = {}
         self.instances = {}
+        self.memfs = memfs
+        if  memfs is None and "mem://" in esef_filing_root: 
+            raise ValueError("Pool: memfs is None and esef_filing_root is a memory URL")
         self.count_exceptions = 0
         # Alternative locations. If set, this is used to resolve Qeb references to alternative (existing) URLs. 
         self.alt_locations = alt_locations
@@ -140,6 +144,7 @@ class Pool(resolver.Resolver):
         # Currently opened archive, where files can be read from - optional.
         self.active_file_archive = None
         self.esef_filing_root = esef_filing_root
+        self.location = esef_filing_root
         self.co_domain = None
         self.max_error = max_error
     def __str__(self):
@@ -341,7 +346,7 @@ class Pool(resolver.Resolver):
             key (str): Optional identifier
             attach_taxonomy (bool): Whether to load associated taxonomy
         """
-        xid = instance.Instance(container_pool=self, root=e)
+        xid = instance.Instance(container_pool=self, root=e, memfs=self.memfs)
         if key is None:
             key = e.tag
         self.add_instance(xid, key, attach_taxonomy)
@@ -372,7 +377,7 @@ class Pool(resolver.Resolver):
                     if re.search(file_name, file):
                         return os.path.join(root, file)  
 
-    def add_instance(self, xid, key=None, attach_taxonomy=False, esef_filing_root=None): # Add esef_filing_root    
+    def add_instance(self, xid, key=None, attach_taxonomy=False, esef_filing_root=None, memfs=None): # Add esef_filing_root    
         """
         Adds an instance document to the pool
         Args:
@@ -395,7 +400,7 @@ class Pool(resolver.Resolver):
                             for ref in entry_points]
             entry_points = [pathlib.Path(ep).as_uri() if os.path.isfile(ep) else ep for ep in entry_points]
 
-            tax = self.add_taxonomy(entry_points, esef_filing_root) #<- here is the endless loop
+            tax = self.add_taxonomy(entry_points, esef_filing_root, memfs) #<- here is the endless loop
             xid.taxonomy = tax
 
     def add_taxonomy(self, entry_points, esef_filing_root=None): # Add esef_filing_root
@@ -547,7 +552,7 @@ class Pool(resolver.Resolver):
         tax = self.add_taxonomy(entry_points, esef_filing_root=esef_filing_root)
         return tax
 
-    def add_reference(self, href, base, esef_filing_root=None): # Add esef_filing_root
+    def add_reference(self, href, base, esef_filing_root=None, memfs=None): # Add esef_filing_root
         """
 
         Loads referenced schema or linkbase
@@ -556,7 +561,7 @@ class Pool(resolver.Resolver):
             base (str): Base URL for relative references
         Returns: None
 
-        Loads schema or linkbase depending on file type. TO IMPROVE!!! -- original comment
+        Calling add_reference(...): href:http://xbrl.fasb.org/srt/2018/elts/srt-2018-01-31.xsd from base:  and esef_filing_root: mem://
         """
         
         if href is None:
@@ -567,7 +572,12 @@ class Pool(resolver.Resolver):
             return
         elif re.search("xbrl.org", href):
             return
+        # elif href.startswith("mem://"):
+        #     logger.debug(f"Skipping reference: {href} because it is in memory")
+        #     return
 
+        if memfs is not None and self.memfs is None:
+            self.memfs = memfs
         # Resolve the reference
         resolved_href = self._resolve_url(href, base, esef_filing_root)
         
@@ -579,34 +589,31 @@ class Pool(resolver.Resolver):
             return
             
         # Mark as being processed
-        self.discovered[key] = True
+        self.discovered[key] = False
 
         if not esef_filing_root:
             logger.debug("No esef_filing_root provided, using self.esef_filing_root")
             esef_filing_root = self.esef_filing_root
 
-        logger.debug(f"\n\nCalling add_reference(...): \n{href} \nfrom base: \n{base}\n and esef_filing_root: {esef_filing_root}")    
+        logger.debug(f"\n\nCalling add_reference(...): href:{href} from base: {base} and esef_filing_root: {esef_filing_root}")    
 
-        if esef_filing_root and not href.startswith('http'):
-            res_href = re.search(esef_filing_root + r"(.*)", href)
-            if res_href:
-                href_local = re.sub("file://", "", res_href.group(0))
-                if os.path.isfile(href_local):
-                    base = os.path.dirname(href_local)
-                    #resolved_href = pathlib.Path(href_local).as_uri()
-                    #return resolved_href 
-            elif False:
-                logger.warning("")
-                # Dynamically determine subfolders within the esef_filing_root
-                subfolders = [d for d in os.listdir(esef_filing_root) if os.path.isdir(os.path.join(esef_filing_root, d))]
-
-                for subfolder in subfolders:
-                    potential_base = os.path.join(esef_filing_root, subfolder)
-                    resolved_href = self._resolve_url(href, potential_base, esef_filing_root)
-
-                    if os.path.exists(resolved_href.replace("file://", "")): # Check if resolved path exists
-                        base = potential_base # Use this base path
-                        break # Stop searching after finding a valid base
+        # # Handle mem:// URLs
+        # if esef_filing_root and esef_filing_root.startswith('mem://'):
+        #     if not href.startswith(('http://', 'https://', 'mem://')):
+        #         # Convert relative paths to mem:// paths
+        #         if href.startswith('/'):
+        #             href = f"mem://{href.lstrip('/')}"
+        #         else:
+        #             base_path = base[6:] if base.startswith('mem://') else base
+        #             href = f"mem://{os.path.join(base_path, href)}"
+        # elif esef_filing_root and not href.startswith('http'):
+        #     res_href = re.search(esef_filing_root + r"(.*)", href)
+        #     if res_href:
+        #         href_local = re.sub("file://", "", res_href.group(0))
+        #         if os.path.isfile(href_local):
+        #             base = os.path.dirname(href_local)
+        #             #resolved_href = pathlib.Path(href_local).as_uri()
+        #             #return resolved_href 
 
         # Validate file extension
         allowed_extensions = ('xsd', 'xml', 'json')
@@ -624,24 +631,27 @@ class Pool(resolver.Resolver):
             logger.debug(f"Replaced href \n{original_href} \nwith alternative location \n{href}")            
             
         # Resolve URL # Generate unique key that includes the base path to prevent loops
-        resolved_href = href
-        if not href.startswith('http'):
+        #resolved_href = href
+        if not href.startswith(('http://', 'https://', "mem://")):
             if esef_filing_root:
-                # Try to resolve relative to esef_filing_root first
-                
-                #href_filename = href.split("/")[-1] if len(href.split("/"))>0 else ""
-                res_href = re.search(esef_filing_root + r"(.*)", href)
-                if res_href:
-                    href_local = re.sub("file://", "", res_href.group(0))
-                    if os.path.isfile(href_local):
-                        resolved_href = pathlib.Path(href_local).as_uri()
-                else:
-                    # Fall back to base path resolution
-                    resolved_href = self._resolve_url(href, base, esef_filing_root)
+                if esef_filing_root.startswith('mem://'):
+                    # Handle memory filesystem paths
+                    resolved_href = href  if not resolved_href else resolved_href
+                else:                
+                    # Try to resolve relative to esef_filing_root first                    
+                    #href_filename = href.split("/")[-1] if len(href.split("/"))>0 else ""
+                    res_href = re.search(esef_filing_root + r"(.*)", href)
+                    if res_href:
+                        href_local = re.sub("file://", "", res_href.group(0))
+                        if os.path.isfile(href_local):
+                            resolved_href = pathlib.Path(href_local).as_uri() 
+                    else:
+                        # Fall back to base path resolution
+                        resolved_href = self._resolve_url(href, base, esef_filing_root)
 
-                # potential_path = self.get_esef_local_path(ep, esef_filing_root) # <- this is terribly wrong
-                # if os.path.exists(potential_path):
-                #     resolved_href = pathlib.Path(potential_path).as_uri()
+                    # potential_path = self.get_esef_local_path(ep, esef_filing_root) # <- this is terribly wrong
+                    # if os.path.exists(potential_path):
+                    #     resolved_href = pathlib.Path(potential_path).as_uri()
 
 
             # Create a unique key that includes both href and base to prevent loops
@@ -654,33 +664,55 @@ class Pool(resolver.Resolver):
 
         try:
             if resolved_href.endswith(".xsd"):
+                
+                if resolved_href in self.schemas: # **CHECK IF ALREADY LOADED!**
+                    logger.debug(f"Schema already loaded: {resolved_href}. Skipping.")
+                    return  # Already loaded!                
+                # sh = self.add_schema(resolved_href, esef_filing_root)
+                # self.current_taxonomy.attach_schema(resolved_href, sh)                
                 #logger.debug(f"Loading schema: \n{resolved_href}")
-
-                if resolved_href.startswith("file://"):
+                if resolved_href.startswith("mem://"):
+                    schema_path = resolved_href
+                elif resolved_href.startswith("file://"):
                     schema_path = re.sub("file://", "", resolved_href) # Remove file:// for schema.Schema
                 else:
                     schema_path = resolved_href # Use the URL directly
-
-                #logger.debug(f"schema_path: \n{schema_path}")
-
-                #this_schema = schema.Schema(location="",container_pool=self); self = this_schema
+                logger.debug(f"schema_path: \n{schema_path}")
+                #from openesef.taxonomy import taxonomy, schema, tpack, linkbase; from openesef.base import fbase, const, element, util
+                #self=data_pool
+                #self=data_pool; this_schema = schema.Schema(location="",container_pool=self); self = this_schema
+                #self=data_pool; this_schema = schema.Schema(location=schema_path,container_pool=self); self = this_schema
                 sh = self.schemas.get(
                     schema_path, 
                     schema.Schema(location=schema_path, 
                                   container_pool=self, 
-                                  esef_filing_root=esef_filing_root)) #<- Endless loop
+                                  esef_filing_root=esef_filing_root, 
+                                  memfs=self.memfs)) #<- Endless loop
                 
                 self.current_taxonomy.attach_schema(schema_path, sh)
             else:
-                logger.debug(f"Loading linkbase: \n{resolved_href}")
+                if resolved_href in self.linkbases: # **CHECK IF ALREADY LOADED!**
+                    logger.debug(f"Linkbase already loaded: {resolved_href}. Skipping.")
+                    return # Already loaded!
+                                
+                logger.debug(f"Loading linkbase by pool.add_reference(...): {resolved_href}")
                 # Remove file:// prefix if present
-                if resolved_href.startswith("file://"):
-                    resolved_href = re.sub("file://", "", resolved_href)
-                this_lb = linkbase.Linkbase(location=resolved_href, container_pool=self, esef_filing_root=esef_filing_root) #<- got error
+                if resolved_href.startswith("mem://"):
+                    linkbase_path = re.sub("mem://", "", resolved_href)
+                elif resolved_href.startswith("file://"):
+                    linkbase_path = re.sub("file://", "", resolved_href)
+                #from openesef.taxonomy import linkbase
+                #this_lb = linkbase.Linkbase(location=None, container_pool=self, esef_filing_root=esef_filing_root) #self = this_lb
+                try:
+                    this_lb = linkbase.Linkbase(location=linkbase_path, container_pool=self, esef_filing_root=esef_filing_root, memfs=self.memfs) #<- got error
+                    lb = self.linkbases.get(resolved_href, this_lb) # <- got the error
+                    if self.current_taxonomy:
+                        self.current_taxonomy.attach_linkbase(resolved_href, lb) # Use resolved_href
+                except Exception as e:
+                    logger.error(f"Failed to load linkbase: locatioon={resolved_href}, esef_filing_root={esef_filing_root} \n{str(e)}")
+                    traceback.print_exc(limit=10)
                 #data_pool = Pool(cache_folder=CACHE_DIR, max_error=1); #self = data_pool
                 #this_lb = linkbase.Linkbase(location=None, container_pool=data_pool, esef_filing_root=esef_filing_root) #self = this_lb
-                lb = self.linkbases.get(resolved_href, this_lb) # <- got the error
-                self.current_taxonomy.attach_linkbase(resolved_href, lb) # Use resolved_href
 
         except OSError as e:
             self.count_exceptions += 1
@@ -723,44 +755,58 @@ class Pool(resolver.Resolver):
         """
         Resolves URLs, correctly handling relative paths and file URLs.
         Returns a file URL for local files and an absolute URL for remote resources.
-        """
-        #logger.debug(f"==\n  Calling _resolve_url(...): \nhref: \n{href}, \nbase: \n{base}, \nesef_filing_root: \n{esef_filing_root}")
+        
+        Calling _resolve_url(...): href: srt-types-2020-01-31.xsd, base: http://xbrl.fasb.org/srt/2020/elts, esef_filing_root: mem://
+        Resolved URL (mem base):  http://xbrl.fasb.org/srt/2020/srt-types-2020-01-31.xsd
 
-        if href.startswith(('http://', 'https://')):
-            #logger.debug(f"Resolved URL: \n{href}")
+        """
+        logger.debug(f"==  Calling _resolve_url(...): href: {href}, base: {base}, esef_filing_root: {esef_filing_root}")
+
+        if href.startswith(('http://', 'https://', 'mem://', 'file://')):
+            logger.debug(f"Resolved HTTP URL: \n{href}")
             return href
-        elif href.startswith('file://'):
-            #logger.debug(f"Resolved URL: \n{href}")
-            return href
-        elif base.startswith(('http://', 'https://')):
+        elif base.startswith(('http://', 'https://', 'mem://', 'file://')):
             #print(f"20250215a:{base}{href}")
-            return f"{base}/{href}"
+            #return f"{base}/{href}"
+            if not base.endswith("/"):
+                base += "/"
+            resolved_path = urllib.parse.urljoin(base, href)
+            logger.debug(f"Resolved URL (mem base): \n{resolved_path}")
+            return resolved_path            
         # Try to find the file in ESEF structure first
         if esef_filing_root :
-            # First, try to find in www.company.com subdirectory
-            for root, _, files in os.walk(esef_filing_root):
-                if os.path.basename(href) in files:
-                    resolved_path = os.path.join(root, os.path.basename(href))                    
-                    resolved = pathlib.Path(resolved_path).as_uri()
-                    #logger.debug(f"Resolved URL (esef_filing_root): \n{resolved}")
-                    return resolved
+            if not "mem://" in esef_filing_root:
+                # First, try to find in www.company.com subdirectory
+                for root, _, files in os.walk(esef_filing_root):
+                    if os.path.basename(href) in files:
+                        resolved_path = os.path.join(root, os.path.basename(href))                    
+                        resolved = pathlib.Path(resolved_path).as_uri()
+                        #logger.debug(f"Resolved URL (esef_filing_root): \n{resolved}")
+                        return resolved
 
-            esef_filing_root_parent = os.path.dirname(esef_filing_root)
-            _i_walk = 0 
-            for root, _, files in os.walk(esef_filing_root_parent):
-                _i_walk += 1
-                if _i_walk > 16:
-                    break
-                if os.path.basename(href) in files:
-                    resolved_path = os.path.join(root, os.path.basename(href))
-                    
-                    resolved = pathlib.Path(resolved_path).as_uri()
-                    #logger.debug(f"Resolved URL (esef_filing_root): \n{resolved}")
-                    return resolved
-                    
+                esef_filing_root_parent = os.path.dirname(esef_filing_root)
+                _i_walk = 0 
+                for root, _, files in os.walk(esef_filing_root_parent):
+                    _i_walk += 1
+                    if _i_walk > 16:
+                        break
+                    if os.path.basename(href) in files:
+                        resolved_path = os.path.join(root, os.path.basename(href))
+                        
+                        resolved = pathlib.Path(resolved_path).as_uri()
+                        #logger.debug(f"Resolved URL (esef_filing_root): \n{resolved}")
+                        return resolved
+            else:
+                logger.debug(f"Resolved URL (mem esef_filing_root): \n{esef_filing_root}")
+                for root, _, files in self.memfs.walk("."):
+                    if os.path.basename(href) in files:
+                        resolved_path = os.path.join("mem://", root, os.path.basename(href))
+                        resolved = pathlib.Path(resolved_path).as_uri()
+                        #logger.debug(f"Resolved URL (esef_filing_root): \n{resolved}")
+                        return resolved
             # If not found in www subdirectory, try base directory
         if base:
-            if base.startswith(('http://', 'https://')):
+            if base.startswith(('http://', 'https://', 'mem://', 'file://')):
                 resolved_path = f"{base}/{href}"
             else:
                 resolved_path = os.path.abspath(os.path.join(os.path.dirname(base), href)) #<- this is wrong? #20250215
@@ -780,7 +826,7 @@ class Pool(resolver.Resolver):
                 #logger.debug(f"Resolved URL: \n{href}")
                 ##return f"https://{href}" # Assume it's a remote URL and prepend https://
                 return href # Don't assume https, could be a relative local path
-        if base.startswith(('http://', 'https://')):
+        if base.startswith(('http://', 'https://', 'mem://', 'file://')):
             resolved = urllib.parse.urljoin(base, href)
         elif base.startswith('file://') or base.startswith("/"):
             try:  # Use try-except to handle potential parsing errors
@@ -819,7 +865,7 @@ class Pool(resolver.Resolver):
 
         return resolved_path # Return the absolute path; don't prepend https://
 
-    def add_schema(self, location, esef_filing_root=None):
+    def add_schema(self, location, esef_filing_root=None, memfs=None):
         """
         Adds a schema to the pool and returns the Schema object
         
@@ -830,7 +876,7 @@ class Pool(resolver.Resolver):
         Returns:
             Schema: The loaded schema object or None if already loaded
         """
-        logger.debug(f"Adding schema from location: {location}")
+        logger.debug(f"Adding schema by add_schema() from location: {location}")
         
         # If schema is already loaded, return existing instance
         if location in self.schemas:
@@ -842,7 +888,8 @@ class Pool(resolver.Resolver):
             schema_obj = schema.Schema(
                 location=location,
                 container_pool=self,
-                esef_filing_root=esef_filing_root
+                esef_filing_root=esef_filing_root,
+                memfs=memfs
             )
             
             # Store in schemas dictionary
@@ -853,10 +900,116 @@ class Pool(resolver.Resolver):
             
         except Exception as e:
             logger.error(f"Failed to load schema {location}: {str(e)}")
+            logger.error(f"traceback: \n{traceback.format_exc()}")
             self.count_exceptions += 1
             self.check_count_exceptions()
             return None
-    
+
+    def add_reference_from_string(self, content, location, base=''):
+        """
+        Loads referenced schema or linkbase from a string content
+        
+        Args:
+            content (str): The XML content as a string
+            location (str): Virtual location/URL for the content
+            base (str): Base URL for relative references
+        Returns: None
+        """
+        if location is None:
+            return
+
+        # Skip basic schema objects
+        if any(domain in location for domain in ['http://xbrl.org', 'http://www.xbrl.org']):
+            return
+        elif re.search("xbrl.org", location):
+            return
+
+        # Create a unique key that includes taxonomy context
+        key = f'{self.current_taxonomy_hash}_{location}'
+        
+        # Check if already processed or processing
+        if key in self.discovered:
+            return
+            
+        # Mark as being processed
+        self.discovered[key] = True
+
+        try:
+            # Cache the content first
+            cached_path = self.cache_from_string(StringIO(content), location)
+            if location.endswith(".xsd"):
+                logger.debug(f"Loading schema from string: {location}")
+                
+                sh = self.schemas.get(
+                    location,
+                    schema.Schema(
+                        location=cached_path,
+                        container_pool=self,
+                        esef_filing_root=self.esef_filing_root
+                    )
+                )
+                self.current_taxonomy.attach_schema(location, sh)
+            else:
+                logger.debug(f"Loading linkbase from string: {location}")
+                
+                lb = self.linkbases.get(
+                    location,
+                    linkbase.Linkbase(
+                        location=cached_path,
+                        container_pool=self,
+                        esef_filing_root=self.esef_filing_root
+                    )
+                )
+                self.current_taxonomy.attach_linkbase(location, lb)
+
+        except Exception as e:
+            self.count_exceptions += 1
+            self.check_count_exceptions()
+            logger.error(f"Failed to load resource from string {location}: {str(e)}")
+            traceback.print_exc(limit=10)    
+
+    def add_schema_from_string(self, content, location, esef_filing_root=None, memfs=None):
+        """
+        Adds a schema to the pool from a string content and returns the Schema object
+        
+        Args:
+            content (str): The schema XML content as a string
+            location (str): Virtual location/URL for the schema
+            esef_filing_root (str, optional): Root directory of ESEF filing
+        Returns:
+            Schema: The loaded schema object or None if already loaded
+        """
+        logger.debug(f"Adding schema from string content with virtual location: {location}")
+        
+        # If schema is already loaded, return existing instance
+        if location in self.schemas:
+            logger.debug(f"Schema already loaded: {location}")
+            return self.schemas[location]
+            
+        try:
+            # First cache the content
+            cached_path = self.cache_from_string(StringIO(content), location)
+            
+            # Create new schema instance using the cached file
+            schema_obj = schema.Schema(
+                location=cached_path,  # Use cached file path for actual content
+                container_pool=self,
+                esef_filing_root=esef_filing_root,
+                memfs=memfs,
+                virtual_location=location  # Pass original location for reference tracking
+            )
+            
+            # Store in schemas dictionary using the virtual location
+            self.schemas[location] = schema_obj
+            
+            logger.debug(f"Successfully loaded schema from string: {location}")
+            return schema_obj
+            
+        except Exception as e:
+            logger.error(f"Failed to load schema from string {location}: {str(e)}")
+            self.count_exceptions += 1
+            self.check_count_exceptions()
+            return None
 
 # to test Apple
 if __name__ == "__main__" and False:

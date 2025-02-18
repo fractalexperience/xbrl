@@ -1,13 +1,16 @@
 import urllib.request, os
 from lxml import etree as lxml
 from ..base import ebase, util, const
-
-from ..util.util_mylogger import setup_logger #util_mylogger
+from fs.base import FS
+from typing import Optional
+import fs
+import re
+from openesef.util.util_mylogger import setup_logger #util_mylogger
 import logging 
 if __name__=="__main__":
     logger = setup_logger("main", logging.INFO, log_dir="/tmp/log/")
 else:
-    logger = logging.getLogger("main.openesf.fbase") 
+    logger = logging.getLogger("main.openesf.base.fbase") 
 
 
 # import logging
@@ -35,7 +38,7 @@ else:
 # logger.addHandler(handler)
 
 class XmlFileBase(ebase.XmlElementBase):
-    def __init__(self, location=None, container_pool=None, parsers=None, root=None, esef_filing_root = None):
+    def __init__(self, location=None, container_pool=None, parsers=None, root=None, esef_filing_root = None, memfs: Optional[FS] = None):
         """
         root = None
         this_xb = XmlFileBase(None, container_pool, parsers, root, esef_filing_root)
@@ -44,11 +47,29 @@ class XmlFileBase(ebase.XmlElementBase):
             parsers = {}
         self.parsers = parsers
         self.pool = container_pool
+        self.memfs = memfs
+        # Check if root_path is a mem:// URL
+        self.location = location
+        self.is_memory_fs = False 
+        if esef_filing_root:
+            self.is_memory_fs = esef_filing_root.startswith("mem://")
+        elif memfs:
+            self.is_memory_fs = True
+        elif location and "mem://" in location:
+            self.is_memory_fs = True
+        elif self.pool and self.pool.memfs:
+            self.is_memory_fs = True
+        self.location = location
+        if self.is_memory_fs and memfs is None:
+            # Create memory filesystem if not provided
+            raise ValueError("XmlFileBase: memfs is None and is_memory_fs is True")
+        if not self.is_memory_fs:
+            logger.info(f"XmlFileBase: is_mem_fs=False! location={location}, is_memory_fs={self.is_memory_fs}")
         self.namespaces = {}  # Key is the prefix and value is the URI
         self.namespaces_reverse = {}  # Key is the UrI and value is the prefix
         self.schema_location_parts = {}
         self.base = ''
-        self.esef_filing_root = esef_filing_root
+        self.esef_filing_root = esef_filing_root        
         if location:
             self.location = util.reduce_url(location)
             # self.base = self.location.replace('\\', '/')[:location.rfind("/")]
@@ -71,6 +92,7 @@ class XmlFileBase(ebase.XmlElementBase):
     def get_root(self):
         """ If the location can be found in an open package, then extract it from the package """
         url = self.location
+        # Handle packaged locations first
         if self.pool and self.pool.packaged_locations:
             t = self.pool.packaged_locations.get(url)
             if t:
@@ -84,6 +106,31 @@ class XmlFileBase(ebase.XmlElementBase):
                     s = s.replace('\n', '')  # Try to correct eventually broken lines
                     root = lxml.XML(bytes(s, encoding='utf-8'), parser=p)
                     return root
+
+        # Handle memory filesystem
+        if self.is_memory_fs and not "http" in url and not "file://" in url:
+            if self.memfs is None:
+                raise ValueError("XmlFileBase: self.is_memory_fs is True but  memfs is None")
+            
+            # Remove 'mem://' prefix to get the actual path
+            mem_path = re.sub(r'^mem://', '', url)
+            
+            if self.memfs.exists(mem_path):
+                with self.memfs.open(mem_path, 'rb') as f:
+                    content = f.read()
+                    p = lxml.XMLParser(huge_tree=True)
+                    try:
+                        return lxml.XML(content, parser=p)
+                    except Exception:
+                        s = content.decode('utf-8')
+                        s = s.replace('\n', '')  # Try to correct eventually broken lines
+                        root = lxml.XML(bytes(s, encoding='utf-8'), parser=p)
+                        return root
+            # else:
+            #     raise FileNotFoundError(f"File {mem_path} not found in memory filesystem")
+
+        # Handle regular filesystem and URLs
+            logger.debug(f"XmlFileBase: get_root() did not find the file in memory filesystem; self.is_memory_fs = {self.is_memory_fs}; self.memfs.listdir('.') = {self.memfs.listdir('.')}")
         filename = url
         if self.pool:
             filename = self.pool.cache(url) # <- got the error

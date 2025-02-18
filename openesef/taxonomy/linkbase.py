@@ -1,13 +1,13 @@
-from ..base import fbase, const, util
-from ..taxonomy import xlink
+from openesef.base import fbase, const, util
+from openesef.taxonomy import xlink
+#from openesef.base import ebase
 
-
-from ..util.util_mylogger import setup_logger #util_mylogger
+from openesef.util.util_mylogger import setup_logger #util_mylogger
 import logging 
 if __name__=="__main__":
     logger = setup_logger("main", logging.INFO, log_dir="/tmp/log/")
 else:
-    logger = logging.getLogger("main.openesf.linkbase") 
+    logger = logging.getLogger("main.openesf.taxonomy.linkbase") 
 
 
 # import logging
@@ -35,7 +35,7 @@ else:
 # logger.addHandler(handler)
 
 class Linkbase(fbase.XmlFileBase):
-    def __init__(self, location, container_pool, root=None, esef_filing_root=None):
+    def __init__(self, location, container_pool, root=None, esef_filing_root=None, memfs=None):
         parsers = {
             f'{{{const.NS_LINK}}}linkbase': self.l_linkbase,
             f'{{{const.NS_LINK}}}calculationLink': self.l_link,
@@ -47,10 +47,12 @@ class Linkbase(fbase.XmlFileBase):
             f'{{{const.NS_LINK}}}roleRef': self.l_role_ref,
             f'{{{const.NS_LINK}}}arcroleRef': self.l_arcrole_ref
         }
+        self.location = location
         self.role_refs = {}
         self.arcrole_refs = {}
         self.refs = set({})
         self.pool = container_pool
+        self.memfs = memfs
         self.links = []
         resolved_location = util.reduce_url(location)
         if self.pool is not None:
@@ -61,8 +63,13 @@ class Linkbase(fbase.XmlFileBase):
         
         
         
-        
-        super().__init__(resolved_location, container_pool, parsers, root, esef_filing_root)
+        #fbase.XmlFileBase(location=resolved_location, container_pool=container_pool, parsers=parsers, root=None, esef_filing_root = esef_filing_root, memfs=memfs)
+        try:
+            super().__init__(location=resolved_location, container_pool=container_pool, 
+                         parsers=parsers, root=root, esef_filing_root=esef_filing_root, memfs=memfs)
+        except Exception as e:
+            logger.error(f"Failed to load linkbase: location={resolved_location}, esef_filing_root={esef_filing_root} \n{str(e)}")
+            #traceback.print_exc(limit=10)
         if self.pool is not None:
             self.pool.linkbases[resolved_location] = self
 

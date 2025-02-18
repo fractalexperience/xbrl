@@ -82,6 +82,17 @@ class XmlElementBase:
     def serialize_attributes(self, output):
         for a in self.origin.attrib.items():
             a_value = a[1]
+            # Handle potential mem:// URLs in attributes
+            if self.esef_filing_root and self.esef_filing_root.startswith('mem://'):
+                if a_value.startswith('/'):
+                    # Convert absolute paths to mem:// paths if needed
+                    a_value = f"mem://{a_value.lstrip('/')}"
+                elif not (a_value.startswith('http://') or 
+                         a_value.startswith('https://') or 
+                         a_value.startswith('mem://')):
+                    # Convert relative paths to mem:// paths if needed
+                    a_value = f"mem://{a_value}"
+            
             a_name = util.get_local_name(a[0])
             a_uri = util.get_namespace(a[0])
             a_qname = a_name
@@ -90,6 +101,15 @@ class XmlElementBase:
                 a_prefix = plist[0] if plist else 'ns1'
                 a_qname = f'{a_prefix}:{a_name}'
             output.append(f' {a_qname}="{a_value}"')
+            
+            # a_name = util.get_local_name(a[0])
+            # a_uri = util.get_namespace(a[0])
+            # a_qname = a_name
+            # if a_uri:
+            #     plist = [p for p, u in self.origin.nsmap.items() if u == a_uri]
+            #     a_prefix = plist[0] if plist else 'ns1'
+            #     a_qname = f'{a_prefix}:{a_name}'
+            # output.append(f' {a_qname}="{a_value}"')
 
     def l_default(self, e):
         default_method = self.parsers.get('default')

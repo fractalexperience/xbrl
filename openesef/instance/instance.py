@@ -6,7 +6,7 @@ from lxml import etree as lxml
 
 
 class Instance(fbase.XmlFileBase):
-    def __init__(self, location=None, container_pool=None, root=None, esef_filing_root=None):
+    def __init__(self, location=None, container_pool=None, root=None, esef_filing_root=None, memfs=None):
         self.pool = container_pool
         self.taxonomy = None
         self.xbrl = None
@@ -18,7 +18,7 @@ class Instance(fbase.XmlFileBase):
         }
         self.location = location
 
-        super().__init__(location, container_pool, parsers, root, esef_filing_root=esef_filing_root)
+        super().__init__(location, container_pool, parsers, root, esef_filing_root=esef_filing_root, memfs=memfs)
 
     def __str__(self):
         return self.info()

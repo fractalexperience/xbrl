@@ -1,5 +1,5 @@
-from ..taxonomy import concept, linkbase, roletype, arcroletype, simple_type, item_type, tuple_type
-from ..base import fbase, const, element, util
+from openesef.taxonomy import concept, linkbase, roletype, arcroletype, simple_type, item_type, tuple_type
+from openesef.base import fbase, const, element, util
 import os
 
 import logging
@@ -27,9 +27,11 @@ logger = logging.getLogger(__name__)
 # logger.addHandler(handler)
 
 class Schema(fbase.XmlFileBase):
-    def __init__(self, location, container_pool, esef_filing_root=None):
+    def __init__(self, location, container_pool, esef_filing_root=None, virtual_location=None, memfs=None):
         self.target_namespace = ''
         self.target_namespace_prefix = ''
+        self.location = location
+        self.virtual_location = virtual_location or location  # Use virtual location for references
         parsers = {
             f'{{{const.NS_XS}}}schema': self.l_schema,
             f'{{{const.NS_XS}}}annotation': self.l_annotation,
@@ -64,17 +66,18 @@ class Schema(fbase.XmlFileBase):
         self.tuple_types = {}
         """ Complex types with complex content: Key is unique identifier, value is the tuple type object """
         self.tuple_types_by_id = {}
-
         self.pool = container_pool
         resolved_location = util.reduce_url(location)
         if self.pool is not None:
             self.pool.discovered[location] = True
 
         #this_fb =  fbase.XmlFileBase(location=None, container_pool=None, parsers=None, root=None, esef_filing_root = None); self = this_fb
+        #this_fb =  fbase.XmlFileBase(location=resolved_location, container_pool=data_pool, parsers=None, root=None, esef_filing_root = esef_filing_root); self = this_fb
         super().__init__(location = resolved_location, 
                          container_pool = container_pool, 
                          parsers = parsers, 
-                         esef_filing_root=esef_filing_root)
+                         esef_filing_root=esef_filing_root, 
+                         memfs=memfs)
         
         if self.pool is not None:
             self.pool.schemas[resolved_location] = self
@@ -139,3 +142,10 @@ class Schema(fbase.XmlFileBase):
         self.imports[href] = e
         self.pool.add_reference(href, self.base, self.esef_filing_root)
         logger.debug(f"Added reference: {href} to {self.base} with esef_filing_root: {self.esef_filing_root}")
+    def get_reference_location(self):
+        """
+        Get the location to use for references
+        Returns:
+            str: The virtual location if available, otherwise the physical location
+        """
+        return self.virtual_location or self.location

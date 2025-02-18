@@ -25,7 +25,8 @@ class Context(ebase.XmlElementBase):
             f'{{{const.NS_XBRLDI}}}typedMember': self.l_member
         }
         super().__init__(e, parsers)
-
+    def __repr__(self):
+        return f"Context(entity_scheme={self.entity_scheme}, entity_identifier={self.entity_identifier}, period={self.get_period_string()}, descriptors={self.descriptors})"
     def l_context(self, e):
         self.l_children(e)
 

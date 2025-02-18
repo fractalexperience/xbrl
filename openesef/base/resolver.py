@@ -17,9 +17,13 @@ import logging
 if __name__=="__main__":
     logger = setup_logger("main", logging.INFO, log_dir="/tmp/log/")
 else:
-    logger = logging.getLogger("main.openesf.resolver") 
+    logger = logging.getLogger("main.openesf.base.resolver") 
 
 
+import fs
+
+# Create an in-memory filesystem
+memfs = fs.open_fs('mem://')
 
 
 class Resolver:
@@ -162,33 +166,23 @@ class Resolver:
         #   
         return cached_file
     #
-    def cache_from_string(self, content, location):
+    def cache_from_string(self, content, location="filename.xml", memfs=memfs):
         """
         Cache content from a StringIO/BytesIO object
         """
         if location is None:
             return None
-        #
-        parts = location.replace(os.path.sep, "/").split('/')
-        new_parts = util.reduce_url_parts(parts)
-        cached_file = self.cache_folder
-        #
-        # Create directory structure
-        for part in new_parts[2:-1]:
-            cached_file = os.path.join(cached_file, part)
-            if not os.path.exists(cached_file):
-                os.makedirs(cached_file)
-        #
-        fn = new_parts[-1]
-        cached_file = os.path.join(cached_file, fn)
-        #
-        # Write content to file
-        mode = 'w' if isinstance(content, StringIO) else 'wb'
-        with open(cached_file, mode) as f:
-            content.seek(0)
-            f.write(content.read() if isinstance(content, StringIO) else content.getvalue())
-        #   
-        return cached_file
+        if type(content) == StringIO:
+            content = content.getvalue()
+        with  memfs.open(location.replace("mem://", ""), 'w') as f:
+            f.write(content)
+            
+        if not "mem://" in location:
+            href = "mem://" + location     
+        else:
+            href=location       
+        logger.debug(f"Successfully cached {location} to memory with href={href}")    
+        return href
     #
     def download_to_memory(self, url):
         """

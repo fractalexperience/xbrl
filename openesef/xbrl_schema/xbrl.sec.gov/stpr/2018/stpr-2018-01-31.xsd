@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xs:schema targetNamespace="http://xbrl.sec.gov/stpr/2018-01-31"
+xmlns:link="http://www.xbrl.org/2003/linkbase"
+xmlns:nonnum="http://www.xbrl.org/dtr/type/non-numeric"
+xmlns:xbrli="http://www.xbrl.org/2003/instance"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+xmlns:stpr="http://xbrl.sec.gov/stpr/2018-01-31">
+<xs:annotation>
+<xs:appinfo>
+<link:roleType id="stpr" roleURI="http://xbrl.sec.gov/stpr/role/document/StateOrProvince">
+<link:definition>995420 - Document - State or Province</link:definition>
+<link:usedOn>link:calculationLink</link:usedOn>
+<link:usedOn>link:definitionLink</link:usedOn>
+<link:usedOn>link:presentationLink</link:usedOn>
+</link:roleType>
+</xs:appinfo>
+</xs:annotation>
+<xs:import schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd" namespace="http://www.xbrl.org/2003/instance" />
+<xs:import schemaLocation="http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd" namespace="http://www.xbrl.org/dtr/type/non-numeric" />
+<xs:element name="AK" id="stpr_AK" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="AL" id="stpr_AL" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="AR" id="stpr_AR" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="AZ" id="stpr_AZ" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CA" id="stpr_CA" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CO" id="stpr_CO" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CT" id="stpr_CT" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="DC" id="stpr_DC" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="DE" id="stpr_DE" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="FL" id="stpr_FL" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="GA" id="stpr_GA" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="HI" id="stpr_HI" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="IA" id="stpr_IA" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="ID" id="stpr_ID" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="IL" id="stpr_IL" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="IN" id="stpr_IN" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="KS" id="stpr_KS" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="KY" id="stpr_KY" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="LA" id="stpr_LA" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="MA" id="stpr_MA" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="MD" id="stpr_MD" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="ME" id="stpr_ME" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="MI" id="stpr_MI" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="MN" id="stpr_MN" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="MO" id="stpr_MO" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="MS" id="stpr_MS" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="MT" id="stpr_MT" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="NC" id="stpr_NC" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="ND" id="stpr_ND" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="NE" id="stpr_NE" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="NH" id="stpr_NH" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="NJ" id="stpr_NJ" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="NM" id="stpr_NM" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="NV" id="stpr_NV" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="NY" id="stpr_NY" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="OH" id="stpr_OH" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="OK" id="stpr_OK" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="OR" id="stpr_OR" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="PA" id="stpr_PA" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="RI" id="stpr_RI" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="SC" id="stpr_SC" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="SD" id="stpr_SD" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="TN" id="stpr_TN" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="TX" id="stpr_TX" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="UT" id="stpr_UT" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="VA" id="stpr_VA" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="VT" id="stpr_VT" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="WA" id="stpr_WA" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="WI" id="stpr_WI" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="WV" id="stpr_WV" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="WY" id="stpr_WY" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CA-AB" id="stpr_CA-AB" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CA-BC" id="stpr_CA-BC" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CA-MB" id="stpr_CA-MB" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CA-NB" id="stpr_CA-NB" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CA-NL" id="stpr_CA-NL" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CA-NT" id="stpr_CA-NT" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CA-NS" id="stpr_CA-NS" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CA-NU" id="stpr_CA-NU" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CA-ON" id="stpr_CA-ON" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CA-PE" id="stpr_CA-PE" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CA-QC" id="stpr_CA-QC" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CA-SK" id="stpr_CA-SK" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="CA-YT" id="stpr_CA-YT" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="ActiveStateProvinceCodeDomain" id="stpr_ActiveStateProvinceCodeDomain" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="DeprecatedStateProvinceCodeDomain" id="stpr_DeprecatedStateProvinceCodeDomain" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="AllStatesAndProvincesDomain" id="stpr_AllStatesAndProvincesDomain" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="A0" id="stpr_A0" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="A1" id="stpr_A1" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="A2" id="stpr_A2" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="A3" id="stpr_A3" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="A4" id="stpr_A4" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="A5" id="stpr_A5" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="A6" id="stpr_A6" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="A7" id="stpr_A7" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="A8" id="stpr_A8" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="A9" id="stpr_A9" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="B0" id="stpr_B0" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="E6" id="stpr_E6" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="X1" id="stpr_X1" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+<xs:element name="Z4" id="stpr_Z4" type="nonnum:domainItemType" xbrli:periodType="duration" abstract="true" nillable="true" substitutionGroup="xbrli:item" />
+</xs:schema>
