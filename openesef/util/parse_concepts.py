@@ -21,7 +21,23 @@ else:
 #import openesef
 from openesef.base import pool, const
 from openesef.engines import tax_reporter
+from openesef.edgar.edgar import EG_LOCAL
+from openesef.edgar.filing import Filing
+
+from openesef.base.pool import Pool
+
+from openesef.taxonomy.taxonomy import Taxonomy
+from openesef.instance.instance import Instance
+
+
+from lxml import etree as lxml_etree
+from io import StringIO, BytesIO
+
+
+
+import fs
 import os
+import re
 import gzip
 import pathlib
 import pandas as pd
@@ -494,6 +510,61 @@ def instance_to_df(xid, this_tax):
     # Remove rows where all values are None or NaN
     #df_facts = df_facts.dropna(how='all')
     return df_facts
+
+
+def clean_doc(text):
+    if type(text) == dict:
+        text =  list(text.values())[0]
+    text = re.sub(r'^<XBRL>', '', text)
+    text = re.sub(r'</XBRL>$', '', text)
+    text = re.sub(r"\n", '', text)
+    return text
+
+def filing_to_xbrl(url, egl = EG_LOCAL('/text/edgar')):
+    """
+    url: str
+    """
+    filing = Filing(url, egl = egl)
+    memfs = fs.open_fs('mem://')
+    entry_points = []
+    
+    for key, filename in filing.xbrl_files.items():
+        logger.info(f"{key}, {filing.documents[filename].type}, {filename}")
+        content = filing.documents[filename].doc_text.data
+        content = clean_doc(content)
+        with  memfs.open(filename, 'w') as f:
+            f.write(content)
+        logger.info(f"Successfully cached {filename} to memory, length={len(content)}")
+        entry_points.append(f"mem://{filename}")
+
+    memfs.listdir("/")
+
+    entry_points
+
+    data_pool = Pool(max_error=2, esef_filing_root="mem://", memfs=memfs); #self = data_pool
+
+
+    this_tax = Taxonomy(entry_points=entry_points,
+                            container_pool = data_pool, 
+                            esef_filing_root="mem://",
+                            #in_memory_content=in_memory_content,
+                            memfs=memfs)  #
+
+    data_pool.current_taxonomy = this_tax
+
+    if filing.xbrl_files.get("xml"):
+        xml_filename = filing.xbrl_files.get("xml")
+        instance_str = filing.documents[xml_filename].doc_text.data
+        instance_str = clean_doc(instance_str)
+        instance_byte = instance_str.encode('utf-8')
+        instance_io = BytesIO(instance_byte)
+        instance_tree = lxml_etree.parse(instance_io)
+        root = instance_tree.getroot()
+        data_pool.cache_from_string(location=xml_filename, content=instance_str, memfs=memfs)
+        xid = Instance(container_pool=data_pool, root=root, memfs=memfs)
+
+
+
 
 if __name__ == "__main__" and False:
     #from parse_concepts import *
