@@ -132,7 +132,7 @@ class Pool(resolver.Resolver):
         self.linkbases = {}
         self.instances = {}
         self.memfs = memfs
-        if  memfs is None and "mem://" in esef_filing_root: 
+        if  memfs is None and esef_filing_root is not None and "mem://" in esef_filing_root: 
             raise ValueError("Pool: memfs is None and esef_filing_root is a memory URL")
         self.count_exceptions = 0
         # Alternative locations. If set, this is used to resolve Qeb references to alternative (existing) URLs. 
