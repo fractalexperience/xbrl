@@ -9,6 +9,7 @@ import json
 from functools import lru_cache
 import os
 from tqdm import tqdm
+import gzip
 
 def pluck_xbrl_json(url):
     """
@@ -44,26 +45,71 @@ def pluck_xbrl_json(url):
 
     return pd.DataFrame(finished_facts)
 
+def flatten_dict(data, parent_key='', sep='_'):
+    """
+    Flattens a nested dictionary into a single-level dictionary.
 
-def get_by_api():
+    Args:
+        data (dict): The dictionary to flatten.
+        parent_key (str): The prefix for keys in the flattened dictionary.
+        sep (str): The separator to use between keys.
+
+    Returns:
+        dict: A flattened dictionary.
+    """
+    items = []
+    for k, v in data.items():
+        new_key = parent_key + sep + k if parent_key else k
+        if isinstance(v, dict):
+            items.extend(flatten_dict(v, new_key, sep=sep).items())
+        else:
+            items.append((new_key, v))
+    return dict(items)
+
+def get_entity_by_api(href):
+    # href ="api/entities/549300CSLHPO6Y1AZN37"
+    lei = href.split("/")[-1]
+    url = f"https://filings.xbrl.org{href}"
+    local_filename = f"../data/xbrl_org/entities/{lei}.json.gz"
+    if os.path.exists(local_filename):
+        with gzip.open(local_filename, "rb") as jfr:
+            json_string = jfr.read().decode('utf-8')
+    else:
+        r = requests.get(url)
+        assert r.status_code == 200, f"HTTP request failed with status code: {r.status_code}"
+        json_string = r.content.decode('utf-8')
+        with gzip.open(local_filename , "wb") as jfw:  # Use gzip to write the file
+            jfw.write(json_string.encode('utf-8'))  # Encode the string to bytes
+
+    raw_data = json.loads(json_string)
+    entity_name = raw_data.get("data", {}).get("attributes", {}).get("name", "")
+    return entity_name
+
+
+def get_filings_index_by_api():
     all_data = []
     for page_number in tqdm(range(1, 563)):
-        local_filename = f"../data/xbrl_org/filing_xbrl_org_index_20250228_page_{page_number}.json"
+        #page_number = 1
+        local_filename = f"../data/xbrl_org/pages/filing_xbrl_org_index_20250228_page_{page_number}.json.gz"
         if os.path.exists(local_filename):
-            with open(local_filename, "r") as jfr:
-                json_string = jfr.read()
+            with gzip.open(local_filename, "rb") as jfr:
+                json_string = jfr.read().decode('utf-8')
         else:
             url = f"https://filings.xbrl.org/api/filings?include=entity&page%5Bnumber%5D={page_number}"
             r = requests.get(url)
             assert r.status_code == 200, f"HTTP request failed with status code: {r.status_code}"
             json_string = r.content.decode('utf-8')
-            with open(local_filename, "w") as jfw:
-                jfw.write(json_string)
-
+            #with open(local_filename, "w") as jfw:
+            #    jfw.write(json_string)
+            with gzip.open(local_filename, "wb") as jfw:  # Use gzip to write the file
+                jfw.write(json_string.encode('utf-8'))  # Encode the string to bytes
+        
         raw_data = json.loads(json_string)
-        this_data = raw_data.get("data", [])
+        this_data_raw = raw_data.get("data", [])
+        this_data =  [flatten_dict(d) for d in this_data_raw]
+        
         all_data.extend(this_data)
-
+    
     df =  pd.DataFrame(all_data)
     df.to_excel("../data/filing_xbrl_org_index_20250228.xlsx") #save in data folder, not the subfolder.
     df.to_pickle("../data/xbrl_org/filing_xbrl_org_index_20250228.p.gz", compression="gzip")
