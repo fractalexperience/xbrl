@@ -1,0 +1,256 @@
+<html>
+  <head>
+        <meta charset="UTF-8">
+        <title>filings.xbrl.org filing index</title>
+        <link href="/static/css/style-v2.css%3Fq%3Df7c15" rel="stylesheet">
+        <script src="/static/js/list.min.js"></script>
+        <script crossorigin="anonymous" type="text/javascript" src="https://kit.fontawesome.com/be8f7a8eee.js" id="font-awesome-official-js"></script>
+        <script src="/static/js/jquery-3.6.0.min.js"></script>
+        <script src="/static/js/fxo.bundle.js%3Fq%3D356c4"></script>
+        
+
+    </head>
+    <body>
+        <header id="site-header">
+            <div class="inside">
+                <div class="logo">
+                    <a href="/"><img src="https://www.xbrl.org/wp-content/themes/xbrl/images/logoHeader.png"></a>
+                </div>
+                <div class="nav-holder">
+                    <ul class="nav">
+                        <li><a href="/docs/about">About</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <div class="site-main">
+            <div class="body-wrap">
+                
+
+<h1>About filings.xbrl.org</h1>
+
+<p><a href="/">filings.xbrl.org</a> is a repository of Inline XBRL filings.  The repository currently contains filings that have been prepared under the following filing systems:
+</p>
+
+<ul>
+    <li>The European Single Electronic Format (ESEF) </li>
+    <li>The United Kingdom Single Electronic Format (UKSEF)</li>
+    <li>The Ukraine Financial Reporting System</li>
+</ul>
+<p>
+    <a href="/">filings.xbrl.org</a> was originally created in order to:
+</p>
+<ul>
+    <li>Make it easier to find and access filings prepared under the ESEF mandate;</li>
+    <li>Demonstrate the benefits of structured, XBRL data; and</li>
+    <li>Promote discussion and feedback on the quality of ESEF reports.</li>
+</ul>
+<p>
+    The repository has subsequently been expanded to cover other filing systems.
+</p>
+
+<h3>What information is available?</h3>
+
+<p>For each filing we provide:</p>
+
+<ul>
+	<li>The filing displayed in an Inline XBRL viewer which allows users to browse the marked up data within the report;</li>
+    <li>The tagged data as xBRL-JSON, a simple, JSON-based format for XBRL data, which can be consumed and analysed in a range of tools;</li>
+	<li>A copy of the XBRL Report Package for the filing, as filed to the collection authority.</li>
+</ul>
+
+<h3>What is it for?</h3>
+
+<p>All new regulatory filing arrangements take some time to settle in. The ESEF filing mandate represents a significant change for European public companies and <abbr title="Public Interest Entities">PIEs</abbr> and because of the federated structures involved in ESEF, there will undoubtedly need to be improvements made throughout the information supply chain.</p>
+
+<p>XBRL International hopes that making this information more readily accessible will help ensure that these improvements will happen as quickly as possible, and in particular to help:</p>
+
+<ul>
+	<li>Issuers understand which parts of their ESEF disclosures might need to be improved going forward.</li>
+	<li>Officially Appointed Mechanisms understand what improvements they could make to help ensure that the process works smoothly and in preparation for ESAP.</li>
+	<li>National Competent Authorities and the European Regulator (ESMA) understand what improvements they can make to help ensure that digital disclosures are accurately and effectively informing markets and other decision makers.</li>
+	<li>Vendors and consultants appreciate what improvements they might make to their software and services in support of issuers, OAMs and regulatory bodies.</li>
+	<li>Auditors develop a greater appreciation for ways that ESEF data is used and consider approaches to improving the delivery of their assurance services.</li>
+	<li>Analysts, fund managers and other users learn how they can utilise ESEF data, including an appreciation of ways that they can help ensure that these disclosures are investment grade.</li>
+	<li>The XBRL community more broadly, to help understand relevant best practices and to develop, and further innovate in the corporate reporting space.</li>
+</ul>
+
+<h3>Why the focus on ESEF?</h3>
+
+<p>We expect that the ESEF mandate will be closely studied by other regulators around the world as corporate reporting (including ESG reporting) shifts to a digital-first approach. </p>
+
+<h3>Missing filings</h3>
+<p>
+Although we aim to include as many filings as possible, the repository is not complete.
+</p>
+<p>
+In some cases, technical errors in a filing prevent us from providing the viewer and xBRL-JSON outputs.  In other cases, the format of the filing is such that we cannot automatically determine the LEI and filing date to which it relates, and the filing will be excluded from the index altogether.
+</p>
+
+<h3 id="api">API</h3>
+
+<p>
+The filings database is also available via an API at <a href="https://filings.xbrl.org/api/filings">https://filings.xbrl.org/api/filings</a>.  The API uses the <a href="https://jsonapi.org/">JSON-API</a> standard.
+</p>
+<p>
+There is some limited <a href="/docs/api">API documentation</a> available.
+</p>
+
+<h3 id="performance">Performance</h3>
+
+<p>
+Some filings in this repository can be slow to open in a browser.  This is typically because the Inline XBRL report has been created using automated PDF-to-HTML conversion software.  Such software produces a document which faithfully reproduces the appearance of a PDF document, but the resulting HTML is often extremely inefficient, leading to large file sizes and slow rendering times.
+</p>
+<p>
+We expect this to improve over time, as software improves, and preparers start to target the Inline XBRL format directly, rather than converting from PDF.
+</p>
+
+<h3 id="structure">Index structure</h3>
+
+<p>
+The index is structured by company identifier (typically LEI), then reporting
+date, filing system and country.  In some cases there are multiple reports
+within that structure.  This is typically due to reports being provided in
+multiple languages, but it may also be due to the submission of amended
+reports.  Where there are multiple reports, these are put into separate,
+numbered sub-directories.  We do not attempt to capture the relationship
+between such sets of reports, as data collection authorities do not make this
+information available in a consistent manner.
+</p>
+
+<p>
+Nothing should be inferred from the numbers assigned to the reports; they
+reflect the order in which they were added to the index, which may not match
+the order in which they were filed.
+</p>
+
+<h4>Languages</h4>
+
+<p>
+The language(s) shown for a filing is based on the tagging of any text facts
+within the report.
+</p>
+
+<h4>Report dates</h4>
+
+<p>
+The date shown for a filing is inferred from the facts tagged within the
+report.
+</p>
+
+<h4>Hashes</h4>
+
+<p>
+We use hashes to uniquely identify reports with in the index.  This allows us
+to detect where the same filing is submitted to multiple authorities, and
+cross-link them.  It also allows us to reliably avoid adding duplicate filings.
+</p>
+
+<p>
+We use a SHA-256 hash.  We generally show the first eight hexadecimal digits of
+the hash, with the full 64-digit hash is available in a mouse-over.
+</p>
+
+
+<h4>"Added" date</h4>
+
+<p>
+The "added" column shows the date on which the filing was added to our index.
+Although we try to keep our index as up-to-date as possible, there may be a
+significant delay between a filing being submitted to the collection authority
+and it being added to our index.  
+</p>
+
+
+<h3 id="validation">Validation errors and warnings</h3>
+
+<p>
+Many of the filings in the index have validation errors and warnings.
+</p
+
+<p>
+Validation errors indicate that the report does not conform to the relevant
+XBRL specifications and as such cannot be expected to open reliably if at all
+in XBRL software.  For now, we have chosen to include these filings where
+possible in order to assist with identifying and fixing the problems.
+</p>
+
+<p>
+Validation warnings are generally a result of failing to comply with <a href="https://www.xbrl.org/guidance/xbrl-glossary/#xbrl-formula-rules">XBRL Formula Rules</a> defined in the ESEF taxonomy. 
+</p>
+
+<p>
+Please note that for ESEF filings, beyond applying the XBRL Formula Rules defined in the ESEF taxonomy, we have not attempted to validate rules in the <a href="https://www.esma.europa.eu/document/esef-reporting-manual">ESEF Reporting Manual</a>, or any country-specific rules that may be applicable.
+</p>
+
+
+<h3 id="sources">Sources</h3>
+
+<p>
+Filings are sourced from the relevant data collection authority.  In the case
+of ESEF reports, this is the Officially Appointed Mechanism (OAM) for the
+country in which it was filed.  See the <a href="/source">Filing Sources</a>
+for a list of the sources that we use.  
+</p>
+
+<h3>Missing data</h3>
+
+<p>
+Unfortunately, there are a number of countries where ESEF filings are not made
+available in a way that allows us to reliably discover and download them, or
+where we have not been able to locate a source at all.  These countries include:
+</p>
+<ul>
+    <li>Germany</li>
+    <li>Ireland</li>
+</ul>
+<p>
+If you can help us access data for these countries, please <a href="mailto:filings@xbrl.org">get in touch</a>.
+</p>
+
+<h3 id="mailing-list">Mailing list</h3>
+
+<p>
+If you would like to stay informed of new developments in the repository, or would like to suggest and discuss potential new features, please join our <a href="https://lists.xbrl.org/mailman3/postorius/lists/fxo-users.lists.xbrl.org/">filings.xbrl.org mailing list</a>.
+</p>
+
+
+<h3>Acknowledgements</h3>
+
+<p>
+This service uses the <a href="https://www.workiva.com/uk/blog/open-source-inline-xbrl-viewer-workiva-qa">Arelle Inline XBRL Viewer</a> 
+The xBRL-JSON outputs are provided by the <a href="https://www.arelle.org">Arelle</a> XBRL processor.
+We are very grateful to <a href="https://www.workiva.com/">Workiva</a> for their support of these open source projects.
+</p>
+
+<h3>Terms of use</h3>
+
+<p>At present, there are no restrictions on the ways that the data can be used.</p>
+
+<h3>Contact</h3>
+
+<p>If you have any questions about the contents of this repository, please contact <a href="mailto:filings@xbrl.org">filings@xbrl.org</a>.
+
+
+            </div>
+        </div>
+	<div id="footer">
+            <div class="inside">	    
+                <p>
+		© 2021-23 XBRL All Rights Reserved.
+                </p>
+            </div>
+	</div>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-G3TG6F53RM"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-G3TG6F53RM');
+	</script>
+    </body>
+</html>
+
+

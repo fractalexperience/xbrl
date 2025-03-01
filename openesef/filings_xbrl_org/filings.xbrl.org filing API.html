@@ -1,0 +1,118 @@
+<html>
+  <head>
+        <meta charset="UTF-8">
+        <title>filings.xbrl.org filing index</title>
+        <link href="/static/css/style-v2.css%3Fq%3Df7c15" rel="stylesheet">
+        <script src="/static/js/list.min.js"></script>
+        <script crossorigin="anonymous" type="text/javascript" src="https://kit.fontawesome.com/be8f7a8eee.js" id="font-awesome-official-js"></script>
+        <script src="/static/js/jquery-3.6.0.min.js"></script>
+        <script src="/static/js/fxo.bundle.js%3Fq%3D356c4"></script>
+        
+
+    </head>
+    <body>
+        <header id="site-header">
+            <div class="inside">
+                <div class="logo">
+                    <a href="/"><img src="https://www.xbrl.org/wp-content/themes/xbrl/images/logoHeader.png"></a>
+                </div>
+                <div class="nav-holder">
+                    <ul class="nav">
+                        <li><a href="/docs/about">About</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <div class="site-main">
+            <div class="body-wrap">
+                
+
+<h1>filings.xbrl.org API</h1>
+
+<p>
+The filings in <a href="/">filings.xbrl.org</a> can be accessed via a public API.
+</p>
+
+<h2>Using the API</h2>
+
+<p>
+The API follows the <a href="https://jsonapi.org/">JSON API</a> standard.  The API is accessible at <b>https://filings.xbrl.org/api</b>.
+</p>
+<p>
+The API provides the following <a href="https://jsonapi.org/format/#document-resource-objects">resources</a>:
+</p>
+<ul>
+<li><b>filing</b> – <a href="https://filings.xbrl.org/api/filings"><code>https://filings.xbrl.org/api/filings</code></a></li>
+<li><b>entity</b> – <a href="https://filings.xbrl.org/api/entities"><code>https://filings.xbrl.org/api/entities</code></a></li>
+<li><b>validation_message</b> – <a href="https://filings.xbrl.org/api/validation_messages"><code>https://filings.xbrl.org/api/validation_messages</code></a></li>
+</ul>
+
+<h3>Pagination</h3>
+
+<p>
+Results are paginated.  Links to other pages within the results are included in the <code>links</code> object within the response.  Pagination can be controlled with query parameters:
+</p>
+<ul>
+<li><code>page[size]=200</code> — specify the page size</li>
+<li><code>page[number]=2</code> — retrieve a specific page</li>
+</ul>
+
+<h3>Including referenced resources</h3>
+
+<p>
+It is often useful to include entity information when retrieving filings.  This can be done by specifying a query parameter of <a href="https://filings.xbrl.org/api/filings?include=entity"><code>?include=entity</code></a>.
+</p>
+
+<h3>Filtering</h3>
+
+<p>
+Results can be filtered on attributes of the resource.  For example, <a href="https://filings.xbrl.org/api/filings?filter[country]=GB">https://filings.xbrl.org/api/filings?filter[country]=GB</a> will retrieve filings with a country of <code>GB</code>.
+</p>
+
+<p>
+It is also possible to construct more complex filters.  The syntax for this is described in the <a href="https://flask-combo-jsonapi.readthedocs.io/en/stable/filtering.html">documentation for the API library used by filings.xbrl.org</a>.
+</p>
+
+<h3>Sorting</h3>
+
+<p>
+Results can be sorted by specifying a <code>sort</code> query parameter.
+</p>
+<p>
+If you are looking to obtain the most recent filings, specify a parameter of <a href="https://filings.xbrl.org/api/filings?sort=-processed"><code>?sort=-processed</code></a>.
+</p>
+
+
+<h2>Usage</h2>
+
+<p>
+Access to the API is provided free of charge, but we reserve the right to alter the API at any time, including applying rate limits or withdrawing it completely.
+</p>
+<p>
+If you are making regular use of the API, it is strongly recommended to join the <a href="/docs/about#mailing-list">mailing list</a>.
+</p>
+
+
+
+            </div>
+        </div>
+	<div id="footer">
+            <div class="inside">	    
+                <p>
+		© 2021-23 XBRL All Rights Reserved.
+                </p>
+            </div>
+	</div>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-G3TG6F53RM"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-G3TG6F53RM');
+	</script>
+    </body>
+</html>
+
+
