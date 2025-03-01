@@ -1,6 +1,6 @@
 # XBRL Filings API
 
-[https://github.com/reeyarn/openesef/tree/main/openesef/filings_xbrl_org](https://github.com/reeyarn/openesef/tree/main/openesef/filings_xbrl_org)
+[https://github.com/reeyarn/openesef/tree/master/openesef/filings_xbrl_org](https://github.com/reeyarn/openesef/tree/master/openesef/filings_xbrl_org)
 
 This sub-repository provides a Python implementation for interacting with the XBRL filings API. The code is designed to fetch, parse, and manipulate XBRL data from a public API endpoint, specifically tailored for ESEF (European Single Electronic Format) filings.
 
@@ -115,12 +115,13 @@ To use the functions provided in this module, simply import the necessary functi
 from openesef.filings_xbrl_org.api import get_filings_index_by_api, get_entity_by_api
 
 df_xbrl_org = get_filings_index_by_api()
-df_xbrl_org["entity_name"] = df_xbrl_org["relationships.entity.links.related"].progress_apply(get_entity_by_api)
+#df_xbrl_org["entity_name"] = df_xbrl_org["relationships.entity.links.related"].progress_apply(get_entity_by_api)
 
 
 for index, row in df_xbrl_org.iterrows():
-    zip_url = row["attributes"]["zip_url"] # Assuming the URL is stored in this field
-    file_name = f"../data/xbrl_org/{row['entity_name']}.zip" # Customize the file name as needed
+    zip_url = row["attributes.package_url"] # Assuming the URL is stored in this field
+    #file_name = f"../data/xbrl_org/{row['entity_name']}.zip" # Customize the file name as needed
+    file_name = url.split("/")[-1]
     download_zip_file(zip_url, file_name)
     # Verify the downloaded file (assuming you have the expected hash)
     expected_hash = row["attributes"]["sha256_hash"] # Assuming the expected hash is stored in this field
