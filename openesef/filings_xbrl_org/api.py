@@ -10,6 +10,8 @@ from functools import lru_cache
 import os
 from tqdm import tqdm
 import gzip
+import requests
+import hashlib
 
 def pluck_xbrl_json(url):
     """
@@ -247,3 +249,32 @@ def get_wikidata_country_iso2_lookup():
     # Example:
     data = {'country_alpha_2': ['CZ', 'DE', 'FR'], 'countryLabel': ['Czechia', 'Germany', 'France']}
     return pd.DataFrame(data)
+
+def verify_sha256_hash(local_file_path, sha256_hash):
+    sha256 = hashlib.sha256()
+    with open(local_file_path, 'rb') as f:
+        file_data = f.read()  # Read the entire file
+        sha256.update(file_data)  # Update the hash with the file data
+    return sha256.hexdigest() == sha256_hash
+
+def download_zip_file(url, local_folder, sha256_hash):
+    os.makedirs(local_folder, exist_ok=True)  # Create the directory if it doesn't exist
+    url_filename = url.split("/")[-1]
+    local_file_path = os.path.join(local_folder, url_filename)  # Specify the local file name
+    if os.path.exists(local_file_path):
+        return True
+    try:
+        with requests.get(url, stream=True) as response:
+            response.raise_for_status()  # Check for request errors
+            with open(local_file_path, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=16 * 1024):  # 16 KB chunks
+                    f.write(chunk)
+        # Verify the SHA256 hash after the complete download
+        if verify_sha256_hash(local_file_path, sha256_hash):
+            print(f"Downloaded {url_filename} and verified hash")
+            return True
+        else:
+            return False
+    except Exception as e:
+        return False
+    return False

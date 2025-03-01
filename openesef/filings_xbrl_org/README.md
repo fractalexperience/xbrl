@@ -1,8 +1,8 @@
 # XBRL Filings API
 
-[https://github.com/reeyarn/openesef/tree/master/openesef/filings_xbrl_org](https://github.com/reeyarn/openesef/tree/master/openesef/filings_xbrl_org)
+[filings.xbrl.org](/) API documentation: [https://filings.xbrl.org/api](https://filings.xbrl.org/api)
 
-This sub-repository provides a Python implementation for interacting with the XBRL filings API. The code is designed to fetch, parse, and manipulate XBRL data from a public API endpoint, specifically tailored for ESEF (European Single Electronic Format) filings.
+This sub-repository ([https://github.com/reeyarn/openesef/tree/master/openesef/filings_xbrl_org](https://github.com/reeyarn/openesef/tree/master/openesef/filings_xbrl_org)) provides a Python implementation for interacting with the [filings.xbrl.org](/) public API. The code is designed to fetch, parse, and manipulate XBRL data, specifically tailored for ESEF (European Single Electronic Format) filings.  The [filings.xbrl.org](/) API follows the [JSON API](https://jsonapi.org/) standard.
 
 ## Overview
 
@@ -14,6 +14,16 @@ The main functionalities of the API include:
 - **Filings Index Retrieval**: Access the filings index from the API, handling pagination and saving results locally.
 - **Error Handling**: Collect and manage error information associated with filings.
 - **Country Rollup Calculation**: Generate a summary of report counts by country.
+- **File Integrity Verification**: Verify the SHA-256 hash of downloaded files.
+- **ZIP File Downloading**: Download ZIP files from specified URLs.
+
+## Resources provided by the filings.xbrl.org API:
+
+*   **filing** – [`https://filings.xbrl.org/api/filings`](https://filings.xbrl.org/api/filings)
+*   **entity** – [`https://filings.xbrl.org/api/entities`](https://filings.xbrl.org/api/entities)
+*   **validation\_message** – [`https://filings.xbrl.org/api/validation_messages`](https://filings.xbrl.org/api/validation_messages)
+
+
 
 ## Functions
 
@@ -98,6 +108,7 @@ Downloads a ZIP file from a specified URL and saves it to the given path.
   - `save_path` (str): The local path where the ZIP file will be saved.
 - **Returns**: 
   - `None`: Downloads the file and saves it locally.
+
 
 
 ## Requirements
