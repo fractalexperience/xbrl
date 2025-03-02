@@ -152,3 +152,7 @@ ide-features-trainer.xml
 laf.xml
 
 sample_esef/
+
+openesef/.output-md
+
+*/.DS_Store
