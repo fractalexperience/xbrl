@@ -12,6 +12,11 @@
   - https://github.com/trr266/ESEF.jl (Julia)
   - https://github.com/JeffFerguson/gepsio (.Net)
   - https://github.com/emilycoco/parse-xbrl (JavaScript)
+  - https://github.com/altova/sec-xbrl/tree/master (Python, Altova)
+  - https://github.com/secdatabase/SEC-XBRL-Financial-Statement-Dataset (https://www.secdatabase.com/)
+  - https://github.com/altova/sec-xbrl/ (Python)
+  - https://github.com/DataQualityCommittee/dqc_us_rules/ (xbrl.us/dqc aka XBRL-US Data Quality Committee Rules)
+  - https://github.com/steffen-zou/Extract-financial-data-from-XBRL/
 
 - Project is under development.
   - Development completeness: 66%.
