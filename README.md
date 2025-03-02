@@ -2,13 +2,16 @@
 - Open-ESEF is a Python-based open-source project for handling XBRL filings that follow ESEF, the European Single Electronic Format. 
 
 - ESEF is a standard for electronic financial reporting developed by the European Securities and Markets Authority (ESMA). 
-- This project contains open-source code from two repos: 
+
+- This project is based on open-source code from these repos: 
   - [XBRL-Model](https://github.com/fractalexperience/xbrl/) project.
   - [SEC EDGAR Financial Reports](https://github.com/farhadab/sec-edgar-financials) project.
+  - [pyXBRL](https://github.com/ifanchu/pyXBRL)
 
 - See also:
-  - https://github.com/trr266/ESEF.jl
-  - https://github.com/JeffFerguson/gepsio
+  - https://github.com/trr266/ESEF.jl (Julia)
+  - https://github.com/JeffFerguson/gepsio (.Net)
+  - https://github.com/emilycoco/parse-xbrl (JavaScript)
 
 - Project is under development.
   - Development completeness: 66%.
@@ -285,6 +288,7 @@ The project provides tools for parsing, validating, and analyzing XBRL data, par
 The project serves as a foundation for building ESEF validation tools, financial analytics platforms, or regulatory reporting systems.
 
 ### To-Do's: 
+   - Check the `engines` folder; what do they do? `HtmlHelper`, `tax_reporter`, `tlb_reporter` (this one does not have document yet)
    - Check the examples of the original repo:
      - Taxonomy Packages - Most of the taxonomies are nowadays distributed in form of taxonomy packages. [Link](https://fractalexperience.github.io/xbrl/taxonomy_packages.html)
      - Taxonomy Discovery - Loading of a XBRL taxonomy can be a challenging operations, because some taxonomies contain 10,000+ files. {XM} supports various scenarios to load taxonomies as well as an optimized model for in-memory taxonomy storage. [Link](https://fractalexperience.github.io/xbrl/taxonomy_discovery.html)

@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+pyproject.toml0
+
 #local apple file
 aapl-20200926*
 
@@ -148,3 +150,6 @@ filetypes.xml
 editor.xml
 ide-features-trainer.xml
 laf.xml
+
+sample_esef/
+examples/
