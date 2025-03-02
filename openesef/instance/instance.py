@@ -2,6 +2,7 @@ import os
 from openesef.instance import m_xbrl
 from openesef.base import fbase, const
 from openesef.ixbrl import m_ixbrl
+from openesef.instance import dei
 from lxml import etree as lxml
 
 
@@ -17,8 +18,14 @@ class Instance(fbase.XmlFileBase):
             f'{{{const.NS_XBRLI}}}xbrl': self.l_xbrl
         }
         self.location = location
-
+        
+        #20250302 trying to incorporate dei.py into instance.py
+        self.xbrl_document = dei.XBRLDocument(location) # Create an instance of XBRLDocument
+        self.dei = self.xbrl_document.dei # Access DEI information
+        
         super().__init__(location, container_pool, parsers, root, esef_filing_root=esef_filing_root, memfs=memfs)
+        # DEI information will be available in self.xbrl.dei after parsing
+        self.dei = self.xbrl.dei if self.xbrl else {} # Access DEI from XbrlModel
 
     def __str__(self):
         return self.info()
@@ -37,7 +44,7 @@ Footnotes: {len(self.xbrl.footnotes)}
 Filing Indicators: {len(self.xbrl.filing_indicators)}"""
 
     def l_xbrl(self, e):
-        self.xbrl = m_xbrl.XbrlModel(e, self)
+        self.xbrl = m_xbrl.XbrlModel(e, self) ## XbrlModel will now parse DEI
 
     def l_ixbrl(self, e):
         self.ixbrl = m_ixbrl.IxbrlModel(e, self)

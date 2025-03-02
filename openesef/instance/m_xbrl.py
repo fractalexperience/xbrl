@@ -8,6 +8,8 @@ class XbrlModel(ebase.XmlElementBase):
         self.instance = container_instance
         if e is None:
             return
+        self.dei = {}
+        self._parse_dei()
         self.linkbase_refs = set([])
         self.schema_refs = set([])
         self.contexts = {}
@@ -47,6 +49,15 @@ class XbrlModel(ebase.XmlElementBase):
         super().__init__(e, self.parsers)
         self.compile()
 
+    def _parse_dei(self):
+        """Extract DEI facts and store them in self.dei"""
+        for fact_obj in self.facts.values(): # Iterate through existing facts parsed by XbrlModel
+            fact_qname = fact_obj.qname
+            if fact_qname.startswith('dei:'): # Check if it's a DEI fact (assuming 'dei' prefix)
+                dei_name = fact_qname[4:] # Remove 'dei:' prefix
+                dei_item = dei.DEI(dei_name) # Use your DEI class
+                self.dei[dei_item] = fact_obj.value # Store DEI value
+                
     def l_xbrl(self, e):
         self.l_children(e)
 

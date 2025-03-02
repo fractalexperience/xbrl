@@ -4,3 +4,4 @@ from . import instance
 from . import fact
 from . import context
 from . import unit
+from . import dei
