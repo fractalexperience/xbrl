@@ -6,8 +6,13 @@
   - [XBRL-Model](https://github.com/fractalexperience/xbrl/) project.
   - [SEC EDGAR Financial Reports](https://github.com/farhadab/sec-edgar-financials) project.
 
+- See also:
+  - https://github.com/trr266/ESEF.jl
+  - https://github.com/JeffFerguson/gepsio
+
 - Project is under development.
-  - Development completeness: 65%.
+  - Development completeness: 66%.
+    - On Feb 28, 2025, added filings.xbrl.org api interaction functions to download ESEF filings from filings.xbrl.org.
 
 ## How to use the Open-ESEF
 

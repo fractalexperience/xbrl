@@ -103,9 +103,12 @@ def get_filings_index_by_api():
             json_string = r.content.decode('utf-8')
             #with open(local_filename, "w") as jfw:
             #    jfw.write(json_string)
-            with gzip.open(local_filename, "wb") as jfw:  # Use gzip to write the file
-                jfw.write(json_string.encode('utf-8'))  # Encode the string to bytes
-        
+            try:
+                os.makedirs(os.path.dirname(local_filename), exist_ok=True) if not os.path.exists(os.path.dirname(local_filename)) else None
+                with gzip.open(local_filename, "wb") as jfw:  # Use gzip to write the file
+                    jfw.write(json_string.encode('utf-8'))  # Encode the string to bytes
+            except Exception as e:
+                print(f"Error creating directory for {local_filename}: {e}")
         raw_data = json.loads(json_string)
         this_data_raw = raw_data.get("data", [])
         this_data =  [flatten_dict(d) for d in this_data_raw]
