@@ -1,7 +1,7 @@
 from openesef.instance import fact, footnote, unit, context
 from openesef.taxonomy import arc, locator
 from openesef.base import ebase, const, util
-
+from openesef.instance import dei
 
 class XbrlModel(ebase.XmlElementBase):
     def __init__(self, e, container_instance):
@@ -9,7 +9,7 @@ class XbrlModel(ebase.XmlElementBase):
         if e is None:
             return
         self.dei = {}
-        self._parse_dei()
+        
         self.linkbase_refs = set([])
         self.schema_refs = set([])
         self.contexts = {}
@@ -48,6 +48,7 @@ class XbrlModel(ebase.XmlElementBase):
 
         super().__init__(e, self.parsers)
         self.compile()
+        self._parse_dei()
 
     def _parse_dei(self):
         """Extract DEI facts and store them in self.dei"""
@@ -55,8 +56,16 @@ class XbrlModel(ebase.XmlElementBase):
             fact_qname = fact_obj.qname
             if fact_qname.startswith('dei:'): # Check if it's a DEI fact (assuming 'dei' prefix)
                 dei_name = fact_qname[4:] # Remove 'dei:' prefix
-                dei_item = dei.DEI(dei_name) # Use your DEI class
-                self.dei[dei_item] = fact_obj.value # Store DEI value
+
+                # Get the DEI object directly using its name (string)
+                dei_object = getattr(dei.DEI, dei_name, None) # Get DEI object by name
+                if dei_object: # Check if DEI object was found
+                    self.dei[dei_object] = fact_obj.value # Use DEI *object* as key
+                #else:
+                #    logging.debug(f"Warning: DEI object not found for name: {dei_name}") # Handle case where DEI object is not found
+                                    
+                #dei_item = dei.DEI(dei_name) # Use your DEI class
+                #self.dei[dei_item] = fact_obj.value # Store DEI value
                 
     def l_xbrl(self, e):
         self.l_children(e)

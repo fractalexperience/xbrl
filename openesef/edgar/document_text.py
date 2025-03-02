@@ -34,7 +34,7 @@ class DocumentText:
         :param data: a dictionary of parsed SGML DOCUMENT.TEXT;
             keys are tags and values are data as strings
         '''
-        self.data = data
+        
 
         # use data to set attributes
         for attr in attrs:
@@ -42,17 +42,24 @@ class DocumentText:
 
             if type(data) is dict and tag in data:
                 value = data[tag]
+                value = re.sub(r"\n", '', value)
+                value = re.sub(r'^<XBRL>', '', value)
+                value = re.sub(r'</XBRL>$', '', value)
+                data[tag] = value
 
                 if attr == 'xml':
                     # for everything else, we take the text as is
                     #value = clean_doc(value)
-                    value = re.sub(r'^<XBRL>', '', value)
-                    value = re.sub(r'</XBRL>$', '', value)
-                    value = re.sub(r"\n", '', value)
 
                     value = BeautifulSoup(value, 'html.parser')
 
                 setattr(self, attr, value)
+            elif type(data) is str:
+                data = re.sub(r"\n", '', data)
+                data = re.sub(r'^<XBRL>', '', data)
+                data = re.sub(r'</XBRL>$', '', data)
+        self.data = data        
+
 
     def __str__(self):
         return self.data

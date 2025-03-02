@@ -83,7 +83,23 @@ DEI.EntityRegistrantName = DEI('EntityRegistrantName')
 DEI.EntityVoluntaryFilers = DEI('EntityVoluntaryFilers')
 DEI.EntityWellKnownSeasonedIssuer = DEI('EntityWellKnownSeasonedIssuer')
 DEI.TradingSymbol = DEI('TradingSymbol')
+DEI.DocumentAnnualReport = DEI('DocumentAnnualReport')
+DEI.DocumentTransitionReport = DEI('DocumentTransitionReport')
+DEI.EntityFileNumber = DEI('EntityFileNumber')
+DEI.EntityIncorporationStateCountryCode = DEI('EntityIncorporationStateCountryCode')
+DEI.EntityTaxIdentificationNumber = DEI('EntityTaxIdentificationNumber')
+DEI.EntityAddressAddressLine1 = DEI('EntityAddressAddressLine1')
+DEI.EntityAddressCityOrTown = DEI('EntityAddressCityOrTown')
+DEI.EntityAddressStateOrProvince = DEI('EntityAddressStateOrProvince')
+DEI.EntityAddressPostalZipCode = DEI('EntityAddressPostalZipCode')
+DEI.CityAreaCode = DEI('CityAreaCode')
+DEI.LocalPhoneNumber = DEI('LocalPhoneNumber')
 
+DEI.EntityInteractiveDataCurrent = DEI('EntityInteractiveDataCurrent')
+DEI.EntitySmallBusiness = DEI('EntitySmallBusiness')
+DEI.EntityEmergingGrowthCompany = DEI('EntityEmergingGrowthCompany')
+DEI.IcfrAuditorAttestationFlag = DEI('IcfrAuditorAttestationFlag')
+DEI.EntityShellCompany = DEI('EntityShellCompany')  
 
 ## XBRLDocument class removed - DEI parsing integrated into XbrlModel
 
