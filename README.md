@@ -284,4 +284,21 @@ The project provides tools for parsing, validating, and analyzing XBRL data, par
 
 The project serves as a foundation for building ESEF validation tools, financial analytics platforms, or regulatory reporting systems.
 
-
+### To-Do's: 
+   - Check the examples of the original repo:
+     - Taxonomy Packages - Most of the taxonomies are nowadays distributed in form of taxonomy packages. [Link](https://fractalexperience.github.io/xbrl/taxonomy_packages.html)
+     - Taxonomy Discovery - Loading of a XBRL taxonomy can be a challenging operations, because some taxonomies contain 10,000+ files. {XM} supports various scenarios to load taxonomies as well as an optimized model for in-memory taxonomy storage. [Link](https://fractalexperience.github.io/xbrl/taxonomy_discovery.html)
+     - Taxonomy Browsing - XBRL Taxonomies contain large amounts of different objects. {XM} can be used to effectively display information about them as well as the relationships amongst each other. [Link1](https://github.com/reeyarn/openesef/blob/master/markdown/tax_browsing.md) [Link2](https://fractalexperience.github.io/xbrl/taxonomy_browsing)
+        - Report Concepts
+        - Presentation Hierarchies
+        - View specific presentation hierarchies
+        - View extensible enumerations lists
+        - Extensible Enumeration Sets
+        - Extensible Enumerations
+        - Role Types and Arcrole Types
+        - Dimensional Relationship Sets 
+  
+     - Table Rendering - {XM} can calculate table layout and render document templates as HTML files. Where is it?
+     - Instance Document Analysis - {XM} includes basic tools for processing of XBRL filings. Where is it?
+     - iXBRL Processing - {XM} is able to extract native XBRL from Inline XBRL filings. To do so, it supports related transformation registries and structures. [Link](https://fractalexperience.github.io/xbrl/ixbrl_processing)
+     
