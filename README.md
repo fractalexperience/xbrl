@@ -67,12 +67,17 @@ xid, tax = load_xbrl_filing(filing_url="/Archives/edgar/data/320193/0000320193-2
 
 - Now print the info:
 ```python
+# Print the XBRL instance info:
 print(xid)
+
+# Print the taxonomy info:
 print(tax)
 
+# Print the DEI info:
 for i, (key, value) in enumerate(xid.dei.items()):
     print(f"{i}: {key}: {value}")
-    
+
+# Print the presentation networks:
 from openesef.util.parse_concepts import get_presentation_networks
 get_presentation_networks(tax)    
 ```
