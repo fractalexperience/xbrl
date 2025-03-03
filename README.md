@@ -77,9 +77,6 @@ print(tax)
 for i, (key, value) in enumerate(xid.dei.items()):
     print(f"{i}: {key}: {value}")
 
-# Print the presentation networks:
-from openesef.util.parse_concepts import get_presentation_networks
-get_presentation_networks(tax)    
 ```
 
 
