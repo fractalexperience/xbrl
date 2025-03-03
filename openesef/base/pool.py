@@ -111,7 +111,7 @@ class Pool(resolver.Resolver):
             alt_locations (dict): Alternative URL mappings        
             esef_filing_root (str): Path to location of the ESEF structure
         """
-        logger.info(f"\n\nInitializing Pool with cache_folder={cache_folder}, output_folder={output_folder}")
+        logger.debug(f"\n\nInitializing Pool with cache_folder={cache_folder}, output_folder={output_folder}")
         if cache_folder is None:
             repo_cache_folder = Path(openesef.__file__).parent / "xbrl_schema"
             if os.path.exists(repo_cache_folder):
