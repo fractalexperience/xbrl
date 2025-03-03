@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 # logger.addHandler(handler)
 class XLink(ebase.XmlElementBase):
     """ Represents an extended link """
-    def __init__(self, e, container_linkbase, esef_filing_root=None):
+    def __init__(self, e, container_linkbase, esef_filing_root=None, memfs=None):
         self.linkbase = container_linkbase
         parsers = {
             'default': self.l_xlink,
@@ -87,6 +87,7 @@ class XLink(ebase.XmlElementBase):
         self.arcs_to = {}
         """ All labelled resources indexed by global identifier """
         self.resources = {}
+        self.memfs = memfs
         #def __init__(self, location=None, container_pool=None, parsers=None, root=None, esef_filing_root = None):
         super(XLink, self).__init__(e, parsers, esef_filing_root = esef_filing_root)
         self.role = e.attrib.get(f'{{{const.NS_XLINK}}}role')
@@ -126,7 +127,7 @@ class XLink(ebase.XmlElementBase):
         loc = locator.Locator(e, self)
         url = loc.url
         #logger.debug(f"taxonomy.xlink l_loc() calling add_reference: url: {url}, self.linkbase.base: {self.linkbase.base}, self.esef_filing_root: {self.esef_filing_root}")
-        self.linkbase.pool.add_reference(url, self.linkbase.base, self.esef_filing_root)
+        self.linkbase.pool.add_reference(url, self.linkbase.base, self.esef_filing_root, self.memfs)
         #logger.debug(f"Added reference: {url} to {self.linkbase.base} with esef_filing_root: {self.esef_filing_root}")
     def l_parameter(self, e):
         parameter.Parameter(e, self)

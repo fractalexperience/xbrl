@@ -58,9 +58,10 @@ def load_xbrl_filing(ticker=None, year=None, filing_url=None, edgar_local_path='
         with memfs.open(filename, 'w') as f:
             f.write(content)
         logger.debug(f"Cached {filename} to memory, length={len(content)}")
-        entry_points.append(f"mem://{filename}")
+        if "xml" in filename:
+            entry_points.append(f"mem://{filename}")
 
-    data_pool = Pool(max_error=2, esef_filing_root="mem://", memfs=memfs)
+    data_pool = Pool(max_error=32, esef_filing_root="mem://", memfs=memfs)
     this_tax = Taxonomy(
         entry_points=entry_points,
         container_pool=data_pool,

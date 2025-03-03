@@ -22,7 +22,7 @@ from openesef.util.util_mylogger import setup_logger #util_mylogger
 import logging 
 
 if __name__=="__main__":
-    logger = setup_logger("main", logging.DEBUG, log_dir="/tmp/log/")
+    logger = setup_logger("main", logging.INFO, log_dir="/tmp/log/")
 else:
     logger = logging.getLogger("main.openesf.try") 
 
@@ -50,13 +50,15 @@ for key, filename in filing.xbrl_files.items():
     with  memfs.open(filename, 'w') as f:
         f.write(content)
     logger.info(f"Successfully cached {filename} to memory, length={len(content)}")
-    entry_points.append(f"mem://{filename}")
+    if "xml" in filename:
+        entry_points.append(f"mem://{filename}")
 
 memfs.listdir("/")
 
 
 data_pool = Pool(max_error=2, esef_filing_root="mem://", memfs=memfs); #self = data_pool
 
+#self = Taxonomy(entry_points=None, container_pool = data_pool, esef_filing_root="mem://", memfs=memfs)
 
 this_tax = Taxonomy(entry_points=entry_points,
                            container_pool = data_pool, 

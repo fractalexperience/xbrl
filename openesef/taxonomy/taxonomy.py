@@ -19,7 +19,7 @@ class Taxonomy:
         self.entry_points = entry_points
         self.pool = container_pool
         self.pool.current_taxonomy = self
-        self.pool.current_taxonomy_hash = util.get_hash(','.join(entry_points))
+        self.pool.current_taxonomy_hash = util.get_hash(','.join(entry_points)) if entry_points else None
         self.esef_filing_root = esef_filing_root  # Add ESEF location path
         self.in_memory_content = in_memory_content or {} # Dictionary to store in-memory content
         self.memfs = memfs
@@ -83,8 +83,9 @@ class Taxonomy:
         self.tuple_types = {}
         # Complex types with complex content: Key is unique identifier, value is the tuple type object 
         self.tuple_types_by_id = {}
-        self.load()
-        self.compile()
+        if entry_points:
+            self.load()
+            self.compile()
 
     def __str__(self):
         return self.info()
@@ -185,13 +186,15 @@ class Taxonomy:
             logger.debug(f'Calling self.pool.add_reference(...) with href = {key}, base = {sh.base}, esef_filing_root = {self.esef_filing_root}')
             self.pool.add_reference(href = key, 
                                     base = sh.base, 
-                                    esef_filing_root = self.esef_filing_root)
+                                    esef_filing_root = self.esef_filing_root,
+                                    memfs = self.memfs)
         for key, ref in sh.linkbase_refs.items():
             logger.debug(f'Taxonomy.attach_schema(): Adding linkbase {key} from {sh.base} with self.esef_filing_root={self.esef_filing_root}') 
             logger.debug(f'Calling self.pool.add_reference(...) with href = {key}, base = {sh.base}, esef_filing_root = {self.esef_filing_root}')
             self.pool.add_reference(href = key, 
                                     base = sh.base, 
-                                    esef_filing_root = self.esef_filing_root)
+                                    esef_filing_root = self.esef_filing_root,
+                                    memfs = self.memfs)
 
     def attach_linkbase(self, href, lb):
         if href in self.linkbases:
@@ -202,7 +205,8 @@ class Taxonomy:
             logger.debug(f'Calling self.pool.add_reference(...) with href = {href}, base = {lb.base}, esef_filing_root = {self.esef_filing_root}')
             self.pool.add_reference(href = href, 
                                     base = lb.base, 
-                                    esef_filing_root = self.esef_filing_root)
+                                    esef_filing_root = self.esef_filing_root,
+                                    memfs = self.memfs)
 
     def get_bs_roots(self, arc_name, role, arcrole):
         bs = self.base_sets.get(f'{arc_name}|{arcrole}|{role}')

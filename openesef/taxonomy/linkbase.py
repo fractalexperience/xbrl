@@ -1,7 +1,7 @@
 from openesef.base import fbase, const, util
 from openesef.taxonomy import xlink
 #from openesef.base import ebase
-
+import traceback
 from openesef.util.util_mylogger import setup_logger #util_mylogger
 import logging 
 if __name__=="__main__":
@@ -54,22 +54,20 @@ class Linkbase(fbase.XmlFileBase):
         self.pool = container_pool
         self.memfs = memfs
         self.links = []
-        resolved_location = util.reduce_url(location)
+        resolved_location = util.reduce_url(location) # this does not work for mem://
         if self.pool is not None:
             self.pool.discovered[location] = True
+
         #from openesef.base import ebase, fbase
         #this_fbase = fbase.XmlFileBase(None, container_pool, parsers, root, esef_filing_root); #self = this_fbase
         #this_ebase = ebase.XmlElementBase(None, container_pool, parsers, root, esef_filing_root); #self = this_ebase
-        
-        
-        
         #fbase.XmlFileBase(location=resolved_location, container_pool=container_pool, parsers=parsers, root=None, esef_filing_root = esef_filing_root, memfs=memfs)
         try:
             super().__init__(location=resolved_location, container_pool=container_pool, 
                          parsers=parsers, root=root, esef_filing_root=esef_filing_root, memfs=memfs)
         except Exception as e:
             logger.error(f"Failed to load linkbase: location={resolved_location}, esef_filing_root={esef_filing_root} \n{str(e)}")
-            #traceback.print_exc(limit=10)
+            logger.error(f"traceback: {traceback.format_exc(limit=30)}")
         if self.pool is not None:
             self.pool.linkbases[resolved_location] = self
 
@@ -77,7 +75,7 @@ class Linkbase(fbase.XmlFileBase):
         # Load files referenced in schemaLocation attribute
         for uri, href in self.schema_location_parts.items():
             logger.debug(f'linkbase.l_linkbase() calling add_reference: href = {href}, base = {self.base}, esef_filing_root = {self.esef_filing_root}')
-            self.pool.add_reference(href, self.base, self.esef_filing_root)
+            self.pool.add_reference(href, self.base, self.esef_filing_root, self.memfs)
             logger.debug(f"Added reference: {href} to {self.base} with esef_filing_root: {self.esef_filing_root}")
         self.l_children(e)
 
@@ -103,5 +101,5 @@ class Linkbase(fbase.XmlFileBase):
             href = xpointer[:xpointer.find('#')]
         fragment_identifier = xpointer[xpointer.find('#')+1:]
         self.refs.add(href)
-        self.pool.add_reference(href, self.base, self.esef_filing_root)
+        self.pool.add_reference(href, self.base, self.esef_filing_root, self.memfs)
         logger.debug(f"Added reference: {href} to {self.base} with esef_filing_root: {self.esef_filing_root}")

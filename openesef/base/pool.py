@@ -683,14 +683,14 @@ class Pool(resolver.Resolver):
                 #self=data_pool
                 #self=data_pool; this_schema = schema.Schema(location="",container_pool=self); self = this_schema
                 #self=data_pool; this_schema = schema.Schema(location=schema_path,container_pool=self); self = this_schema
-                sh = self.schemas.get(
-                    schema_path, 
-                    schema.Schema(location=schema_path, 
-                                  container_pool=self, 
-                                  esef_filing_root=esef_filing_root, 
-                                  memfs=self.memfs)) #<- Endless loop
-                #if self.current_taxonomy:
                 try:
+                    sh = self.schemas.get(
+                        schema_path, 
+                        schema.Schema(location=schema_path, 
+                                    container_pool=self, 
+                                    esef_filing_root=esef_filing_root, 
+                                    memfs=self.memfs)) #<- Endless loop
+                
                     self.current_taxonomy.attach_schema(schema_path, sh)
                 except Exception as e:
                     logger.error(f"Failed to attach schema: location={schema_path}, esef_filing_root={esef_filing_root} \n{str(e)}")
@@ -702,9 +702,9 @@ class Pool(resolver.Resolver):
                                 
                 logger.debug(f"Loading linkbase by pool.add_reference(...): {resolved_href}")
                 # Remove file:// prefix if present
-                if resolved_href.startswith("mem://"):
-                    linkbase_path = re.sub("mem://", "", resolved_href)
-                elif resolved_href.startswith("file://"):
+                # if resolved_href.startswith("mem://"):
+                #     linkbase_path = re.sub("mem://", "", resolved_href)
+                if resolved_href.startswith("file://"):
                     linkbase_path = re.sub("file://", "", resolved_href)
                 else:
                     linkbase_path = resolved_href
@@ -772,6 +772,11 @@ class Pool(resolver.Resolver):
         if href.startswith(('http://', 'https://', 'mem://', 'file://')):
             logger.debug(f"Resolved HTTP URL: \n{href}")
             return href
+        elif href.startswith("mem:/"):
+            # it is an error, lets repair  (still do not know why this happens)
+            href = href.replace("mem:/", "mem://")
+            logger.debug(f"Resolved mem:/ URL: \n{href}")
+            return href
         elif base.startswith(('http://', 'https://', 'mem://', 'file://')):
             #print(f"20250215a:{base}{href}")
             #return f"{base}/{href}"
@@ -806,11 +811,14 @@ class Pool(resolver.Resolver):
             else:
                 logger.debug(f"Resolved URL (mem esef_filing_root): \n{esef_filing_root}")
                 for root, _, files in self.memfs.walk("."):
-                    if os.path.basename(href) in files:
-                        resolved_path = os.path.join("mem://", root, os.path.basename(href))
-                        resolved = pathlib.Path(resolved_path).as_uri()
+                    #print(files)
+                    if f"<file '{os.path.basename(href)}'>" in [str(f) for f in files]:
+                        #print(files)
+                        resolved_path = os.path.join("mem://",  os.path.basename(href))
+                        #resolved = pathlib.Path(resolved_path).as_uri()
+                        #break
                         #logger.debug(f"Resolved URL (esef_filing_root): \n{resolved}")
-                        return resolved
+                        return resolved_path
             # If not found in www subdirectory, try base directory
         if base:
             if base.startswith(('http://', 'https://', 'mem://', 'file://')):
@@ -964,7 +972,8 @@ class Pool(resolver.Resolver):
                     linkbase.Linkbase(
                         location=cached_path,
                         container_pool=self,
-                        esef_filing_root=self.esef_filing_root
+                        esef_filing_root=self.esef_filing_root, 
+                        memfs=self.memfs
                     )
                 )
                 self.current_taxonomy.attach_linkbase(location, lb)

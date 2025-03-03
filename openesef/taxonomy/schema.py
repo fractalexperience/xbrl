@@ -29,8 +29,10 @@ logger = logging.getLogger(__name__)
 class Schema(fbase.XmlFileBase):
     def __init__(self, location, container_pool, esef_filing_root=None, virtual_location=None, memfs=None):
         self.target_namespace = ''
+        self.target_namespace = ''
         self.target_namespace_prefix = ''
         self.location = location
+        self.memfs = memfs
         self.virtual_location = virtual_location or location  # Use virtual location for references
         parsers = {
             f'{{{const.NS_XS}}}schema': self.l_schema,
@@ -88,7 +90,7 @@ class Schema(fbase.XmlFileBase):
         # Load files referenced in schemaLocation attribute
         for uri, href in self.schema_location_parts.items():
             logger.debug(f'schema.l_schema() calling add_reference: href = {href}, base = {self.base}, esef_filing_root = {self.esef_filing_root}')
-            self.pool.add_reference(href, self.base, self.esef_filing_root)
+            self.pool.add_reference(href, self.base, self.esef_filing_root, self.memfs)
             logger.debug(f"Added reference: {href} to {self.base} with esef_filing_root: {self.esef_filing_root}")
         self.l_children(e)
 
@@ -120,7 +122,7 @@ class Schema(fbase.XmlFileBase):
 
     def l_linkbase(self, e):
         # Loading a linkbase, which is positioned internally inside annotation/appinfo element of the schema.
-        lb = linkbase.Linkbase(self.location, self.pool, e, self.esef_filing_root)
+        lb = linkbase.Linkbase(self.location, self.pool, e, self.esef_filing_root, self.memfs)
         self.pool.linkbases[self.location] = lb
         self.pool.current_taxonomy.attach_linkbase(self.location, lb)
 
@@ -129,7 +131,7 @@ class Schema(fbase.XmlFileBase):
         if not href.startswith('http'):
             href = util.reduce_url(os.path.join(self.base, href).replace('\\', '/'))
         self.linkbase_refs[href] = e
-        self.pool.add_reference(href, self.base, self.esef_filing_root)
+        self.pool.add_reference(href, self.base, self.esef_filing_root, self.memfs)
         logger.debug(f"Added reference: {href} to {self.base} with esef_filing_root: {self.esef_filing_root}")
     def l_roletype(self, e):
         roletype.RoleType(e, self)
@@ -140,7 +142,7 @@ class Schema(fbase.XmlFileBase):
     def l_import(self, e):
         href = e.get('schemaLocation')
         self.imports[href] = e
-        self.pool.add_reference(href, self.base, self.esef_filing_root)
+        self.pool.add_reference(href, self.base, self.esef_filing_root, self.memfs)
         logger.debug(f"Added reference: {href} to {self.base} with esef_filing_root: {self.esef_filing_root}")
     def get_reference_location(self):
         """
