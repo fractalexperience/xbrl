@@ -53,9 +53,32 @@ The **openesef** project can be installed directly from its GitHub repository us
 
 #### Example 1: SEC Filings with iXBRL following US -GAAP
 
-- Actually this repo is not intended to work with SEC filings. 
-- Refer to another repo https://github.com/reeyarn/sec_xbrl for extracting financial statement data from SEC filings.
-- Nevertheless, the following example shows how to use the `openesef` package to parse Apple Form 10-K from SEC EDGAR.
+- Loading using ticker and year:
+```python
+from openesef.instance.loader import load_xbrl_filing
+xid, tax = load_xbrl_filing(ticker="AAPL", year=2020)
+```
+
+- Or, loading using filing URL:
+```python
+from openesef.instance.loader import load_xbrl_filing
+xid, tax = load_xbrl_filing(filing_url="/Archives/edgar/data/320193/0000320193-20-000096.txt")
+```
+
+- Now print the info:
+```python
+print(xid)
+print(tax)
+
+for i, (key, value) in enumerate(xid.dei.items()):
+    print(f"{i}: {key}: {value}")
+    
+from openesef.util.parse_concepts import get_presentation_networks
+get_presentation_networks(tax)    
+```
+
+
+
 
 [https://github.com/reeyarn/openesef/blob/master/examples/apple_2020.ipynb](https://github.com/reeyarn/openesef/blob/master/examples/apple_2020.ipynb)
 
