@@ -117,7 +117,7 @@ class Pool(resolver.Resolver):
             if os.path.exists(repo_cache_folder):
                 if os.access(repo_cache_folder, os.W_OK):
                     cache_folder = repo_cache_folder
-                    logger.info(f"Using repository cache folder: {cache_folder}")
+                    logger.debug(f"Using repository cache folder: {cache_folder}")
             # if cache_folder is None:
             #     cache_folder = tempfile.gettempdir()
             #     logger.info(f"Using temporary cache folder: {cache_folder}")
