@@ -85,15 +85,7 @@ See more: [https://github.com/reeyarn/openesef/blob/master/examples/apple_2020.i
 #### Example 2: Volkswagen 2020 ESEF Filing following IFRS
 
 
-```python
-# Simplified flow from search results
-cube = Cube(folder="/data/xbrl_cache")
-cube.add_fact(fact, xid_instance)  # Fact from XBRL instance
-cube.save()  # Serializes to ZIP archives
-```
-This stores facts with associated dimensions (e.g., `metric:ifrs-full:Revenue`, `entity:sap`, `period:2022`) for later analysis.
-
-https://github.com/reeyarn/openesef/blob/master/examples/try_vw2020.py
+[https://github.com/reeyarn/openesef/blob/master/examples/try_vw2020.py](https://github.com/reeyarn/openesef/blob/master/examples/try_vw2020.py)
 
 ## Forked from XBRL-Model (`fractalexperience/xbrl/`): 
 
