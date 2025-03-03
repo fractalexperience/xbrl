@@ -78,12 +78,8 @@ get_presentation_networks(tax)
 ```
 
 
+See more: [https://github.com/reeyarn/openesef/blob/master/examples/apple_2020.ipynb](https://github.com/reeyarn/openesef/blob/master/examples/apple_2020.ipynb)
 
-
-[https://github.com/reeyarn/openesef/blob/master/examples/apple_2020.ipynb](https://github.com/reeyarn/openesef/blob/master/examples/apple_2020.ipynb)
-
-#... (more code)
-```
 #### Example 2: Volkswagen 2020 ESEF Filing following IFRS
 
 
