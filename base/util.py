@@ -42,7 +42,6 @@ def get_plain_list_of_elements(root, tags, ignore_prefix=True):
         matches = e.tag in tags if not ignore_prefix else (e.tag.split(':')[1] if ':' in e.tag else e.tag) in tags
         if not matches:
             continue
-        print(e.tag)
     return result
 
 def u_dct_list(dct, key, val):
