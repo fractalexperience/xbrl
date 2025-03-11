@@ -595,7 +595,11 @@ class TableReporter(base_reporter.BaseReporter):
             c = cell.Cell(label=lbl, html_class=cls, is_fact=True,
                           r_code=r_code, c_code=c_code, is_grayed=sny.is_abstract, origin=snx)
             self.new_cell(c)
-            self.lay_constraint_set({'x': snx, 'y': sny, 'z': snz}, c)
+            try:
+                self.lay_constraint_set({'x': snx, 'y': sny, 'z': snz}, c)
+            except Exception as ex:
+                print(ex)
+
             if not self.validate(c):
                 c.is_grayed = True
                 c.html_classes.add('xbrl_grayed')
