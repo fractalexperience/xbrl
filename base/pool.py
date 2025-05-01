@@ -153,13 +153,17 @@ class Pool(resolver.Resolver):
         if key in self.discovered:
             return
         self.discovered[key] = False
-        # print(href)
-        if href.endswith(".xsd"):
-            sh = self.schemas.get(href, schema.Schema(href, self))
-            self.current_taxonomy.attach_schema(href, sh)
-        else:
-            lb = self.linkbases.get(href, linkbase.Linkbase(href, self))
-            self.current_taxonomy.attach_linkbase(href, lb)
+
+        try:
+            if href.endswith(".xsd"):
+                sh = self.schemas.get(href, schema.Schema(href, self))
+                self.current_taxonomy.attach_schema(href, sh)
+            else:
+                lb = self.linkbases.get(href, linkbase.Linkbase(href, self))
+                self.current_taxonomy.attach_linkbase(href, lb)
+        except Exception as ex:
+            print('Error when loading: ', href, ex)
+            raise
 
     @staticmethod
     def check_create_path(existing_path, part):
