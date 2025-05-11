@@ -1,6 +1,6 @@
 from xbrl.taxonomy import arc, base_set, locator, resource, concept, roletype, arcroletype
 from xbrl.taxonomy.formula import parameter, value_assertion, existence_assertion, consistency_assertion, assertion, \
-    filter, assertion_set
+    filter, assertion_set, customfunction, functionimplementation
 from xbrl.base import ebase, const, util, data_wrappers
 from xbrl.taxonomy.table import table, breakdown, rule_node, cr_node, dr_node, aspect_node
 import urllib.parse
@@ -43,16 +43,27 @@ class XLink(ebase.XmlElementBase):
             f'{{{const.NS_CONSISTENCY_ASSERTION}}}consistencyAssertion': self.l_ca,
             f'{{{const.NS_DIMENSION_FILTER}}}explicitDimension': self.l_filter,
             f'{{{const.NS_DIMENSION_FILTER}}}typedDimension': self.l_filter,
+
+            f'{{{const.NS_VARIABLE}}}function': self.l_function,
+            f'{{{const.NS_CUSTOM_FUNCTION}}}implementation': self.l_implementation,
+
         }
         self.conn_methods = {
             'Concept=>Resource': self.conn_cr,
+            "<class 'xbrl.taxonomy.concept.Concept'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_cr,
+            'Concept=>Concept': self.conn_cc,
+            "<class 'xbrl.taxonomy.concept.Concept'>|<class 'xbrl.taxonomy.concept.Concept'>": self.conn_cc,
+            'RoleType=>Resource': self.conn_rtr,
+            "<class 'xbrl.taxonomy.roletype.RoleType'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_rtr,
+
             'Resource=>Resource': self.conn_rr,
             'Resource=>String': self.conn_rstr,
-            'Concept=>Concept': self.conn_cc,
-            'RoleType=>Resource': self.conn_rtr,
             'ArcroleType=>Resource': self.conn_artr,
             'Concept=>RoleType': self.conn_crt,
-            'Concept=>ArcroleType': self.conn_cart
+            'Concept=>ArcroleType': self.conn_cart,
+
+            "<class 'xbrl.taxonomy.formula.customfunction.CustomFunction'>|<class 'xbrl.taxonomy.formula.functionimplementation.FunctionImplementation'>": self.conn_fi,
+            "<class 'xbrl.taxonomy.table.table.Table'>|<class 'xbrl.taxonomy.table.breakdown.Breakdown'>": self.conn_tblbdn,
         }
 
         """ Locators indexed by unique identifier """
@@ -70,6 +81,12 @@ class XLink(ebase.XmlElementBase):
 
     def l_xlink(self, e):
         self.l_children(e)
+
+    def l_implementation(self, e):
+        functionimplementation.FunctionImplementation(e, self)
+
+    def l_function(self, e):
+        customfunction.CustomFunction(e, self)
 
     def l_resource(self, e):
         resource.Resource(e, self)
@@ -138,7 +155,9 @@ class XLink(ebase.XmlElementBase):
                         self.try_connect_objects(a, obj_from, obj_to)
 
     def try_connect_objects(self, a, obj_from, obj_to):
-        key = f'{self.get_obj_type(obj_from)}=>{self.get_obj_type(obj_to)}'
+        # key = f'{self.get_obj_type(obj_from)}=>{self.get_obj_type(obj_to)}'
+
+        key = f'{type(obj_from)}|{type(obj_to)}'
         method = self.conn_methods.get(key, None)
         if method is None:
             print('Unknown object types combination: ', key)
@@ -191,6 +210,12 @@ class XLink(ebase.XmlElementBase):
 
     def conn_cart(self, a, c, art):
         c.resources.setdefault(art.name, {}).setdefault(art.arcrole_uri, []).append(art)
+
+    def conn_fi(self, arc, function, implementation):
+        function.implementation = implementation
+
+    # def conn_tblbdn(self, arc, tbl, bdn):
+    #     tbl.Bre
 
     """ Identifies a list of objects referred by a XLabel identifier
         xbrl is the from, or to attribute of the arc """

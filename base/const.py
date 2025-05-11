@@ -132,6 +132,7 @@ NS_VALUE_ASSERTION = 'http://xbrl.org/2008/assertion/value'
 NS_EXISTANCE_ASSERTION = 'http://xbrl.org/2008/assertion/existence'
 NS_CONSISTENCY_ASSERTION = 'http://xbrl.org/2008/assertion/consistency'
 NS_FORMULA_MESSAGE = 'http://xbrl.org/2010/message'
+NS_CUSTOM_FUNCTION = 'http://xbrl.org/2010/custom-function'
 
 NS_DIMENSION_FILTER = 'http://xbrl.org/2008/filter/dimension'
 # TODO - Add other filters
