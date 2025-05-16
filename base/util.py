@@ -16,11 +16,34 @@ def parse_xml_string(s):
 
 def parse_html_string(s):
     try:
-        root = lhtml.fromstring(s.encode('ascii'))
+        root = lxml.HTML(s)
     except:
-        return None
+        try:
+            root = lhtml.fromstring(s.encode('ascii'))
+        except Exception as ex:
+            print(ex)
+            return None
     return root
 
+def get_plain_list_of_elements(root, tags, ignore_prefix=True):
+    """ Returns a plain list of elements having specified names and residing inside the specified element.
+    root - The start element
+    tags - List of names to be matched
+    ignore_prefix - Flag whether to ignore the namespace prefix of the element. This is particulary helpful
+                    in cases where we parse a HTMl fragment, where there are prefixes - e.g. ix:nonFragtion etc.
+                    but there are no namespaces definitions inside that HTML snippet. So - in this case the
+                    XPath evaluation cannot be used.
+    """
+    if root is None:
+        return None
+    elist = root.xpath('//*')  # all elements
+    result = []
+    for e in elist:
+        matches = e.tag in tags if not ignore_prefix else (e.tag.split(':')[1] if ':' in e.tag else e.tag) in tags
+        if not matches:
+            continue
+        result.append(e)
+    return result
 
 def u_dct_list(dct, key, val):
     """ Updates a dictionary, where key is a string and value is a list with a specific value. """

@@ -13,7 +13,7 @@ class Linkbase(fbase.XmlFileBase):
             f'{{{const.NS_LINK}}}referenceLink': self.l_link,
             f'{{{const.NS_GEN}}}link': self.l_link,  # Generic link
             f'{{{const.NS_LINK}}}roleRef': self.l_role_ref,
-            f'{{{const.NS_LINK}}}arcroleRef': self.l_arcrole_ref
+            f'{{{const.NS_LINK}}}arcroleRef': self.l_arcrole_ref,
         }
         self.role_refs = {}
         self.arcrole_refs = {}

@@ -12,6 +12,7 @@ from xbrl.taxonomy.table import layout
 from xbrl.taxonomy.table import cell
 from xbrl.engines import base_reporter
 from xbrl.base import data_wrappers, const
+from xbrl.taxonomy.table.tlb_resource import TableResource
 
 
 class TableReporter(base_reporter.BaseReporter):
@@ -595,7 +596,11 @@ class TableReporter(base_reporter.BaseReporter):
             c = cell.Cell(label=lbl, html_class=cls, is_fact=True,
                           r_code=r_code, c_code=c_code, is_grayed=sny.is_abstract, origin=snx)
             self.new_cell(c)
-            self.lay_constraint_set({'x': snx, 'y': sny, 'z': snz}, c)
+            try:
+                self.lay_constraint_set({'x': snx, 'y': sny, 'z': snz}, c)
+            except Exception as ex:
+                print(ex)
+
             if not self.validate(c):
                 c.is_grayed = True
                 c.html_classes.add('xbrl_grayed')
@@ -605,6 +610,11 @@ class TableReporter(base_reporter.BaseReporter):
             constraints = sn.constraint_set.get('default', {})
             parent = sn.origin
             while parent is not None:
+
+                # Sometimes we have assertion => table relationships, but this is not about inheriting restrictions
+                if not isinstance(parent, TableResource):
+                    break
+
                 c_set = parent.get_constraints()
                 if c_set is not None:
                     for a, m in c_set.items():
