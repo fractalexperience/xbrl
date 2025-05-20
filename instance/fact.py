@@ -3,13 +3,13 @@ from xbrl.base import ebase
 
 class Fact(ebase.XmlElementBase):
     def __init__(self, default_id, e):
-        self.context_ref = e.attrib.get('contextRef')
+        self.context_ref = e.attrib.get('contextRef') if e is not None else None
         self.context = None
-        self.unit_ref = e.attrib.get('unitRef')
+        self.unit_ref = e.attrib.get('unitRef') if e is not None else None
         self.unit = None
-        self.decimals = e.attrib.get('decimals')
-        self.precision = e.attrib.get('precision')
-        self.value = e.text
+        self.decimals = e.attrib.get('decimals') if e is not None else None
+        self.precision = e.attrib.get('precision') if e is not None else None
+        self.value = e.text if e is not None else None
         self.footnotes = []
         self.nested_facts = {}
         self.counter = 0

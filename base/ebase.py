@@ -15,6 +15,8 @@ class XmlElementBase:
         self.load(e)
 
     def load(self, e):
+        if e is None:
+            return
         if isinstance(e, lxml._Comment):
             return
         method = self.parsers.get(e.tag)
