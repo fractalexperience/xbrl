@@ -63,10 +63,12 @@ class Pool(resolver.Resolver):
             return
         archive = zipfile.ZipFile(archive_location)
         zil = archive.infolist()
-        xid_file = [f for f in zil if f.filename.endswith(filename)][0]
-        with archive.open(xid_file) as xf:
-            root = lxml.XML(xf.read())
-            return self.add_instance_element(root, xid_file if key is None else key, attach_taxonomy)
+        # xid_file = [f for f in zil if f.filename.endswith(filename)][0]
+        xid_files = [fe.orig_filename for fe in zil if fe.orig_filename.endswith('.xml') or fe.orig_filename.endswith('.xbrl')]
+        for xid_file in xid_files:
+            with archive.open(xid_file) as xf:
+                root = lxml.XML(xf.read())
+                return self.add_instance_element(root, xid_file if key is None else key, attach_taxonomy)
 
     def add_instance_element(self, e, key=None, attach_taxonomy=False):
         xid = instance.Instance(container_pool=self, root=e)

@@ -61,9 +61,6 @@ class XLink(ebase.XmlElementBase):
             'ArcroleType=>Resource': self.conn_artr,
             'Concept=>RoleType': self.conn_crt,
             'Concept=>ArcroleType': self.conn_cart,
-
-            "<class 'xbrl.taxonomy.formula.customfunction.CustomFunction'>|<class 'xbrl.taxonomy.formula.functionimplementation.FunctionImplementation'>": self.conn_fi,
-            "<class 'xbrl.taxonomy.table.table.Table'>|<class 'xbrl.taxonomy.table.breakdown.Breakdown'>": self.conn_tblbdn,
         }
 
         """ Locators indexed by unique identifier """
@@ -213,9 +210,6 @@ class XLink(ebase.XmlElementBase):
 
     def conn_fi(self, arc, function, implementation):
         function.implementation = implementation
-
-    # def conn_tblbdn(self, arc, tbl, bdn):
-    #     tbl.Bre
 
     """ Identifies a list of objects referred by a XLabel identifier
         xbrl is the from, or to attribute of the arc """
