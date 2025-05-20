@@ -157,7 +157,7 @@ class XLink(ebase.XmlElementBase):
         key = f'{type(obj_from)}|{type(obj_to)}'
         method = self.conn_methods.get(key, None)
         if method is None:
-            print('Unknown object types combination: ', key)
+            # print('Unknown object types combination: ', key)
             return
         method(a, obj_from, obj_to)
 
