@@ -153,8 +153,6 @@ class XLink(ebase.XmlElementBase):
 
     def try_connect_objects(self, a, obj_from, obj_to):
         key = f'{self.get_obj_type(obj_from)}=>{self.get_obj_type(obj_to)}'
-
-        # key = f'{type(obj_from)}|{type(obj_to)}'
         method = self.conn_methods.get(key, None)
         if method is None:
             # print('Unknown object types combination: ', key)
