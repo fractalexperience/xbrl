@@ -50,11 +50,11 @@ class XLink(ebase.XmlElementBase):
         }
         self.conn_methods = {
             'Concept=>Resource': self.conn_cr,
-            "<class 'xbrl.taxonomy.concept.Concept'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_cr,
+            # "<class 'xbrl.taxonomy.concept.Concept'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_cr,
             'Concept=>Concept': self.conn_cc,
-            "<class 'xbrl.taxonomy.concept.Concept'>|<class 'xbrl.taxonomy.concept.Concept'>": self.conn_cc,
+            # "<class 'xbrl.taxonomy.concept.Concept'>|<class 'xbrl.taxonomy.concept.Concept'>": self.conn_cc,
             'RoleType=>Resource': self.conn_rtr,
-            "<class 'xbrl.taxonomy.roletype.RoleType'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_rtr,
+            # "<class 'xbrl.taxonomy.roletype.RoleType'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_rtr,
 
             'Resource=>Resource': self.conn_rr,
             'Resource=>String': self.conn_rstr,
@@ -152,9 +152,9 @@ class XLink(ebase.XmlElementBase):
                         self.try_connect_objects(a, obj_from, obj_to)
 
     def try_connect_objects(self, a, obj_from, obj_to):
-        # key = f'{self.get_obj_type(obj_from)}=>{self.get_obj_type(obj_to)}'
+        key = f'{self.get_obj_type(obj_from)}=>{self.get_obj_type(obj_to)}'
 
-        key = f'{type(obj_from)}|{type(obj_to)}'
+        # key = f'{type(obj_from)}|{type(obj_to)}'
         method = self.conn_methods.get(key, None)
         if method is None:
             # print('Unknown object types combination: ', key)
