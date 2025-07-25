@@ -8,6 +8,7 @@ class Table(tlb_resource.TableResource):
         self.has_db_labels = False
         self.open_axes = set({})
         self.open_dimensions = {}
+        self.breakdowns = {}
         self.parent_child_order = e.attrib.get('parentChildOrder')
         super().__init__(e, container_xlink)
         container_xlink.linkbase.pool.current_taxonomy.tables[self.xlabel] = self
