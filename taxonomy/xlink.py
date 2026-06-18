@@ -56,6 +56,18 @@ class XLink(ebase.XmlElementBase):
             'RoleType=>Resource': self.conn_rtr,
             "<class 'xbrl.taxonomy.roletype.RoleType'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_rtr,
 
+            "<class 'xbrl.taxonomy.table.table.Table'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_tbl_res,
+            "<class 'xbrl.taxonomy.table.rule_node.RuleNode'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_rn_res,
+            "<class 'xbrl.taxonomy.table.breakdown.Breakdown'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_bdn_res,
+            "<class 'xbrl.taxonomy.table.rule_node.RuleNode'>|<class 'xbrl.taxonomy.table.rule_node.RuleNode'>": self.conn_rn_rn,
+            "<class 'xbrl.taxonomy.table.breakdown.Breakdown'>|<class 'xbrl.taxonomy.table.aspect_node.AspectNode'>": self.conn_bdn_aspn,
+            "<class 'xbrl.taxonomy.table.aspect_node.AspectNode'>|<class 'xbrl.taxonomy.formula.filter.Filter'>": self.conn_aspn_fltr,
+            "<class 'xbrl.taxonomy.concept.Concept'>|<class 'xbrl.taxonomy.table.table.Table'>": self.conn_conc_tbl,
+            "<class 'xbrl.taxonomy.formula.value_assertion.ValueAssertion'>|<class 'str'>": self.conn_va_sev,
+            "<class 'xbrl.taxonomy.formula.assertion_set.AssertionSet'>|<class 'xbrl.taxonomy.table.table.Table'>": self.conn_asset_tbl,
+            "<class 'xbrl.taxonomy.formula.assertion_set.AssertionSet'>|<class 'xbrl.taxonomy.formula.value_assertion.ValueAssertion'>": self.conn_asset_ass,
+            "<class 'xbrl.taxonomy.formula.value_assertion.ValueAssertion'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_va_res,
+
             'Resource=>Resource': self.conn_rr,
             'Resource=>String': self.conn_rstr,
             'ArcroleType=>Resource': self.conn_artr,
@@ -201,6 +213,51 @@ class XLink(ebase.XmlElementBase):
     def conn_rtr(self, a, rt, res):
         res.parent = rt
         rt.labels.setdefault(res.name, {}).setdefault(self.get_resource_key(res), []).append(res)
+
+    def conn_tbl_res(self, a, r_from, r_to):
+        """ Connects table object to resource """
+        r_from.nested.setdefault(r_to.name, {}).setdefault(self.get_resource_key(r_to), []).append(r_to)
+
+    def conn_rn_res(self, a, r_from, r_to):
+        """ Connects rule node to label resource """
+        r_from.nested.setdefault(r_to.name, {}).setdefault(self.get_resource_key(r_to), []).append(r_to)
+
+    def conn_bdn_res(self, a, bdn, res):
+        """ Connects a breakdown to resource """
+        bdn.nested.setdefault(res.name, {}).setdefault(self.get_resource_key(res), []).append(res)
+
+    def conn_rn_rn(self, a, rn_from, rn_to):
+        """ Connects a rule node to master rule node """
+        rn_from.nested.setdefault(rn_to.name, {}).setdefault(self.get_resource_key(rn_to), []).append(rn_to)
+
+    def conn_bdn_aspn(self, a, bdn, aspn):
+        """ Connects aspect node to breakdown """
+        bdn.nodes[aspn.xlabel] = aspn
+
+    def conn_aspn_fltr(self, a, aspn, fltr):
+        """ Connects a filter to an aspect node """
+        aspn.filters[fltr.xlabel] = fltr
+
+    def conn_conc_tbl(self, a, conc, tbl):
+        """ Connects concept to table """
+        table.related_concept = concept
+
+    def conn_va_sev(self, a, va, sev):
+        """ Sets the severity to a value assertion """
+        if a.arcrole == const.ASSERTION_UNSATISFIED_SEVERITY_ARCROLE:
+            va.selerity = sev
+
+    def conn_asset_tbl(self, a, asset, tbl):
+        """ Connects table to assertion set """
+        asset.tables[tbl.xlabel] = tbl
+
+    def conn_asset_ass(self, a, asset, ass):
+        """ Connect assertion to assertion set """
+        asset.assertions[ass.xlabel] = a
+
+    def conn_va_res(self, a, va, res):
+        """ Connects a resource ("message) to a value assertion """
+        va.nested.setdefault(res.name, {}).setdefault(self.get_resource_key(res), []).append(res)
 
     def conn_artr(self, a, art, res):
         res.parent = art

@@ -17,6 +17,14 @@ class Arc(ebase.XmlElementBase):
         self.usable = False if u is not None and u in ['false', '0'] else True
         self.target_role = e.attrib.get(f'{{{const.NS_XBRLDT}}}targetRole')
         self.axis = e.attrib.get('axis')  # for tableBreakdownArc
+
+        complement_str = e.attrib.get('complement', 'false')
+        self.complement = complement_str == 'true' or complement_str == '1'  # for aspectNodeFilterArc, tableFilterArc, variableFilterArc etc.
+        cover_str = e.attrib.get('cover', 'false')
+        self.cover = cover_str == 'true' or cover_str == '1' # for variableFilterArc,
+
+        self.parameter_name = e.attrib.get('name')  # for tableParameterArc, variableArc
+
         if self.xlink is not None:
             self.xlink.arcs_from.setdefault(f'{self.arcrole}|{self.xl_from}', []).append(self)
             self.xlink.arcs_to.setdefault(f'{self.arcrole}|{self.xl_to}', []).append(self)
