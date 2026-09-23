@@ -49,34 +49,64 @@ class XLink(ebase.XmlElementBase):
 
         }
         self.conn_methods = {
-            'Concept=>Resource': self.conn_cr,
-            "<class 'xbrl.taxonomy.concept.Concept'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_cr,
-            'Concept=>Concept': self.conn_cc,
-            "<class 'xbrl.taxonomy.concept.Concept'>|<class 'xbrl.taxonomy.concept.Concept'>": self.conn_cc,
-            'RoleType=>Resource': self.conn_rtr,
-            "<class 'xbrl.taxonomy.roletype.RoleType'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_rtr,
-
-            "<class 'xbrl.taxonomy.table.table.Table'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_tbl_res,
-            "<class 'xbrl.taxonomy.table.rule_node.RuleNode'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_rn_res,
-            "<class 'xbrl.taxonomy.table.breakdown.Breakdown'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_bdn_res,
-            "<class 'xbrl.taxonomy.table.rule_node.RuleNode'>|<class 'xbrl.taxonomy.table.rule_node.RuleNode'>": self.conn_rn_rn,
-            "<class 'xbrl.taxonomy.table.breakdown.Breakdown'>|<class 'xbrl.taxonomy.table.aspect_node.AspectNode'>": self.conn_bdn_aspn,
-            "<class 'xbrl.taxonomy.table.aspect_node.AspectNode'>|<class 'xbrl.taxonomy.formula.filter.Filter'>": self.conn_aspn_fltr,
-            "<class 'xbrl.taxonomy.concept.Concept'>|<class 'xbrl.taxonomy.table.table.Table'>": self.conn_conc_tbl,
-            "<class 'xbrl.taxonomy.formula.value_assertion.ValueAssertion'>|<class 'str'>": self.conn_va_sev,
-            "<class 'xbrl.taxonomy.formula.assertion_set.AssertionSet'>|<class 'xbrl.taxonomy.table.table.Table'>": self.conn_asset_tbl,
-            "<class 'xbrl.taxonomy.formula.assertion_set.AssertionSet'>|<class 'xbrl.taxonomy.formula.value_assertion.ValueAssertion'>": self.conn_asset_ass,
-            "<class 'xbrl.taxonomy.formula.value_assertion.ValueAssertion'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_va_res,
-
+            # 'Concept=>Resource': self.conn_conc_res,
+            # 'Concept=>Concept': self.conn_conc_conc,
+            # 'RoleType=>Resource': self.conn_rt_res,
             'Resource=>Resource': self.conn_rr,
             'Resource=>String': self.conn_rstr,
             'ArcroleType=>Resource': self.conn_artr,
             'Concept=>RoleType': self.conn_crt,
             'Concept=>ArcroleType': self.conn_cart,
 
+            # "<class 'xbrl.taxonomy.concept.Concept'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_conc_res,
+            # "<class 'xbrl.taxonomy.concept.Concept'>|<class 'xbrl.taxonomy.concept.Concept'>": self.conn_conc_conc,
+            # "<class 'xbrl.taxonomy.concept.Concept'>|<class 'xbrl.taxonomy.table.table.Table'>": self.conn_conc_tbl,
+
+            "<class 'xbrl.taxonomy.roletype.RoleType'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_rt_res,
+
+            # "<class 'xbrl.taxonomy.table.table.Table'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_tbl_res,
+
+            # "<class 'xbrl.taxonomy.table.rule_node.RuleNode'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_rn_res,
+            # "<class 'xbrl.taxonomy.table.breakdown.Breakdown'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_bdn_res,
+            # "<class 'xbrl.taxonomy.table.rule_node.RuleNode'>|<class 'xbrl.taxonomy.table.rule_node.RuleNode'>": self.conn_rn_rn,
+            # "<class 'xbrl.taxonomy.table.breakdown.Breakdown'>|<class 'xbrl.taxonomy.table.aspect_node.AspectNode'>": self.conn_bdn_aspn,
+            # "<class 'xbrl.taxonomy.table.aspect_node.AspectNode'>|<class 'xbrl.taxonomy.formula.filter.Filter'>": self.conn_aspn_fltr,
+
+            "<class 'xbrl.taxonomy.formula.value_assertion.ValueAssertion'>|<class 'str'>": self.conn_va_sev,
+            "<class 'xbrl.taxonomy.formula.assertion_set.AssertionSet'>|<class 'xbrl.taxonomy.table.table.Table'>": self.conn_asset_tbl,
+            "<class 'xbrl.taxonomy.formula.assertion_set.AssertionSet'>|<class 'xbrl.taxonomy.formula.value_assertion.ValueAssertion'>": self.conn_asset_ass,
+            "<class 'xbrl.taxonomy.formula.value_assertion.ValueAssertion'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_va_res,
+            "<class 'xbrl.taxonomy.formula.existence_assertion.ExistenceAssertion'>|<class 'str'>": self.conn_ea_sev,
+            "<class 'xbrl.taxonomy.formula.assertion_set.AssertionSet'>|<class 'xbrl.taxonomy.formula.existence_assertion.ExistenceAssertion'>": self.conn_asset_ass,
+            "<class 'xbrl.taxonomy.formula.existence_assertion.ExistenceAssertion'>|<class 'xbrl.taxonomy.resource.Resource'>": self.conn_ea_res,
+
             "<class 'xbrl.taxonomy.formula.customfunction.CustomFunction'>|<class 'xbrl.taxonomy.formula.functionimplementation.FunctionImplementation'>": self.conn_fi,
-            "<class 'xbrl.taxonomy.table.table.Table'>|<class 'xbrl.taxonomy.table.breakdown.Breakdown'>": self.conn_tbl_bdn,
-            "<class 'xbrl.taxonomy.table.breakdown.Breakdown'>|<class 'xbrl.taxonomy.table.rule_node.RuleNode'>": self.conn_bdn_node
+            # "<class 'xbrl.taxonomy.table.table.Table'>|<class 'xbrl.taxonomy.table.breakdown.Breakdown'>": self.conn_tbl_bdn,
+            # "<class 'xbrl.taxonomy.table.breakdown.Breakdown'>|<class 'xbrl.taxonomy.table.rule_node.RuleNode'>": self.conn_bdn_node,
+
+            # ####################
+            'labelArc|xbrl.taxonomy.concept.Concept|xbrl.taxonomy.resource.Resource': self.conn_conc_res,
+            'definitionArc|xbrl.taxonomy.concept.Concept|xbrl.taxonomy.concept.Concept': self.conn_conc_conc,
+            'presentationArc|xbrl.taxonomy.concept.Concept|xbrl.taxonomy.concept.Concept': self.conn_conc_conc,
+            'calculationArc|xbrl.taxonomy.concept.Concept|xbrl.taxonomy.concept.Concept': self.conn_conc_conc,
+            'arc|xbrl.taxonomy.concept.Concept|xbrl.taxonomy.concept.Concept': self.conn_conc_conc,
+
+            'arc|xbrl.taxonomy.roletype.RoleType|xbrl.taxonomy.resource.Resource': self.conn_rt_res,
+            'arc|xbrl.taxonomy.table.table.Table|xbrl.taxonomy.resource.Resource': self.conn_tbl_res,
+            'arc|xbrl.taxonomy.table.rule_node.RuleNode|xbrl.taxonomy.resource.Resource': self.conn_rn_res,
+            'arc|xbrl.taxonomy.table.breakdown.Breakdown|xbrl.taxonomy.resource.Resource': self.conn_bdn_res,
+            'tableBreakdownArc|xbrl.taxonomy.table.table.Table|xbrl.taxonomy.table.breakdown.Breakdown':  self.conn_tbl_bdn,
+            'breakdownTreeArc|xbrl.taxonomy.table.breakdown.Breakdown|xbrl.taxonomy.table.rule_node.RuleNode': self.conn_bdn_node,
+            'breakdownTreeArc|xbrl.taxonomy.table.breakdown.Breakdown|xbrl.taxonomy.table.aspect_node.AspectNode': self.conn_bdn_aspn,
+
+            'definitionNodeSubtreeArc|xbrl.taxonomy.table.rule_node.RuleNode|xbrl.taxonomy.table.rule_node.RuleNode': self.conn_rn_rn,
+            'aspectNodeFilterArc|xbrl.taxonomy.table.aspect_node.AspectNode|xbrl.taxonomy.formula.filter.Filter': self.conn_aspn_fltr,
+            'arc|xbrl.taxonomy.concept.Concept|xbrl.taxonomy.table.table.Table': self.conn_conc_tbl,
+            'arc|xbrl.taxonomy.formula.customfunction.CustomFunction|xbrl.taxonomy.formula.functionimplementation.FunctionImplementation': self.conn_fi,
+            'arc|xbrl.taxonomy.formula.value_assertion.ValueAssertion|str': self.conn_va_sev,
+            'arc|xbrl.taxonomy.formula.assertion_set.AssertionSet|xbrl.taxonomy.table.table.Table': self.conn_asset_tbl,
+            'arc|xbrl.taxonomy.formula.assertion_set.AssertionSet|xbrl.taxonomy.formula.value_assertion.ValueAssertion': self.conn_asset_ass,
+            'arc|xbrl.taxonomy.formula.value_assertion.ValueAssertion|xbrl.taxonomy.resource.Resource': self.conn_va_res,
         }
 
         """ Locators indexed by unique identifier """
@@ -170,21 +200,24 @@ class XLink(ebase.XmlElementBase):
     def try_connect_objects(self, a, obj_from, obj_to):
         # key = f'{self.get_obj_type(obj_from)}=>{self.get_obj_type(obj_to)}'
 
-        key = f'{type(obj_from)}|{type(obj_to)}'
+        # key = f'{type(obj_from)}|{type(obj_to)}'
+        class_name_from = str(obj_from.__class__).split("'")[1]
+        class_name_to = str(obj_to.__class__).split("'")[1]
+        key = f'{a.name}|{class_name_from}|{class_name_to}'
         method = self.conn_methods.get(key, None)
         if method is None:
             print('Unknown object types combination: ', key)
             return
         method(a, obj_from, obj_to)
 
-    def conn_cr(self, a, c, res):
+    def conn_conc_res(self, a, c, res):
         r_list = c.resources.get(res.name, None)
         if r_list is None:
             r_list = {}
             c.resources[res.name] = r_list
         r_list.setdefault(self.get_resource_key(res), []).append(res)  # Multiple resources of the same type may be related
 
-    def conn_cc(self, a, c_from, c_to):
+    def conn_conc_conc(self, a, c_from, c_to):
         key = f'{a.arcrole}|{a.xl_from}'
         is_root = key not in self.arcs_to
         bs_key = f'{a.name}|{a.arcrole}|{self.role}'
@@ -210,7 +243,7 @@ class XLink(ebase.XmlElementBase):
         if isinstance(ass, assertion.Assertion):
             ass.severity = sev
 
-    def conn_rtr(self, a, rt, res):
+    def conn_rt_res(self, a, rt, res):
         res.parent = rt
         rt.labels.setdefault(res.name, {}).setdefault(self.get_resource_key(res), []).append(res)
 
@@ -245,7 +278,17 @@ class XLink(ebase.XmlElementBase):
     def conn_va_sev(self, a, va, sev):
         """ Sets the severity to a value assertion """
         if a.arcrole == const.ASSERTION_UNSATISFIED_SEVERITY_ARCROLE:
-            va.selerity = sev
+            va.severity = sev
+
+    def conn_ea_sev(self, a, ea, sev):
+        """ Existence assertion to severity """
+        if a.arcrole == const.ASSERTION_UNSATISFIED_SEVERITY_ARCROLE:
+            ea.severity = sev
+
+    def conn_ca_sev(self, a, ca, sev):
+        """ Consistency assertion to severity """
+        if a.arcrole == const.ASSERTION_UNSATISFIED_SEVERITY_ARCROLE:
+            ca.severity = sev
 
     def conn_asset_tbl(self, a, asset, tbl):
         """ Connects table to assertion set """
@@ -258,6 +301,10 @@ class XLink(ebase.XmlElementBase):
     def conn_va_res(self, a, va, res):
         """ Connects a resource ("message) to a value assertion """
         va.nested.setdefault(res.name, {}).setdefault(self.get_resource_key(res), []).append(res)
+
+    def conn_ea_res(self, a, ea, res):
+        """ Connects a resource (message) to existance assertion """
+        ea.nested.setdefault(res.name, {}).setdefault(self.get_resource_key(res), []).append(res)
 
     def conn_artr(self, a, art, res):
         res.parent = art
